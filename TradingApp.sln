@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TradingWebApi", "src\TradingApp.TradingWebApi\TradingApp.TradingWebApi.csproj", "{BF61A1B1-2F7F-4BDE-A72F-70261C228A7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingWebApi", "src\TradingApp.TradingWebApi\TradingApp.TradingWebApi.csproj", "{BF61A1B1-2F7F-4BDE-A72F-70261C228A7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TradingViewProvider", "src\TradingApp.TradingViewProvider\TradingApp.TradingViewProvider.csproj", "{5AB850BE-5226-4DFB-B456-9A722FCF6180}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvider", "src\TradingApp.TradingViewProvider\TradingApp.TradingViewProvider.csproj", "{5AB850BE-5226-4DFB-B456-9A722FCF6180}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Application", "src\TradingApp.Application\TradingApp.Application.csproj", "{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.Common", "src\TradingApp.Common\TradingApp.Common.csproj", "{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{5AB850BE-5226-4DFB-B456-9A722FCF6180}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AB850BE-5226-4DFB-B456-9A722FCF6180}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AB850BE-5226-4DFB-B456-9A722FCF6180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

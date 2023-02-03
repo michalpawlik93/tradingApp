@@ -5,3 +5,12 @@
 /.vs
 /src/TradingApp.TradingWebApi/obj
 /src/TradingApp.TradingViewProvider/obj
+/src/TradingApp.Application/bin/Debug/net7.0
+/src/TradingApp.Application/obj/Debug/net7.0
+/src/TradingApp.Application/obj
+/src/TradingApp.Authorization/obj
+/src/TradingApp.TradingViewProvider/bin/Debug/net7.0
+/src/TradingApp.TradingWebApi/bin/Debug/net7.0
+/src/TradingApp.Common/bin/Debug/net7.0
+/src/TradingApp.Common/obj/Debug/net7.0
+/src/TradingApp.Common/obj
