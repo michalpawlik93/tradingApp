@@ -1,4 +1,6 @@
 ﻿using FluentResults;
+using Microsoft.Extensions.Logging;
+using TradingApp.Application.Authentication.GetToken;
 using TradingApp.Common.Enums;
 
 namespace TradingApp.Application.Models;

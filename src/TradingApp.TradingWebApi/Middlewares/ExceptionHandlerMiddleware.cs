@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
 using TradingApp.Application.Models;
@@ -15,10 +16,11 @@ public class ExceptionHandlerMiddleware
     private const string ApplicationJson = "application/json";
     private static JsonSerializerOptions _serializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-
-    public ExceptionHandlerMiddleware(RequestDelegate next)
+    private readonly ILogger<ExceptionHandlerMiddleware> _logger;
+    public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
     {
         _next = next;
+        _logger = logger;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -29,6 +31,7 @@ public class ExceptionHandlerMiddleware
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             context.Response.ContentType = ApplicationJson;
             var response = new ServiceResponse(exHandlerFeature.Error);
+            _logger.LogError("Exception occured", exHandlerFeature.Error);
             await context.Response.WriteAsync(JsonSerializer.Serialize(response, _serializerOptions));
             return;
         }

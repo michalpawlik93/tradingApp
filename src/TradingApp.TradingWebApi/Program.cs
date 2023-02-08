@@ -3,9 +3,12 @@ using TradingApp.TradingWebApi.Middlewares;
 using TradingApp.TradingWebApi.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
+builder.AddLogging();
 var app = builder.Build();
+
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
