@@ -68,7 +68,7 @@ public class ServiceResponse<T>
     public ServiceResponse(Result<T> result)
     {
         Messages = GetServiceResponseMessages(result);
-        Data = result.Value;
+        Data = result.ValueOrDefault;
     }
     /// <summary>
     /// The service response DTO

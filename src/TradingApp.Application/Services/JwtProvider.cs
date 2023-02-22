@@ -15,7 +15,7 @@ namespace TradingApp.Application.Services;
 public class JwtProvider : IJwtProvider
 {
     private static string GenerateTokenErrorMessage = "Error occured when generating token.";
-    private static string CredentialMissMatchErrorMessage = "Credentials missmatch.";
+    private static string IncorrectCrednetialsErrorMessage = "Incorrect credentials.";
     private readonly ILogger<JwtProvider> _logger;
     private readonly IOptions<JwtOptions> _jwtOptions;
 
@@ -26,7 +26,7 @@ public class JwtProvider : IJwtProvider
     }
     public Result<string> Generate(User user)
     {
-        if(user.ApiKey is null || user.ApiSecret is null)
+        if(user.Name is null || user.ApiSecret is null)
         {
             _logger.LogError(GenerateTokenErrorMessage);
             return Result.Fail<string>(GenerateTokenErrorMessage)
@@ -35,37 +35,34 @@ public class JwtProvider : IJwtProvider
 
         if(user.ApiSecret != _jwtOptions.Value.SecretKey)
         {
-            return Result.Fail<string>(CredentialMissMatchErrorMessage)
+            _logger.LogError(IncorrectCrednetialsErrorMessage);
+            return Result.Fail<string>(IncorrectCrednetialsErrorMessage)
                 .WithError(new UserError(user));
         }
-        var issuer = _jwtOptions.Value.Issuer;
-        var audience = _jwtOptions.Value.Audience;
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.SecretKey));
-        var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
 
+        return Result.Ok(GetToken());
+    }
+
+    private string GetToken()
+    {
         var jwtTokenHandler = new JwtSecurityTokenHandler();
+        var token = jwtTokenHandler.CreateToken(CreateSecurityTokenDescriptor);
+        return jwtTokenHandler.WriteToken(token);
+    }
 
-        var tokenDescriptor = new SecurityTokenDescriptor
+    private SecurityTokenDescriptor CreateSecurityTokenDescriptor =>
+        new()
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.ApiKey),
-                new Claim(JwtRegisteredClaimNames.Email, user.ApiKey),
-                // the JTI is used for our refresh token which we will be convering in the next video
+                new Claim(JwtRegisteredClaimNames.Sub, _jwtOptions.Value.Issuer),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             }),
-            // the life span of the token needs to be shorter and utilise refresh token to keep the user signedin
-            // but since this is a demo app we can extend it to fit our current need
-            Expires = DateTime.UtcNow.AddHours(6),
-            Audience = audience,
-            Issuer = issuer,
-            // here we are adding the encryption alogorithim information which will be used to decrypt our token
-            SigningCredentials = signingCredentials
+            Expires = DateTime.UtcNow.AddHours(1),
+            Audience = _jwtOptions.Value.Audience,
+            Issuer = _jwtOptions.Value.Issuer,
+            SigningCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.SecretKey)), SecurityAlgorithms.HmacSha512)
         };
 
-        var token = jwtTokenHandler.CreateToken(tokenDescriptor);
-        var jwtToken = jwtTokenHandler.WriteToken(token);
-
-        return Result.Ok(jwtToken);
-    }
 }

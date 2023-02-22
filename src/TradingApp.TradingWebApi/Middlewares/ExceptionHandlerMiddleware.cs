@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
 using TradingApp.Application.Models;

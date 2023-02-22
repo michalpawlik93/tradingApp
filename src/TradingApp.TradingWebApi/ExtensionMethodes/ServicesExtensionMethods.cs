@@ -1,14 +1,13 @@
 ﻿using MediatR;
-using Serilog.Events;
-using Serilog.Formatting.Json;
-using Serilog;
-using TradingApp.Application.Abstraction;
-using TradingApp.Application.Services;
-using TradingApp.Application.Authentication.GetToken;
-using TradingApp.Application.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Json;
+using TradingApp.Application.Abstraction;
+using TradingApp.Application.Authentication.GetToken;
+using TradingApp.Application.Models;
+using TradingApp.Application.Services;
 
 namespace TradingApp.TradingWebApi.ExtensionMethodes;
 
