@@ -6,6 +6,9 @@ using TradingApp.Application.Abstraction;
 using TradingApp.Application.Services;
 using TradingApp.Application.Authentication.GetToken;
 using TradingApp.Application.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace TradingApp.TradingWebApi.ExtensionMethodes;
 
@@ -26,5 +29,43 @@ public static class ServicesExtensionMethods
             .WriteTo.File(new JsonFormatter(), "TradingWebApi_Log.txt")
             .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .CreateLogger());
+    }
+
+    public static void AddSwagger(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(setup =>
+        {
+            var jwtSecurityScheme = new OpenApiSecurityScheme
+            {
+                BearerFormat = "JWT",
+                Name = "JWT Authentication",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = JwtBearerDefaults.AuthenticationScheme,
+                Description = "Put **_ONLY_** your JWT Bearer token",
+                Reference = new OpenApiReference
+                {
+                    Id = JwtBearerDefaults.AuthenticationScheme,
+                    Type = ReferenceType.SecurityScheme
+                }
+            };
+            var securityReq = new OpenApiSecurityRequirement()
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = JwtBearerDefaults.AuthenticationScheme
+                        }
+                    },
+                    new string[] {}
+                }
+            };
+
+            setup.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, jwtSecurityScheme);
+            setup.AddSecurityRequirement(securityReq);
+        });
     }
 }
