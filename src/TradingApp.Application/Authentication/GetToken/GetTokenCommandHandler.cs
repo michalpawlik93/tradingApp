@@ -11,8 +11,8 @@ public class GetTokenCommandHandler : IRequestHandler<GetTokenCommand, ServiceRe
     private readonly ILogger<GetTokenCommandHandler> _logger;
     public GetTokenCommandHandler(IJwtProvider jwtProvider, ILogger<GetTokenCommandHandler> logger)
     {
-        _jwtProvider = jwtProvider;
-        _logger = logger;
+        _jwtProvider = jwtProvider ?? throw new ArgumentNullException(nameof(jwtProvider));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
     public async Task<ServiceResponse<string>> Handle(GetTokenCommand request, CancellationToken cancellationToken)
     {

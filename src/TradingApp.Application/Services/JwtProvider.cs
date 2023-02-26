@@ -14,29 +14,27 @@ namespace TradingApp.Application.Services;
 
 public class JwtProvider : IJwtProvider
 {
-    private static string GenerateTokenErrorMessage = "Error occured when generating token.";
-    private static string IncorrectCrednetialsErrorMessage = "Incorrect credentials.";
     private readonly ILogger<JwtProvider> _logger;
     private readonly IOptions<JwtOptions> _jwtOptions;
 
     public JwtProvider(ILogger<JwtProvider> logger, IOptions<JwtOptions> jwtOptions)
     {
-        _logger = logger;
-        _jwtOptions = jwtOptions;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _jwtOptions = jwtOptions ?? throw new ArgumentNullException(nameof(jwtOptions));
     }
     public Result<string> Generate(User user)
     {
-        if(user.Name is null || user.ApiSecret is null)
+        var useValidationResult = user.Validate();
+        if (useValidationResult.IsFailed)
         {
-            _logger.LogError(GenerateTokenErrorMessage);
-            return Result.Fail<string>(GenerateTokenErrorMessage)
-                .WithError(new UserError(user));
+            _logger.LogError(JwtProviderErrorMessages.GenerateTokenErrorMessage);
+            return useValidationResult;
         }
 
         if(user.ApiSecret != _jwtOptions.Value.SecretKey)
         {
-            _logger.LogError(IncorrectCrednetialsErrorMessage);
-            return Result.Fail<string>(IncorrectCrednetialsErrorMessage)
+            _logger.LogError(JwtProviderErrorMessages.IncorrectCrednetialsErrorMessage);
+            return Result.Fail<string>(JwtProviderErrorMessages.IncorrectCrednetialsErrorMessage)
                 .WithError(new UserError(user));
         }
 
@@ -65,4 +63,10 @@ public class JwtProvider : IJwtProvider
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.SecretKey)), SecurityAlgorithms.HmacSha512)
         };
 
+}
+
+public static class JwtProviderErrorMessages
+{
+    public const string GenerateTokenErrorMessage = "Error occured when generating token.";
+    public const string IncorrectCrednetialsErrorMessage = "Incorrect credentials.";
 }

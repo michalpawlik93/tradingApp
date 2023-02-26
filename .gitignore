@@ -14,3 +14,5 @@
 /src/TradingApp.Common/bin/Debug/net7.0
 /src/TradingApp.Common/obj/Debug/net7.0
 /src/TradingApp.Common/obj
+/tests/TradingApp.Application.Test/bin/Debug/net7.0
+/tests/TradingApp.Application.Test/obj

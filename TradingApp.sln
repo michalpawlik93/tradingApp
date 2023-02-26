@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Application", "src\TradingApp.Application\TradingApp.Application.csproj", "{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.Common", "src\TradingApp.Common\TradingApp.Common.csproj", "{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Common", "src\TradingApp.Common\TradingApp.Common.csproj", "{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.Application.Test", "tests\TradingApp.Application.Test\TradingApp.Application.Test.csproj", "{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6A546BD-170A-4937-BE8F-077A50F97E5B}
