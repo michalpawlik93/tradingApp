@@ -16,3 +16,5 @@
 /src/TradingApp.Common/obj
 /tests/TradingApp.Application.Test/bin/Debug/net7.0
 /tests/TradingApp.Application.Test/obj
+/tests/TradingApp.TradingViewProvider.Test/obj
+/TradingApp.TradingAdapter/obj
