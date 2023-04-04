@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj" />
-    <ProjectReference Include="..\TradingApp.Application\TradingApp.Application.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\TradingApp.Common\TradingApp.Common.csproj" />
   </ItemGroup>
 
 </Project>

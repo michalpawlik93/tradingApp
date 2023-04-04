@@ -29,3 +29,11 @@ jobs:
         
       - name: Publish
         run: dotnet publish ./TradingApp.sln --configuration Release --no-build
+
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v3
+        with:
+          name: tradingViewApp
+          path: ./TradingApp.sln
+
+          https://www.dotnetcurry.com/dotnetcore/github-actions-for-dotnet-developers
