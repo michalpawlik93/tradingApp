@@ -1,53 +1,55 @@
 ﻿using FluentResults;
 using Microsoft.Extensions.Logging;
-using TradingApp.Application.Utilities;
-using TradingApp.TradingAdapter.Interfaces;
+using System.Text.Json;
+using TradingApp.Common.Utilities;
+using TradingApp.TradingAdapter;
 using TradingApp.TradingAdapter.Models;
 using TradingApp.TradingViewProvider.Constants;
 using TradingApp.TradingViewProvider.Contract;
 using TradingApp.TradingViewProvider.Mappers;
+using TradingApp.TradingViewProvider.Setup;
 using TradingApp.TradingViewProvider.Utils;
 
 namespace TradingApp.TradingViewProvider;
 
-internal class TradingViewProvider : IProvider
+public interface ITradingViewProvider : ITradingAdapter { };
+public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewProvider
 {
     private readonly ILogger<TradingViewProvider> _logger;
-    private HttpClient Client { get; set; }
+    private TradingViewClient _tradingViewClient { get; set; }
 
-    public TradingViewProvider(ILogger<TradingViewProvider> logger)
+    public TradingViewProvider(ILogger<TradingViewProvider> logger, TradingViewClient tradingViewClient) : base(logger)
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        ArgumentNullException.ThrowIfNull(logger);
+        _logger = logger;
+        ArgumentNullException.ThrowIfNull(tradingViewClient);
+        _tradingViewClient = tradingViewClient;
     }
 
     public string ProviderName => "TradingView";
-    public void CreateClient(HttpClient client)
-    {
-        Client = client;
-    }
 
-    public async Task<Result<AuthorizeResponse>> Authorize(AuthorizeRequest request)
+    protected override async Task<Result<AuthorizeResponse>> AuthorizeAsync(AuthorizeRequest request)
     {
         try
         {
             var content = HttpUtilities.ConvertToUrlEncoded(TvAuthorizeMapper.Map(request));
-            var httpResponse = await Client.PostAsync(TvUri.Authorize, content);
-            var response = HttpUtilities.DeserializeHttpResponse<ServiceResponse<TvAuthorizeResponse>>(httpResponse);
+            var httpResponse = await _tradingViewClient.Client.PostAsync(TvUri.Authorize, content);
+            var response = await DeserializeHttpResponse<ServiceResponse<TvAuthorizeResponse>>(httpResponse);
             return response.GetResult<TvAuthorizeResponse, AuthorizeResponse>(TvAuthorizeMapper.Map);
         }
-        catch(Exception) 
+        catch (Exception)
         {
             _logger.LogError(TradingViewProviderErrorMessages.ExceptionErrorMessage);
             throw;
         }
     }
 
-    public async Task<Result> Logout()
+    protected override async Task<Result> LogoutAsync()
     {
         try
         {
-            var httpResponse = await Client.PostAsync(TvUri.Authorize, null);
-            var response = HttpUtilities.DeserializeHttpResponse<ServiceResponseBase>(httpResponse);
+            var httpResponse = await _tradingViewClient.Client.PostAsync(TvUri.Authorize, null);
+            var response = await DeserializeHttpResponse<ServiceResponseBase>(httpResponse);
             return response.GetResult();
         }
         catch (Exception)
@@ -56,9 +58,15 @@ internal class TradingViewProvider : IProvider
             throw;
         }
     }
-}
 
-public static class TradingViewProviderErrorMessages
-{
-    public const string ExceptionErrorMessage = "TradingViewProvider exception.";
+    public static class TradingViewProviderErrorMessages
+    {
+        public const string ExceptionErrorMessage = "TradingViewProvider exception.";
+    }
+
+    public async Task<T> DeserializeHttpResponse<T>(HttpResponseMessage response)
+    {
+        var responseData = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<T>(responseData);
+    }
 }

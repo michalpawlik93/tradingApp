@@ -1,42 +1,37 @@
 ﻿using FluentResults;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.TradingAdapter;
 
-public class TradingAdapter : ITradingAdapter
+public abstract class TradingAdapterAbstract
 {
-    private readonly IProvider _provider;
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IOptions<ProviderConfiguration> _providerOptions;
-    private readonly ILogger<TradingAdapter> _logger;
+    private readonly ILogger<TradingAdapterAbstract> _logger;
 
-    public TradingAdapter(IProvider provider, IHttpClientFactory httpClientFactory, IOptions<ProviderConfiguration> providerOptions,
-        ILogger<TradingAdapter> logger)
+    protected TradingAdapterAbstract(ILogger<TradingAdapterAbstract> logger)
     {
-        _provider = provider ?? throw new ArgumentNullException(nameof(provider));
-        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
-        _providerOptions = providerOptions ?? throw new ArgumentNullException(nameof(providerOptions));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
-
-    public async Task CreateClient(string providerName)
-    {
-        _logger.LogInformation("Create client for {providerName} started.", providerName);
-        var client = _httpClientFactory.CreateClient(providerName);
-         _provider.CreateClient(client);
-        _logger.LogInformation("Client for {providerName} created.", providerName);
     }
 
     public async Task<Result<AuthorizeResponse>> Authorize(AuthorizeRequest request)
     {
-        return await _provider.Authorize(request);
+        _logger.LogInformation("BaseClass");
+        return await AuthorizeAsync(request);
     }
+
 
     public async Task<Result> Logout()
     {
-        return await _provider.Logout();
+        _logger.LogInformation("BaseClass");
+        return await LogoutAsync();
     }
+
+    protected abstract Task<Result<AuthorizeResponse>> AuthorizeAsync(AuthorizeRequest request);
+    protected abstract Task<Result> LogoutAsync();
+}
+
+public interface ITradingAdapter
+{
+    Task<Result<AuthorizeResponse>> Authorize(AuthorizeRequest request);
+    Task<Result> Logout();
 }

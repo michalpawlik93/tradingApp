@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace TradingApp.Application.Utilities;
+namespace TradingApp.Common.Utilities;
 
 public static class HttpUtilities
 {
@@ -22,13 +22,6 @@ public static class HttpUtilities
         content.Headers.Clear();
         content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
         return content;
-    }
-
-
-    public static T DeserializeHttpResponse<T>(HttpResponseMessage response)
-    {
-        var responseData = response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<T>(responseData.Result);
     }
 
     private static Dictionary<string, string> ObjectToDictionary(object obj)
