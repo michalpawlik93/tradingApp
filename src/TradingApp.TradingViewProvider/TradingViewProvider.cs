@@ -76,7 +76,7 @@ public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewPr
         throw new NotImplementedException();
     }
 
-    protected override Task<Result> SaveQuotesAsync(HistoryType type)
+    protected override Task<Result> SaveQuotesAsync(HistoryType type, bool overrideFile)
     {
         throw new NotImplementedException();
     }

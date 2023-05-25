@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace TradingApp.StooqProvider.Setup;
 public static class ServicesExtensionMethods
 {
-    public static void AddTradingViewProvider(this IServiceCollection services, IConfiguration configuration)
+    public static void AddStooqProvider(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<StooqClientConfig>(configuration.GetSection(StooqClientConfig.ConfigSectionName));
         services.AddHttpClient<StooqClient>();

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj" />
     <ProjectReference Include="..\TradingApp.TradingViewProvider\TradingApp.TradingViewProvider.csproj" />
   </ItemGroup>
 

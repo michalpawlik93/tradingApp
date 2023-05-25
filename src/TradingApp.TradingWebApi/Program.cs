@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors();
 builder.Services.AddSwagger();
-builder.Services.AddServices();
+builder.Services.AddServices(builder.Configuration);
 builder.AddLogging();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.AddTransient<IConfigureOptions<JwtBearerOptions>, JwtBearerOptionsSetup>();
@@ -22,6 +22,7 @@ builder.Services.AddAuthentication(o =>
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
+
 
 
 app.UseSwagger();
@@ -39,4 +40,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.AddAuthenticationModule();
 app.AddTestModule();
+app.AddStooqModule();
 app.Run();

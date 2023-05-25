@@ -34,8 +34,12 @@ public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
     protected override async Task<Result<IEnumerable<Quote>>> GetQuotesAsync(HistoryType type) =>
         await _fileService.ReadHistoryQuotaFile(type);
 
-    protected override async Task<Result> SaveQuotesAsync(HistoryType type)
+    protected override async Task<Result> SaveQuotesAsync(HistoryType type, bool overrideFile)
     {
+        if (!overrideFile && _fileService.FileExist(type))
+        {
+            return Result.Ok().WithSuccess($"File exists. OverrideFileFlag: {overrideFile}");
+        }
         var getLocationResponse = await _stooqClient.Client.GetAsync(FileLocation(type));
         getLocationResponse.EnsureSuccessStatusCode();
         if (getLocationResponse.StatusCode != HttpStatusCode.Found)

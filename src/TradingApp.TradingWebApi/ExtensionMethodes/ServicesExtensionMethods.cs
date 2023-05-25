@@ -8,16 +8,18 @@ using TradingApp.Application.Abstraction;
 using TradingApp.Application.Authentication.GetToken;
 using TradingApp.Application.Models;
 using TradingApp.Application.Services;
+using TradingApp.StooqProvider.Setup;
 
 namespace TradingApp.TradingWebApi.ExtensionMethodes;
 
 public static class ServicesExtensionMethods
 {
-    public static void AddServices(this IServiceCollection services)
+    public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatR(typeof(Mediator));
         services.AddScoped<IRequestHandler<GetTokenCommand, ServiceResponse<string>>, GetTokenCommandHandler>();
         services.AddTransient<IJwtProvider, JwtProvider>();
+        services.AddStooqProvider(configuration);
     }
 
     public static void AddLogging(this WebApplicationBuilder builder)

@@ -9,6 +9,7 @@ public interface IFileService
 {
     Task<Result<IEnumerable<Quote>>> ReadHistoryQuotaFile(HistoryType type);
     Task SaveHistoryQuotaFile(byte[] fileData, HistoryType type);
+    bool FileExist(HistoryType type);
 }
 public class FileService : IFileService
 {
@@ -64,5 +65,8 @@ public class FileService : IFileService
            HistoryType.Hourly => Path.Combine(SubdirectoryPath, HistoryType.Hourly.ToString() + Extension),
            _ => throw new ArgumentException("Invalid type", nameof(type)),
        };
+
+    public bool FileExist(HistoryType type) => File.Exists(ZipFilePath(type));
+
     private static string AncvFilePath => Path.Combine("data", "daily", "world", "cryptocurrencies", "anc.v.txt");
 }
