@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,8 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj" />
-    <ProjectReference Include="..\TradingApp.Common\TradingApp.Common.csproj" />
     <ProjectReference Include="..\TradingApp.TradingViewProvider\TradingApp.TradingViewProvider.csproj" />
   </ItemGroup>
 

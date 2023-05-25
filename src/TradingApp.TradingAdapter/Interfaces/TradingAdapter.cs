@@ -1,8 +1,9 @@
 ﻿using FluentResults;
 using Microsoft.Extensions.Logging;
+using TradingApp.TradingAdapter.Enums;
 using TradingApp.TradingAdapter.Models;
 
-namespace TradingApp.TradingAdapter;
+namespace TradingApp.TradingAdapter.Interfaces;
 
 public abstract class TradingAdapterAbstract
 {
@@ -26,12 +27,14 @@ public abstract class TradingAdapterAbstract
         return await LogoutAsync();
     }
 
+    public async Task<Result<IEnumerable<Quote>>> GetQuotes(HistoryType type = HistoryType.Daily)
+    {
+        _logger.LogInformation("BaseClass");
+        return await GetQuotes(type);
+    }
+
+    protected abstract Task<Result<IEnumerable<Quote>>> GetQuotesAsync(HistoryType type);
+    protected abstract Task<Result> SaveQuotesAsync(HistoryType type);
     protected abstract Task<Result<AuthorizeResponse>> AuthorizeAsync(AuthorizeRequest request);
     protected abstract Task<Result> LogoutAsync();
-}
-
-public interface ITradingAdapter
-{
-    Task<Result<AuthorizeResponse>> Authorize(AuthorizeRequest request);
-    Task<Result> Logout();
 }

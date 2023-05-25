@@ -18,3 +18,9 @@
 /tests/TradingApp.Application.Test/obj
 /tests/TradingApp.TradingViewProvider.Test/obj
 /TradingApp.TradingAdapter/obj
+/src/TradingApp.StooqProvider/bin/Debug/net7.0
+/src/TradingApp.StooqProvider/obj/Debug/net7.0
+/src/TradingApp.StooqProvider/obj
+/src/TradingApp.TradingAdapter/bin/Debug/net7.0
+/src/TradingApp.TradingAdapter/obj
+/tests/TradingApp.TradingViewProvider.Test/bin/Debug/net7.0

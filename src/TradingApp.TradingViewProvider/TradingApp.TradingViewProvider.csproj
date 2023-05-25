@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj" />
+    <ProjectReference Include="..\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj" />
   </ItemGroup>
 
 </Project>

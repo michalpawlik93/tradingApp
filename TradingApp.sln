@@ -15,9 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0D8A7A20
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Application.Test", "tests\TradingApp.Application.Test\TradingApp.Application.Test.csproj", "{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingAdapter", "TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj", "{77975D1F-C328-495C-A45A-E995655E7D7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvider.Test", "tests\TradingApp.TradingViewProvider.Test\TradingApp.TradingViewProvider.Test.csproj", "{68090800-38D8-453B-833B-5AFD1E4FA6DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TradingViewProvider.Test", "tests\TradingApp.TradingViewProvider.Test\TradingApp.TradingViewProvider.Test.csproj", "{68090800-38D8-453B-833B-5AFD1E4FA6DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.StooqProvider", "src\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj", "{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TradingAdapter", "src\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj", "{D818A5DB-A76F-446B-9620-3DB4E9FC485A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,14 +47,18 @@ Global
 		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{77975D1F-C328-495C-A45A-E995655E7D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{77975D1F-C328-495C-A45A-E995655E7D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{77975D1F-C328-495C-A45A-E995655E7D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{77975D1F-C328-495C-A45A-E995655E7D7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{68090800-38D8-453B-833B-5AFD1E4FA6DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{68090800-38D8-453B-833B-5AFD1E4FA6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68090800-38D8-453B-833B-5AFD1E4FA6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68090800-38D8-453B-833B-5AFD1E4FA6DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D818A5DB-A76F-446B-9620-3DB4E9FC485A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D818A5DB-A76F-446B-9620-3DB4E9FC485A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D818A5DB-A76F-446B-9620-3DB4E9FC485A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D818A5DB-A76F-446B-9620-3DB4E9FC485A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

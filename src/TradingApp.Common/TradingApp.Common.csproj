@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentResults" Version="3.15.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
