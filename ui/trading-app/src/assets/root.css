@@ -1,0 +1,29 @@
+.not-found-page-root {
+    margin-left: 1000;
+    text-align: center;
+    padding-top: 7rem;
+  }
+  .not-found-page-h1 {
+    font-family: Quicksand, "Open Sans", "Segoe UI", "Helvetica Neue", Arial,
+      sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #2e4d6b;
+    margin-top: 1px;
+    margin-bottom: 16px;
+  }
+  .not-found-page-p {
+    font-family: NunitoSans, "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #2e4d6b;
+    margin: 0;
+  }
