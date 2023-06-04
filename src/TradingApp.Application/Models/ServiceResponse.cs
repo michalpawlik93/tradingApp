@@ -1,6 +1,5 @@
 ﻿using FluentResults;
-using Microsoft.Extensions.Logging;
-using TradingApp.Application.Authentication.GetToken;
+using System.Diagnostics.CodeAnalysis;
 using TradingApp.Common.Enums;
 
 namespace TradingApp.Application.Models;
@@ -8,6 +7,7 @@ namespace TradingApp.Application.Models;
 /// <summary>
 /// Service response data
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ServiceResponse
 {
     protected ServiceResponse() { }
@@ -63,6 +63,7 @@ public class ServiceResponse
 /// <summary>
 /// Service response data
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ServiceResponse<T>
 {
     public ServiceResponse(Result<T> result)
@@ -70,15 +71,16 @@ public class ServiceResponse<T>
         Messages = GetServiceResponseMessages(result);
         Data = result.ValueOrDefault;
     }
+
     /// <summary>
     /// The service response DTO
     /// </summary>
-    public T Data { get;}
+    public T Data { get; }
 
     /// <summary>
     /// List of <see cref="ServiceResponseMessage"/> associated to the service response
     /// </summary>
-    public List<ServiceResponseMessage> Messages { get;}
+    public List<ServiceResponseMessage> Messages { get; }
     private static List<ServiceResponseMessage> GetServiceResponseMessages(Result<T> result)
     {
         if (result.IsFailed)

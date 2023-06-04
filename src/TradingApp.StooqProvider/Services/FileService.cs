@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using System.Globalization;
 using System.IO.Compression;
 using TradingApp.TradingAdapter.Enums;
 using TradingApp.TradingAdapter.Models;
@@ -13,6 +14,10 @@ public interface IFileService
 }
 public class FileService : IFileService
 {
+
+    private const string SubdirectoryPath = "history";
+    private const string Extension = "stooq.zip";
+
     public async Task<Result<IEnumerable<Quote>>> ReadHistoryQuotaFile(HistoryType type)
     {
         using (var zipArchive = ZipFile.OpenRead(ZipFilePath(type)))
@@ -28,21 +33,28 @@ public class FileService : IFileService
             {
                 string fileContent = await reader.ReadToEndAsync();
                 string[] lines = fileContent.Split('\n');
-                var result = lines.Select((l) =>
+
+                var quotes = new List<Quote>();
+                foreach (var line in lines)
                 {
-                    string[] fields = l.Split(',');
-                    //string ticker = fields[0];
-                    //string per = fields[1];
-                    string date = fields[2];
-                    //string time = fields[3];
-                    decimal open = decimal.Parse(fields[4]);
-                    decimal high = decimal.Parse(fields[5]);
-                    decimal low = decimal.Parse(fields[6]);
-                    decimal close = decimal.Parse(fields[7]);
-                    decimal volume = decimal.Parse(fields[8]);
-                    return new Quote(DateTime.Parse(date), open, high, low, close, volume);
-                });
-                return Result.Ok(result);
+                    string[] fields = line.Split(',');
+                    if (fields.Any() && fields.Length > 8)
+                    {
+                        var dateValue = fields[2];
+                        var timeValue = fields[3];
+                        decimal.TryParse(fields[4], out var openValue);
+                        decimal.TryParse(fields[5], out var highValue);
+                        decimal.TryParse(fields[6], out var lowValue);
+                        decimal.TryParse(fields[7], out var closeValue);
+                        decimal.TryParse(fields[8], out var volumeValue);
+                        var dateTimeValue = ParseDateTime(dateValue, timeValue);
+                        if (dateTimeValue != DateTime.MinValue)
+                        {
+                            quotes.Add(new Quote(ParseDateTime(dateValue, timeValue), openValue, highValue, lowValue, closeValue, volumeValue));
+                        }
+                    }
+                }
+                return Result.Ok(quotes.AsEnumerable());
             }
         }
     }
@@ -56,8 +68,8 @@ public class FileService : IFileService
         await File.WriteAllBytesAsync(ZipFilePath(type), fileData);
     }
 
-    private const string SubdirectoryPath = "history";
-    private const string Extension = "stooq.zip";
+    public bool FileExist(HistoryType type) => File.Exists(ZipFilePath(type));
+
     private string ZipFilePath(HistoryType type) =>
        type switch
        {
@@ -66,7 +78,28 @@ public class FileService : IFileService
            _ => throw new ArgumentException("Invalid type", nameof(type)),
        };
 
-    public bool FileExist(HistoryType type) => File.Exists(ZipFilePath(type));
 
-    private static string AncvFilePath => Path.Combine("data", "daily", "world", "cryptocurrencies", "anc.v.txt");
+    private static string AncvFilePath => Path.Join("data/", "daily/", "world/", "cryptocurrencies/", "anc.v.txt");
+
+    private static DateTime ParseDateTime(string dateInput, string timeInput)
+    {
+        var dateParsed = DateTime.TryParseExact(dateInput, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate);
+        var timeParsed = DateTime.TryParseExact(timeInput, "HHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedTime);
+        if (dateParsed && timeParsed)
+        {
+            return parsedDate.Date + parsedTime.TimeOfDay;
+        }
+
+        if (dateParsed)
+        {
+            return parsedDate.Date;
+        }
+
+        if (timeParsed)
+        {
+            return parsedTime;
+        }
+
+        return DateTime.MinValue;
+    }
 }

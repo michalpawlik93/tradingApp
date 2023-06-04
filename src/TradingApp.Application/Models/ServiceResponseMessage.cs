@@ -1,8 +1,12 @@
-﻿namespace TradingApp.Application.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace TradingApp.Application.Models;
 
 /// <summary>
 /// The message associated to the service response
 /// </summary>
+/// 
+[ExcludeFromCodeCoverage]
 public class ServiceResponseMessage
 {
     /// <summary>

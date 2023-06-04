@@ -17,7 +17,7 @@ public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
     private readonly IFileService _fileService;
     private StooqClient _stooqClient { get; set; }
 
-    public StooqProvider(ILogger<StooqProvider> logger, StooqClient stooqClient, IFileService fileService) : base(logger)
+    public StooqProvider(ILogger<StooqProvider> logger, StooqClient stooqClient, IFileService fileService)
     {
         ArgumentNullException.ThrowIfNull(logger);
         _logger = logger;

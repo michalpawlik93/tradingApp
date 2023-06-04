@@ -7,8 +7,10 @@ using Serilog.Formatting.Json;
 using TradingApp.Application.Abstraction;
 using TradingApp.Application.Authentication.GetToken;
 using TradingApp.Application.Models;
+using TradingApp.Application.Quotes.GetStooqQuotes;
 using TradingApp.Application.Services;
 using TradingApp.StooqProvider.Setup;
+using TradingApp.TradingAdapter.Evaluator;
 
 namespace TradingApp.TradingWebApi.ExtensionMethodes;
 
@@ -18,7 +20,9 @@ public static class ServicesExtensionMethods
     {
         services.AddMediatR(typeof(Mediator));
         services.AddScoped<IRequestHandler<GetTokenCommand, ServiceResponse<string>>, GetTokenCommandHandler>();
+        services.AddScoped<IRequestHandler<GetStooqCombinedQuotesCommand, ServiceResponse<GetStooqCombinedQuotesResponse>>, GetStooqCombinedQuotesCommandHandler>();
         services.AddTransient<IJwtProvider, JwtProvider>();
+        services.AddTransient<ISkenderEvaluator, SkenderEvaluator>();
         services.AddStooqProvider(configuration);
     }
 

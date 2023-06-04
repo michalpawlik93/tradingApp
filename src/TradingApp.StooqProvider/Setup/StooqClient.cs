@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TradingApp.StooqProvider.Setup;
 
+[ExcludeFromCodeCoverage]
 public class StooqClient
 {
     public HttpClient Client { get; }

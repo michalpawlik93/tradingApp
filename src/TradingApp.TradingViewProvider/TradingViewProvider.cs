@@ -19,7 +19,7 @@ public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewPr
     private readonly ILogger<TradingViewProvider> _logger;
     private TradingViewClient _tradingViewClient { get; set; }
 
-    public TradingViewProvider(ILogger<TradingViewProvider> logger, TradingViewClient tradingViewClient) : base(logger)
+    public TradingViewProvider(ILogger<TradingViewProvider> logger, TradingViewClient tradingViewClient)
     {
         ArgumentNullException.ThrowIfNull(logger);
         _logger = logger;
