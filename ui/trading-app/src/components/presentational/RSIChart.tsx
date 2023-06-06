@@ -8,6 +8,7 @@ import {
   Tooltip,
   ReferenceArea
 } from "recharts";
+import {useStooqStore} from "../../stores/stooqStore"
 
 const initialData = [
   { name: 1, cost: 4.11, impression: 100 },

@@ -7,7 +7,16 @@ using TradingApp.TradingWebApi.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+    policy =>
+    {
+        policy.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 builder.Services.AddSwagger();
 builder.Services.AddServices(builder.Configuration);
 builder.AddLogging();
