@@ -4,7 +4,7 @@ import {StooqUrls} from "./urls/stooqUrl"
 export const StooqDataService = {
   getCombinedQuotes: async (): Promise<CombinedQuoteResponse> => {
     try {
-      const response = await fetch("http://localhost:5244/stooq/combinedquote/getall");
+      const response = await fetch(StooqUrls.combinedQuote.getAll);
       const json= await response.json();
       return Promise.resolve(json.data);
     } catch (error) {

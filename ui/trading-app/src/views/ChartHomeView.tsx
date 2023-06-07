@@ -1,9 +1,6 @@
-import { RSIChart } from "../components/presentational/RSIChart";
-import { RSIChartFunc } from "../components/presentational/RSIChartFunc";
-import {quotes} from "../services/dataMock";
+import { RSIChartContainer } from "../components/containers/RSIChartContainer";
 export const ChartHomeView = () => (
   <>
-    <RSIChart quotes={quotes}/>
-    <RSIChartFunc />
+    <RSIChartContainer/>
   </>
 );

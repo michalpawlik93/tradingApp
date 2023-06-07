@@ -6,7 +6,7 @@ import { RsiSettings } from "../types/RsiSettings";
 interface StooqState {
   combinedQuotes: CombinedQuote[];
   rsiSettings: RsiSettings;
-  fetchData: () => Promise<void>;
+  fetchCombinedQuotes: () => Promise<void>;
 }
 
 export const useStooqStore = create<StooqState>((set) => ({
@@ -15,7 +15,7 @@ export const useStooqStore = create<StooqState>((set) => ({
     overbought: 0,
     oversold: 0,
   },
-  fetchData: async () => {
+  fetchCombinedQuotes: async () => {
     try {
       const response = await StooqDataService.getCombinedQuotes();
       set({
