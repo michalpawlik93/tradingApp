@@ -25,3 +25,4 @@
 /src/TradingApp.TradingAdapter/bin/Debug/net7.0
 /src/TradingApp.TradingAdapter/obj
 /tests/TradingApp.TradingViewProvider.Test/bin/Debug/net7.0
+src/TradingApp.TradingWebApi/TradingWebApi_Log.txt

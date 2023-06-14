@@ -1,17 +1,17 @@
 import { RSIChartContainer } from "../components/containers/RSIChartContainer";
-import {Page} from "../components/presentational/Page";
-import {PageItemsWrapper} from "../components/presentational/PageItemWrapper";
+import { Page } from "../components/presentational/Page";
+import { PageItemsWrapper } from "../components/presentational/PageItemWrapper";
 
 export const ChartHomeView = () => (
   <>
-      <Page
+    <Page
       headerProps={{
-        title: "Data",
+        title: "Charts",
       }}
     >
-            <PageItemsWrapper>
-            <RSIChartContainer/>
-            </PageItemsWrapper>
+      <PageItemsWrapper>
+        <RSIChartContainer />
+      </PageItemsWrapper>
     </Page>
   </>
 );
