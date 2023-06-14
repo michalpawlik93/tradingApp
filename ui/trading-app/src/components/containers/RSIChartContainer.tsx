@@ -1,41 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useStooqStore } from "../../stores/stooqStore";
 import { RsiChartDataProps, RSIChart } from "../presentational/RSIChart";
-import {CombinedQuote} from "../../types/CombinedQuote";
-
-const getAxisYDomain = (
-  initialData: CombinedQuote[] | undefined,
-  from: string,
-  to: string,
-  ref: keyof CombinedQuote,
-  offset: number
-) => {
-  if (!initialData || initialData.length === 0) {
-    return [0, 100];
-  }
-  const fromDate = new Date(from);
-  const toDate = new Date(to);
-
-  if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
-    return [0, 100];
-  }
-  const refData = initialData.filter((d) => {
-    const currentDate = new Date(d.ohlc.date);
-    return currentDate >= fromDate && currentDate <= toDate;
-  });
-
-  if (refData.length === 0) {
-    return [0, 100];
-  }
-
-  let [bottom, top] = [refData[0][ref], refData[refData.length-1][ref]];
-  refData.forEach((d) => {
-    if (d[ref] > top) top = d[ref];
-    if (d[ref] < bottom) bottom = d[ref];
-  });
-
-  return[(bottom as number || 0) - offset, (top as number || 0) + offset];
-};
+import { getAxisYDomain } from "../../utils/chartUtils";
 
 const initialState: RsiChartDataProps = {
   data: [],
@@ -43,8 +9,8 @@ const initialState: RsiChartDataProps = {
   right: "dataMax",
   refAreaLeft: "",
   refAreaRight: "",
-  top: 120,
-  bottom: -20,
+  top: 100,
+  bottom: 0,
   animation: true,
 };
 
@@ -57,17 +23,21 @@ export const RSIChartContainer = () => {
 
   useEffect(() => {
     async function fetch() {
-      await fetchData();
-      setChartData((prevChartData) => ({
-        ...prevChartData,
-        data: combinedQuotes,
-      }));
-      isDataFetched.current = true;
+      if (!isDataFetched.current) {
+        isDataFetched.current = true;
+        return;
+      }
+      await fetchData("Daily");
     }
-    if (!isDataFetched.current) {
-      fetch();
-    }
-  }, [combinedQuotes, fetchData, chartData]);
+    fetch();
+  }, [fetchData]);
+
+  useEffect(() => {
+    setChartData((prevChartData) => ({
+      ...prevChartData,
+      data: combinedQuotes,
+    }));
+  }, [combinedQuotes]);
 
   const zoom = () => {
     const { refAreaLeft, refAreaRight } = chartData;
@@ -82,14 +52,12 @@ export const RSIChartContainer = () => {
       return;
     }
 
-    // xAxis domain
     let newRefAreaLeft = refAreaLeft;
     let newRefAreaRight = refAreaRight;
     if (newRefAreaLeft > newRefAreaRight) {
       [newRefAreaLeft, newRefAreaRight] = [newRefAreaRight, newRefAreaLeft];
     }
 
-    // yAxis domain
     const [bottom, top] = getAxisYDomain(
       combinedQuotes,
       newRefAreaLeft,
@@ -98,10 +66,6 @@ export const RSIChartContainer = () => {
       1
     );
 
-    console.log(newRefAreaLeft)
-    console.log(newRefAreaRight)
-    console.log(bottom)
-    console.log(top)
     setChartData((prevChartData) => ({
       ...prevChartData,
       refAreaLeft: "",
@@ -122,8 +86,8 @@ export const RSIChartContainer = () => {
       refAreaRight: "",
       left: "dataMin",
       right: "dataMax",
-      top: 120,
-      bottom: -20,
+      top: 100,
+      bottom: 0,
     }));
   };
 
@@ -139,7 +103,7 @@ export const RSIChartContainer = () => {
       ...prevChartData,
       refAreaLeft: e.activeLabel,
     }));
-    
+
   return (
     <RSIChart
       rsiSettings={rsiSettings}

@@ -11,6 +11,7 @@ namespace TradingApp.Application.Models;
 public class ServiceResponse
 {
     protected ServiceResponse() { }
+
     public ServiceResponse(Exception exception)
     {
         Messages = GetServiceResponseMessages(exception);
@@ -20,6 +21,7 @@ public class ServiceResponse
     {
         Messages = GetServiceResponseMessages(result);
     }
+
     /// <summary>
     /// The service response DTO
     /// </summary>
@@ -42,7 +44,9 @@ public class ServiceResponse
     {
         if (result.IsFailed)
         {
-            return result.Errors.Select(error => new ServiceResponseMessage(error.Message, MessageType.Error)).ToList();
+            return result.Errors
+                .Select(error => new ServiceResponseMessage(error.Message, MessageType.Error))
+                .ToList();
         }
         return new();
     }
@@ -50,13 +54,13 @@ public class ServiceResponse
     private static List<ServiceResponseMessage> GetInternalServerErrorMessages()
     {
         return new()
+        {
+            new()
             {
-                new()
-                {
-                    Message = "Internal server exception. Please, contact your provider.",
-                    Type = MessageType.Error
-                }
-            };
+                Message = "Internal server exception. Please, contact your provider.",
+                Type = MessageType.Error
+            }
+        };
     }
 }
 
@@ -81,17 +85,21 @@ public class ServiceResponse<T>
     /// List of <see cref="ServiceResponseMessage"/> associated to the service response
     /// </summary>
     public List<ServiceResponseMessage> Messages { get; }
+
     private static List<ServiceResponseMessage> GetServiceResponseMessages(Result<T> result)
     {
         if (result.IsFailed)
         {
-            return result.Errors.Select(error => new ServiceResponseMessage(error.Message, MessageType.Error)).ToList();
+            return result.Errors
+                .Select(error => new ServiceResponseMessage(error.Message, MessageType.Error))
+                .ToList();
         }
         if (result.IsSuccess)
         {
-            return result.Successes.Select(success => new ServiceResponseMessage(success.Message, MessageType.Info)).ToList();
+            return result.Successes
+                .Select(success => new ServiceResponseMessage(success.Message, MessageType.Info))
+                .ToList();
         }
         return new();
     }
 }
-

@@ -5,7 +5,7 @@ namespace TradingApp.Application.Models;
 /// <summary>
 /// The message associated to the service response
 /// </summary>
-/// 
+///
 [ExcludeFromCodeCoverage]
 public class ServiceResponseMessage
 {
@@ -23,10 +23,10 @@ public class ServiceResponseMessage
     public string Type { get; set; }
 
     public ServiceResponseMessage() { }
+
     public ServiceResponseMessage(string message, string type)
     {
         Message = message;
         Type = type;
     }
 }
-

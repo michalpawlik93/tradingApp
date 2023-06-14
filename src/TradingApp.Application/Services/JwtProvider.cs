@@ -22,6 +22,7 @@ public class JwtProvider : IJwtProvider
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _jwtOptions = jwtOptions ?? throw new ArgumentNullException(nameof(jwtOptions));
     }
+
     public Result<string> Generate(User user)
     {
         var useValidationResult = user.Validate();
@@ -31,10 +32,11 @@ public class JwtProvider : IJwtProvider
             return useValidationResult;
         }
 
-        if(user.ApiSecret != _jwtOptions.Value.SecretKey)
+        if (user.ApiSecret != _jwtOptions.Value.SecretKey)
         {
             _logger.LogError(JwtProviderErrorMessages.IncorrectCrednetialsErrorMessage);
-            return Result.Fail<string>(JwtProviderErrorMessages.IncorrectCrednetialsErrorMessage)
+            return Result
+                .Fail<string>(JwtProviderErrorMessages.IncorrectCrednetialsErrorMessage)
                 .WithError(new UserError(user));
         }
 
@@ -51,18 +53,21 @@ public class JwtProvider : IJwtProvider
     private SecurityTokenDescriptor CreateSecurityTokenDescriptor =>
         new()
         {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, _jwtOptions.Value.Issuer),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            }),
+            Subject = new ClaimsIdentity(
+                new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, _jwtOptions.Value.Issuer),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                }
+            ),
             Expires = DateTime.UtcNow.AddHours(1),
             Audience = _jwtOptions.Value.Audience,
             Issuer = _jwtOptions.Value.Issuer,
             SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.SecretKey)), SecurityAlgorithms.HmacSha512)
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.SecretKey)),
+                SecurityAlgorithms.HmacSha512
+            )
         };
-
 }
 
 public static class JwtProviderErrorMessages

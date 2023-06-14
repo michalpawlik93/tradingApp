@@ -3,6 +3,7 @@
 ################################################################################
 
 /.vs
+/src/TradingApp.TradingWebApi/history
 /src/TradingApp.TradingWebApi/obj
 /src/TradingApp.TradingViewProvider/obj
 /src/TradingApp.Application/bin/Debug/net7.0

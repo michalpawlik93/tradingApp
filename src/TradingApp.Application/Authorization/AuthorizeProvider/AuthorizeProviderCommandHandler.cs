@@ -7,11 +7,16 @@ using TradingApp.TradingViewProvider;
 
 namespace TradingApp.Application.Authorization.AuthorizeProvider;
 
-public class AuthorizeProviderCommandHandler : IRequestHandler<AuthorizeProviderCommand, ServiceResponse<AuthorizeResponse>>
+public class AuthorizeProviderCommandHandler
+    : IRequestHandler<AuthorizeProviderCommand, ServiceResponse<AuthorizeResponse>>
 {
     private readonly ITradingViewProvider _tradingViewProvider;
     private readonly ILogger<GetTokenCommandHandler> _logger;
-    public AuthorizeProviderCommandHandler(ITradingViewProvider tradingViewProvider, ILogger<GetTokenCommandHandler> logger)
+
+    public AuthorizeProviderCommandHandler(
+        ITradingViewProvider tradingViewProvider,
+        ILogger<GetTokenCommandHandler> logger
+    )
     {
         ArgumentNullException.ThrowIfNull(tradingViewProvider);
         ArgumentNullException.ThrowIfNull(logger);
@@ -19,10 +24,15 @@ public class AuthorizeProviderCommandHandler : IRequestHandler<AuthorizeProvider
         _logger = logger;
     }
 
-    public async Task<ServiceResponse<AuthorizeResponse>> Handle(AuthorizeProviderCommand request, CancellationToken cancellationToken)
+    public async Task<ServiceResponse<AuthorizeResponse>> Handle(
+        AuthorizeProviderCommand request,
+        CancellationToken cancellationToken
+    )
     {
         _logger.LogInformation("{handlerName} started.", nameof(AuthorizeProviderCommandHandler));
-        var response = await _tradingViewProvider.Authorize(new AuthorizeRequest(request.request.Login, request.request.Password));
+        var response = await _tradingViewProvider.Authorize(
+            new AuthorizeRequest(request.request.Login, request.request.Password)
+        );
         _logger.LogInformation("{handlerName} finished.", nameof(AuthorizeProviderCommandHandler));
         return new ServiceResponse<AuthorizeResponse>(response);
     }
