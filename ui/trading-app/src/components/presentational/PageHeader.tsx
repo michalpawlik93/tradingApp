@@ -1,12 +1,10 @@
 import { FC } from "react";
-import { CardHeader, Typography, Paper, Theme } from "@mui/material";
+import { CardHeader, Typography, Theme } from "@mui/material";
 import { css } from "@emotion/react";
 
 export interface PageHeaderProps {
   description?: string;
   title: string;
-  /** Display without shadow  */
-  flat?: boolean;
 }
 
 const pageHeaderCss = {
@@ -25,20 +23,14 @@ const pageHeaderCss = {
     }),
 };
 
-export const PageHeader: FC<PageHeaderProps> = ({
-  title,
-  description,
-  flat,
-}) => {
+export const PageHeader: FC<PageHeaderProps> = ({ title, description }) => {
   const titleComponent = <Typography variant={"h2"}>{title}</Typography>;
   return (
-    <Paper elevation={flat ? 0 : 1}>
-      <CardHeader
-        css={pageHeaderCss.cardHeader}
-        title={titleComponent}
-        subheader={description}
-        subheaderTypographyProps={{ css: pageHeaderCss.cardDescription }}
-      />
-    </Paper>
+    <CardHeader
+      css={pageHeaderCss.cardHeader}
+      title={titleComponent}
+      subheader={description}
+      subheaderTypographyProps={{ css: pageHeaderCss.cardDescription }}
+    />
   );
 };

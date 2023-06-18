@@ -1,0 +1,1 @@
+//https://hackernoon.com/how-to-get-cipher-indicators-for-free-and-use-them-to-crush-the-market-yb1j359c

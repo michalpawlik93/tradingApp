@@ -1,12 +1,15 @@
 
 import { useRef, useEffect } from "react";
-import { useStooqStore } from "../../stores/stooqStore";
-import {OhlcChart} from "../presentational/OHLCChart";
+import { useStooqStore } from "../stores/stooqStore";
+import { CombinedQuote } from "../types/CombinedQuote";
 
+export interface useStooqCombinedQuotes {
+    stooqCombinedQuotes: CombinedQuote[];
+  }
 
-export const OhlcChartContainer = () => {
+export const useStooqCombinedQuotes = ():useStooqCombinedQuotes => {
 
-    const combinedQuotes = useStooqStore((state) => state.combinedQuotes);
+    const stooqCombinedQuotes = useStooqStore((state) => state.combinedQuotes);
     const isDataFetched = useRef(false);
     const fetchData = useStooqStore((state) => state.fetchCombinedQuotes);
 
@@ -21,5 +24,5 @@ export const OhlcChartContainer = () => {
         fetch();
       }, [fetchData]);
 
-      return(<OhlcChart data={combinedQuotes}/>)
+      return { stooqCombinedQuotes };
 }
