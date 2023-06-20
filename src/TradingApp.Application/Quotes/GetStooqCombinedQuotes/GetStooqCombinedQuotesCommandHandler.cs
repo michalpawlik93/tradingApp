@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 using MediatR;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using TradingApp.Application.Models;
 using TradingApp.StooqProvider;
 using TradingApp.TradingAdapter.Constants;
@@ -16,21 +16,17 @@ public class GetStooqCombinedQuotesCommandHandler
     >
 {
     private readonly IStooqProvider _provider;
-    private readonly ILogger<GetStooqCombinedQuotesCommandHandler> _logger;
     private readonly ISkenderEvaluator _skenderEvaluator;
     private const int RSIPeriod = 14;
 
     public GetStooqCombinedQuotesCommandHandler(
         IStooqProvider provider,
-        ILogger<GetStooqCombinedQuotesCommandHandler> logger,
         ISkenderEvaluator skenderEvaluator
     )
     {
         ArgumentNullException.ThrowIfNull(provider);
-        ArgumentNullException.ThrowIfNull(logger);
         ArgumentNullException.ThrowIfNull(skenderEvaluator);
         _provider = provider;
-        _logger = logger;
         _skenderEvaluator = skenderEvaluator;
     }
 
@@ -39,7 +35,7 @@ public class GetStooqCombinedQuotesCommandHandler
         CancellationToken cancellationToken
     )
     {
-        _logger.LogInformation(
+        Log.Logger.Information(
             "{handlerName} started.",
             nameof(GetStooqCombinedQuotesCommandHandler)
         );
@@ -51,10 +47,9 @@ public class GetStooqCombinedQuotesCommandHandler
             );
         }
         var rsiResults = _skenderEvaluator.GetRSI(getQuotesResponse.Value, RSIPeriod);
-        var smaResults = _skenderEvaluator.GetSMA(getQuotesResponse.Value);
         var combinedResults = getQuotesResponse.Value
             .Select(
-                (q, i) => new CombinedQuote(q, rsiResults.ElementAt(i), smaResults.ElementAt(i))
+                (q, i) => new CombinedQuote(q, rsiResults.ElementAt(i), null)
             )
             .ToList();
         return new ServiceResponse<GetStooqCombinedQuotesResponse>(

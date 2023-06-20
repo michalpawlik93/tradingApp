@@ -36,7 +36,7 @@ public class ServiceResponseUtilsTests
         //Act
         var result = serviceResponseBase.GetResult();
         //Assert
-        result.IsSuccess.Should().BeTrue();
+        result.IsFailed.Should().BeTrue();
         result.Errors[0].Message.Should().Be("Status unknown received.");
     }
 }

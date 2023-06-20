@@ -36,7 +36,7 @@ public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewPr
             var content = HttpUtilities.ConvertToUrlEncoded(TvAuthorizeMapper.Map(request));
             var httpResponse = await _tradingViewClient.Client.PostAsync(TvUri.Authorize, content);
             var response = await DeserializeHttpResponse<ServiceResponse<TvAuthorizeResponse>>(httpResponse);
-            return response.GetResult<TvAuthorizeResponse, AuthorizeResponse>(TvAuthorizeMapper.Map);
+            return response.GetResult(TvAuthorizeMapper.Map);
         }
         catch (Exception)
         {
