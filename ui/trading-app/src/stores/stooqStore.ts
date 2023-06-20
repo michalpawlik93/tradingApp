@@ -19,9 +19,9 @@ export const useStooqStore = create<StooqState>((set) => ({
     overbought: 0,
     oversold: 0,
   },
-  fetchCombinedQuotes: async (historyType: string) => {
+  fetchCombinedQuotes: async (granularity: string) => {
     try {
-      const response = await StooqDataService.getCombinedQuotes(historyType);
+      const response = await StooqDataService.getCombinedQuotes(granularity);
       set({
         combinedQuotes: response.quotes,
         rsiSettings: response.rsiSettings,
