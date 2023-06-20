@@ -1,24 +1,24 @@
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import { CombinedQuote } from "../../types/CombinedQuote";
+import { Quote } from "../../types/Quote";
 import { useMemo } from "react";
 
 interface OhlcChartprops {
-  combinedQuotes: CombinedQuote[];
+  quotes: Quote[];
 }
 
 interface ApexChartCoordinate {
   x: Date;
   y: [open: number, high: number, low: number, close: number];
 }
-export const OhlcChart = ({ combinedQuotes }: OhlcChartprops): JSX.Element => {
+export const OhlcChart = ({ quotes }: OhlcChartprops): JSX.Element => {
   const data: ApexChartCoordinate[] = useMemo(
     () =>
-      combinedQuotes.map((quota) => ({
-        x: new Date(quota.ohlc.date),
-        y: [quota.ohlc.open, quota.ohlc.high, quota.ohlc.low, quota.ohlc.close],
+      quotes.map((quota) => ({
+        x: new Date(quota.date),
+        y: [quota.open, quota.high, quota.low, quota.close],
       })),
-    [combinedQuotes]
+    [quotes]
   );
 
   const series: ApexOptions["series"] = [
@@ -44,5 +44,5 @@ export const OhlcChart = ({ combinedQuotes }: OhlcChartprops): JSX.Element => {
       },
     },
   };
-  return <Chart options={options} series={series} type= "candlestick"></Chart>;
+  return <Chart options={options} series={series} type="candlestick"></Chart>;
 };

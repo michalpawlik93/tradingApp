@@ -5,10 +5,11 @@ import { RsiChartContiner } from "./RsiChartContiner";
 
 export const SimpleChartsContainer = () => {
   const { stooqCombinedQuotes } = useStooqCombinedQuotes();
+  const quotes = stooqCombinedQuotes.map((x) => x.ohlc);
   return (
     <>
       <PageItemsWrapper>
-        <OhlcChart combinedQuotes={stooqCombinedQuotes} />
+        <OhlcChart quotes={quotes} />
       </PageItemsWrapper>
       <PageItemsWrapper>
         <RsiChartContiner combinedQuotes={stooqCombinedQuotes} />

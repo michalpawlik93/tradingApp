@@ -1,4 +1,4 @@
 export interface ApexDateChartCordinate {
-    x: Date;
-    y: number;
-  }
+  x: Date;
+  y: number;
+}

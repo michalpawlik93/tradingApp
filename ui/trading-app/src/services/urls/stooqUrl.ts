@@ -1,6 +1,9 @@
-const BaseStoqUrl = "http://localhost:5244/stooq"
+const BaseStoqUrl = "http://localhost:5244/stooq";
 export const StooqUrls = {
-    combinedQuote:{
-        getAll:`${BaseStoqUrl}/combinedquote/getall`
-    }
-}
+  combinedQuote: {
+    getAll: `${BaseStoqUrl}/combinedquote/getall`,
+  },
+  cypherB: {
+    get: `${BaseStoqUrl}/cypherb`,
+  },
+};
