@@ -1,9 +1,8 @@
 import React, { PropsWithChildren } from "react";
 import { PageHeader, PageHeaderProps } from "./PageHeader";
 import { css } from "@emotion/react";
-import { PageItemsWrapper } from "./PageItemWrapper";
 import { ButtonBar } from "./ButtonBar";
-import { Paper } from "@mui/material";
+import { Paper, Box } from "@mui/material";
 
 export interface FenPageProps {
   bottomButtons?: React.ReactNode;
@@ -21,11 +20,13 @@ export const Page = (props: PropsWithChildren<FenPageProps>): JSX.Element => {
             <PageHeader {...headerProps} />
           </div>
         )}
-        {children}
+        <Box px={4} css={PageCss.box}>
+          {children}
+        </Box>
         {bottomButtons && (
-          <PageItemsWrapper>
+          <Box px={4} css={PageCss.box}>
             <ButtonBar css={PageCss.buttonBar}>{bottomButtons}</ButtonBar>
-          </PageItemsWrapper>
+          </Box>
         )}
       </Paper>
     </div>

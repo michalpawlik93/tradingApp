@@ -44,5 +44,9 @@ export const OhlcChart = ({ quotes }: OhlcChartprops): JSX.Element => {
       },
     },
   };
-  return <Chart options={options} series={series} type="candlestick"></Chart>;
+  return quotes.length > 0 ? (
+    <Chart options={options} series={series} type="candlestick"></Chart>
+  ) : (
+    <></>
+  );
 };

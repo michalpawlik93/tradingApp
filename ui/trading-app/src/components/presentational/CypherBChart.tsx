@@ -10,7 +10,7 @@ interface CypherBChartProps {
 }
 //https://hackernoon.com/how-to-get-cipher-indicators-for-free-and-use-them-to-crush-the-market-yb1j359c
 export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
-  const data: ApexCypherBChartData = useMemo(
+  const chartData: ApexCypherBChartData = useMemo(
     () => mapToApexChartData(quotes),
     [quotes]
   );
@@ -18,21 +18,22 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
   const series: ApexOptions["series"] = [
     {
       name: "MFI",
-      data: data.mfi,
+      data: chartData.mfi,
     },
     {
       name: "Momentum Wave",
-      data: data.momentumWave,
+      data: chartData.momentumWave,
     },
     {
       name: "VWAP",
-      data: data.vwap,
+      data: chartData.vwap,
     },
   ];
+
   const options: ApexOptions = {
     chart: {
-      type: "line",
       height: 350,
+      foreColor: "#ccc",
     },
     title: {
       text: "Cypher B",
@@ -41,14 +42,39 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
     xaxis: {
       type: "datetime",
     },
+    fill: {
+      type: "gradient",
+    },
+    grid: {
+      borderColor: "#555",
+    },
+    stroke: {
+      width: 1,
+    },
+    colors: ["#EF3535", "#7f7fff", "#FFFF00"],
     dataLabels: {
       enabled: false,
+    },
+    tooltip: {
+      theme: "dark",
     },
     yaxis: {
       tooltip: {
         enabled: true,
       },
+      min: chartData.lowestY,
+      max: chartData.highestY,
+      labels: {
+        formatter: function (value) {
+          return value.toFixed(2);
+        },
+      },
     },
   };
-  return <Chart options={options} series={series}></Chart>;
+
+  return quotes.length > 0 ? (
+    <Chart type="area" options={options} series={series} />
+  ) : (
+    <></>
+  );
 };

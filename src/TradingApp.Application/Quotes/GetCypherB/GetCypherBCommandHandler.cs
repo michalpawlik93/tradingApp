@@ -39,8 +39,8 @@ public class GetCypherBCommandHandler
                 (q, i) =>
                     new CypherBQuote(
                         q,
-                        mfiResults.ElementAt(i),
                         momentumWaveResults.ElementAt(i),
+                        mfiResults.ElementAt(i),
                         vwapResults.ElementAt(i)
                     )
             )

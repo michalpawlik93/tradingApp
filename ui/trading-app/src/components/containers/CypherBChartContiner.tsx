@@ -1,6 +1,6 @@
 import { OhlcChart } from "../presentational/OhlcChart";
 import { useCypherBQuotes } from "../../hooks/useCypherBQuotes";
-import { PageItemsWrapper } from "../../components/presentational/PageItemWrapper";
+import { ChartStyledPageItemsWrapper } from "../../components/presentational/PageItemWrapper";
 import { CypherBChart } from "../../components/presentational/CypherBChart";
 
 export const CypherBChartContiner = () => {
@@ -8,12 +8,12 @@ export const CypherBChartContiner = () => {
   const quotes = cypherBQuotes.map((x) => x.ohlc);
   return (
     <>
-      <PageItemsWrapper>
+      <ChartStyledPageItemsWrapper>
         <OhlcChart quotes={quotes} />
-      </PageItemsWrapper>
-      <PageItemsWrapper>
+      </ChartStyledPageItemsWrapper>
+      <ChartStyledPageItemsWrapper>
         <CypherBChart quotes={cypherBQuotes} />
-      </PageItemsWrapper>
+      </ChartStyledPageItemsWrapper>
     </>
   );
 };

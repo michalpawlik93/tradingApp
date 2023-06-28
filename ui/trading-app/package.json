@@ -10,9 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "apexcharts": "^3.41.0",
     "react": "^18.2.0",
-    "react-apexcharts": "^1.4.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
@@ -34,6 +32,8 @@
     "react-router-dom": "^6.11.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
-    "zustand": "^4.3.8"
+    "zustand": "^4.3.8",
+    "apexcharts": "^3.41.0",
+    "react-apexcharts": "^1.4.0"
   }
 }

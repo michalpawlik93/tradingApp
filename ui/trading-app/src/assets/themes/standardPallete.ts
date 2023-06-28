@@ -1,61 +1,61 @@
-import { GeneralPaletteOptions } from './themeTypes'
-import { calculateContrastColor } from './colorUtilities'
+import { GeneralPaletteOptions } from "./themeTypes";
+import { calculateContrastColor } from "./colorUtilities";
 
-declare module '@mui/material/styles/createPalette' {
+declare module "@mui/material/styles/createPalette" {
   interface CommonColors {
-    black: string
-    white: string
-    headerColor: string
-    headerIcon: string
-    dropzoneBackground: string
-    inactiveIcon: string
-    activeIcon: string
-    linkColor: string
-    buttonFocusBorder: string
-    chipColor: string
-    inputBackgorund: string
-    hubProgressBarHeadingColor: string
-    brandBlue: string
-    backgroundLighterGrey: string
-    backgroundLightestGrey: string
+    black: string;
+    white: string;
+    headerColor: string;
+    headerIcon: string;
+    dropzoneBackground: string;
+    inactiveIcon: string;
+    activeIcon: string;
+    linkColor: string;
+    buttonFocusBorder: string;
+    chipColor: string;
+    inputBackgorund: string;
+    hubProgressBarHeadingColor: string;
+    brandBlue: string;
+    backgroundLighterGrey: string;
+    backgroundLightestGrey: string;
   }
 }
 
 const uxStandardColors = {
-  brandBlue: '#3b75b3',
-  backgroundWhite: '#fff',
-  backgroundBlack: '#293f55',
-  backgroundDarkGrey: '#4e647b',
-  backgroundGrey: '#96a8ba',
-  backgroundLightGrey: '#c0cedc',
-  backgroundLighterGrey: '#e6ebf1',
-  backgroundLightestGrey: '#f5f7f9',
+  brandBlue: "#3b75b3",
+  backgroundWhite: "#fff",
+  backgroundBlack: "#000524",
+  backgroundDarkGrey: "#4e647b",
+  backgroundGrey: "#96a8ba",
+  backgroundLightGrey: "#c0cedc",
+  backgroundLighterGrey: "#e6ebf1",
+  backgroundLightestGrey: "#f5f7f9",
   // error, info, success, warning colors
-  highlightsRed: '#e57474',
-  highlightsGreen: '#73ae61',
-  highlightsAmber: '#ed992d',
-  highlightsBlue: '#5a9adf',
-  highlightsCyan: '#a0e4ff', // going to be used for focus state of the buttons (borders)
+  highlightsRed: "#e57474",
+  highlightsGreen: "#73ae61",
+  highlightsAmber: "#ed992d",
+  highlightsBlue: "#5a9adf",
+  highlightsCyan: "#a0e4ff", // going to be used for focus state of the buttons (borders)
   // other
-  inputSelectionStatesFieldFocusBlue: '#eff8ff',
-  inputSelectionStatesFieldErrorRed: '#fff6f6',
-  inputSelectionStatesFieldDefaultGrey: '#fafbfc',
-  backgroundChipGrey: '#d3d9de',
-  highlightsLinkBlue: '#0071eb',
-}
+  inputSelectionStatesFieldFocusBlue: "#eff8ff",
+  inputSelectionStatesFieldErrorRed: "#fff6f6",
+  inputSelectionStatesFieldDefaultGrey: "#fafbfc",
+  backgroundChipGrey: "#d3d9de",
+  highlightsLinkBlue: "#0071eb",
+};
 
 export const createStandardPalette = (): GeneralPaletteOptions => {
-  const primaryColor = uxStandardColors.brandBlue
-  const headerColor = uxStandardColors.backgroundWhite
-  const errorColor = uxStandardColors.highlightsRed
-  const successColor = uxStandardColors.highlightsGreen
-  const warningColor = uxStandardColors.highlightsAmber
-  const infoColor = uxStandardColors.highlightsBlue
+  const primaryColor = uxStandardColors.brandBlue;
+  const headerColor = uxStandardColors.backgroundWhite;
+  const errorColor = uxStandardColors.highlightsRed;
+  const successColor = uxStandardColors.highlightsGreen;
+  const warningColor = uxStandardColors.highlightsAmber;
+  const infoColor = uxStandardColors.highlightsBlue;
   const headerIcon = calculateContrastColor(
     headerColor,
     uxStandardColors.backgroundWhite,
     uxStandardColors.backgroundGrey
-  )
+  );
 
   return {
     primary: {
@@ -69,11 +69,11 @@ export const createStandardPalette = (): GeneralPaletteOptions => {
       paper: uxStandardColors.backgroundWhite,
     },
     grey: {
-      '700': uxStandardColors.backgroundDarkGrey,
-      '500': uxStandardColors.backgroundGrey,
-      '400': uxStandardColors.backgroundLightGrey,
-      '100': uxStandardColors.backgroundLighterGrey,
-      '50': uxStandardColors.backgroundLightestGrey,
+      "700": uxStandardColors.backgroundDarkGrey,
+      "500": uxStandardColors.backgroundGrey,
+      "400": uxStandardColors.backgroundLightGrey,
+      "100": uxStandardColors.backgroundLighterGrey,
+      "50": uxStandardColors.backgroundLightestGrey,
     },
     text: {
       primary: uxStandardColors.backgroundBlack,
@@ -109,5 +109,5 @@ export const createStandardPalette = (): GeneralPaletteOptions => {
       backgroundLightestGrey: uxStandardColors.backgroundLightestGrey,
       backgroundLighterGrey: uxStandardColors.backgroundLightGrey,
     },
-  }
-}
+  };
+};
