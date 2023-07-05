@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using TradingApp.Application.Models;
-using TradingApp.TradingAdapter.Enums;
+using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.Application.Quotes.GetCypherB;
 
-public record GetCypherBCommand(HistoryType Granularity, DateTime? StartDate, DateTime? EndDate)
+public record GetCypherBCommand(TimeFrame TimeFrame, Asset Asset)
     : IRequest<ServiceResponse<GetCypherBResponse>>;
 

@@ -1,6 +1,9 @@
 import { useRef, useEffect } from "react";
 import { useStooqStore } from "../stores/stooqStore";
 import { CypherBQuote } from "../types/CypherBQuote";
+import { Granularity } from "../consts/granularity";
+import { AssetType } from "../consts/assetType";
+import { AssetName } from "../consts/assetName";
 
 export interface useCypherBQuotesResponse {
   cypherBQuotes: CypherBQuote[];
@@ -17,7 +20,13 @@ export const useCypherBQuotes = (): useCypherBQuotesResponse => {
         isDataFetched.current = true;
         return;
       }
-      await fetchData("Daily");
+      await fetchData({
+        Granularity: Granularity.FiveMins,
+        AssetType: AssetType.Cryptocurrency,
+        AssetName: AssetName.ANC,
+        StartDate: "",
+        EndDate: "",
+      });
     }
     fetch();
   }, [fetchData]);

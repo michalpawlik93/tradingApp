@@ -39,7 +39,9 @@ public class GetStooqCombinedQuotesCommandHandler
             "{handlerName} started.",
             nameof(GetStooqCombinedQuotesCommandHandler)
         );
-        var getQuotesResponse = await _provider.GetQuotes(request.HistoryType);
+        var getQuotesResponse = await _provider.GetQuotes(
+            new GetQuotesRequest(request.TimeFrame, request.Asset, new PostProcessing(true))
+        );
         if (getQuotesResponse.IsFailed)
         {
             return new ServiceResponse<GetStooqCombinedQuotesResponse>(
@@ -48,9 +50,7 @@ public class GetStooqCombinedQuotesCommandHandler
         }
         var rsiResults = _skenderEvaluator.GetRSI(getQuotesResponse.Value, RSIPeriod);
         var combinedResults = getQuotesResponse.Value
-            .Select(
-                (q, i) => new CombinedQuote(q, rsiResults.ElementAt(i), null)
-            )
+            .Select((q, i) => new CombinedQuote(q, rsiResults.ElementAt(i), null))
             .ToList();
         return new ServiceResponse<GetStooqCombinedQuotesResponse>(
             Result.Ok(

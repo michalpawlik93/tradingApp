@@ -1,6 +1,6 @@
 ﻿namespace TradingApp.TradingAdapter.Enums;
 
-public enum HistoryType
+public enum AssetName
 {
-    Daily, Hourly
+    ANC
 }

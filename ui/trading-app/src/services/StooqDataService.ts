@@ -1,17 +1,22 @@
 import { CombinedQuoteResponse } from "../types/CombinedQuoteResponse";
 import { StooqUrls } from "./urls/stooqUrl";
 import { IStooqDataService } from "./IStooqDataService";
+import { GetQuotesDtoRequest } from "./dtos/GetQuotesDtoRequest";
 import { CypherBResponse } from "../types/CypherBResponse";
 
 export const StooqDataService: IStooqDataService = {
   getCombinedQuotes: async (
-    granularity: string
+    request: GetQuotesDtoRequest
   ): Promise<CombinedQuoteResponse> => {
-    const url = `${StooqUrls.combinedQuote.getAll}?granularity=${granularity}`;
+    const { Granularity, AssetType, AssetName, StartDate, EndDate } = request;
+    const url = `${StooqUrls.combinedQuote.getAll}?granularity=${Granularity}&assetType=${AssetType}&assetName=${AssetName}&startDate=${StartDate}&endDate=${EndDate}`;
     return fetchData(url);
   },
-  getCypherB: async (granularity: string): Promise<CypherBResponse> => {
-    const url = `${StooqUrls.cypherB.get}?granularity=${granularity}`;
+  getCypherB: async (
+    request: GetQuotesDtoRequest
+  ): Promise<CypherBResponse> => {
+    const { Granularity, AssetType, AssetName, StartDate, EndDate } = request;
+    const url = `${StooqUrls.cypherB.get}?granularity=${Granularity}&assetType=${AssetType}&assetName=${AssetName}&startDate=${StartDate}&endDate=${EndDate}`;
     return fetchData(url);
   },
 };

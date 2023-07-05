@@ -26,7 +26,7 @@ public class GetCypherBCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var getQuotesResponse = await _provider.GetQuotes(request.Granularity);
+        var getQuotesResponse = await _provider.GetQuotes(new GetQuotesRequest(request.TimeFrame, request.Asset, new PostProcessing(true)));
         if (getQuotesResponse.IsFailed)
         {
             return new ServiceResponse<GetCypherBResponse>(getQuotesResponse.ToResult());

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using TradingApp.Common.Utilities;
-using TradingApp.TradingAdapter.Enums;
 using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Models;
 using TradingApp.TradingViewProvider.Constants;
@@ -71,12 +70,12 @@ public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewPr
         return JsonSerializer.Deserialize<T>(responseData);
     }
 
-    protected override Task<Result<IEnumerable<Quote>>> GetQuotesAsync(HistoryType type)
+    protected override Task<Result<ICollection<Quote>>> GetQuotesAsync(TimeFrame timeFrame, Asset asset)
     {
         throw new NotImplementedException();
     }
 
-    protected override Task<Result> SaveQuotesAsync(HistoryType type, bool overrideFile)
+    protected override Task<Result> SaveQuotesAsync(TimeFrame timeFrame, Asset asset, bool overrideFile)
     {
         throw new NotImplementedException();
     }

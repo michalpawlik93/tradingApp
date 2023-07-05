@@ -9,18 +9,14 @@ using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.StooqProvider;
 
-
 public interface IStooqProvider : ITradingAdapter { };
 public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
 {
-    private readonly ILogger<StooqProvider> _logger;
     private readonly IFileService _fileService;
     private StooqClient _stooqClient { get; set; }
 
     public StooqProvider(ILogger<StooqProvider> logger, StooqClient stooqClient, IFileService fileService)
     {
-        ArgumentNullException.ThrowIfNull(logger);
-        _logger = logger;
         ArgumentNullException.ThrowIfNull(stooqClient);
         _stooqClient = stooqClient;
         ArgumentNullException.ThrowIfNull(fileService);
@@ -31,16 +27,16 @@ public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
 
     protected override Task<Result> LogoutAsync() => throw new NotImplementedException();
 
-    protected override async Task<Result<IEnumerable<Quote>>> GetQuotesAsync(HistoryType type) =>
-        await _fileService.ReadHistoryQuotaFile(type);
+    protected override async Task<Result<ICollection<Quote>>> GetQuotesAsync(TimeFrame timeFrame, Asset asset) =>
+        await _fileService.ReadHistoryQuotaFile(timeFrame, asset);
 
-    protected override async Task<Result> SaveQuotesAsync(HistoryType type, bool overrideFile)
+    protected override async Task<Result> SaveQuotesAsync(TimeFrame timeFrame, Asset asset, bool overrideFile)
     {
-        if (!overrideFile && _fileService.FileExist(type))
+        if (!overrideFile && _fileService.FileExist(timeFrame, asset))
         {
             return Result.Ok().WithSuccess($"File exists. OverrideFileFlag: {overrideFile}");
         }
-        var getLocationResponse = await _stooqClient.Client.GetAsync(FileLocation(type));
+        var getLocationResponse = await _stooqClient.Client.GetAsync(FileLocation(timeFrame.Granularity));
         getLocationResponse.EnsureSuccessStatusCode();
         if (getLocationResponse.StatusCode != HttpStatusCode.Found)
         {
@@ -58,18 +54,18 @@ public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
             return Result.Fail($"{LocationHeaderKey} value is null or empty.");
         }
         byte[] fileData = await _stooqClient.Client.GetByteArrayAsync($"https:{locationValue}");
-        await _fileService.SaveHistoryQuotaFile(fileData, type);
+        await _fileService.SaveHistoryQuotaFile(fileData, timeFrame, asset);
         return Result.Ok();
     }
 
 
 
     private const string LocationHeaderKey = "Location";
-    private string FileLocation(HistoryType type) =>
-       type switch
+    private string FileLocation(Granularity granularity) =>
+       granularity switch
        {
-           HistoryType.Daily => $"db/d/?b=d_world_txt",
-           HistoryType.Hourly => $"db/d/?b=h_world_txt",
-           _ => throw new ArgumentException("Invalid type", nameof(type)),
+           Granularity.Daily => $"db/d/?b=d_world_txt",
+           Granularity.Hourly => $"db/d/?b=h_world_txt",
+           _ => throw new ArgumentException("Invalid type", nameof(granularity)),
        };
 }

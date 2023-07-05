@@ -27,7 +27,7 @@ public class GetCypherBCommandHandlerTests
     {
         //Arrange
         const string errrorMessage = "errorMessage";
-        StooqProvider.Setup(_ => _.GetQuotes(command.Granularity)).ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errrorMessage));
+        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, null))).ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errrorMessage));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
@@ -40,7 +40,7 @@ public class GetCypherBCommandHandlerTests
     public async Task Handle_SuccessPath_ResponseReturned(GetCypherBCommand command, IEnumerable<Quote> quotes)
     {
         //Arrange
-        StooqProvider.Setup(_ => _.GetQuotes(command.Granularity)).ReturnsAsync(Result.Ok(quotes));
+        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, null))).ReturnsAsync(Result.Ok(quotes));
         var values = Enumerable.Range(0, quotes.Count()).Select(_ => (double?)new Random().NextDouble()).ToList();
         Evaluator.Setup(_ => _.GetVwap(It.IsAny<IEnumerable<Quote>>())).Returns(values);
         Evaluator.Setup(_ => _.GetMFI(It.IsAny<IEnumerable<Quote>>(), It.IsAny<int>())).Returns(values);

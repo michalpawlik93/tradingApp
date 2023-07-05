@@ -1,6 +1,6 @@
 ﻿using FluentResults;
-using TradingApp.TradingAdapter.Enums;
 using TradingApp.TradingAdapter.Models;
+using TradingApp.TradingAdapter.Utils;
 
 namespace TradingApp.TradingAdapter.Interfaces;
 
@@ -11,19 +11,37 @@ public abstract class TradingAdapterAbstract
 {
     protected TradingAdapterAbstract() { }
 
-    public async Task<Result<AuthorizeResponse>> Authorize(AuthorizeRequest request) => await AuthorizeAsync(request);
+    public async Task<Result<AuthorizeResponse>> Authorize(AuthorizeRequest request) =>
+        await AuthorizeAsync(request);
 
     public async Task<Result> Logout() => await LogoutAsync();
 
-    public async Task<Result<IEnumerable<Quote>>> GetQuotes(HistoryType type = HistoryType.Daily)
+    public async Task<Result<IEnumerable<Quote>>> GetQuotes(GetQuotesRequest request)
     {
-        return await GetQuotesAsync(type);
+        var result = await GetQuotesAsync(request.TimeFrame, request.Asset);
+        if (
+            result.IsSuccess
+            && request.PostProcessing != null
+            && request.PostProcessing.filterByTimeFrame
+        ) //can refactot to action pipeline
+        {
+            return result.Value.FilterByTimeFrame(request.TimeFrame).ToResult();
+        }
+        return result.ToResult<IEnumerable<Quote>>();
     }
 
-    public async Task<Result> SaveQuotes(HistoryType type = HistoryType.Daily) => await SaveQuotesAsync(type, true);
+    public async Task<Result> SaveQuotes(TimeFrame timeFrame, Asset asset) =>
+        await SaveQuotesAsync(timeFrame, asset, true);
 
-    protected abstract Task<Result<IEnumerable<Quote>>> GetQuotesAsync(HistoryType type);
-    protected abstract Task<Result> SaveQuotesAsync(HistoryType type, bool overrideFile);
+    protected abstract Task<Result<ICollection<Quote>>> GetQuotesAsync(
+        TimeFrame timeFrame,
+        Asset asset
+    );
+    protected abstract Task<Result> SaveQuotesAsync(
+        TimeFrame timeFrame,
+        Asset asset,
+        bool overrideFile
+    );
     protected abstract Task<Result<AuthorizeResponse>> AuthorizeAsync(AuthorizeRequest request);
     protected abstract Task<Result> LogoutAsync();
 }
@@ -32,6 +50,6 @@ public interface ITradingAdapter
 {
     Task<Result<AuthorizeResponse>> Authorize(AuthorizeRequest request);
     Task<Result> Logout();
-    Task<Result<IEnumerable<Quote>>> GetQuotes(HistoryType type = HistoryType.Daily);
-    Task<Result> SaveQuotes(HistoryType type = HistoryType.Daily);
+    Task<Result<IEnumerable<Quote>>> GetQuotes(GetQuotesRequest request);
+    Task<Result> SaveQuotes(TimeFrame timeFrame, Asset asset);
 }

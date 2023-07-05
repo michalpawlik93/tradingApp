@@ -8,9 +8,9 @@ namespace TradingApp.StooqProvider.Services;
 
 public interface IFileService
 {
-    Task<Result<IEnumerable<Quote>>> ReadHistoryQuotaFile(HistoryType type);
-    Task SaveHistoryQuotaFile(byte[] fileData, HistoryType type);
-    bool FileExist(HistoryType type);
+    Task<Result<ICollection<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset);
+    Task SaveHistoryQuotaFile(byte[] fileData, TimeFrame timeFrame, Asset asset);
+    bool FileExist(TimeFrame timeFrame, Asset asset);
 }
 public class FileService : IFileService
 {
@@ -18,15 +18,15 @@ public class FileService : IFileService
     private const string SubdirectoryPath = "history";
     private const string Extension = "stooq.zip";
 
-    public async Task<Result<IEnumerable<Quote>>> ReadHistoryQuotaFile(HistoryType type)
+    public async Task<Result<ICollection<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset)
     {
-        using (var zipArchive = ZipFile.OpenRead(ZipFilePath(type)))
+        using (var zipArchive = ZipFile.OpenRead(ZipFilePath(timeFrame.Granularity)))
         {
-            var zipEntry = zipArchive.GetEntry(AncvFilePath);
+            var zipEntry = zipArchive.GetEntry(AncvFilePath(timeFrame.Granularity, asset.Type, asset.Name));
 
             if (zipEntry == null)
             {
-                return Result.Fail<IEnumerable<Quote>>($"Can not found file. Path: {AncvFilePath}");
+                return Result.Fail<ICollection<Quote>>($"Can not found file. Path: {AncvFilePath}");
             }
             using (Stream entryStream = zipEntry.Open())
             using (StreamReader reader = new StreamReader(entryStream))
@@ -50,36 +50,58 @@ public class FileService : IFileService
                         var dateTimeValue = ParseDateTime(dateValue, timeValue);
                         if (dateTimeValue != DateTime.MinValue)
                         {
-                            quotes.Add(new Quote(ParseDateTime(dateValue, timeValue), openValue, highValue, lowValue, closeValue, volumeValue));
+                            quotes.Add(new Quote(dateTimeValue, openValue, highValue, lowValue, closeValue, volumeValue));
                         }
                     }
                 }
-                return Result.Ok(quotes.AsEnumerable());
+                return Result.Ok<ICollection<Quote>>(quotes);
             }
         }
     }
 
-    public async Task SaveHistoryQuotaFile(byte[] fileData, HistoryType type)
+    public async Task SaveHistoryQuotaFile(byte[] fileData, TimeFrame timeFrame, Asset asset)
     {
         if (!Directory.Exists(SubdirectoryPath))
         {
             Directory.CreateDirectory(SubdirectoryPath);
         }
-        await File.WriteAllBytesAsync(ZipFilePath(type), fileData);
+        await File.WriteAllBytesAsync(ZipFilePath(timeFrame.Granularity), fileData);
     }
 
-    public bool FileExist(HistoryType type) => File.Exists(ZipFilePath(type));
+    public bool FileExist(TimeFrame timeFrame, Asset asset) => File.Exists(ZipFilePath(timeFrame.Granularity));
 
-    private string ZipFilePath(HistoryType type) =>
-       type switch
+    private string ZipFilePath(Granularity granularity) =>
+       granularity switch
        {
-           HistoryType.Daily => Path.Combine(SubdirectoryPath, HistoryType.Daily.ToString() + Extension),
-           HistoryType.Hourly => Path.Combine(SubdirectoryPath, HistoryType.Hourly.ToString() + Extension),
-           _ => throw new ArgumentException("Invalid type", nameof(type)),
+           Granularity.Daily => Path.Combine(SubdirectoryPath, Granularity.Daily.ToString() + Extension),
+           Granularity.Hourly => Path.Combine(SubdirectoryPath, Granularity.Hourly.ToString() + Extension),
+           Granularity.FiveMins => Path.Combine(SubdirectoryPath, Granularity.FiveMins.ToString() + Extension),
+           _ => throw new ArgumentException("Invalid type", nameof(granularity)),
        };
 
+    private static string GranularityPath(Granularity granularity) =>
+       granularity switch
+       {
+           Granularity.Daily => "daily/",
+           Granularity.Hourly => "hourly/",
+           Granularity.FiveMins => "5 min/",
+           _ => throw new ArgumentException($"No exisiting {nameof(granularity)}: {granularity}"),
+       };
 
-    private static string AncvFilePath => Path.Join("data/", "daily/", "world/", "cryptocurrencies/", "anc.v.txt");
+    private static string AssetTypePath(AssetType assetType) =>
+       assetType switch
+       {
+           AssetType.Cryptocurrency => "cryptocurrencies/",
+           _ => throw new ArgumentException($"No exisiting {nameof(assetType)}: {assetType}"),
+       };
+    private static string AssetFileName(AssetName assetName) =>
+       assetName switch
+       {
+           AssetName.ANC => "anc.v.txt",
+           _ => throw new ArgumentException($"No exisiting {nameof(assetName)}: {assetName}"),
+       };
+
+    private static string AncvFilePath(Granularity granularity, AssetType assetType, AssetName assetName) => Path.Join("data/", GranularityPath(granularity), "world/", AssetTypePath(assetType), AssetFileName(assetName));
 
     private static DateTime ParseDateTime(string dateInput, string timeInput)
     {
