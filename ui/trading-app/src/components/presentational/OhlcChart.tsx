@@ -30,10 +30,16 @@ export const OhlcChart = ({ quotes }: OhlcChartprops): JSX.Element => {
     chart: {
       type: "candlestick",
       height: 350,
+      animations: {
+        enabled: false,
+      },
     },
     title: {
       text: "OHLC",
       align: "left",
+    },
+    markers: {
+      size: 0,
     },
     xaxis: {
       type: "datetime",

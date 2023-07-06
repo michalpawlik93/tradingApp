@@ -24,8 +24,8 @@ export const useStooqCombinedQuotes = (): useStooqCombinedQuotes => {
         Granularity: Granularity.FiveMins,
         AssetType: AssetType.Cryptocurrency,
         AssetName: AssetName.ANC,
-        StartDate: "",
-        EndDate: "",
+        StartDate: new Date(2023, 5, 24).toISOString(),
+        EndDate: new Date(2023, 5, 28).toISOString(),
       });
     }
     fetch();

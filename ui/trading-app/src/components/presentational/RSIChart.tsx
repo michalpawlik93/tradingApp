@@ -38,6 +38,9 @@ export const RsiChart = ({
     chart: {
       type: "line",
       height: 350,
+      animations: {
+        enabled: false,
+      },
     },
     title: {
       text: "RSI",
@@ -45,6 +48,9 @@ export const RsiChart = ({
     },
     xaxis: {
       type: "datetime",
+    },
+    markers: {
+      size: 0,
     },
     dataLabels: {
       enabled: false,

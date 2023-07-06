@@ -1,14 +1,18 @@
 import { Page } from "../components/presentational/Page";
 import { CypherBChartContiner } from "../components/containers/CypherBChartContiner";
+import { Suspense } from "react";
+import { CircularProgress } from "@mui/material";
 
-export const AdvancedChartsView = () => (
-  <>
+export const AdvancedChartsView = () => {
+  return (
     <Page
       headerProps={{
         title: "Stooq Advanced Charts",
       }}
     >
-      <CypherBChartContiner />
+      <Suspense fallback={<CircularProgress />}>
+        <CypherBChartContiner />
+      </Suspense>
     </Page>
-  </>
-);
+  );
+};

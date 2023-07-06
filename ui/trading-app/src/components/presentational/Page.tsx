@@ -5,12 +5,12 @@ import { ButtonBar } from "./ButtonBar";
 import { Paper, Box } from "@mui/material";
 
 export interface FenPageProps {
-  bottomButtons?: React.ReactNode;
+  topButtons?: React.ReactNode;
   headerProps?: PageHeaderProps;
 }
 
 export const Page = (props: PropsWithChildren<FenPageProps>): JSX.Element => {
-  const { children, headerProps, bottomButtons } = props;
+  const { children, headerProps, topButtons } = props;
 
   return (
     <div css={PageCss.box}>
@@ -20,14 +20,14 @@ export const Page = (props: PropsWithChildren<FenPageProps>): JSX.Element => {
             <PageHeader {...headerProps} />
           </div>
         )}
+        {topButtons && (
+          <Box px={4} css={PageCss.box}>
+            <ButtonBar css={PageCss.buttonBar}>{topButtons}</ButtonBar>
+          </Box>
+        )}
         <Box px={4} css={PageCss.box}>
           {children}
         </Box>
-        {bottomButtons && (
-          <Box px={4} css={PageCss.box}>
-            <ButtonBar css={PageCss.buttonBar}>{bottomButtons}</ButtonBar>
-          </Box>
-        )}
       </Paper>
     </div>
   );

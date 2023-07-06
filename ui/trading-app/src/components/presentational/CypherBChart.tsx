@@ -34,6 +34,12 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
     chart: {
       height: 350,
       foreColor: "#ccc",
+      animations: {
+        enabled: false,
+      },
+    },
+    markers: {
+      size: 0,
     },
     title: {
       text: "Cypher B",
