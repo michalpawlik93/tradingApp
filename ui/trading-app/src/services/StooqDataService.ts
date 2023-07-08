@@ -8,15 +8,15 @@ export const StooqDataService: IStooqDataService = {
   getCombinedQuotes: async (
     request: GetQuotesDtoRequest
   ): Promise<CombinedQuoteResponse> => {
-    const { Granularity, AssetType, AssetName, StartDate, EndDate } = request;
-    const url = `${StooqUrls.combinedQuote.getAll}?granularity=${Granularity}&assetType=${AssetType}&assetName=${AssetName}&startDate=${StartDate}&endDate=${EndDate}`;
+    const { granularity, assetType, assetName, startDate, endDate } = request;
+    const url = `${StooqUrls.combinedQuote.getAll}?granularity=${granularity}&assetType=${assetType}&assetName=${assetName}&startDate=${startDate}&endDate=${endDate}`;
     return fetchData(url);
   },
   getCypherB: async (
     request: GetQuotesDtoRequest
   ): Promise<CypherBResponse> => {
-    const { Granularity, AssetType, AssetName, StartDate, EndDate } = request;
-    const url = `${StooqUrls.cypherB.get}?granularity=${Granularity}&assetType=${AssetType}&assetName=${AssetName}&startDate=${StartDate}&endDate=${EndDate}`;
+    const { granularity, assetType, assetName, startDate, endDate } = request;
+    const url = `${StooqUrls.cypherB.get}?granularity=${granularity}&assetType=${assetType}&assetName=${assetName}&startDate=${startDate}&endDate=${endDate}`;
     return fetchData(url);
   },
 };

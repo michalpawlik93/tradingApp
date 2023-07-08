@@ -1,19 +1,15 @@
 import React, { FC, memo } from "react";
-import { CardActions } from "@mui/material";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 export interface ButtonBarProps {
   children: React.ReactNode;
-  className?: string;
 }
 
-const ButtonBarInternal: FC<ButtonBarProps> = ({
-  children,
-  className,
-}) => {
+const ButtonBarInternal: FC<ButtonBarProps> = ({ children }) => {
   return (
-    <CardActions disableSpacing className={className}>
+    <ButtonGroup variant="outlined" aria-label="outlined button group">
       {children}
-    </CardActions>
+    </ButtonGroup>
   );
 };
 

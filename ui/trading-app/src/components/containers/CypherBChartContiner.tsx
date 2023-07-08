@@ -9,8 +9,8 @@ import { ChartSettingsPanelForm } from "../forms/ChartSettingsPanelForm";
 export const CypherBChartContiner = () => {
   const [dates, setDates] = useState<Date[]>([]);
 
-  const { startDate, endDate, minDate, maxDate } = useTimeFrameHook(dates);
-  const { cypherBQuotes } = useCypherBQuotes(startDate, endDate);
+  const { minDate, maxDate } = useTimeFrameHook(dates);
+  const { cypherBQuotes } = useCypherBQuotes();
   const quotes = cypherBQuotes.map((x) => x.ohlc);
 
   useEffect(() => {
@@ -22,9 +22,7 @@ export const CypherBChartContiner = () => {
 
   return (
     <>
-      {quotes.length > 0 && (
-        <ChartSettingsPanelForm minDate={minDate} maxDate={maxDate} />
-      )}
+      <ChartSettingsPanelForm minDate={minDate} maxDate={maxDate} />
       <ChartStyledPageItemsWrapper>
         <OhlcChart quotes={quotes} />
       </ChartStyledPageItemsWrapper>

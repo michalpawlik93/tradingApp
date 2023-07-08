@@ -22,7 +22,7 @@ export const Page = (props: PropsWithChildren<FenPageProps>): JSX.Element => {
         )}
         {topButtons && (
           <Box px={4} css={PageCss.box}>
-            <ButtonBar css={PageCss.buttonBar}>{topButtons}</ButtonBar>
+            <ButtonBar>{topButtons}</ButtonBar>
           </Box>
         )}
         <Box px={4} css={PageCss.box}>
@@ -45,9 +45,5 @@ const PageCss = {
       paddingRight: "2rem",
       paddingLeft: "2rem",
       paddingBottom: "2rem",
-    }),
-  buttonBar: () =>
-    css({
-      paddingTop: "2rem",
     }),
 };

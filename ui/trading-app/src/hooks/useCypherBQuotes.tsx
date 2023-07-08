@@ -9,10 +9,7 @@ export interface useCypherBQuotesResponse {
   cypherBQuotes: CypherBQuote[];
 }
 
-export const useCypherBQuotes = (
-  startDate: Date,
-  endDate: Date
-): useCypherBQuotesResponse => {
+export const useCypherBQuotes = (): useCypherBQuotesResponse => {
   const cypherBQuotes = useStooqStore((state) => state.cypherBQuotes);
   const isDataFetched = useRef(false);
   const fetchData = useStooqStore((state) => state.fetchCypherBQuotes);
@@ -24,15 +21,15 @@ export const useCypherBQuotes = (
         return;
       }
       await fetchData({
-        Granularity: Granularity.FiveMins,
-        AssetType: AssetType.Cryptocurrency,
-        AssetName: AssetName.ANC,
-        StartDate: startDate.toISOString(),
-        EndDate: endDate.toISOString(),
+        granularity: Granularity.FiveMins,
+        assetType: AssetType.Cryptocurrency,
+        assetName: AssetName.ANC,
+        startDate: undefined,
+        endDate: undefined,
       });
     }
     fetch();
-  }, [fetchData, startDate, endDate]);
+  }, [fetchData]);
 
   return { cypherBQuotes };
 };

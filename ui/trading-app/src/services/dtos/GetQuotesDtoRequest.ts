@@ -1,7 +1,7 @@
 export interface GetQuotesDtoRequest {
-  Granularity: string;
-  AssetType: string;
-  AssetName: string;
-  StartDate: string;
-  EndDate: string;
+  granularity: string;
+  assetType: string;
+  assetName: string;
+  startDate?: string;
+  endDate?: string;
 }

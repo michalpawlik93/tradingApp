@@ -1,12 +1,10 @@
 import React, { memo } from "react";
-import { Button, Theme } from "@mui/material";
-import { Interpolation } from "@emotion/react";
+import { Button } from "@mui/material";
 
 export interface CommonButtonProps {
   text: string;
   disabled?: boolean;
   onClick?: React.MouseEventHandler;
-  css?: Interpolation<Theme>;
   secondary?: boolean;
   startIcon?: React.ReactNode;
   size?: "extra-small" | "small" | "medium";
@@ -17,7 +15,6 @@ const CommonButtonInternal = ({
   onClick,
   disabled,
   text,
-  css,
   secondary,
   startIcon,
   type = "button",
@@ -27,7 +24,6 @@ const CommonButtonInternal = ({
   return (
     <Button
       type={type}
-      css={css}
       variant={variant}
       color="primary"
       onClick={onClick}
