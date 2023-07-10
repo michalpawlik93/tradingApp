@@ -25,6 +25,7 @@ public static class ServicesExtensionMethods
         services.AddScoped<IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponse>>, GetCypherBCommandHandler>();
         services.AddTransient<IJwtProvider, JwtProvider>();
         services.AddTransient<ISkenderEvaluator, SkenderEvaluator>();
+        services.AddTransient<ICustomEvaluator, CustomEvaluator>();
         services.AddStooqProvider(configuration);
     }
 

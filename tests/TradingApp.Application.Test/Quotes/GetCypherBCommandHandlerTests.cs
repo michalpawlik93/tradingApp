@@ -12,7 +12,7 @@ namespace TradingApp.Application.Test.Quotes;
 public class GetCypherBCommandHandlerTests
 {
     private readonly Mock<IStooqProvider> StooqProvider = new();
-    private readonly Mock<ISkenderEvaluator> Evaluator = new();
+    private readonly Mock<ICustomEvaluator> Evaluator = new();
     private GetCypherBCommandHandler _sut;
 
     [SetUp]
@@ -41,7 +41,7 @@ public class GetCypherBCommandHandlerTests
     {
         //Arrange
         StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, null))).ReturnsAsync(Result.Ok(quotes));
-        var values = Enumerable.Range(0, quotes.Count()).Select(_ => (double?)new Random().NextDouble()).ToList();
+        var values = Enumerable.Range(0, quotes.Count()).Select(_ => (decimal?)new Random().NextDouble()).ToList();
         Evaluator.Setup(_ => _.GetVwap(It.IsAny<IEnumerable<Quote>>())).Returns(values);
         Evaluator.Setup(_ => _.GetMFI(It.IsAny<IEnumerable<Quote>>(), It.IsAny<int>())).Returns(values);
         Evaluator.Setup(_ => _.GetMomentumWave(It.IsAny<IEnumerable<Quote>>(), It.IsAny<int>())).Returns(values);

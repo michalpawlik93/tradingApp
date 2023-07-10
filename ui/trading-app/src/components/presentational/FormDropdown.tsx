@@ -1,13 +1,13 @@
 import { Controller, Control } from "react-hook-form";
-import { IFormInput } from "../forms/ChartSettingsPanelForm";
+import { IChartSettingsPanelForm } from "../forms/ChartSettingsPanelForm";
 import { Dropdown, Option } from "./Dropdown";
 import { FormControl, InputLabel } from "@mui/material";
 
 export interface FormDropdownProps {
   options: Option[];
-  name: keyof IFormInput;
+  name: keyof IChartSettingsPanelForm;
   label: string;
-  control: Control<IFormInput>;
+  control: Control<IChartSettingsPanelForm>;
 }
 
 export const FormDropdown: React.FC<FormDropdownProps> = ({

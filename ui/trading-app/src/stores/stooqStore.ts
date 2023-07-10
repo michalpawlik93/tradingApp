@@ -24,7 +24,10 @@ export const useStooqStore = create<StooqState>((set) => ({
     try {
       const response = await StooqDataService.getCombinedQuotes(request);
       set({
-        combinedQuotes: response.quotes,
+        combinedQuotes:
+          response.quotes.length > 1000
+            ? response.quotes.slice(0, 1000)
+            : response.quotes,
         rsiSettings: response.rsiSettings,
       });
     } catch (error) {
@@ -35,7 +38,10 @@ export const useStooqStore = create<StooqState>((set) => ({
     try {
       const response = await StooqDataService.getCypherB(request);
       set({
-        cypherBQuotes: response.quotes,
+        cypherBQuotes:
+          response.quotes.length > 1000
+            ? response.quotes.slice(0, 1000)
+            : response.quotes,
       });
     } catch (error) {
       console.error("Error fetching data:", error);

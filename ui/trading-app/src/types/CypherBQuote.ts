@@ -1,8 +1,9 @@
 import { Quote } from "./Quote";
+import { WaveTrend } from "./WaveTrend";
 
 export interface CypherBQuote {
   ohlc: Quote;
-  momentumWave: number;
+  waveTrend: WaveTrend;
   mfi: number;
   vwap: number;
 }

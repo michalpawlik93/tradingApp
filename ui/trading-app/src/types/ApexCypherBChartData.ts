@@ -1,7 +1,7 @@
 import { ApexDateChartCordinate } from "./ApexDateChartCordinate";
 
 export interface ApexCypherBChartData {
-  momentumWave: ApexDateChartCordinate[];
+  waveTrend: ApexDateChartCordinate[];
   mfi: ApexDateChartCordinate[];
   vwap: ApexDateChartCordinate[];
   lowestY: number;

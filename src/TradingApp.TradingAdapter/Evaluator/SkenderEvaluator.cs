@@ -1,62 +1,62 @@
 ﻿using Skender.Stock.Indicators;
 using TradingApp.TradingAdapter.Constants;
+using TradingApp.TradingAdapter.Interfaces;
+using TradingApp.TradingAdapter.Models;
 using DomainQuote = TradingApp.TradingAdapter.Models.Quote;
 using Quote = Skender.Stock.Indicators.Quote;
 
 namespace TradingApp.TradingAdapter.Evaluator;
 
-public interface ISkenderEvaluator
-{
-    IEnumerable<double?> GetRSI(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
-    );
-    IEnumerable<double?> GetMFI(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
-    );
-    IEnumerable<double?> GetVwap(IEnumerable<DomainQuote> domeinQuotes);
-    IEnumerable<double?> GetMomentumWave(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
-    );
-}
+public interface ISkenderEvaluator : IEvaluator { }
 
 public class SkenderEvaluator : ISkenderEvaluator
 {
-    public IEnumerable<double?> GetRSI(
+    public IEnumerable<decimal?> GetRSI(
         IEnumerable<DomainQuote> domeinQuotes,
         int loockBackPeriod = RsiSettingsConst.DefaultPeriod
-    ) => domeinQuotes.MapToSkenderQuotes().GetRsi(loockBackPeriod).Select(r => r.Rsi);
-
-    public IEnumerable<double?> GetMFI(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = 14
-    ) => domeinQuotes.MapToSkenderQuotes().GetMfi(loockBackPeriod).Select(r => r.Mfi);
-
-    public IEnumerable<double?> GetVwap(IEnumerable<DomainQuote> domeinQuotes) =>
-        domeinQuotes.MapToSkenderQuotes().GetVwap().Select(r => r.Vwap);
-
-    public IEnumerable<double?> GetMomentumWave(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
-    )
-    {
-        RsiResult[] rsiResults = domeinQuotes
+    ) =>
+        domeinQuotes
             .MapToSkenderQuotes()
             .GetRsi(loockBackPeriod)
-            .ToArray();
-        RocResult[] rocResults = domeinQuotes
-            .MapToSkenderQuotes()
-            .GetRoc(loockBackPeriod)
-            .ToArray();
+            .Select(r => r.Rsi.ToNullableDecimal());
 
-        return domeinQuotes.Select(
+    public IEnumerable<decimal?> GetMFI(
+        IEnumerable<DomainQuote> domeinQuotes,
+        int loockBackPeriod = 14
+    ) =>
+        domeinQuotes
+            .MapToSkenderQuotes()
+            .GetMfi(loockBackPeriod)
+            .Select(r => r.Mfi.ToNullableDecimal());
+
+    public IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domeinQuotes) =>
+        domeinQuotes.MapToSkenderQuotes().GetVwap().Select(r => r.Vwap.ToNullableDecimal());
+
+    public IEnumerable<decimal?> GetMomentumWave(
+        IEnumerable<DomainQuote> domainQuotes,
+        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
+    )
+    {
+        RsiResult[] rsiResults = domainQuotes.MapToSkenderQuotes().GetRsi(lookBackPeriod).ToArray();
+        RocResult[] rocResults = domainQuotes.MapToSkenderQuotes().GetRoc(lookBackPeriod).ToArray();
+
+        return domainQuotes.Select(
             (_, i) =>
-                rsiResults[i]?.Rsi is null || rocResults[i]?.Roc is null
-                    ? null
-                    : (rsiResults[i].Rsi + rocResults[i].Roc) / 2
+            {
+                if (rsiResults[i]?.Rsi is null || rocResults[i]?.Roc is null)
+                    return null;
+
+                decimal? momentumWave =
+                    (Convert.ToDecimal(rsiResults[i].Rsi) + Convert.ToDecimal(rocResults[i].Roc))
+                    / 2;
+                return momentumWave;
+            }
         );
+    }
+
+    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domeinQuotes)
+    {
+        throw new NotImplementedException();
     }
 }
 
@@ -77,4 +77,7 @@ public static class Extensions
                     Volume = q.Volume
                 }
         );
+
+    public static decimal? ToNullableDecimal(this double? input) =>
+        input.HasValue ? (decimal?)input.Value : null;
 }

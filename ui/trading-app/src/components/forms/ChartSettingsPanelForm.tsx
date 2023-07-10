@@ -12,9 +12,15 @@ import { useStooqStore } from "../../stores/stooqStore";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { GetQuotesDtoRequest } from "../../services/dtos/GetQuotesDtoRequest";
 
-const defaultValues: GetQuotesDtoRequest = {
-  startDate: new Date().toISOString(),
-  endDate: new Date().toISOString(),
+export interface IChartSettingsPanelForm
+  extends Pick<GetQuotesDtoRequest, "granularity" | "assetType" | "assetName"> {
+  startDate?: Date;
+  endDate?: Date;
+}
+
+const defaultValues: IChartSettingsPanelForm = {
+  startDate: new Date(),
+  endDate: new Date(),
   granularity: Granularity.FiveMins,
   assetType: AssetType.Cryptocurrency,
   assetName: AssetName.ANC,
@@ -44,17 +50,17 @@ export const ChartSettingsPanelForm = ({
   maxDate,
 }: ChartSettingsPanelFormProps) => {
   const fetchData = useStooqStore((state) => state.fetchCypherBQuotes);
-  const { handleSubmit, reset, control } = useForm<GetQuotesDtoRequest>({
+  const { handleSubmit, reset, control } = useForm<IChartSettingsPanelForm>({
     defaultValues: defaultValues,
   });
-  const onSubmit = async (data: GetQuotesDtoRequest) => {
+  const onSubmit = async (data: IChartSettingsPanelForm) => {
     console.log(data);
     await fetchData({
       granularity: data.granularity,
       assetType: data.assetType,
       assetName: data.assetName,
-      startDate: data.startDate,
-      endDate: data.endDate,
+      startDate: data.startDate?.toISOString(),
+      endDate: data.endDate?.toISOString(),
     });
   };
   return (

@@ -5,7 +5,7 @@ export function mapToApexChartData(
   quotes: CypherBQuote[]
 ): ApexCypherBChartData {
   const result: ApexCypherBChartData = {
-    momentumWave: [],
+    waveTrend: [],
     mfi: [],
     vwap: [],
     lowestY: Infinity,
@@ -16,14 +16,14 @@ export function mapToApexChartData(
     const timestamp = Date.parse(quotes[i].ohlc.date);
     if (!isNaN(timestamp)) {
       const x = new Date(quotes[i].ohlc.date);
-      const { momentumWave, mfi, vwap } = quotes[i];
+      const { waveTrend, mfi, vwap } = quotes[i];
 
-      result.momentumWave.push({ y: momentumWave, x });
+      result.waveTrend.push({ y: waveTrend.value, x });
       result.mfi.push({ y: mfi, x });
       result.vwap.push({ y: vwap, x });
 
-      result.lowestY = Math.min(result.lowestY, momentumWave, mfi, vwap);
-      result.highestY = Math.max(result.highestY, momentumWave, mfi, vwap);
+      result.lowestY = Math.min(result.lowestY, waveTrend.value, mfi, vwap);
+      result.highestY = Math.max(result.highestY, waveTrend.value, mfi, vwap);
     }
   }
   return result;

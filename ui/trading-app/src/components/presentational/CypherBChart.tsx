@@ -21,8 +21,8 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
       data: chartData.mfi,
     },
     {
-      name: "Momentum Wave",
-      data: chartData.momentumWave,
+      name: "Trend Wave",
+      data: chartData.waveTrend,
     },
     {
       name: "VWAP",
@@ -68,8 +68,8 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
       tooltip: {
         enabled: true,
       },
-      min: chartData.lowestY,
-      max: chartData.highestY,
+      // min: chartData.lowestY,
+      // max: chartData.highestY,
       labels: {
         formatter: function (value) {
           return value.toFixed(2);

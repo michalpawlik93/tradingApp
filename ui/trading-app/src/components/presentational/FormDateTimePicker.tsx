@@ -1,6 +1,6 @@
 import { Controller, Control } from "react-hook-form";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { GetQuotesDtoRequest } from "../../services/dtos/GetQuotesDtoRequest";
+import { IChartSettingsPanelForm } from "../../components/forms/ChartSettingsPanelForm";
 import { FormControl, InputLabel } from "@mui/material";
 import { styled } from "@mui/system";
 
@@ -12,9 +12,9 @@ const StyledInputLabel = styled(InputLabel)`
 `;
 
 export interface FormDateTimePickerProps {
-  name: keyof GetQuotesDtoRequest;
+  name: keyof IChartSettingsPanelForm;
   label: string;
-  control: Control<GetQuotesDtoRequest>;
+  control: Control<IChartSettingsPanelForm>;
   minDate: Date;
   maxDate: Date;
 }
@@ -39,10 +39,8 @@ export const FormDateTimePicker = ({
 
           return (
             <DateTimePicker
-              value={field.value ? new Date(field.value) : null}
+              value={field.value as Date}
               onChange={handleDatePickerChange}
-              minDateTime={minDate}
-              maxDateTime={maxDate}
             />
           );
         }}

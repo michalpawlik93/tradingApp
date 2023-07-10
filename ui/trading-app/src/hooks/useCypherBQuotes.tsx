@@ -24,8 +24,8 @@ export const useCypherBQuotes = (): useCypherBQuotesResponse => {
         granularity: Granularity.FiveMins,
         assetType: AssetType.Cryptocurrency,
         assetName: AssetName.ANC,
-        startDate: undefined,
-        endDate: undefined,
+        startDate: "",
+        endDate: "",
       });
     }
     fetch();

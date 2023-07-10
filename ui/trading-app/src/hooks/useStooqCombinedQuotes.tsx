@@ -21,11 +21,11 @@ export const useStooqCombinedQuotes = (): useStooqCombinedQuotes => {
         return;
       }
       await fetchData({
-        Granularity: Granularity.FiveMins,
-        AssetType: AssetType.Cryptocurrency,
-        AssetName: AssetName.ANC,
-        StartDate: new Date(2023, 5, 24).toISOString(),
-        EndDate: new Date(2023, 5, 28).toISOString(),
+        granularity: Granularity.FiveMins,
+        assetType: AssetType.Cryptocurrency,
+        assetName: AssetName.ANC,
+        startDate: new Date(2023, 5, 24).toISOString(),
+        endDate: new Date(2023, 5, 28).toISOString(),
       });
     }
     fetch();
