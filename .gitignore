@@ -28,3 +28,4 @@
 src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /tests/TradingApp.Common.Test/bin/Debug/net7.0
 /tests/TradingApp.StooqProvider.Test/bin/Debug/net7.0
+/tests/TradingApp.TradingAdapter.Test/bin/Debug/net7.0
