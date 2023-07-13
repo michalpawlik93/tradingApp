@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TradingApp.TradingAdapter.Test.Utils;
 
-namespace TradingApp.TradingAdapter.Test.Utils
+public class TimeFrameFilterTests
 {
-    internal class TimeFrameFilterTests
+    [Fact]
+    public void TimeFrameFilterTestss_Test()
     {
+        Assert.True(true);
     }
 }
