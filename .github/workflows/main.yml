@@ -31,14 +31,10 @@ jobs:
       - name: Test
         run: dotnet test ./TradingApp.sln --configuration Release --no-restore /p:CollectCoverage=true --collect:"XPlat Code Coverage" --logger trx
 
-      
-      - name: Copy Coverage to Predictable Location
-        run: cp coverage/*/coverage.cobertura.xml coverage/coverage.cobertura.xml
-
       - name: Code Coverage Summary Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: coverage/coverage.cobertura.xml
+          filename: '**/coverage.cobertura.xml'
           badge: true
           format: 'markdown'
           output: 'both'
