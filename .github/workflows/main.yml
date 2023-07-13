@@ -9,6 +9,7 @@ on:
     - 'src/TradingApp.TradingViewProvider/**'
     - 'src/TradingApp.TradingWebApi/**'
     - 'src/**'
+    - 'tests/**'
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -28,16 +29,10 @@ jobs:
         run: dotnet build ./TradingApp.sln --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test ./TradingApp.sln --configuration Release --no-restore --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test ./TradingApp.sln --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencove
       
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-          name: DotNET Tests
-          path: "**/TestResults/test-results.trx"                          
-          reporter: dotnet-trx
-          fail-on-error: true
+      - name: Codecov
+        uses: codecov/codecov-action@v1
 
       - name: Publish
         run: dotnet publish ./TradingApp.sln --configuration Release --no-build
