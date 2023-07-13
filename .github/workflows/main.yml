@@ -29,7 +29,7 @@ jobs:
         run: dotnet build ./TradingApp.sln --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test ./TradingApp.sln --configuration Release --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=opencove
+        run: dotnet test ./TradingApp.sln --configuration Release --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       
       - name: Codecov
         uses: codecov/codecov-action@v1
