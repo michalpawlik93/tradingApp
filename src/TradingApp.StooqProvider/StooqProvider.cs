@@ -1,21 +1,24 @@
 ﻿using FluentResults;
-using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using TradingApp.StooqProvider.Services;
 using TradingApp.StooqProvider.Setup;
-using TradingApp.TradingAdapter.Enums;
+using TradingApp.StooqProvider.Utils;
 using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.StooqProvider;
 
 public interface IStooqProvider : ITradingAdapter { };
+
+[ExcludeFromCodeCoverage]
 public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
 {
+    private const string LocationHeaderKey = "Location";
     private readonly IFileService _fileService;
     private StooqClient _stooqClient { get; set; }
 
-    public StooqProvider(ILogger<StooqProvider> logger, StooqClient stooqClient, IFileService fileService)
+    public StooqProvider(StooqClient stooqClient, IFileService fileService)
     {
         ArgumentNullException.ThrowIfNull(stooqClient);
         _stooqClient = stooqClient;
@@ -30,13 +33,15 @@ public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
     protected override async Task<Result<ICollection<Quote>>> GetQuotesAsync(TimeFrame timeFrame, Asset asset) =>
         await _fileService.ReadHistoryQuotaFile(timeFrame, asset);
 
+
+    //Cant save files due to security problems
     protected override async Task<Result> SaveQuotesAsync(TimeFrame timeFrame, Asset asset, bool overrideFile)
     {
         if (!overrideFile && _fileService.FileExist(timeFrame, asset))
         {
             return Result.Ok().WithSuccess($"File exists. OverrideFileFlag: {overrideFile}");
         }
-        var getLocationResponse = await _stooqClient.Client.GetAsync(FileLocation(timeFrame.Granularity));
+        var getLocationResponse = await _stooqClient.Client.GetAsync(FileServiceUtils.FileLocation(timeFrame.Granularity));
         getLocationResponse.EnsureSuccessStatusCode();
         if (getLocationResponse.StatusCode != HttpStatusCode.Found)
         {
@@ -57,15 +62,4 @@ public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
         await _fileService.SaveHistoryQuotaFile(fileData, timeFrame, asset);
         return Result.Ok();
     }
-
-
-
-    private const string LocationHeaderKey = "Location";
-    private string FileLocation(Granularity granularity) =>
-       granularity switch
-       {
-           Granularity.Daily => $"db/d/?b=d_world_txt",
-           Granularity.Hourly => $"db/d/?b=h_world_txt",
-           _ => throw new ArgumentException("Invalid type", nameof(granularity)),
-       };
 }

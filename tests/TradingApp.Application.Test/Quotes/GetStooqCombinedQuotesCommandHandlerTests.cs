@@ -27,7 +27,7 @@ public class GetStooqCombinedQuotesCommandHandlerTests
     {
         //Arrange
         const string errrorMessage = "errorMessage";
-        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, null))).ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errrorMessage));
+        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errrorMessage));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
@@ -40,7 +40,7 @@ public class GetStooqCombinedQuotesCommandHandlerTests
     public async Task Handle_SuccessPath_ResponseReturned(GetStooqCombinedQuotesCommand command, IEnumerable<Quote> quotes)
     {
         //Arrange
-        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, null))).ReturnsAsync(Result.Ok(quotes));
+        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Ok(quotes));
         var values = Enumerable.Range(0, quotes.Count()).Select(_ => (decimal?)new Random().NextDouble()).ToList();
         Evaluator.Setup(_ => _.GetRSI(It.IsAny<IEnumerable<Quote>>(), It.IsAny<int>())).Returns(values);
         //Act

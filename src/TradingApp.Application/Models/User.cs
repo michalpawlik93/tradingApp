@@ -14,7 +14,7 @@ public class User
     {
         if (Name is null || ApiSecret is null)
         {
-            return Result.Fail<string>(ValidatioErrorMessage).WithError(new UserError(this));
+            return Result.Fail<string>(ValidatioErrorMessage).WithError(new UserError());
         }
         return Result.Ok();
     }

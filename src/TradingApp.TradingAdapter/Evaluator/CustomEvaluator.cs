@@ -1,8 +1,10 @@
 ﻿using Skender.Stock.Indicators;
+using TradingApp.Common.Utilities;
 using TradingApp.TradingAdapter.Constants;
 using TradingApp.TradingAdapter.CustomIndexes;
 using TradingApp.TradingAdapter.IndexesUtils;
 using TradingApp.TradingAdapter.Interfaces;
+using TradingApp.TradingAdapter.Mappers;
 using TradingApp.TradingAdapter.Models;
 using DomainQuote = TradingApp.TradingAdapter.Models.Quote;
 
@@ -37,32 +39,32 @@ public class CustomEvaluator : ICustomEvaluator
         int loockBackPeriod = RsiSettingsConst.DefaultPeriod
     ) => throw new NotImplementedException();
 
-    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domeinQuotes)
+    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes)
     {
-        var ohlcData = domeinQuotes.ToList();
+        var ohlcData = domainQuotes.ToList();
         var rsi = RsiCustom.CalculateRsi(ohlcData, WaveTrendSettingsConst.AverageLength);
-        var sma = SmaCustom.CalculateSma(ohlcData, WaveTrendSettingsConst.AverageLength);
+        var sma = domainQuotes
+            .MapToSkenderQuotes()
+            .GetSma(WaveTrendSettingsConst.AverageLength)
+            .Select(r => r.Sma.TryParse()).ToList();
         var waveTrendValues = WaveTrendCustom.CalculateWaveTrend(
             ohlcData,
-            rsi,
+            sma,
             WaveTrendSettingsConst.ChannelLength,
             WaveTrendSettingsConst.AverageLength
         );
 
-        return ohlcData.Select((q, index) => CreateWaveTrend(waveTrendValues, sma, index));
+        return ohlcData.Select((q, index) => CreateWaveTrend(waveTrendValues, rsi, index));
     }
 
-    private WaveTrend CreateWaveTrend(
-        List<decimal> waveTrendValues,
-        List<decimal> rsiValues,
-        int index
-    )
+    private WaveTrend CreateWaveTrend(List<decimal> waveTrendValues, List<decimal> rsiValues, int index)
     {
         decimal waveTrend = waveTrendValues[index];
         decimal rsi = rsiValues[index];
-        bool isGreenDot =
-            waveTrend > RsiSettingsConst.Overbought && rsi > RsiSettingsConst.Overbought;
-        bool isRedDot = waveTrend < RsiSettingsConst.Oversold && rsi < RsiSettingsConst.Oversold;
+
+        bool isGreenDot = waveTrend > 0;
+        bool isRedDot = waveTrend < 0;
+
         return new WaveTrend(waveTrend, isGreenDot, isRedDot);
     }
 }

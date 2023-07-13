@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using TradingApp.Application.Authentication.GetToken;
 using TradingApp.Application.Models;
 using TradingApp.TradingAdapter.Models;
 using TradingApp.TradingViewProvider;
@@ -11,11 +10,11 @@ public class AuthorizeProviderCommandHandler
     : IRequestHandler<AuthorizeProviderCommand, ServiceResponse<AuthorizeResponse>>
 {
     private readonly ITradingViewProvider _tradingViewProvider;
-    private readonly ILogger<GetTokenCommandHandler> _logger;
+    private readonly ILogger<AuthorizeProviderCommandHandler> _logger;
 
     public AuthorizeProviderCommandHandler(
         ITradingViewProvider tradingViewProvider,
-        ILogger<GetTokenCommandHandler> logger
+        ILogger<AuthorizeProviderCommandHandler> logger
     )
     {
         ArgumentNullException.ThrowIfNull(tradingViewProvider);

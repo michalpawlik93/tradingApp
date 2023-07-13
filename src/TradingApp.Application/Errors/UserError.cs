@@ -7,8 +7,8 @@ namespace TradingApp.Application.Errors;
 [ExcludeFromCodeCoverage]
 public class UserError : Error
 {
-    public UserError(User user)
-        : base($"{nameof(user.Name)} and {nameof(user.ApiSecret)} can not be null.")
+    public UserError()
+        : base($"{nameof(User.Name)} and {nameof(User.ApiSecret)} can not be null.")
     {
         Metadata.Add("ErrorCode", "1");
     }

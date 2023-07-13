@@ -19,7 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.StooqProvider", "src\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj", "{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TradingAdapter", "src\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj", "{D818A5DB-A76F-446B-9620-3DB4E9FC485A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingAdapter", "src\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj", "{D818A5DB-A76F-446B-9620-3DB4E9FC485A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.Common.Test", "tests\TradingApp.Common.Test\TradingApp.Common.Test.csproj", "{60A8C40A-FEEE-43FE-9CE1-DE242FCF5C7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.StooqProvider.Test", "tests\TradingApp.StooqProvider.Test\TradingApp.StooqProvider.Test.csproj", "{A87A86CD-124F-4070-A94B-4FB1C32E947A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TradingAdapter.Test", "tests\TradingApp.TradingAdapter.Test\TradingApp.TradingAdapter.Test.csproj", "{C3DB2151-8099-432C-BCA5-0A8BE41DFAC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +65,18 @@ Global
 		{D818A5DB-A76F-446B-9620-3DB4E9FC485A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D818A5DB-A76F-446B-9620-3DB4E9FC485A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D818A5DB-A76F-446B-9620-3DB4E9FC485A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A8C40A-FEEE-43FE-9CE1-DE242FCF5C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A8C40A-FEEE-43FE-9CE1-DE242FCF5C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A8C40A-FEEE-43FE-9CE1-DE242FCF5C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A8C40A-FEEE-43FE-9CE1-DE242FCF5C7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A87A86CD-124F-4070-A94B-4FB1C32E947A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A87A86CD-124F-4070-A94B-4FB1C32E947A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A87A86CD-124F-4070-A94B-4FB1C32E947A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A87A86CD-124F-4070-A94B-4FB1C32E947A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3DB2151-8099-432C-BCA5-0A8BE41DFAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3DB2151-8099-432C-BCA5-0A8BE41DFAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3DB2151-8099-432C-BCA5-0A8BE41DFAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3DB2151-8099-432C-BCA5-0A8BE41DFAC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +84,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{68090800-38D8-453B-833B-5AFD1E4FA6DA} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
+		{60A8C40A-FEEE-43FE-9CE1-DE242FCF5C7C} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
+		{A87A86CD-124F-4070-A94B-4FB1C32E947A} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
+		{C3DB2151-8099-432C-BCA5-0A8BE41DFAC6} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6A546BD-170A-4937-BE8F-077A50F97E5B}

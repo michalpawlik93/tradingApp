@@ -21,9 +21,9 @@ export interface IChartSettingsPanelForm
 const defaultValues: IChartSettingsPanelForm = {
   startDate: new Date(),
   endDate: new Date(),
-  granularity: Granularity.FiveMins,
+  granularity: Granularity.Hourly,
   assetType: AssetType.Cryptocurrency,
-  assetName: AssetName.ANC,
+  assetName: AssetName.BTC,
 };
 
 const chartSettingsPanelCss = {

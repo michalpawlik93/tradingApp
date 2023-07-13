@@ -10,7 +10,18 @@ namespace TradingApp.TradingAdapter.IndexesUtils
 
             List<decimal> waveTrendDots = new List<decimal>();
 
-            for (int i = averageLength - 1; i < ohlcData.Count; i++)
+            if (ohlcData.Count < channelLength)
+            {
+                // Brak wystarczającej ilości danych wejściowych, ustaw wartość początkową waveTrend na 0 lub inną wartość
+                for (int i = 0; i < ohlcData.Count; i++)
+                {
+                    waveTrendValues.Add(0m);
+                }
+
+                return waveTrendValues;
+            }
+
+            for (int i = channelLength - 1; i < ohlcData.Count; i++)
             {
                 decimal highestHigh = decimal.MinValue;
                 decimal lowestLow = decimal.MaxValue;
@@ -25,25 +36,34 @@ namespace TradingApp.TradingAdapter.IndexesUtils
                         lowestLow = low;
                 }
 
-                decimal waveTrend = (highestHigh + lowestLow) / 2;
-                waveTrendDots.Add(waveTrend);
+                decimal smaValue = smaValues[i - (channelLength - 1)];
+                decimal waveTrendDot = (highestHigh + lowestLow) / 2 - smaValue;
+                waveTrendDots.Add(waveTrendDot);
             }
-
-            int waveTrendDotIndex = 0;
 
             for (int i = 0; i < ohlcData.Count; i++)
             {
-                if (i >= averageLength - 1)
+                if (i < channelLength + averageLength - 2)
                 {
-                    decimal waveTrendDot = waveTrendDots[waveTrendDotIndex];
-                    decimal smaValue = smaValues[waveTrendDotIndex];
-                    decimal waveTrendValue = waveTrendDot - smaValue;
-                    waveTrendValues.Add(waveTrendValue);
-                    waveTrendDotIndex++;
+                    waveTrendValues.Add(0m);
                 }
                 else
                 {
-                    waveTrendValues.Add(0);
+                    decimal waveTrendSum = 0m;
+                    int startIndex = i - averageLength + 1;
+                    int endIndex = i - (channelLength - 1);
+
+                    // Sprawdź, czy mamy wystarczającą ilość danych do obliczenia waveTrendDots
+                    if (startIndex >= 0 && endIndex >= 0 && startIndex < waveTrendDots.Count && endIndex < waveTrendDots.Count)
+                    {
+                        for (int j = startIndex; j <= endIndex; j++)
+                        {
+                            waveTrendSum += waveTrendDots[j];
+                        }
+                    }
+
+                    decimal waveTrendAverage = waveTrendSum / averageLength;
+                    waveTrendValues.Add(waveTrendAverage);
                 }
             }
 

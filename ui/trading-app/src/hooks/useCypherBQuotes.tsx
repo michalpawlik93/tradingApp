@@ -21,9 +21,9 @@ export const useCypherBQuotes = (): useCypherBQuotesResponse => {
         return;
       }
       await fetchData({
-        granularity: Granularity.FiveMins,
+        granularity: Granularity.Hourly,
         assetType: AssetType.Cryptocurrency,
-        assetName: AssetName.ANC,
+        assetName: AssetName.BTC,
         startDate: "",
         endDate: "",
       });

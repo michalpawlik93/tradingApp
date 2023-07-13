@@ -37,7 +37,7 @@ public class JwtProvider : IJwtProvider
             _logger.LogError(JwtProviderErrorMessages.IncorrectCrednetialsErrorMessage);
             return Result
                 .Fail<string>(JwtProviderErrorMessages.IncorrectCrednetialsErrorMessage)
-                .WithError(new UserError(user));
+                .WithError(new UserError());
         }
 
         return Result.Ok(GetToken());

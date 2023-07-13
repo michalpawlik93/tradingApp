@@ -1,9 +1,10 @@
 ﻿using Skender.Stock.Indicators;
+using TradingApp.Common.Utilities;
 using TradingApp.TradingAdapter.Constants;
 using TradingApp.TradingAdapter.Interfaces;
+using TradingApp.TradingAdapter.Mappers;
 using TradingApp.TradingAdapter.Models;
 using DomainQuote = TradingApp.TradingAdapter.Models.Quote;
-using Quote = Skender.Stock.Indicators.Quote;
 
 namespace TradingApp.TradingAdapter.Evaluator;
 
@@ -58,26 +59,4 @@ public class SkenderEvaluator : ISkenderEvaluator
     {
         throw new NotImplementedException();
     }
-}
-
-public static class Extensions
-{
-    public static IEnumerable<Quote> MapToSkenderQuotes(
-        this IEnumerable<DomainQuote> domeinQuotes
-    ) =>
-        domeinQuotes.Select(
-            q =>
-                new Quote()
-                {
-                    Open = q.Open,
-                    Close = q.Close,
-                    High = q.High,
-                    Low = q.Low,
-                    Date = q.Date,
-                    Volume = q.Volume
-                }
-        );
-
-    public static decimal? ToNullableDecimal(this double? input) =>
-        input.HasValue ? (decimal?)input.Value : null;
 }

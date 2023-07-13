@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
+using TradingApp.StooqProvider.Abstraction;
 using TradingApp.StooqProvider.Services;
 
 namespace TradingApp.StooqProvider.Setup;
@@ -12,6 +13,7 @@ public static class ServicesExtensionMethods
     {
         services.Configure<StooqClientConfig>(configuration.GetSection(StooqClientConfig.ConfigSectionName));
         services.AddHttpClient<StooqClient>();
+        services.AddSingleton<IZipArchiveProvider, ZipArchiveProvider>();
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<IStooqProvider, StooqProvider>();
     }
@@ -20,5 +22,5 @@ public static class ServicesExtensionMethods
 public class StooqClientConfig
 {
     public const string ConfigSectionName = "StooqClient";
-    public string BaseUrl { get; set; }
+    public string? BaseUrl { get; set; }
 }

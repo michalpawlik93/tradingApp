@@ -18,4 +18,26 @@ public static class DateTimeUtils
 
         throw new ArgumentException("Invalid ISO 8601 date string.", nameof(dateString));
     }
+
+    public static DateTime ParseDateTime(string dateInput, string timeInput)
+    {
+        var dateParsed = DateTime.TryParseExact(dateInput, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate);
+        var timeParsed = DateTime.TryParseExact(timeInput, "HHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedTime);
+        if (dateParsed && timeParsed)
+        {
+            return parsedDate.Date + parsedTime.TimeOfDay;
+        }
+
+        if (dateParsed)
+        {
+            return parsedDate.Date;
+        }
+
+        if (timeParsed)
+        {
+            return parsedTime;
+        }
+
+        return DateTime.MinValue;
+    }
 }

@@ -35,6 +35,7 @@ public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewPr
             var content = HttpUtilities.ConvertToUrlEncoded(TvAuthorizeMapper.Map(request));
             var httpResponse = await _tradingViewClient.Client.PostAsync(TvUri.Authorize, content);
             var response = await DeserializeHttpResponse<ServiceResponse<TvAuthorizeResponse>>(httpResponse);
+            ArgumentNullException.ThrowIfNull(response);
             return response.GetResult(TvAuthorizeMapper.Map);
         }
         catch (Exception)
@@ -50,6 +51,7 @@ public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewPr
         {
             var httpResponse = await _tradingViewClient.Client.PostAsync(TvUri.Authorize, null);
             var response = await DeserializeHttpResponse<ServiceResponseBase>(httpResponse);
+            ArgumentNullException.ThrowIfNull(response);
             return response.GetResult();
         }
         catch (Exception)
@@ -64,7 +66,7 @@ public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewPr
         public const string ExceptionErrorMessage = "TradingViewProvider exception.";
     }
 
-    public async Task<T> DeserializeHttpResponse<T>(HttpResponseMessage response)
+    public async Task<T?> DeserializeHttpResponse<T>(HttpResponseMessage response)
     {
         var responseData = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<T>(responseData);

@@ -16,18 +16,18 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
   );
 
   const series: ApexOptions["series"] = [
-    {
-      name: "MFI",
-      data: chartData.mfi,
-    },
+    // {
+    //   name: "MFI",
+    //   data: chartData.mfi,
+    // },
     {
       name: "Trend Wave",
       data: chartData.waveTrend,
     },
-    {
-      name: "VWAP",
-      data: chartData.vwap,
-    },
+    // {
+    //   name: "VWAP",
+    //   data: chartData.vwap,
+    // },
   ];
 
   const options: ApexOptions = {
@@ -57,7 +57,8 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
     stroke: {
       width: 1,
     },
-    colors: ["#EF3535", "#7f7fff", "#FFFF00"],
+    // colors: ["#EF3535", "#7f7fff", "#FFFF00"],
+    colors: ["#7f7fff", "#FFFF00"],
     dataLabels: {
       enabled: false,
     },
@@ -72,7 +73,7 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
       // max: chartData.highestY,
       labels: {
         formatter: function (value) {
-          return value.toFixed(2);
+          return value.toFixed(4);
         },
       },
     },

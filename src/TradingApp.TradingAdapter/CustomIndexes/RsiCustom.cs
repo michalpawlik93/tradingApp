@@ -1,75 +1,77 @@
 ﻿using DomainQuote = TradingApp.TradingAdapter.Models.Quote;
-namespace TradingApp.TradingAdapter.CustomIndexes;
 
-public static class RsiCustom
+namespace TradingApp.TradingAdapter.CustomIndexes
 {
-    public static List<decimal> CalculateRsi(IEnumerable<DomainQuote> domainQuotes, int rsiLength)
+    public static class RsiCustom
     {
-        List<decimal> gains = new List<decimal>();
-        List<decimal> losses = new List<decimal>();
-        List<decimal> rsiValues = new List<decimal>();
-
-        int quoteCount = 0;
-        decimal totalVolume = 0;
-        decimal totalVolumePrice = 0;
-
-        foreach (var quote in domainQuotes)
+        public static List<decimal> CalculateRsi(IEnumerable<DomainQuote> domainQuotes, int rsiLength)
         {
-            decimal close = quote.Close;
-            decimal volume = quote.Volume;
+            List<decimal> gains = new List<decimal>();
+            List<decimal> losses = new List<decimal>();
+            List<decimal> rsiValues = new List<decimal>();
 
-            if (quoteCount >= rsiLength)
+            decimal prevClose = 0;
+            int quoteCount = 0;
+
+            foreach (var quote in domainQuotes)
             {
-                decimal priceDiff = close - domainQuotes.ElementAt(quoteCount - rsiLength).Close;
-                if (priceDiff >= 0)
-                {
-                    gains.Add(priceDiff);
-                    losses.Add(0.0m);
-                }
-                else
-                {
-                    gains.Add(0.0m);
-                    losses.Add(-priceDiff);
-                }
+                decimal close = quote.Close;
+                decimal volume = quote.Volume;
 
-                if (quoteCount >= rsiLength - 1)
+                if (quoteCount > 0)
                 {
-                    rsiValues.Add(CalculateSingleRsi(gains, losses));
+                    decimal priceDiff = close - prevClose;
+                    if (priceDiff >= 0)
+                    {
+                        gains.Add(priceDiff);
+                        losses.Add(0.0m);
+                    }
+                    else
+                    {
+                        gains.Add(0.0m);
+                        losses.Add(-priceDiff);
+                    }
+
+                    if (quoteCount >= rsiLength)
+                    {
+                        rsiValues.Add(CalculateSingleRsi(gains, losses));
+                    }
+                    else
+                    {
+                        rsiValues.Add(0.0m);
+                    }
                 }
                 else
                 {
                     rsiValues.Add(0.0m);
                 }
-            }
-            else
-            {
-                rsiValues.Add(0.0m);
+
+                prevClose = close;
+                quoteCount++;
             }
 
-            totalVolume += volume;
-            totalVolumePrice += volume * close;
-            quoteCount++;
+            return rsiValues;
         }
 
-        return rsiValues;
-    }
-
-    private static decimal CalculateSingleRsi(List<decimal> gains, List<decimal> losses)
-    {
-        decimal avgGain = CalculateAverage(gains);
-        decimal avgLoss = CalculateAverage(losses);
-        decimal rs = avgGain / avgLoss;
-        decimal rsi = 100 - (100 / (1 + rs));
-        return rsi;
-    }
-
-    private static decimal CalculateAverage(List<decimal> values)
-    {
-        decimal sum = 0;
-        foreach (decimal value in values)
+        private static decimal CalculateSingleRsi(List<decimal> gains, List<decimal> losses)
         {
-            sum += value;
+            decimal avgGain = CalculateAverage(gains);
+            decimal avgLoss = CalculateAverage(losses);
+
+            if (avgLoss == 0)
+            {
+                return 100; // Avoid division by zero when no losses
+            }
+
+            decimal rs = avgGain / avgLoss;
+            decimal rsi = 100 - (100 / (1 + rs));
+            return rsi;
         }
-        return sum / values.Count;
+
+        private static decimal CalculateAverage(List<decimal> values)
+        {
+            decimal sum = values.Sum();
+            return sum / values.Count;
+        }
     }
 }

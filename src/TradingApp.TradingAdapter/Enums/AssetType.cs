@@ -2,5 +2,6 @@
 
 public enum AssetType
 {
-    Cryptocurrency
+    Cryptocurrency,
+    Currencies
 }

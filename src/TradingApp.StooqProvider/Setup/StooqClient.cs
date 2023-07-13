@@ -11,7 +11,7 @@ public class StooqClient
     {
         ArgumentNullException.ThrowIfNull(options);
         Client = client;
-        Client.BaseAddress = new Uri(options.Value.BaseUrl);
+        Client.BaseAddress = new Uri(options.Value.BaseUrl!);
         Client.Timeout = new TimeSpan(0, 0, 30);
         Client.DefaultRequestHeaders.Clear();
     }

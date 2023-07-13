@@ -2,5 +2,7 @@
 
 public enum AssetName
 {
-    ANC
+    ANC,
+    USDPLN,
+    BTC
 }
