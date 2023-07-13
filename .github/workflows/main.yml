@@ -38,5 +38,3 @@ jobs:
         with:
           name: tradingViewApp
           path: ./TradingApp.sln
-
-          https://www.dotnetcurry.com/dotnetcore/github-actions-for-dotnet-developers

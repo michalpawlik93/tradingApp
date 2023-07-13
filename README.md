@@ -1,1 +1,1 @@
-# tradingViewIntegration
+# tradingApp
