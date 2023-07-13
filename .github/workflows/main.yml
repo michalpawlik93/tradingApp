@@ -27,7 +27,7 @@ jobs:
       - name: Build
         run: dotnet build ./TradingApp.sln --configuration Release --no-restore
 
-      - name: Build
+      - name: Test
         run: dotnet test ./TradingApp.sln --configuration Release --no-restore
         
       - name: Publish

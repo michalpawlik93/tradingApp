@@ -31,7 +31,7 @@ public class DateTimeUtilsTests
     public void ParseIso8601DateString_ValidDateString_ReturnsCorrectDateTime()
     {
         // Arrange
-        string dateString = "2023-07-12T08:30:00.000Z";
+        string dateString = "2023-07-12T10:30:00.000Z";
         var expectedDateTime = new DateTime(2023, 07, 12, 10, 30, 0, DateTimeKind.Utc);
 
         // Act
