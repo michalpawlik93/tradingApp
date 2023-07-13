@@ -10,7 +10,7 @@ on:
     - 'src/TradingApp.TradingWebApi/**'
     - 'src/**'
 jobs:
-  publish:
+  Build:
     runs-on: ubuntu-latest
     environment: development
     steps:
@@ -35,7 +35,7 @@ jobs:
         if: always()
         with:
           name: DotNET Tests
-          path: "/home/runner/work/tradingApp/tradingApp/tests/**/TestResults/test-results.trx"                          
+          path: "**/TestResults/test-results.trx"                          
           reporter: dotnet-trx
           fail-on-error: true
 
