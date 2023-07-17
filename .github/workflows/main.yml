@@ -11,7 +11,7 @@ on:
     - 'src/**'
     - 'tests/**'
 jobs:
-  Build:
+  Build backend:
     runs-on: ubuntu-latest
     environment: development
     steps:
@@ -41,7 +41,36 @@ jobs:
 
       - name: Write to Job Summary
         run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+  Build ui:
+    needs: Build backend
+    runs-on: ubuntu-latest
+    environment: development
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
 
+      - name: Run the tests
+        run: npm test
+
+      - name: Run the test coverage
+        run: npm coverage
+
+      - name: Build
+        run: npm run build
+  Deploy:
+    needs: [Build backend, Build ui]
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v3
       - name: Publish
         run: dotnet publish ./TradingApp.sln --configuration Release --no-build
 
