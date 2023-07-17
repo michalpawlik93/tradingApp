@@ -11,7 +11,7 @@ on:
     - 'src/**'
     - 'tests/**'
 jobs:
-  Build backend:
+  Build_backend:
     runs-on: ubuntu-latest
     environment: development
     steps:
@@ -41,8 +41,7 @@ jobs:
 
       - name: Write to Job Summary
         run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
-  Build ui:
-    needs: Build backend
+  Build_ui:
     runs-on: ubuntu-latest
     environment: development
     strategy:
@@ -66,7 +65,7 @@ jobs:
       - name: Build
         run: npm run build
   Deploy:
-    needs: [Build backend, Build ui]
+    needs: [Build_backend, Build_ui]
     runs-on: ubuntu-latest
     environment: development
     steps:
