@@ -63,7 +63,7 @@ jobs:
         working-directory: ./ui/trading-app
 
       - name: Run the test coverage
-        run: npm coverage
+        run: npm run coverage
         working-directory: ./ui/trading-app
 
       - name: Build
