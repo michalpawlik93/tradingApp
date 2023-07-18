@@ -47,7 +47,7 @@ jobs:
     environment: development
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16.3.0]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.js ${{ matrix.node-version }}
