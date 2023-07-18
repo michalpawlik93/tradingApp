@@ -11,25 +11,27 @@ on:
     - 'src/**'
     - 'tests/**'
     - 'ui/**'
+
 jobs:
   Build_backend:
     runs-on: ubuntu-latest
     environment: development
     steps:
-      - uses: actions/checkout@v3
-      
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0.x'
-        
-      - name: Restore
+
+      - name: Restore NuGet packages
         run: dotnet restore ./TradingApp.sln
-      
-      - name: Build
+
+      - name: Build backend
         run: dotnet build ./TradingApp.sln --configuration Release --no-restore
 
-      - name: Test
+      - name: Test backend
         run: dotnet test ./TradingApp.sln --configuration Release --no-restore /p:CollectCoverage=true --collect:"XPlat Code Coverage" --logger trx
 
       - name: Code Coverage Summary Report
@@ -42,18 +44,22 @@ jobs:
 
       - name: Write to Job Summary
         run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+
   Build_ui:
     runs-on: ubuntu-latest
     environment: development
     strategy:
       matrix:
-        node-version: [16.3.0]
+        node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Install dependencies
         run: npm ci
         working-directory: ./ui/trading-app
@@ -66,16 +72,22 @@ jobs:
         run: npm run coverage
         working-directory: ./ui/trading-app
 
-      - name: Build
+      - name: Build frontend
         run: npm run build
         working-directory: ./ui/trading-app
+
   Deploy:
     needs: [Build_backend, Build_ui]
     runs-on: ubuntu-latest
     environment: development
     steps:
-      - uses: actions/checkout@v3
-      - name: Publish
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Restore NuGet packages
+        run: dotnet restore ./TradingApp.sln
+
+      - name: Publish backend
         run: dotnet publish ./TradingApp.sln --configuration Release --no-build
 
       - name: Upload production-ready build files
