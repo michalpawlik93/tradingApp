@@ -23,8 +23,6 @@ export const FormDateTimePicker = ({
   name,
   control,
   label,
-  minDate,
-  maxDate,
 }: FormDateTimePickerProps) => {
   return (
     <FormControl size="small">
