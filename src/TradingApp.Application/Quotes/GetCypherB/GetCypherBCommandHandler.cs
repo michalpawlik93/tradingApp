@@ -50,7 +50,7 @@ public class GetCypherBCommandHandler
                 request.WaveTrendSettings.MovingAverageLength
             )
         );
-        var vwap = _evaluator.GetVwap(getQuotesResponse.Value);
+        var vwap = _evaluator.GetVwap(getQuotesResponse.Value.ToList());
         var combinedResults = getQuotesResponse.Value
             .Select(
                 (q, i) =>

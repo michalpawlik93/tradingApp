@@ -26,28 +26,4 @@ public static class SmaCustom
 
         return smaValues;
     }
-
-
-    private static decimal CalculateSingleSma(IEnumerable<DomainQuote> domainQuotes, int smaLength, int quoteCount)
-    {
-        if (quoteCount >= smaLength - 1)
-        {
-            decimal sum = 0.0m;
-            int startIndex = quoteCount - smaLength + 1;
-            int endIndex = quoteCount;
-
-            for (int i = startIndex; i <= endIndex; i++)
-            {
-                sum += domainQuotes.ElementAt(i).Close;
-            }
-
-            decimal sma = sum / smaLength;
-            return sma;
-        }
-        else
-        {
-            return 0.0m;
-        }
-    }
-
 }

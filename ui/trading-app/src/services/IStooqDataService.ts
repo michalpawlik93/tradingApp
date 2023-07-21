@@ -1,6 +1,6 @@
 import { CombinedQuoteResponse } from "../types/CombinedQuoteResponse";
 import { CypherBResponse } from "../types/CypherBResponse";
-import { GetQuotesDtoRequest } from "./dtos/GetQuotesDtoRequest";
+import { GetQuotesDtoRequest } from "./dtos/GetQuotesRequestDto";
 
 export interface IStooqDataService {
   getCombinedQuotes: (

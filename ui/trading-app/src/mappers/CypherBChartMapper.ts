@@ -18,7 +18,12 @@ export function mapToApexChartData(
       const x = new Date(quotes[i].ohlc.date);
       const { waveTrend, mfi, vwap } = quotes[i];
 
-      result.waveTrend.push({ y: waveTrend.value, x });
+      result.waveTrend.push({
+        y: waveTrend.value,
+        x,
+        crossesOver: waveTrend.crossesOver,
+        crossesUnder: waveTrend.crossesUnder,
+      });
       result.mfi.push({ y: mfi, x });
       result.vwap.push({ y: vwap, x });
 

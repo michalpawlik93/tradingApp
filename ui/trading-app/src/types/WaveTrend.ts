@@ -1,5 +1,5 @@
 export interface WaveTrend {
   value: number;
-  priceIsMovingLower: boolean;
-  priceIsMovingHigher: boolean;
+  crossesOver: boolean;
+  crossesUnder: boolean;
 }

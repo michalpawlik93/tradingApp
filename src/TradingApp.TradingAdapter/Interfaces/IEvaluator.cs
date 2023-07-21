@@ -14,10 +14,6 @@ public interface IEvaluator
         IEnumerable<DomainQuote> domainQuotes,
         int lookBackPeriod = RsiSettingsConst.DefaultPeriod
     );
-    IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domainQuotes);
-    IEnumerable<decimal?> GetMomentumWave(
-        IEnumerable<DomainQuote> domainQuotes,
-        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
-    );
+    IEnumerable<decimal?> GetVwap(List<DomainQuote> domainQuotes);
     IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings);
 }

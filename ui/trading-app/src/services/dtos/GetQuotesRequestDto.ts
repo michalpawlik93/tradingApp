@@ -1,4 +1,4 @@
-export interface GetQuotesDtoRequest {
+export interface GetQuotesRequestDto {
   granularity: string;
   assetType: string;
   assetName: string;

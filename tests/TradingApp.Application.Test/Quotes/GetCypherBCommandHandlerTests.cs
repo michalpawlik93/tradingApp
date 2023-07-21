@@ -43,7 +43,7 @@ public class GetCypherBCommandHandlerTests
         StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Ok(quotes));
         var values = Enumerable.Range(0, quotes.Count()).Select(_ => (decimal?)new Random().NextDouble()).ToList();
         var waveTrends = Enumerable.Range(0, quotes.Count()).Select(_ => waveTrend).ToList();
-        Evaluator.Setup(_ => _.GetVwap(It.IsAny<IEnumerable<Quote>>())).Returns(values);
+        Evaluator.Setup(_ => _.GetVwap(It.IsAny<List<Quote>>())).Returns(values);
         Evaluator.Setup(_ => _.GetMFI(It.IsAny<IEnumerable<Quote>>(), It.IsAny<int>())).Returns(values);
         Evaluator.Setup(_ => _.GetWaveTrend(It.IsAny<IEnumerable<Quote>>(), It.IsAny<WaveTrendSettings>())).Returns(waveTrends);
         //Act

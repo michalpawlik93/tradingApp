@@ -3,14 +3,15 @@ import { StooqDataService } from "../services/StooqDataService";
 import { CombinedQuote } from "../types/CombinedQuote";
 import { CypherBQuote } from "../types/CypherBQuote";
 import { RsiSettings } from "../types/RsiSettings";
-import { GetQuotesDtoRequest } from "../services/dtos/GetQuotesDtoRequest";
+import { GetQuotesRequestDto } from "../services/dtos/GetQuotesRequestDto";
+import { GetCypherBDto } from "../services/dtos/GetCypherBDto";
 
 interface StooqState {
   combinedQuotes: CombinedQuote[];
   cypherBQuotes: CypherBQuote[];
   rsiSettings: RsiSettings;
-  fetchCombinedQuotes: (request: GetQuotesDtoRequest) => Promise<void>;
-  fetchCypherBQuotes: (request: GetQuotesDtoRequest) => Promise<void>;
+  fetchCombinedQuotes: (request: GetQuotesRequestDto) => Promise<void>;
+  fetchCypherBQuotes: (request: GetCypherBDto) => Promise<void>;
 }
 
 export const useStooqStore = create<StooqState>((set) => ({
@@ -20,7 +21,7 @@ export const useStooqStore = create<StooqState>((set) => ({
     overbought: 0,
     oversold: 0,
   },
-  fetchCombinedQuotes: async (request: GetQuotesDtoRequest) => {
+  fetchCombinedQuotes: async (request: GetQuotesRequestDto) => {
     try {
       const response = await StooqDataService.getCombinedQuotes(request);
       set({
@@ -34,7 +35,7 @@ export const useStooqStore = create<StooqState>((set) => ({
       console.error("Error fetching data:", error);
     }
   },
-  fetchCypherBQuotes: async (request: GetQuotesDtoRequest) => {
+  fetchCypherBQuotes: async (request: GetCypherBDto) => {
     try {
       const response = await StooqDataService.getCypherB(request);
       set({

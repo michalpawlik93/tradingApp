@@ -4,32 +4,54 @@ namespace TradingApp.TradingAdapter.CustomIndexes;
 
 public static class VwapCustom
 {
-    public static List<decimal> CalculateVwap(IEnumerable<DomainQuote> domainQuotes)
+    public static IEnumerable<decimal?> CalculateVWAP(List<DomainQuote> quotes)
     {
-        List<decimal> vwapValues = new List<decimal>();
+        var result = new List<decimal?>();
+        decimal vwap = 0;
+        decimal sumVolumePrice = 0;
+        decimal sumVolume = 0;
+        int d = 0;
 
-        decimal totalVolumePrice = 0.0m;
-        decimal totalVolume = 0.0m;
 
-        foreach (var quote in domainQuotes)
+        for (int i = 0; i < quotes.Count; i++)
         {
-            decimal close = quote.Close;
-            decimal volume = quote.Volume;
+            DomainQuote currentQuote = quotes[i];
 
-            totalVolumePrice += close * volume;
-            totalVolume += volume;
-
-            if (totalVolume > 0.0m)
+            if (i > 0 && currentQuote.Date.Date != quotes[i - 1].Date.Date)
             {
-                decimal vwap = totalVolumePrice / totalVolume;
-                vwapValues.Add(vwap);
+                d = 0;
             }
             else
             {
-                vwapValues.Add(0.0m);
+                d++;
+            }
+
+            if (currentQuote.Volume > 0)
+            {
+                sumVolumePrice += currentQuote.Volume * currentQuote.Close;
+                sumVolume += currentQuote.Volume;
+                vwap = sumVolumePrice / sumVolume;
+            }
+            result.Add(CalculateStandardDeviation(quotes, d, vwap));
+        }
+        return result;
+    }
+
+    private static decimal CalculateStandardDeviation(List<DomainQuote> quotes, int d, decimal vwap)
+    {
+        double sumSquaredDifference = 0;
+        decimal sumVolume = 0;
+
+        for (int i = 0; i < quotes.Count; i++)
+        {
+            DomainQuote currentQuote = quotes[i];
+            if (currentQuote.Date.Date == quotes[i - 1].Date.Date && d > 0)
+            {
+                sumSquaredDifference += Math.Pow((double)(currentQuote.Close - vwap), 2) * (double)currentQuote.Volume;
+                sumVolume += currentQuote.Volume;
             }
         }
 
-        return vwapValues;
+        return (decimal)Math.Sqrt(sumSquaredDifference / (double)sumVolume);
     }
 }

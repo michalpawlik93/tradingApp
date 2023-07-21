@@ -30,30 +30,8 @@ public class SkenderEvaluator : ISkenderEvaluator
             .GetMfi(lookBackPeriod)
             .Select(r => r.Mfi.ToNullableDecimal());
 
-    public IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domainQuotes) =>
+    public IEnumerable<decimal?> GetVwap(List<DomainQuote> domainQuotes) =>
         domainQuotes.MapToSkenderQuotes().GetVwap().Select(r => r.Vwap.ToNullableDecimal());
-
-    public IEnumerable<decimal?> GetMomentumWave(
-        IEnumerable<DomainQuote> domainQuotes,
-        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
-    )
-    {
-        RsiResult[] rsiResults = domainQuotes.MapToSkenderQuotes().GetRsi(lookBackPeriod).ToArray();
-        RocResult[] rocResults = domainQuotes.MapToSkenderQuotes().GetRoc(lookBackPeriod).ToArray();
-
-        return domainQuotes.Select(
-            (_, i) =>
-            {
-                if (rsiResults[i]?.Rsi is null || rocResults[i]?.Roc is null)
-                    return null;
-
-                decimal? momentumWave =
-                    (Convert.ToDecimal(rsiResults[i].Rsi) + Convert.ToDecimal(rocResults[i].Roc))
-                    / 2;
-                return momentumWave;
-            }
-        );
-    }
 
     public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings)
     {

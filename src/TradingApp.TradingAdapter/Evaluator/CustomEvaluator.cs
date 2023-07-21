@@ -16,10 +16,7 @@ public class CustomEvaluator : ICustomEvaluator
     public IEnumerable<decimal?> GetRSI(
         IEnumerable<DomainQuote> domainQuotes,
         int lookBackPeriod = RsiSettingsConst.DefaultPeriod
-    ) =>
-        RsiCustom
-            .CalculateRsi(domainQuotes, WaveTrendSettingsConst.AverageLength)
-            .Select(r => (decimal?)r);
+    ) => throw new NotImplementedException();
 
     public IEnumerable<decimal?> GetMFI(
         IEnumerable<DomainQuote> domainQuotes,
@@ -30,13 +27,8 @@ public class CustomEvaluator : ICustomEvaluator
             .GetMfi(lookBackPeriod)
             .Select(r => r.Mfi.ToNullableDecimal());
 
-    public IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domainQuotes) =>
-        VwapCustom.CalculateVwap(domainQuotes).Select(r => (decimal?)r);
-
-    public IEnumerable<decimal?> GetMomentumWave(
-        IEnumerable<DomainQuote> domainQuotes,
-        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
-    ) => throw new NotImplementedException();
+    public IEnumerable<decimal?> GetVwap(List<DomainQuote> domainQuotes) =>
+        VwapCustom.CalculateVWAP(domainQuotes);
 
     public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings)
     {

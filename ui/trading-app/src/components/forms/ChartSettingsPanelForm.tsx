@@ -10,10 +10,10 @@ import { FormDropdown } from "../presentational/FormDropdown";
 import { FormDateTimePicker } from "../presentational/FormDateTimePicker";
 import { useStooqStore } from "../../stores/stooqStore";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import { GetQuotesDtoRequest } from "../../services/dtos/GetQuotesDtoRequest";
+import { GetQuotesRequestDto } from "../../services/dtos/GetQuotesRequestDto";
 
 export interface IChartSettingsPanelForm
-  extends Pick<GetQuotesDtoRequest, "granularity" | "assetType" | "assetName"> {
+  extends Pick<GetQuotesRequestDto, "granularity" | "assetType" | "assetName"> {
   startDate?: Date;
   endDate?: Date;
 }
@@ -56,11 +56,22 @@ export const ChartSettingsPanelForm = ({
   const onSubmit = async (data: IChartSettingsPanelForm) => {
     console.log(data);
     await fetchData({
-      granularity: data.granularity,
-      assetType: data.assetType,
-      assetName: data.assetName,
-      startDate: data.startDate?.toISOString(),
-      endDate: data.endDate?.toISOString(),
+      asset: {
+        name: data.assetName,
+        type: data.assetType,
+      },
+      timeFrame: {
+        granularity: data.granularity,
+        startDate: data.startDate?.toISOString(),
+        endDate: data.endDate?.toISOString(),
+      },
+      waveTrendSettings: {
+        channelLength: 8,
+        averageLength: 6,
+        movingAverageLength: 3,
+        oversold: -80,
+        overbought: 80,
+      },
     });
   };
   return (
