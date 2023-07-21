@@ -96,7 +96,6 @@ jobs:
           dotnet restore ./TradingApp.sln
           dotnet build ./TradingApp.sln -c Release --no-restore
           dotnet publish ./TradingApp.sln -c Release --no-build
-            --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
