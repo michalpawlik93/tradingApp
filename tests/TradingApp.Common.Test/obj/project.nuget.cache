@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "dqJZjYEPYV5fwFbZujN4wqN7TnIhWQMWsDhoa+CrBuHsfXHjOVRgOPOsV/F8UVg8iIQeeiGlV5BYbDkvHfPz9g==",
+  "dgSpecHash": "LI9cshb/S3Rjst/T7PB2hYDjUUWW5VNDqJmB5YUmTQ7Pg2+VwHni2eta9MqqOoE+BayOC1/MUmSFrBoMxWiLQw==",
   "success": true,
   "projectFilePath": "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.Common.Test\\TradingApp.Common.Test.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\micha\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\coverlet.msbuild\\6.0.0\\coverlet.msbuild.6.0.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\fluentresults\\3.15.1\\fluentresults.3.15.1.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\microsoft.codecoverage\\17.5.0\\microsoft.codecoverage.17.5.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

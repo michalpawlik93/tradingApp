@@ -8,6 +8,8 @@ using TradingApp.Application.Abstraction;
 using TradingApp.Application.Authentication.GetToken;
 using TradingApp.Application.Models;
 using TradingApp.Application.Quotes.GetCypherB;
+using TradingApp.Application.Quotes.GetCypherB.Dto;
+using TradingApp.Application.Quotes.GetStooqCombinedQuotes.Dto;
 using TradingApp.Application.Quotes.GetStooqQuotes;
 using TradingApp.Application.Services;
 using TradingApp.StooqProvider.Setup;
@@ -21,8 +23,8 @@ public static class ServicesExtensionMethods
     {
         services.AddMediatR(typeof(Mediator));
         services.AddScoped<IRequestHandler<GetTokenCommand, ServiceResponse<string>>, GetTokenCommandHandler>();
-        services.AddScoped<IRequestHandler<GetStooqCombinedQuotesCommand, ServiceResponse<GetStooqCombinedQuotesResponse>>, GetStooqCombinedQuotesCommandHandler>();
-        services.AddScoped<IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponse>>, GetCypherBCommandHandler>();
+        services.AddScoped<IRequestHandler<GetStooqCombinedQuotesCommand, ServiceResponse<GetStooqCombinedQuotesResponseDto>>, GetStooqCombinedQuotesCommandHandler>();
+        services.AddScoped<IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponseDto>>, GetCypherBCommandHandler>();
         services.AddTransient<IJwtProvider, JwtProvider>();
         services.AddTransient<ISkenderEvaluator, SkenderEvaluator>();
         services.AddTransient<ICustomEvaluator, CustomEvaluator>();

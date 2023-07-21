@@ -13,25 +13,25 @@ public interface ISkenderEvaluator : IEvaluator { }
 public class SkenderEvaluator : ISkenderEvaluator
 {
     public IEnumerable<decimal?> GetRSI(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
+        IEnumerable<DomainQuote> domainQuotes,
+        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
     ) =>
-        domeinQuotes
+        domainQuotes
             .MapToSkenderQuotes()
-            .GetRsi(loockBackPeriod)
+            .GetRsi(lookBackPeriod)
             .Select(r => r.Rsi.ToNullableDecimal());
 
     public IEnumerable<decimal?> GetMFI(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = 14
+        IEnumerable<DomainQuote> domainQuotes,
+        int lookBackPeriod = 14
     ) =>
-        domeinQuotes
+        domainQuotes
             .MapToSkenderQuotes()
-            .GetMfi(loockBackPeriod)
+            .GetMfi(lookBackPeriod)
             .Select(r => r.Mfi.ToNullableDecimal());
 
-    public IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domeinQuotes) =>
-        domeinQuotes.MapToSkenderQuotes().GetVwap().Select(r => r.Vwap.ToNullableDecimal());
+    public IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domainQuotes) =>
+        domainQuotes.MapToSkenderQuotes().GetVwap().Select(r => r.Vwap.ToNullableDecimal());
 
     public IEnumerable<decimal?> GetMomentumWave(
         IEnumerable<DomainQuote> domainQuotes,
@@ -55,7 +55,7 @@ public class SkenderEvaluator : ISkenderEvaluator
         );
     }
 
-    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domeinQuotes)
+    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings)
     {
         throw new NotImplementedException();
     }

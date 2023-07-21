@@ -45,7 +45,7 @@ public class GetCypherBCommandHandlerTests
         var waveTrends = Enumerable.Range(0, quotes.Count()).Select(_ => waveTrend).ToList();
         Evaluator.Setup(_ => _.GetVwap(It.IsAny<IEnumerable<Quote>>())).Returns(values);
         Evaluator.Setup(_ => _.GetMFI(It.IsAny<IEnumerable<Quote>>(), It.IsAny<int>())).Returns(values);
-        Evaluator.Setup(_ => _.GetWaveTrend(It.IsAny<IEnumerable<Quote>>())).Returns(waveTrends);
+        Evaluator.Setup(_ => _.GetWaveTrend(It.IsAny<IEnumerable<Quote>>(), It.IsAny<WaveTrendSettings>())).Returns(waveTrends);
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 

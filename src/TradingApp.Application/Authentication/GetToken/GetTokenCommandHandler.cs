@@ -16,7 +16,7 @@ public class GetTokenCommandHandler : IRequestHandler<GetTokenCommand, ServiceRe
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task<ServiceResponse<string>> Handle(
+    public Task<ServiceResponse<string>> Handle(
         GetTokenCommand request,
         CancellationToken cancellationToken
     )
@@ -24,6 +24,6 @@ public class GetTokenCommandHandler : IRequestHandler<GetTokenCommand, ServiceRe
         _logger.LogInformation("GetTokenCommandHandler started.");
         var getTokenResult = _jwtProvider.Generate(request.user);
         _logger.LogInformation("GetTokenCommandHandler finished.");
-        return new ServiceResponse<string>(getTokenResult);
+        return Task.FromResult(new ServiceResponse<string>(getTokenResult));
     }
 }

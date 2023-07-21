@@ -2,6 +2,7 @@
 using MediatR;
 using Serilog;
 using TradingApp.Application.Models;
+using TradingApp.Application.Quotes.GetStooqCombinedQuotes.Dto;
 using TradingApp.StooqProvider;
 using TradingApp.TradingAdapter.Constants;
 using TradingApp.TradingAdapter.Evaluator;
@@ -12,7 +13,7 @@ namespace TradingApp.Application.Quotes.GetStooqQuotes;
 public class GetStooqCombinedQuotesCommandHandler
     : IRequestHandler<
         GetStooqCombinedQuotesCommand,
-        ServiceResponse<GetStooqCombinedQuotesResponse>
+        ServiceResponse<GetStooqCombinedQuotesResponseDto>
     >
 {
     private readonly IStooqProvider _provider;
@@ -30,7 +31,7 @@ public class GetStooqCombinedQuotesCommandHandler
         _skenderEvaluator = skenderEvaluator;
     }
 
-    public async Task<ServiceResponse<GetStooqCombinedQuotesResponse>> Handle(
+    public async Task<ServiceResponse<GetStooqCombinedQuotesResponseDto>> Handle(
         GetStooqCombinedQuotesCommand request,
         CancellationToken cancellationToken
     )
@@ -44,7 +45,7 @@ public class GetStooqCombinedQuotesCommandHandler
         );
         if (getQuotesResponse.IsFailed)
         {
-            return new ServiceResponse<GetStooqCombinedQuotesResponse>(
+            return new ServiceResponse<GetStooqCombinedQuotesResponseDto>(
                 getQuotesResponse.ToResult()
             );
         }
@@ -52,9 +53,9 @@ public class GetStooqCombinedQuotesCommandHandler
         var combinedResults = getQuotesResponse.Value
             .Select((q, i) => new CombinedQuote(q, rsiResults.ElementAt(i), null))
             .ToList();
-        return new ServiceResponse<GetStooqCombinedQuotesResponse>(
+        return new ServiceResponse<GetStooqCombinedQuotesResponseDto>(
             Result.Ok(
-                new GetStooqCombinedQuotesResponse(
+                new GetStooqCombinedQuotesResponseDto(
                     combinedResults,
                     new RsiSettings(RsiSettingsConst.Oversold, RsiSettingsConst.Overbought)
                 )

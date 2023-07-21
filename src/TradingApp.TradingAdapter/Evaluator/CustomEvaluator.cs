@@ -2,7 +2,6 @@
 using TradingApp.Common.Utilities;
 using TradingApp.TradingAdapter.Constants;
 using TradingApp.TradingAdapter.CustomIndexes;
-using TradingApp.TradingAdapter.IndexesUtils;
 using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Mappers;
 using TradingApp.TradingAdapter.Models;
@@ -15,56 +14,32 @@ public interface ICustomEvaluator : IEvaluator { }
 public class CustomEvaluator : ICustomEvaluator
 {
     public IEnumerable<decimal?> GetRSI(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
+        IEnumerable<DomainQuote> domainQuotes,
+        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
     ) =>
         RsiCustom
-            .CalculateRsi(domeinQuotes, WaveTrendSettingsConst.AverageLength)
+            .CalculateRsi(domainQuotes, WaveTrendSettingsConst.AverageLength)
             .Select(r => (decimal?)r);
 
     public IEnumerable<decimal?> GetMFI(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = 14
+        IEnumerable<DomainQuote> domainQuotes,
+        int lookBackPeriod = 14
     ) =>
-        domeinQuotes
+        domainQuotes
             .MapToSkenderQuotes()
-            .GetMfi(loockBackPeriod)
+            .GetMfi(lookBackPeriod)
             .Select(r => r.Mfi.ToNullableDecimal());
 
-    public IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domeinQuotes) =>
-        VwapCustom.CalculateVwap(domeinQuotes).Select(r => (decimal?)r);
+    public IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domainQuotes) =>
+        VwapCustom.CalculateVwap(domainQuotes).Select(r => (decimal?)r);
 
     public IEnumerable<decimal?> GetMomentumWave(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
+        IEnumerable<DomainQuote> domainQuotes,
+        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
     ) => throw new NotImplementedException();
 
-    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes)
+    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings)
     {
-        var ohlcData = domainQuotes.ToList();
-        var rsi = RsiCustom.CalculateRsi(ohlcData, WaveTrendSettingsConst.AverageLength);
-        var sma = domainQuotes
-            .MapToSkenderQuotes()
-            .GetSma(WaveTrendSettingsConst.AverageLength)
-            .Select(r => r.Sma.TryParse()).ToList();
-        var waveTrendValues = WaveTrendCustom.CalculateWaveTrend(
-            ohlcData,
-            sma,
-            WaveTrendSettingsConst.ChannelLength,
-            WaveTrendSettingsConst.AverageLength
-        );
-
-        return ohlcData.Select((q, index) => CreateWaveTrend(waveTrendValues, rsi, index));
-    }
-
-    private WaveTrend CreateWaveTrend(List<decimal> waveTrendValues, List<decimal> rsiValues, int index)
-    {
-        decimal waveTrend = waveTrendValues[index];
-        decimal rsi = rsiValues[index];
-
-        bool isGreenDot = waveTrend > 0;
-        bool isRedDot = waveTrend < 0;
-
-        return new WaveTrend(waveTrend, isGreenDot, isRedDot);
+        return WaveTrendProrealCode.GetWaveTrend(domainQuotes, settings);
     }
 }

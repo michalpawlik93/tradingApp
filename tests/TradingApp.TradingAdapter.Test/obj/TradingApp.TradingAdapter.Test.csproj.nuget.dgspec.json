@@ -4,14 +4,14 @@
     "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.TradingAdapter.Test\\TradingApp.TradingAdapter.Test.csproj": {}
   },
   "projects": {
-    "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.TradingAdapter.Test\\TradingApp.TradingAdapter.Test.csproj": {
+    "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.Common\\TradingApp.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.TradingAdapter.Test\\TradingApp.TradingAdapter.Test.csproj",
-        "projectName": "TradingApp.TradingAdapter.Test",
-        "projectPath": "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.TradingAdapter.Test\\TradingApp.TradingAdapter.Test.csproj",
+        "projectUniqueName": "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.Common\\TradingApp.Common.csproj",
+        "projectName": "TradingApp.Common",
+        "projectPath": "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.Common\\TradingApp.Common.csproj",
         "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
-        "outputPath": "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.TradingAdapter.Test\\obj\\",
+        "outputPath": "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,6 +44,152 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "FluentResults": {
+              "target": "Package",
+              "version": "[3.15.1, )"
+            },
+            "Microsoft.Extensions.Options.ConfigurationExtensions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.TradingAdapter\\TradingApp.TradingAdapter.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.TradingAdapter\\TradingApp.TradingAdapter.csproj",
+        "projectName": "TradingApp.TradingAdapter",
+        "projectPath": "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.TradingAdapter\\TradingApp.TradingAdapter.csproj",
+        "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
+        "outputPath": "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.TradingAdapter\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\micha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.Common\\TradingApp.Common.csproj": {
+                "projectPath": "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.Common\\TradingApp.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[8.0.0-preview.4.23259.5, )"
+            },
+            "Skender.Stock.Indicators": {
+              "target": "Package",
+              "version": "[2.4.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.TradingAdapter.Test\\TradingApp.TradingAdapter.Test.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.TradingAdapter.Test\\TradingApp.TradingAdapter.Test.csproj",
+        "projectName": "TradingApp.TradingAdapter.Test",
+        "projectPath": "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.TradingAdapter.Test\\TradingApp.TradingAdapter.Test.csproj",
+        "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
+        "outputPath": "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.TradingAdapter.Test\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\micha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.TradingAdapter\\TradingApp.TradingAdapter.csproj": {
+                "projectPath": "E:\\Nauka\\copy\\tradingViewIntegration\\src\\TradingApp.TradingAdapter\\TradingApp.TradingAdapter.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.5.0, )"
@@ -52,7 +198,13 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[6.0.0, )"
+            },
+            "coverlet.msbuild": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
             },
             "xunit": {
               "target": "Package",

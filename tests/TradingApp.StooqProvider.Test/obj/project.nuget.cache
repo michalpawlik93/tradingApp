@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "WX64VdK3QaVfd6iUstuOdm70TpXufRgZnP6439A2rV/9t/ZEHcf1EhPcVU3lxToTkeCMxNj2lF2aP6YpnkghUQ==",
+  "dgSpecHash": "ioElZJZPsvKlMc9+xfK6JNccVKgp/+4laTqf2hHuyOTVpva2DpNdVBmIqwiltpwrFUYmYNU756EfI8crDa+0Ag==",
   "success": true,
   "projectFilePath": "E:\\Nauka\\copy\\tradingViewIntegration\\tests\\TradingApp.StooqProvider.Test\\TradingApp.StooqProvider.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\micha\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
-    "C:\\Users\\micha\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\coverlet.msbuild\\6.0.0\\coverlet.msbuild.6.0.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\fluentresults\\3.15.1\\fluentresults.3.15.1.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\microsoft.codecoverage\\17.5.0\\microsoft.codecoverage.17.5.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0-preview.4.23259.5\\microsoft.extensions.configuration.abstractions.8.0.0-preview.4.23259.5.nupkg.sha512",

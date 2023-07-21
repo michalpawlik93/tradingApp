@@ -1,3 +1,3 @@
 ﻿namespace TradingApp.TradingAdapter.Models;
 
-public record WaveTrend(decimal? Value, bool PriceIsMovingLower, bool PriceIsMovingHigher);
+public record WaveTrend(decimal? Value, bool CrossesOver, bool CrossesUnder);

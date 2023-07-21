@@ -7,17 +7,17 @@ namespace TradingApp.TradingAdapter.Interfaces;
 public interface IEvaluator
 {
     IEnumerable<decimal?> GetRSI(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
+        IEnumerable<DomainQuote> domainQuotes,
+        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
     );
     IEnumerable<decimal?> GetMFI(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
+        IEnumerable<DomainQuote> domainQuotes,
+        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
     );
-    IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domeinQuotes);
+    IEnumerable<decimal?> GetVwap(IEnumerable<DomainQuote> domainQuotes);
     IEnumerable<decimal?> GetMomentumWave(
-        IEnumerable<DomainQuote> domeinQuotes,
-        int loockBackPeriod = RsiSettingsConst.DefaultPeriod
+        IEnumerable<DomainQuote> domainQuotes,
+        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
     );
-    IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domeinQuotes);
+    IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings);
 }
