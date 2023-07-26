@@ -6,7 +6,7 @@ using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.Application.Quotes.GetCypherB;
 
-public record GetCypherBCommand(TimeFrame TimeFrame, Asset Asset, WaveTrendSettings WaveTrendSettings)
+public record GetCypherBCommand(TimeFrame TimeFrame, Asset Asset, WaveTrendSettings WaveTrendSettings, SRsiSettings SRsiSettings)
     : IRequest<ServiceResponse<GetCypherBResponseDto>>;
 
 public static class GetCypherBCommandExtensions
@@ -16,7 +16,8 @@ public static class GetCypherBCommandExtensions
         return new GetCypherBCommand(
             TimeFrameDtoMapper.ToDomainModel(request.TimeFrame),
             AssetDtoMapper.ToDomainModel(request.Asset),
-            WaveTrendSettingsDtoMapper.ToDomainModel(request.WaveTrendSettings)
+            WaveTrendSettingsDtoMapper.ToDomainModel(request.WaveTrendSettings),
+            SRsiSettingsDtoMapper.ToDomainModel(request.SRsiSettings)
         );
     }
 }

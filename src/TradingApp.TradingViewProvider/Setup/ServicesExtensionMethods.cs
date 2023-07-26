@@ -16,5 +16,5 @@ public static class ServicesExtensionMethods
 public class TradingViewClientConfig
 {
     public const string ConfigSectionName = "TradingViewClient";
-    public string BaseUrl { get; set; }
+    public string? BaseUrl { get; set; }
 }

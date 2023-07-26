@@ -22,4 +22,9 @@ public class GetCypherBDto
     /// Gets or sets the settings for the WaveTrend calculation.
     /// </summary>
     public WaveTrendSettingsDto WaveTrendSettings { get; set; }
+
+    /// <summary>
+    /// Gets or sets the settings for the SRSI calculation.
+    /// </summary>
+    public SRsiSettingsDto SRsiSettings { get; set; }
 }

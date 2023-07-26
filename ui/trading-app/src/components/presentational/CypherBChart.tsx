@@ -53,14 +53,14 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
     //   name: "MFI",
     //   data: chartData.mfi,
     // },
-    {
-      name: "Trend Wave",
-      data: chartData.waveTrend,
-    },
     // {
-    //   name: "VWAP",
-    //   data: chartData.vwap,
+    //   name: "Trend Wave",
+    //   data: chartData.waveTrend,
     // },
+    {
+      name: "VWAP",
+      data: chartData.vwap,
+    },
   ];
 
   const options: ApexOptions = {
@@ -92,28 +92,31 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
         },
       ],
       points: [
-        {
-          x: new Date("27 Oct 2022").getTime(),
-          y: 80,
-          marker: {
-            size: 6,
-            fillColor: "#fff",
-            strokeColor: "#2698FF",
-            radius: 2,
-          },
-          label: {
-            borderColor: "#FF4560",
-            offsetY: 0,
-            style: {
-              color: "#fff",
-              background: "#FF4560",
-            },
-            text: "ssssss",
-          },
-        },
+        // {
+        //   x: new Date("27 Oct 2022").getTime(),
+        //   y: 80,
+        //   marker: {
+        //     size: 6,
+        //     fillColor: "#fff",
+        //     strokeColor: "#2698FF",
+        //     radius: 2,
+        //   },
+        //   label: {
+        //     borderColor: "#FF4560",
+        //     offsetY: 0,
+        //     style: {
+        //       color: "#fff",
+        //       background: "#FF4560",
+        //     },
+        //     text: "ssssss",
+        //   },
+        // },
       ],
     },
     chart: {
+      animations: {
+        enabled: false,
+      },
       height: 350,
       foreColor: "#ccc",
     },

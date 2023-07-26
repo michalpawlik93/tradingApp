@@ -36,15 +36,11 @@ public class GetCypherBCommandHandler
         }
         var mfi = _evaluator.GetMFI(getQuotesResponse.Value);
 
-        int channellen = 8; // Channel Length
-        int averagelen = 6; // Average Length
-        int wt1malen = 3; // Moving Average Length
-        int channellen2 = 13; // Channel Length
-        int averagelen2 = 55; // Average Length
         var waveTrend = _evaluator.GetWaveTrend(
             getQuotesResponse.Value,
             new WaveTrendSettings(
-                request.WaveTrendSettings.RsiSettings,
+                request.WaveTrendSettings.Oversold,
+                request.WaveTrendSettings.Overbought,
                 request.WaveTrendSettings.ChannelLength,
                 request.WaveTrendSettings.AverageLength,
                 request.WaveTrendSettings.MovingAverageLength

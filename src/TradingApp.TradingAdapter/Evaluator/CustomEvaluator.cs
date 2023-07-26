@@ -5,7 +5,6 @@ using TradingApp.TradingAdapter.CustomIndexes;
 using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Mappers;
 using TradingApp.TradingAdapter.Models;
-using DomainQuote = TradingApp.TradingAdapter.Models.Quote;
 
 namespace TradingApp.TradingAdapter.Evaluator;
 
@@ -28,10 +27,13 @@ public class CustomEvaluator : ICustomEvaluator
             .Select(r => r.Mfi.ToNullableDecimal());
 
     public IEnumerable<decimal?> GetVwap(List<DomainQuote> domainQuotes) =>
-        VwapCustom.CalculateVWAP(domainQuotes);
+        VwapCustom.CalculateVWAP(domainQuotes, 4);
 
-    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings)
+    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings) =>
+        WaveTrendProrealCode.GetWaveTrend(domainQuotes, settings, true, 4);
+
+    public IEnumerable<Srsi> GetSRSI(IEnumerable<DomainQuote> domainQuotes, SRsiSettings settings)
     {
-        return WaveTrendProrealCode.GetWaveTrend(domainQuotes, settings);
+        return SRsiCustom.Calculate(domainQuotes, settings);
     }
 }

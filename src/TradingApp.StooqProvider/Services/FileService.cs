@@ -10,7 +10,7 @@ namespace TradingApp.StooqProvider.Services;
 
 public interface IFileService
 {
-    Task<Result<ICollection<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset);
+    Task<Result<ICollection<DomainQuote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset);
     Task SaveHistoryQuotaFile(byte[] fileData, TimeFrame timeFrame, Asset asset);
     bool FileExist(TimeFrame timeFrame, Asset asset);
 }
@@ -23,21 +23,21 @@ public class FileService : IFileService
         _zipArchiveProvider = zipArchiveProvider;
     }
 
-    public async Task<Result<ICollection<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset)
+    public async Task<Result<ICollection<DomainQuote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset)
     {
         using var zipArchive = _zipArchiveProvider.OpenRead(timeFrame.Granularity);
         var zipEntry = _zipArchiveProvider.GetEntry(zipArchive, timeFrame.Granularity, asset.Type, asset.Name);
 
         if (zipEntry == null)
         {
-            return Result.Fail<ICollection<Quote>>($"Can not found file. Path: {FileServiceUtils.AncvFilePath}");
+            return Result.Fail<ICollection<DomainQuote>>($"Can not found file. Path: {FileServiceUtils.AncvFilePath}");
         }
         using var entryStream = zipEntry.Open();
         using var reader = new StreamReader(entryStream);
         string fileContent = await reader.ReadToEndAsync();
         string[] lines = fileContent.Split('\n');
 
-        var quotes = new List<Quote>();
+        var quotes = new List<DomainQuote>();
         foreach (var line in lines)
         {
             string[] fields = line.Split(',');
@@ -53,11 +53,11 @@ public class FileService : IFileService
                 var dateTimeValue = DateTimeUtils.ParseDateTime(dateValue, timeValue);
                 if (dateTimeValue != DateTime.MinValue)
                 {
-                    quotes.Add(new Quote(dateTimeValue, openValue, highValue, lowValue, closeValue, volumeValue));
+                    quotes.Add(new DomainQuote(dateTimeValue, openValue, highValue, lowValue, closeValue, volumeValue));
                 }
             }
         }
-        return Result.Ok<ICollection<Quote>>(quotes);
+        return Result.Ok<ICollection<DomainQuote>>(quotes);
     }
 
     [ExcludeFromCodeCoverage]

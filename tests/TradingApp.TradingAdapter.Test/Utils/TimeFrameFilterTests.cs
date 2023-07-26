@@ -10,11 +10,11 @@ public class TimeFrameFilterTests
     public void FilterByTimeFrame_ShouldFilterQuotesWithinTimeFrame()
     {
         // Arrange
-        var quotes = new List<Quote>
+        var quotes = new List<DomainQuote>
         {
-            new Quote(new DateTime(2023, 7, 20), 1,2,3,4,5),
-            new Quote(new DateTime(2024, 7, 20), 1,2,3,4,5),
-                        new Quote(new DateTime(2025, 7, 20), 1,2,3,4,5),
+            new DomainQuote(new DateTime(2023, 7, 20), 1,2,3,4,5),
+            new DomainQuote(new DateTime(2024, 7, 20), 1,2,3,4,5),
+                        new DomainQuote(new DateTime(2025, 7, 20), 1,2,3,4,5),
         };
 
         var timeFrame = new TimeFrame(Granularity.Daily, new DateTime(2024, 7, 20), new DateTime(2025, 7, 20));

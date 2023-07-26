@@ -3,7 +3,7 @@
 /// <summary>
 /// Data transfer object for configuring WaveTrend indicator parameters.
 /// </summary>
-public class WaveTrendSettingsDto
+public class WaveTrendSettingsDto : OscillationSettings
 {
     /// <summary>
     /// Gets or sets the number of periods used to calculate the channel's width.
@@ -21,12 +21,12 @@ public class WaveTrendSettingsDto
     public int MovingAverageLength { get; set; }
 
     /// <summary>
-    /// Gets or sets the threshold level below which an asset is considered oversold.
+    /// Show Vwap for WaveTrend
     /// </summary>
-    public decimal Oversold { get; set; }
+    public decimal EnableVwap { get; set; }
 
     /// <summary>
-    /// Gets or sets the threshold level above which an asset is considered overbought.
+    /// Show WaveTrend
     /// </summary>
-    public decimal Overbought { get; set; }
+    public decimal Enable { get; set; }
 }

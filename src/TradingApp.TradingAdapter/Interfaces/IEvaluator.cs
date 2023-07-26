@@ -1,6 +1,6 @@
 ﻿using TradingApp.TradingAdapter.Constants;
 using TradingApp.TradingAdapter.Models;
-using DomainQuote = TradingApp.TradingAdapter.Models.Quote;
+using DomainQuote = TradingApp.TradingAdapter.Models.DomainQuote;
 
 namespace TradingApp.TradingAdapter.Interfaces;
 
@@ -15,5 +15,12 @@ public interface IEvaluator
         int lookBackPeriod = RsiSettingsConst.DefaultPeriod
     );
     IEnumerable<decimal?> GetVwap(List<DomainQuote> domainQuotes);
-    IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings);
+    IEnumerable<WaveTrend> GetWaveTrend(
+        IEnumerable<DomainQuote> domainQuotes,
+        WaveTrendSettings settings
+    );
+    IEnumerable<Srsi> GetSRSI(
+        IEnumerable<DomainQuote> domainQuotes,
+        SRsiSettings settings
+    );
 }

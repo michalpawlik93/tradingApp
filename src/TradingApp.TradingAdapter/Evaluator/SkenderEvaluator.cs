@@ -4,7 +4,6 @@ using TradingApp.TradingAdapter.Constants;
 using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Mappers;
 using TradingApp.TradingAdapter.Models;
-using DomainQuote = TradingApp.TradingAdapter.Models.Quote;
 
 namespace TradingApp.TradingAdapter.Evaluator;
 
@@ -34,6 +33,11 @@ public class SkenderEvaluator : ISkenderEvaluator
         domainQuotes.MapToSkenderQuotes().GetVwap().Select(r => r.Vwap.ToNullableDecimal());
 
     public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Srsi> GetSRSI(IEnumerable<DomainQuote> domainQuotes, SRsiSettings settings)
     {
         throw new NotImplementedException();
     }

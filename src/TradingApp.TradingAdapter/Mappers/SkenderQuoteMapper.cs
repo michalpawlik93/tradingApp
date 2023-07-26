@@ -1,5 +1,5 @@
-﻿using DomainQuote = TradingApp.TradingAdapter.Models.Quote;
-using Quote = Skender.Stock.Indicators.Quote;
+﻿using Skender.Stock.Indicators;
+using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.TradingAdapter.Mappers;
 

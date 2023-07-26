@@ -30,7 +30,7 @@ public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
 
     protected override Task<Result> LogoutAsync() => throw new NotImplementedException();
 
-    protected override async Task<Result<ICollection<Quote>>> GetQuotesAsync(TimeFrame timeFrame, Asset asset) =>
+    protected override async Task<Result<ICollection<DomainQuote>>> GetQuotesAsync(TimeFrame timeFrame, Asset asset) =>
         await _fileService.ReadHistoryQuotaFile(timeFrame, asset);
 
 

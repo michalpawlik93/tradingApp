@@ -1,10 +1,10 @@
-﻿using DomainQuote = TradingApp.TradingAdapter.Models.Quote;
+﻿using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.TradingAdapter.CustomIndexes
 {
-    public static class RsiCustom
+    public static class SRsiCustom
     {
-        public static List<decimal> CalculateRsi(IEnumerable<DomainQuote> domainQuotes, int rsiLength)
+        public static List<Srsi> Calculate(IEnumerable<DomainQuote> domainQuotes, SRsiSettings settings)
         {
             List<decimal> gains = new List<decimal>();
             List<decimal> losses = new List<decimal>();
@@ -16,7 +16,6 @@ namespace TradingApp.TradingAdapter.CustomIndexes
             foreach (var quote in domainQuotes)
             {
                 decimal close = quote.Close;
-                decimal volume = quote.Volume;
 
                 if (quoteCount > 0)
                 {
@@ -32,7 +31,7 @@ namespace TradingApp.TradingAdapter.CustomIndexes
                         losses.Add(-priceDiff);
                     }
 
-                    if (quoteCount >= rsiLength)
+                    if (quoteCount >= settings.Length)
                     {
                         rsiValues.Add(CalculateSingleRsi(gains, losses));
                     }
@@ -50,7 +49,7 @@ namespace TradingApp.TradingAdapter.CustomIndexes
                 quoteCount++;
             }
 
-            return rsiValues;
+            return new List<Srsi>();
         }
 
         private static decimal CalculateSingleRsi(List<decimal> gains, List<decimal> losses)
@@ -60,7 +59,7 @@ namespace TradingApp.TradingAdapter.CustomIndexes
 
             if (avgLoss == 0)
             {
-                return 100; // Avoid division by zero when no losses
+                return 100;
             }
 
             decimal rs = avgGain / avgLoss;

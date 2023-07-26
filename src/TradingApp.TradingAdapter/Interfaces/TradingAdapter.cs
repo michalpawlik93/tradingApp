@@ -16,7 +16,7 @@ public abstract class TradingAdapterAbstract
 
     public async Task<Result> Logout() => await LogoutAsync();
 
-    public async Task<Result<IEnumerable<Quote>>> GetQuotes(GetQuotesRequest request)
+    public async Task<Result<IEnumerable<DomainQuote>>> GetQuotes(GetQuotesRequest request)
     {
         var result = await GetQuotesAsync(request.TimeFrame, request.Asset);
         if (
@@ -27,13 +27,13 @@ public abstract class TradingAdapterAbstract
         {
             return result.Value.FilterByTimeFrame(request.TimeFrame).ToResult();
         }
-        return result.ToResult<IEnumerable<Quote>>();
+        return result.ToResult<IEnumerable<DomainQuote>>();
     }
 
     public async Task<Result> SaveQuotes(TimeFrame timeFrame, Asset asset) =>
         await SaveQuotesAsync(timeFrame, asset, true);
 
-    protected abstract Task<Result<ICollection<Quote>>> GetQuotesAsync(
+    protected abstract Task<Result<ICollection<DomainQuote>>> GetQuotesAsync(
         TimeFrame timeFrame,
         Asset asset
     );
@@ -50,6 +50,6 @@ public interface ITradingAdapter
 {
     Task<Result<AuthorizeResponse>> Authorize(AuthorizeRequest request);
     Task<Result> Logout();
-    Task<Result<IEnumerable<Quote>>> GetQuotes(GetQuotesRequest request);
+    Task<Result<IEnumerable<DomainQuote>>> GetQuotes(GetQuotesRequest request);
     Task<Result> SaveQuotes(TimeFrame timeFrame, Asset asset);
 }

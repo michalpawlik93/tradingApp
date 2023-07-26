@@ -4,8 +4,8 @@ namespace TradingApp.TradingAdapter.Utils;
 
 public static class TimeFrameFilter
 {
-    public static IEnumerable<Quote> FilterByTimeFrame(
-        this IEnumerable<Quote> quotes,
+    public static IEnumerable<DomainQuote> FilterByTimeFrame(
+        this IEnumerable<DomainQuote> quotes,
         TimeFrame timeFrame
     )
     {
