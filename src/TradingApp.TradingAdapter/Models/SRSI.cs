@@ -1,3 +1,3 @@
 ﻿namespace TradingApp.TradingAdapter.Models;
 
-public record Srsi(decimal? StochK, decimal? StochD);
+public record SRsi(decimal? StochK, decimal? StochD);

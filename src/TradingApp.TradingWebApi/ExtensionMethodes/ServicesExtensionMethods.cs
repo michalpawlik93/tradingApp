@@ -14,6 +14,7 @@ using TradingApp.Application.Quotes.GetStooqQuotes;
 using TradingApp.Application.Services;
 using TradingApp.StooqProvider.Setup;
 using TradingApp.TradingAdapter.Evaluator;
+using TradingApp.TradingAdapter.Interfaces;
 
 namespace TradingApp.TradingWebApi.ExtensionMethodes;
 
@@ -22,23 +23,36 @@ public static class ServicesExtensionMethods
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatR(typeof(Mediator));
-        services.AddScoped<IRequestHandler<GetTokenCommand, ServiceResponse<string>>, GetTokenCommandHandler>();
-        services.AddScoped<IRequestHandler<GetStooqCombinedQuotesCommand, ServiceResponse<GetStooqCombinedQuotesResponseDto>>, GetStooqCombinedQuotesCommandHandler>();
-        services.AddScoped<IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponseDto>>, GetCypherBCommandHandler>();
+        services.AddScoped<
+            IRequestHandler<GetTokenCommand, ServiceResponse<string>>,
+            GetTokenCommandHandler
+        >();
+        services.AddScoped<
+            IRequestHandler<
+                GetStooqCombinedQuotesCommand,
+                ServiceResponse<GetStooqCombinedQuotesResponseDto>
+            >,
+            GetStooqCombinedQuotesCommandHandler
+        >();
+        services.AddScoped<
+            IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponseDto>>,
+            GetCypherBCommandHandler
+        >();
         services.AddTransient<IJwtProvider, JwtProvider>();
-        services.AddTransient<ISkenderEvaluator, SkenderEvaluator>();
-        services.AddTransient<ICustomEvaluator, CustomEvaluator>();
+        services.AddTransient<IEvaluator, CustomEvaluator>();
         services.AddStooqProvider(configuration);
     }
 
     public static void AddLogging(this WebApplicationBuilder builder)
     {
         builder.Logging.ClearProviders();
-        builder.Logging.AddSerilog(new LoggerConfiguration()
-            .WriteTo.Console(new JsonFormatter())
-            .WriteTo.File(new JsonFormatter(), "TradingWebApi_Log.txt")
-            .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
-            .CreateLogger());
+        builder.Logging.AddSerilog(
+            new LoggerConfiguration().WriteTo
+                .Console(new JsonFormatter())
+                .WriteTo.File(new JsonFormatter(), "TradingWebApi_Log.txt")
+                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                .CreateLogger()
+        );
     }
 
     public static void AddSwagger(this IServiceCollection services)
@@ -70,7 +84,7 @@ public static class ServicesExtensionMethods
                             Id = JwtBearerDefaults.AuthenticationScheme
                         }
                     },
-                    new string[] {}
+                    new string[] { }
                 }
             };
 

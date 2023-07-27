@@ -55,3 +55,11 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /tests/TradingApp.TradingViewProvider.Test/bin/Debug/net7.0/TradingApp.TradingViewProvider.pdb
 /tests/TradingApp.TradingViewProvider.Test/bin/Debug/net7.0/TradingApp.TradingViewProvider.Test.dll
 /tests/TradingApp.TradingViewProvider.Test/bin/Debug/net7.0/TradingApp.TradingViewProvider.Test.pdb
+/tests/TradingApp.Common.Test/bin/Debug/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/tests/TradingApp.Common.Test/bin/Debug/net7.0/Microsoft.Extensions.Logging.Abstractions.dll
+/tests/TradingApp.Common.Test/bin/Debug/net7.0/Microsoft.Extensions.Options.dll
+/tests/TradingApp.Common.Test/bin/Debug/net7.0/Microsoft.Extensions.Primitives.dll
+/tests/TradingApp.Common.Test/bin/Debug/net7.0/TradingApp.Common.Test.deps.json
+/tests/TradingApp.Common.Test/bin/Debug/net7.0/TradingApp.Common.Test.dll
+/tests/TradingApp.Common.Test/bin/Debug/net7.0/TradingApp.Common.Test.pdb
+/tests/TradingApp.Common.Test/obj/Debug/net7.0/TradingApp.Common.Test.csproj.AssemblyReference.cache

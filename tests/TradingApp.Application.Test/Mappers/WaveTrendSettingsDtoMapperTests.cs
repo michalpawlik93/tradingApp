@@ -28,7 +28,7 @@ public class WaveTrendSettingsDtoMapperTests
         result.AverageLength.Should().Be(dto.AverageLength);
         result.ChannelLength.Should().Be(dto.ChannelLength);
         result.MovingAverageLength.Should().Be(dto.MovingAverageLength);
-        result.RsiSettings.Overbought.Should().Be(dto.Overbought);
-        result.RsiSettings.Oversold.Should().Be(dto.Oversold);
+        result.Overbought.Should().Be(dto.Overbought);
+        result.Oversold.Should().Be(dto.Oversold);
     }
 }

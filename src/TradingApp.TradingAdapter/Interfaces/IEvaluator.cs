@@ -1,26 +1,20 @@
-﻿using TradingApp.TradingAdapter.Constants;
-using TradingApp.TradingAdapter.Models;
-using DomainQuote = TradingApp.TradingAdapter.Models.DomainQuote;
+﻿using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.TradingAdapter.Interfaces;
 
 public interface IEvaluator
 {
-    IEnumerable<decimal?> GetRSI(
-        IEnumerable<DomainQuote> domainQuotes,
-        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
+    ICollection<Rsi> GetRSI(
+        List<Quote> quotes,
+        RsiSettings settings
     );
-    IEnumerable<decimal?> GetMFI(
-        IEnumerable<DomainQuote> domainQuotes,
-        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
-    );
-    IEnumerable<decimal?> GetVwap(List<DomainQuote> domainQuotes);
-    IEnumerable<WaveTrend> GetWaveTrend(
-        IEnumerable<DomainQuote> domainQuotes,
+    ICollection<VWap> GetVwap(List<Quote> quotes);
+    ICollection<WaveTrend> GetWaveTrend(
+        List<Quote> quotes,
         WaveTrendSettings settings
     );
-    IEnumerable<Srsi> GetSRSI(
-        IEnumerable<DomainQuote> domainQuotes,
+    ICollection<SRsi> GetSRSI(
+        List<Quote> quotes,
         SRsiSettings settings
     );
 }

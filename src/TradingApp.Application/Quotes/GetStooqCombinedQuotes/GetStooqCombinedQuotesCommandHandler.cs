@@ -5,7 +5,7 @@ using TradingApp.Application.Models;
 using TradingApp.Application.Quotes.GetStooqCombinedQuotes.Dto;
 using TradingApp.StooqProvider;
 using TradingApp.TradingAdapter.Constants;
-using TradingApp.TradingAdapter.Evaluator;
+using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.Application.Quotes.GetStooqQuotes;
@@ -17,18 +17,14 @@ public class GetStooqCombinedQuotesCommandHandler
     >
 {
     private readonly IStooqProvider _provider;
-    private readonly ISkenderEvaluator _skenderEvaluator;
-    private const int RSIPeriod = 14;
+    private readonly IEvaluator _customEvaluator;
 
-    public GetStooqCombinedQuotesCommandHandler(
-        IStooqProvider provider,
-        ISkenderEvaluator skenderEvaluator
-    )
+    public GetStooqCombinedQuotesCommandHandler(IStooqProvider provider, IEvaluator customEvaluator)
     {
         ArgumentNullException.ThrowIfNull(provider);
-        ArgumentNullException.ThrowIfNull(skenderEvaluator);
+        ArgumentNullException.ThrowIfNull(customEvaluator);
         _provider = provider;
-        _skenderEvaluator = skenderEvaluator;
+        _customEvaluator = customEvaluator;
     }
 
     public async Task<ServiceResponse<GetStooqCombinedQuotesResponseDto>> Handle(
@@ -49,15 +45,28 @@ public class GetStooqCombinedQuotesCommandHandler
                 getQuotesResponse.ToResult()
             );
         }
-        var rsiResults = _skenderEvaluator.GetRSI(getQuotesResponse.Value, RSIPeriod);
+        var rsiResults = _customEvaluator.GetRSI(
+            getQuotesResponse.Value.ToList(),
+            new RsiSettings(
+                RsiSettingsConst.Oversold,
+                RsiSettingsConst.Overbought,
+                true,
+                RsiSettingsConst.DefaultPeriod
+            )
+        );
         var combinedResults = getQuotesResponse.Value
-            .Select((q, i) => new CombinedQuote(q, rsiResults.ElementAt(i), null))
+            .Select((q, i) => new CombinedQuote(q, rsiResults.ElementAt(i).Value, null))
             .ToList();
         return new ServiceResponse<GetStooqCombinedQuotesResponseDto>(
             Result.Ok(
                 new GetStooqCombinedQuotesResponseDto(
                     combinedResults,
-                    new RsiSettings(RsiSettingsConst.Oversold, RsiSettingsConst.Overbought)
+                    new RsiSettings(
+                        RsiSettingsConst.Oversold,
+                        RsiSettingsConst.Overbought,
+                        true,
+                        14
+                    )
                 )
             )
         );

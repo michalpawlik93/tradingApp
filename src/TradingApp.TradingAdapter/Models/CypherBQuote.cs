@@ -1,3 +1,3 @@
 ﻿namespace TradingApp.TradingAdapter.Models;
 
-public record CypherBQuote(DomainQuote Ohlc, WaveTrend WaveTrend, decimal? Mfi, decimal? Vwap);
+public record CypherBQuote(Quote Ohlc, WaveTrend WaveTrend, decimal? Mfi, decimal? Vwap);

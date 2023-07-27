@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using TradingApp.TestUtils.Fixtures;
-using TradingApp.TradingAdapter.CustomIndexes;
+using TradingApp.TradingAdapter.Indicators;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.TradingAdapter.Test.CustomIndexes
@@ -15,7 +15,7 @@ namespace TradingApp.TradingAdapter.Test.CustomIndexes
             bool scaleResult = true;
 
             // Act
-            var waveTrends = WaveTrendProrealCode.GetWaveTrend(
+            var waveTrends = WaveTrendIndicator.GetWaveTrend(
                 testData,
                 TestSettings,
                 scaleResult,
@@ -37,7 +37,7 @@ namespace TradingApp.TradingAdapter.Test.CustomIndexes
             bool scaleResult = false;
 
             // Act
-            var waveTrends = WaveTrendProrealCode
+            var waveTrends = WaveTrendIndicator
                 .GetWaveTrend(testData, TestSettings, scaleResult, 4)
                 .ToList();
 
@@ -48,11 +48,6 @@ namespace TradingApp.TradingAdapter.Test.CustomIndexes
             waveTrends[3].Value.Should().Be(-92.4704M);
         }
 
-        private static WaveTrendSettings TestSettings = new WaveTrendSettings(
-            new RsiSettings(-80, 80),
-            2,
-            2,
-            2
-        );
+        private static WaveTrendSettings TestSettings = new WaveTrendSettings(80, -80, 2, 2, 2);
     }
 }

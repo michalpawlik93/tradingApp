@@ -3,7 +3,7 @@ using MediatR;
 using TradingApp.Application.Models;
 using TradingApp.Application.Quotes.GetCypherB.Dto;
 using TradingApp.StooqProvider;
-using TradingApp.TradingAdapter.Evaluator;
+using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.Application.Quotes.GetCypherB;
@@ -12,9 +12,9 @@ public class GetCypherBCommandHandler
     : IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponseDto>>
 {
     private readonly IStooqProvider _provider;
-    private readonly ICustomEvaluator _evaluator;
+    private readonly IEvaluator _evaluator;
 
-    public GetCypherBCommandHandler(IStooqProvider provider, ICustomEvaluator evaluator)
+    public GetCypherBCommandHandler(IStooqProvider provider, IEvaluator evaluator)
     {
         ArgumentNullException.ThrowIfNull(provider);
         ArgumentNullException.ThrowIfNull(evaluator);
@@ -34,10 +34,10 @@ public class GetCypherBCommandHandler
         {
             return new ServiceResponse<GetCypherBResponseDto>(getQuotesResponse.ToResult());
         }
-        var mfi = _evaluator.GetMFI(getQuotesResponse.Value);
 
+        var quotes = getQuotesResponse.Value.ToList();
         var waveTrend = _evaluator.GetWaveTrend(
-            getQuotesResponse.Value,
+            quotes,
             new WaveTrendSettings(
                 request.WaveTrendSettings.Oversold,
                 request.WaveTrendSettings.Overbought,
@@ -46,11 +46,10 @@ public class GetCypherBCommandHandler
                 request.WaveTrendSettings.MovingAverageLength
             )
         );
-        var vwap = _evaluator.GetVwap(getQuotesResponse.Value.ToList());
-        var combinedResults = getQuotesResponse.Value
+        var vwap = _evaluator.GetVwap(quotes);
+        var combinedResults = quotes
             .Select(
-                (q, i) =>
-                    new CypherBQuote(q, waveTrend.ElementAt(i), mfi.ElementAt(i), vwap.ElementAt(i))
+                (q, i) => new CypherBQuote(q, waveTrend.ElementAt(i), null, vwap.ElementAt(i).Value)
             )
             .ToList();
         return new ServiceResponse<GetCypherBResponseDto>(

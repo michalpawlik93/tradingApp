@@ -4,7 +4,7 @@ using FluentResults;
 using Moq;
 using TradingApp.Application.Quotes.GetStooqQuotes;
 using TradingApp.StooqProvider;
-using TradingApp.TradingAdapter.Evaluator;
+using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.Application.Test.Quotes;
@@ -12,7 +12,7 @@ namespace TradingApp.Application.Test.Quotes;
 public class GetStooqCombinedQuotesCommandHandlerTests
 {
     private readonly Mock<IStooqProvider> StooqProvider = new();
-    private readonly Mock<ISkenderEvaluator> Evaluator = new();
+    private readonly Mock<IEvaluator> Evaluator = new();
     private GetStooqCombinedQuotesCommandHandler _sut;
 
     [SetUp]
@@ -27,7 +27,7 @@ public class GetStooqCombinedQuotesCommandHandlerTests
     {
         //Arrange
         const string errrorMessage = "errorMessage";
-        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Fail<IEnumerable<DomainQuote>>(errrorMessage));
+        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errrorMessage));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
@@ -37,12 +37,12 @@ public class GetStooqCombinedQuotesCommandHandlerTests
 
     [Test]
     [AutoData]
-    public async Task Handle_SuccessPath_ResponseReturned(GetStooqCombinedQuotesCommand command, IEnumerable<DomainQuote> quotes)
+    public async Task Handle_SuccessPath_ResponseReturned(GetStooqCombinedQuotesCommand command, IEnumerable<Quote> quotes)
     {
         //Arrange
         StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Ok(quotes));
-        var values = Enumerable.Range(0, quotes.Count()).Select(_ => (decimal?)new Random().NextDouble()).ToList();
-        Evaluator.Setup(_ => _.GetRSI(It.IsAny<IEnumerable<DomainQuote>>(), It.IsAny<int>())).Returns(values);
+        var values = Enumerable.Range(0, quotes.Count()).Select(_ => new Rsi() { Value = (decimal?)new Random().NextDouble() }).ToList();
+        Evaluator.Setup(_ => _.GetRSI(It.IsAny<List<Quote>>(), It.IsAny<RsiSettings>())).Returns(values);
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 

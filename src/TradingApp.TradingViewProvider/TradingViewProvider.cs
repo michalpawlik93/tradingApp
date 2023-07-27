@@ -72,7 +72,7 @@ public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewPr
         return JsonSerializer.Deserialize<T>(responseData);
     }
 
-    protected override Task<Result<ICollection<DomainQuote>>> GetQuotesAsync(TimeFrame timeFrame, Asset asset)
+    protected override Task<Result<ICollection<Quote>>> GetQuotesAsync(TimeFrame timeFrame, Asset asset)
     {
         throw new NotImplementedException();
     }

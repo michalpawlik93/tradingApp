@@ -1,39 +1,25 @@
-﻿using Skender.Stock.Indicators;
-using TradingApp.Common.Utilities;
-using TradingApp.TradingAdapter.Constants;
-using TradingApp.TradingAdapter.CustomIndexes;
+﻿using TradingApp.TradingAdapter.Indicators;
 using TradingApp.TradingAdapter.Interfaces;
-using TradingApp.TradingAdapter.Mappers;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.TradingAdapter.Evaluator;
 
-public interface ICustomEvaluator : IEvaluator { }
-
-public class CustomEvaluator : ICustomEvaluator
+public class CustomEvaluator : IEvaluator
 {
-    public IEnumerable<decimal?> GetRSI(
-        IEnumerable<DomainQuote> domainQuotes,
-        int lookBackPeriod = RsiSettingsConst.DefaultPeriod
-    ) => throw new NotImplementedException();
+    private const int DecimalPlace = 4;
+    public ICollection<VWap> GetVwap(List<Quote> quotes) =>
+        VwapIndicator.CalculateVWAP(quotes, DecimalPlace);
 
-    public IEnumerable<decimal?> GetMFI(
-        IEnumerable<DomainQuote> domainQuotes,
-        int lookBackPeriod = 14
-    ) =>
-        domainQuotes
-            .MapToSkenderQuotes()
-            .GetMfi(lookBackPeriod)
-            .Select(r => r.Mfi.ToNullableDecimal());
+    public ICollection<WaveTrend> GetWaveTrend(List<Quote> quotes, WaveTrendSettings settings) =>
+        WaveTrendIndicator.GetWaveTrend(quotes, settings, true, DecimalPlace);
 
-    public IEnumerable<decimal?> GetVwap(List<DomainQuote> domainQuotes) =>
-        VwapCustom.CalculateVWAP(domainQuotes, 4);
-
-    public IEnumerable<WaveTrend> GetWaveTrend(IEnumerable<DomainQuote> domainQuotes, WaveTrendSettings settings) =>
-        WaveTrendProrealCode.GetWaveTrend(domainQuotes, settings, true, 4);
-
-    public IEnumerable<Srsi> GetSRSI(IEnumerable<DomainQuote> domainQuotes, SRsiSettings settings)
+    public ICollection<SRsi> GetSRSI(List<Quote> quotes, SRsiSettings settings)
     {
-        return SRsiCustom.Calculate(domainQuotes, settings);
+        return SRsiIndicator.Calculate(quotes, settings);
+    }
+
+    public ICollection<Rsi> GetRSI(List<Quote> quotes, RsiSettings settings)
+    {
+        return RsiIndicator.Calculate(quotes, settings);
     }
 }
