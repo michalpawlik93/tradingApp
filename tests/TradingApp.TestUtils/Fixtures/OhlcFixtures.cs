@@ -1,7 +1,9 @@
-﻿using TradingApp.TradingAdapter.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.TestUtils.Fixtures;
 
+[ExcludeFromCodeCoverage]
 public static class OhlcFixtures
 {
     public static List<Quote> BtcOhlcQuotes()

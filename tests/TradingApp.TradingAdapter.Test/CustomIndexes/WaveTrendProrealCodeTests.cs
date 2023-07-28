@@ -1,53 +1,58 @@
 ﻿using FluentAssertions;
-using TradingApp.TestUtils.Fixtures;
+using TradingApp.TestUtils;
 using TradingApp.TradingAdapter.Indicators;
 using TradingApp.TradingAdapter.Models;
 
-namespace TradingApp.TradingAdapter.Test.CustomIndexes
+namespace TradingApp.TradingAdapter.Test.CustomIndexes;
+
+public class WaveTrendProrealCodeTests : QuotesTestBase
 {
-    public class WaveTrendProrealCodeTests
+    [Fact]
+    public void Calculate_Success()
     {
-        [Fact]
-        public void GetWaveTrend_ShouldReturnWaveTrendWithScaledResult_WhenScaleIsTrue()
-        {
-            // Arrange
-            var testData = OhlcFixtures.BtcOhlcQuotes();
-            bool scaleResult = true;
+        // Arrange
+        var scale = true;
+        var decimalPlace = 4;
 
-            // Act
-            var waveTrends = WaveTrendIndicator.GetWaveTrend(
-                testData,
-                TestSettings,
-                scaleResult,
-                4
-            );
+        // Act
+        var results = WaveTrendIndicator.Calculate(quotes.ToList(), TestSettings,
+            scale,
+            decimalPlace).ToList();
 
-            // Assert
-            waveTrends[0].Value.Should().Be(0M);
-            waveTrends[1].Value.Should().Be(-0.0391M);
-            waveTrends[2].Value.Should().Be(-40.4163M);
-            waveTrends[3].Value.Should().Be(-100.0000M);
-        }
+        //Assert
+        results.Should().HaveCount(502);
 
-        [Fact]
-        public void GetWaveTrend_ShouldReturnWaveTrendWithUnscaledResult_WhenScaleIsFalse()
-        {
-            // Arrange
-            var testData = OhlcFixtures.BtcOhlcQuotes();
-            bool scaleResult = false;
+        var r1 = results[13];
+        r1.Value.Should().BeApproximately(-51.6591M, 0.0002m);
 
-            // Act
-            var waveTrends = WaveTrendIndicator
-                .GetWaveTrend(testData, TestSettings, scaleResult, 4)
-                .ToList();
+        var r2 = results[501];
+        r2.Value.Should().BeApproximately(-39.1022M, 0.0002m);
 
-            // Assert
-            waveTrends[0].Value.Should().Be(0M);
-            waveTrends[1].Value.Should().Be(-0.0362M);
-            waveTrends[2].Value.Should().Be(-37.3731M);
-            waveTrends[3].Value.Should().Be(-92.4704M);
-        }
+        results.MaxBy(x => x.Value)?.Value.Should().BeLessThanOrEqualTo(100);
+        results.MinBy(x => x.Value)?.Value.Should().BeGreaterThanOrEqualTo(-100);
 
-        private static WaveTrendSettings TestSettings = new WaveTrendSettings(80, -80, 2, 2, 2);
+        results.MaxBy(x => x.Vwap)?.Value.Should().BeLessThanOrEqualTo(100);
+        results.MinBy(x => x.Vwap)?.Value.Should().BeGreaterThanOrEqualTo(-100);
     }
+
+    [Fact]
+    public void Calculate_NoQuotes_Success()
+    {
+        // Arrange
+        var scale = false;
+        var decimalPlace = 4;
+
+        // Act
+        var r0 = WaveTrendIndicator.Calculate(noquotes.ToList(), TestSettings,
+            scale,
+            decimalPlace).ToList();
+        var r1 = WaveTrendIndicator.Calculate(onequote.ToList(), TestSettings,
+            scale,
+            decimalPlace).ToList();
+        // Assert
+        r0.Should().BeEmpty();
+        r1.Should().HaveCount(1);
+    }
+
+    private static WaveTrendSettings TestSettings = new WaveTrendSettings(80, -80, 2, 2, 2);
 }

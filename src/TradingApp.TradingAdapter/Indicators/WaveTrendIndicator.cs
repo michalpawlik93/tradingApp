@@ -14,14 +14,15 @@ public static class WaveTrendIndicator
     /// <param name="scaleResult"></param>
     /// <param name="resultDecimalPlace"></param>
     /// <returns></returns>
-    public static List<WaveTrend> GetWaveTrend(
+    public static List<WaveTrendResult> Calculate(
         IEnumerable<Quote> domainQuotes,
         WaveTrendSettings settings,
         bool scaleResult,
         int resultDecimalPlace
     )
     {
-        List<WaveTrend> waveTrends = new List<WaveTrend>();
+        List<WaveTrendResult> waveTrends = new List<WaveTrendResult>();
+
         decimal[] src = domainQuotes.Select(quote => quote.Close).ToArray();
         decimal[] esa = MovingAverage.Calculate(settings.ChannelLength, src);
         decimal[] d = MovingAverage.Calculate(
@@ -61,7 +62,7 @@ public static class WaveTrendIndicator
 
             var vwap = currentWt - currentWtma;
             waveTrends.Add(
-                new WaveTrend(
+                new WaveTrendResult(
                     MathUtils.RoundValue(currentWt.Value, resultDecimalPlace),
                     MathUtils.RoundValue(vwap, resultDecimalPlace),
                     crossesOver,

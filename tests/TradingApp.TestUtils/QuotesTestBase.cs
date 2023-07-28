@@ -1,9 +1,11 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using TradingApp.TestUtils.Fixtures;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.TestUtils;
 
+[ExcludeFromCodeCoverage]
 public abstract class QuotesTestBase
 {
     public static readonly CultureInfo EnglishCulture = new("en-US", false);

@@ -4,9 +4,9 @@ namespace TradingApp.TradingAdapter.Indicators;
 
 public static class VwapIndicator
 {
-    public static ICollection<VWap> CalculateVWAP(List<Quote> quotes, int resultDecimalPlace)
+    public static ICollection<VWapResult> Calculate(List<Quote> quotes, int resultDecimalPlace)
     {
-        var result = new List<VWap>();
+        var result = new List<VWapResult>();
         decimal vwap = 0;
         decimal sumVolumePrice = 0;
         decimal sumVolume = 0;
@@ -29,7 +29,7 @@ public static class VwapIndicator
                 vwap = sumVolumePrice / sumVolume;
             }
 
-            result.Add(new VWap() { Value = Math.Round(vwap, resultDecimalPlace) });
+            result.Add(new VWapResult() { Value = Math.Round(vwap, resultDecimalPlace) });
             currentDate = currentQuote.Date.Date;
         }
 

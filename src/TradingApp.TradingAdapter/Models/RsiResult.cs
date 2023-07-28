@@ -1,6 +1,7 @@
 ﻿namespace TradingApp.TradingAdapter.Models;
 
-public record VWap()
+public record RsiResult()
 {
     public decimal? Value { get; set; }
+    public DateTime Date { get; set; }
 }

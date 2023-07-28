@@ -1,4 +1,4 @@
 ﻿namespace TradingApp.TradingAdapter.Models;
 
-public record RsiSettings(decimal Oversold, decimal Overbought, bool Enable, int Length);
+public record RsiSettings(double Oversold, double Overbought, bool Enable, int Length);
 

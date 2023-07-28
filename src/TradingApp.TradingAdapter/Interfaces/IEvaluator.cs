@@ -4,16 +4,16 @@ namespace TradingApp.TradingAdapter.Interfaces;
 
 public interface IEvaluator
 {
-    ICollection<Rsi> GetRSI(
+    ICollection<RsiResult> GetRSI(
         List<Quote> quotes,
         RsiSettings settings
     );
-    ICollection<VWap> GetVwap(List<Quote> quotes);
-    ICollection<WaveTrend> GetWaveTrend(
+    ICollection<VWapResult> GetVwap(List<Quote> quotes);
+    ICollection<WaveTrendResult> GetWaveTrend(
         List<Quote> quotes,
         WaveTrendSettings settings
     );
-    ICollection<SRsi> GetSRSI(
+    ICollection<SRsiResult> GetSRSI(
         List<Quote> quotes,
         SRsiSettings settings
     );

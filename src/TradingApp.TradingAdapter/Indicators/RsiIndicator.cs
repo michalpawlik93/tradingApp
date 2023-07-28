@@ -4,7 +4,7 @@ namespace TradingApp.TradingAdapter.Indicators;
 
 public static class RsiIndicator
 {
-    public static ICollection<Rsi> Calculate(List<Quote> tpList, RsiSettings settings)
+    public static ICollection<RsiResult> Calculate(List<Quote> tpList, RsiSettings settings)
     {
         ValidateRsi(settings.Length);
 
@@ -13,7 +13,7 @@ public static class RsiIndicator
         decimal avgGain = 0;
         decimal avgLoss = 0;
 
-        List<Rsi> results = new(ohlcLength);
+        List<RsiResult> results = new(ohlcLength);
         decimal[] gain = new decimal[ohlcLength]; // gain
         decimal[] loss = new decimal[ohlcLength]; // loss
         decimal lastValue;
@@ -29,7 +29,7 @@ public static class RsiIndicator
 
         for (int i = 0; i < ohlcLength; i++)
         {
-            var r = new Rsi();
+            var r = new RsiResult();
             gain[i] = (tpList[i].Close > lastValue) ? tpList[i].Close - lastValue : 0;
             loss[i] = (tpList[i].Close < lastValue) ? lastValue - tpList[i].Close : 0;
             lastValue = tpList[i].Close;
@@ -80,7 +80,7 @@ public static class RsiIndicator
             throw new ArgumentOutOfRangeException(
                 nameof(length),
                 length,
-                "Lookback periods must be greater than 0 for RSI."
+                "Length periods must be greater than 0 for RSI."
             );
         }
     }

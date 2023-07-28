@@ -10,8 +10,4 @@
     <ProjectReference Include="..\..\src\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>

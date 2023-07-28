@@ -37,11 +37,11 @@ public class GetCypherBCommandHandlerTests
 
     [Test]
     [AutoData]
-    public async Task Handle_SuccessPath_ResponseReturned(GetCypherBCommand command, IEnumerable<Quote> quotes, WaveTrend waveTrend)
+    public async Task Handle_SuccessPath_ResponseReturned(GetCypherBCommand command, IEnumerable<Quote> quotes, WaveTrendResult waveTrend)
     {
         //Arrange
         StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Ok(quotes));
-        var values = Enumerable.Range(0, quotes.Count()).Select(_ => new VWap() { Value = (decimal?)new Random().NextDouble() }).ToList();
+        var values = Enumerable.Range(0, quotes.Count()).Select(_ => new VWapResult() { Value = (decimal?)new Random().NextDouble() }).ToList();
         var waveTrends = Enumerable.Range(0, quotes.Count()).Select(_ => waveTrend).ToList();
         Evaluator.Setup(_ => _.GetVwap(It.IsAny<List<Quote>>())).Returns(values);
         Evaluator.Setup(_ => _.GetWaveTrend(It.IsAny<List<Quote>>(), It.IsAny<WaveTrendSettings>())).Returns(waveTrends);

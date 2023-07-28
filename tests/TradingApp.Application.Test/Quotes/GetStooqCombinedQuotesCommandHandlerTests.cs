@@ -41,7 +41,7 @@ public class GetStooqCombinedQuotesCommandHandlerTests
     {
         //Arrange
         StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Ok(quotes));
-        var values = Enumerable.Range(0, quotes.Count()).Select(_ => new Rsi() { Value = (decimal?)new Random().NextDouble() }).ToList();
+        var values = Enumerable.Range(0, quotes.Count()).Select(_ => new RsiResult() { Value = (decimal?)new Random().NextDouble() }).ToList();
         Evaluator.Setup(_ => _.GetRSI(It.IsAny<List<Quote>>(), It.IsAny<RsiSettings>())).Returns(values);
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);

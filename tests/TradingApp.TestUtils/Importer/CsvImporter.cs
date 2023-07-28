@@ -1,8 +1,10 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.TestUtils.Importer;
 
+[ExcludeFromCodeCoverage]
 public static class CsvImporter
 {
     private static readonly CultureInfo EnglishCulture = new("en-US", false);
