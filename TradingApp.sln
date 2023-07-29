@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingAdapter.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TestUtils", "tests\TradingApp.TestUtils\TradingApp.TestUtils.csproj", "{70905909-5BAF-4D94-A599-A674144A4DC4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Build", "build\TradingApp.Build.csproj", "{40802AC1-D925-4FC4-BA16-4E461D9B8710}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,8 @@ Global
 		{70905909-5BAF-4D94-A599-A674144A4DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70905909-5BAF-4D94-A599-A674144A4DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70905909-5BAF-4D94-A599-A674144A4DC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40802AC1-D925-4FC4-BA16-4E461D9B8710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40802AC1-D925-4FC4-BA16-4E461D9B8710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

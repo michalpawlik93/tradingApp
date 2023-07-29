@@ -97,3 +97,6 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /tests/TradingApp.Core.Test/obj
 /tests/TradingApp.Modules.Test/bin/Debug/net7.0
 /tests/TradingApp.Modules.Test/obj
+/build/bin/Debug
+/build/obj
+/.nuke/temp
