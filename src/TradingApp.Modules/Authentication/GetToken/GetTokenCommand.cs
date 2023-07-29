@@ -1,5 +1,6 @@
 ﻿using MediatR;
-using TradingApp.Modules.Models;
+using TradingApp.Core.Models;
+using TradingApp.Modules.Authentication.Models;
 
 namespace TradingApp.Modules.Authentication.GetToken;
 

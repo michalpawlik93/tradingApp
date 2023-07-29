@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using TradingApp.Modules.Abstraction;
-using TradingApp.Modules.Models;
+using TradingApp.Core.Models;
+using TradingApp.Modules.Authentication.Abstraction;
 
 namespace TradingApp.Modules.Authentication.GetToken;
 

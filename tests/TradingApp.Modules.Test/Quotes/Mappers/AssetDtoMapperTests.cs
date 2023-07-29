@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
-using TradingApp.Modules.Mappers;
-using TradingApp.Modules.Models;
+using TradingApp.Modules.Quotes.Mappers;
+using TradingApp.Modules.Quotes.Models;
 using TradingApp.TradingAdapter.Enums;
 using Xunit;
 
-namespace TradingApp.Modules.Test.Mappers;
+namespace TradingApp.Modules.Test.Quotes.Mappers;
 
 public class AssetMapperTests
 {

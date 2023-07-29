@@ -1,4 +1,4 @@
-﻿namespace TradingApp.Modules.Models;
+﻿namespace TradingApp.Modules.Quotes.Models;
 
 /// <summary>
 /// Data transfer object for configuring SRSI indicator parameters.

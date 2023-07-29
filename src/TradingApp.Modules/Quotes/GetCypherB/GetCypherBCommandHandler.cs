@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 using MediatR;
-using TradingApp.Modules.Models;
+using TradingApp.Core.Models;
 using TradingApp.Modules.Quotes.GetCypherB.Dto;
 using TradingApp.StooqProvider;
 using TradingApp.TradingAdapter.Interfaces;

@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using TradingApp.Modules.Mappers;
-using TradingApp.Modules.Models;
+using TradingApp.Core.Models;
 using TradingApp.Modules.Quotes.GetCypherB.Dto;
+using TradingApp.Modules.Quotes.Mappers;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.Modules.Quotes.GetCypherB;

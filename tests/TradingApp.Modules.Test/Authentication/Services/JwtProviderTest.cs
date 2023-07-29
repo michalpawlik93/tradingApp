@@ -5,10 +5,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using TradingApp.Modules.Authentication.Configuration;
-using TradingApp.Modules.Models;
-using TradingApp.Modules.Services;
+using TradingApp.Modules.Authentication.Models;
+using TradingApp.Modules.Authentication.Services;
 
-namespace TradingApp.Modules.Test.Services;
+namespace TradingApp.Modules.Test.Authentication.Services;
 
 [TestFixture]
 public class JwtProviderTest

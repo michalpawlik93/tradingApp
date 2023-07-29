@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using TradingApp.Core.Enums;
 
-namespace TradingApp.Modules.Models;
+namespace TradingApp.Core.Models;
 
 /// <summary>
 /// Service response data

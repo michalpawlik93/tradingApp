@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace TradingApp.Modules.Models;
+namespace TradingApp.Core.Models;
 
 /// <summary>
 /// The message associated to the service response

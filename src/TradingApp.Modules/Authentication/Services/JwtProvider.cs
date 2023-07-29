@@ -5,12 +5,13 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using TradingApp.Modules.Abstraction;
+using TradingApp.Modules.Authentication.Abstraction;
 using TradingApp.Modules.Authentication.Configuration;
-using TradingApp.Modules.Errors;
-using TradingApp.Modules.Models;
+using TradingApp.Modules.Authentication.Errors;
+using TradingApp.Modules.Authentication.Models;
 
-namespace TradingApp.Modules.Services;
+
+namespace TradingApp.Modules.Authentication.Services;
 
 public class JwtProvider : IJwtProvider
 {
@@ -56,8 +57,8 @@ public class JwtProvider : IJwtProvider
             Subject = new ClaimsIdentity(
                 new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, _jwtOptions.Value.Issuer),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Sub, _jwtOptions.Value.Issuer),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }
             ),
             Expires = DateTime.UtcNow.AddHours(1),

@@ -1,8 +1,8 @@
-﻿using TradingApp.Modules.Models;
+﻿using TradingApp.Modules.Quotes.Models;
 using TradingApp.TradingAdapter.Enums;
 using TradingApp.TradingAdapter.Models;
 
-namespace TradingApp.Modules.Mappers;
+namespace TradingApp.Modules.Quotes.Mappers;
 
 public static class AssetDtoMapper
 {

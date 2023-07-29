@@ -1,4 +1,4 @@
-﻿namespace TradingApp.Modules.Models;
+﻿namespace TradingApp.Modules.Quotes.Models;
 
 public class AssetDto
 {

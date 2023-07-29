@@ -1,7 +1,7 @@
 ﻿using FluentResults;
 using MediatR;
 using Serilog;
-using TradingApp.Modules.Models;
+using TradingApp.Core.Models;
 using TradingApp.Modules.Quotes.GetStooqCombinedQuotes.Dto;
 using TradingApp.StooqProvider;
 using TradingApp.TradingAdapter.Constants;

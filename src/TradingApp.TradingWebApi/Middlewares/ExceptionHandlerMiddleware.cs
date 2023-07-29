@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 using System.Text.Json;
-using TradingApp.Modules.Models;
+using TradingApp.Core.Models;
 
 namespace TradingApp.TradingWebApi.Middlewares;
 

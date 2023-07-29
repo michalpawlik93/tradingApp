@@ -2,9 +2,9 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using TradingApp.Modules.Abstraction;
+using TradingApp.Modules.Authentication.Abstraction;
 using TradingApp.Modules.Authentication.GetToken;
-using TradingApp.Modules.Models;
+using TradingApp.Modules.Authentication.Models;
 
 namespace TradingApp.Modules.Test.Authentication.GetToken
 {

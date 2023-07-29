@@ -1,8 +1,8 @@
 ﻿using FluentResults;
 using System.Diagnostics.CodeAnalysis;
-using TradingApp.Modules.Models;
+using TradingApp.Modules.Authentication.Models;
 
-namespace TradingApp.Modules.Errors;
+namespace TradingApp.Modules.Authentication.Errors;
 
 [ExcludeFromCodeCoverage]
 public class UserError : Error

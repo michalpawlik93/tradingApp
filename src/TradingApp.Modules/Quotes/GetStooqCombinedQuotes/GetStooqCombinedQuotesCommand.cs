@@ -1,7 +1,8 @@
 ﻿using MediatR;
-using TradingApp.Modules.Mappers;
-using TradingApp.Modules.Models;
+using TradingApp.Core.Models;
 using TradingApp.Modules.Quotes.GetStooqCombinedQuotes.Dto;
+using TradingApp.Modules.Quotes.Mappers;
+using TradingApp.Modules.Quotes.Models;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.Modules.Quotes.GetStooqQuotes;

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using TradingApp.Modules.Models;
+using TradingApp.Core.Models;
 using TradingApp.TradingAdapter.Models;
 using TradingApp.TradingViewProvider;
 

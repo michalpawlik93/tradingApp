@@ -1,4 +1,4 @@
-﻿using TradingApp.Modules.Models;
+﻿using TradingApp.Modules.Quotes.Models;
 
 namespace TradingApp.Modules.Quotes.GetCypherB.Dto;
 

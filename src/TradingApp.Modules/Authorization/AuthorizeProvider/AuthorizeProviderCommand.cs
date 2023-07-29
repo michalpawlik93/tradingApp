@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TradingApp.Modules.Models;
+using TradingApp.Core.Models;
 using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.Modules.Authorization.AuthorizeProvider;
