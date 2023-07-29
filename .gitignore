@@ -87,3 +87,13 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /tests/TradingApp.StooqProvider.Test/bin/Debug/net7.0/TradingApp.StooqProvider.Test.deps.json
 /tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/TradingApp.StooqProvider.Test.csproj.CoreCompileInputs.cache
 /tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/TradingApp.StooqProvider.Test.csproj.FileListAbsolute.txt
+/src/TradingApp.Core/bin/Debug/net7.0
+/src/TradingApp.Core/obj/Debug/net7.0
+/src/TradingApp.Core/obj
+/src/TradingApp.Modules/bin/Debug/net7.0
+/src/TradingApp.Modules/obj/Debug/net7.0
+/src/TradingApp.Modules/obj
+/tests/TradingApp.Core.Test/bin/Debug/net7.0
+/tests/TradingApp.Core.Test/obj
+/tests/TradingApp.Modules.Test/bin/Debug/net7.0
+/tests/TradingApp.Modules.Test/obj

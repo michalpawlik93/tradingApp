@@ -5,7 +5,7 @@ namespace TradingApp.TradingAdapter.Indicators;
 
 public static class StochInidcator
 {
-    internal static List<StochResult> Calculate(
+    public static List<StochResult> Calculate(
     this List<Quote> qdList,
     int lookbackPeriods,
     int signalPeriods,
@@ -104,7 +104,6 @@ public static class StochInidcator
         return results;
     }
 
-    // internals
     private static List<StochResult> SmoothOscillator(
         List<StochResult> results,
         int length,

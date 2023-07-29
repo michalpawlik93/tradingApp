@@ -1,7 +1,7 @@
 ﻿using FluentResults;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
-using TradingApp.Common.Utilities;
+using TradingApp.Core.Utilities;
 using TradingApp.TradingAdapter.Interfaces;
 using TradingApp.TradingAdapter.Models;
 using TradingApp.TradingViewProvider.Constants;

@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingWebApi", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvider", "src\TradingApp.TradingViewProvider\TradingApp.TradingViewProvider.csproj", "{5AB850BE-5226-4DFB-B456-9A722FCF6180}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Application", "src\TradingApp.Application\TradingApp.Application.csproj", "{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Modules", "src\TradingApp.Modules\TradingApp.Modules.csproj", "{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Common", "src\TradingApp.Common\TradingApp.Common.csproj", "{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Core", "src\TradingApp.Core\TradingApp.Core.csproj", "{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Application.Test", "tests\TradingApp.Application.Test\TradingApp.Application.Test.csproj", "{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Modules.Test", "tests\TradingApp.Modules.Test\TradingApp.Modules.Test.csproj", "{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvider.Test", "tests\TradingApp.TradingViewProvider.Test\TradingApp.TradingViewProvider.Test.csproj", "{68090800-38D8-453B-833B-5AFD1E4FA6DA}"
 EndProject
@@ -21,13 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.StooqProvider", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingAdapter", "src\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj", "{D818A5DB-A76F-446B-9620-3DB4E9FC485A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Common.Test", "tests\TradingApp.Common.Test\TradingApp.Common.Test.csproj", "{60A8C40A-FEEE-43FE-9CE1-DE242FCF5C7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Core.Test", "tests\TradingApp.Core.Test\TradingApp.Core.Test.csproj", "{60A8C40A-FEEE-43FE-9CE1-DE242FCF5C7C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.StooqProvider.Test", "tests\TradingApp.StooqProvider.Test\TradingApp.StooqProvider.Test.csproj", "{A87A86CD-124F-4070-A94B-4FB1C32E947A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingAdapter.Test", "tests\TradingApp.TradingAdapter.Test\TradingApp.TradingAdapter.Test.csproj", "{C3DB2151-8099-432C-BCA5-0A8BE41DFAC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TestUtils", "tests\TradingApp.TestUtils\TradingApp.TestUtils.csproj", "{70905909-5BAF-4D94-A599-A674144A4DC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TestUtils", "tests\TradingApp.TestUtils\TradingApp.TestUtils.csproj", "{70905909-5BAF-4D94-A599-A674144A4DC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

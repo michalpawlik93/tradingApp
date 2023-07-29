@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TradingApp.Application\TradingApp.Application.csproj" />
+    <ProjectReference Include="..\TradingApp.Modules\TradingApp.Modules.csproj" />
   </ItemGroup>
 
 </Project>

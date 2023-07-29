@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 using System.Diagnostics.CodeAnalysis;
-using TradingApp.Common.Utilities;
+using TradingApp.Core.Utilities;
 using TradingApp.StooqProvider.Abstraction;
 using TradingApp.StooqProvider.Constants;
 using TradingApp.StooqProvider.Utils;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using TradingApp.Application.Authentication.Configuration;
+using TradingApp.Modules.Authentication.Configuration;
 using TradingApp.TradingWebApi.ExtensionMethodes;
 using TradingApp.TradingWebApi.Middlewares;
 using TradingApp.TradingWebApi.Modules;

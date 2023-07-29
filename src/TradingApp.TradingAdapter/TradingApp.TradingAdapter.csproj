@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TradingApp.Common\TradingApp.Common.csproj" />
+    <ProjectReference Include="..\TradingApp.Core\TradingApp.Core.csproj" />
   </ItemGroup>
 
 </Project>

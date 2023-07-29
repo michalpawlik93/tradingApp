@@ -1,6 +1,6 @@
 ﻿namespace TradingApp.TradingAdapter.Models;
 
-internal class StochResult
+public class StochResult
 {
     public StochResult(DateTime date)
     {
