@@ -31,6 +31,6 @@ public static class QuotesFixture
         var testsFolderName = "tests";
         int index = currentDirectory.IndexOf(testsFolderName, StringComparison.OrdinalIgnoreCase);
         string basePath = currentDirectory.Substring(0, index + testsFolderName.Length);
-        return Path.Combine(basePath, file);
+        return Path.Combine(basePath, "mockData", file);
     }
 }

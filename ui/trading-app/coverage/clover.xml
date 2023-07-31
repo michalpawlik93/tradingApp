@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1689617887455" clover="3.2.0">
-  <project timestamp="1689617887455" name="All files">
+<coverage generated="1690806732594" clover="3.2.0">
+  <project timestamp="1690806732594" name="All files">
     <metrics statements="24" coveredstatements="16" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1" elements="27" coveredelements="18" complexity="0" loc="24" ncloc="24" packages="1" files="1" classes="1"/>
     <file name="RsiChartMapper.ts" path="E:\Nauka\copy\tradingViewIntegration\ui\trading-app\src\mappers\RsiChartMapper.ts">
       <metrics statements="24" coveredstatements="16" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>

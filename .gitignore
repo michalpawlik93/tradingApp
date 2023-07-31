@@ -100,3 +100,5 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /build/bin/Debug
 /build/obj
 /.nuke/temp
+/tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/ref/TradingApp.StooqProvider.Test.dll
+/tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/refint/TradingApp.StooqProvider.Test.dll

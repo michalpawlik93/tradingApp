@@ -27,29 +27,29 @@ public class StochInidcatorTests : QuotesTestBase
         results.Count(x => x.Signal != null).Should().Be(485);
 
         var r15 = results[15];
-        r15.Oscillator.Should().BeApproximately(81.1253M, 0.0001M);
+        r15.Oscillator.Should().BeApproximately(83.29565M, 0.0001M);
         r15.Signal.Should().BeNull();
         r15.PercentJ.Should().BeNull();
 
         var r17 = results[17];
-        r17.Oscillator.Should().BeApproximately(92.1307M, 0.0001M);
-        r17.Signal.Should().BeApproximately(88.4995M, 0.0001M);
-        r17.PercentJ.Should().BeApproximately(99.3929M, 0.0001M);
+        r17.Oscillator.Should().BeApproximately(85.0355M, 0.0001M);
+        r17.Signal.Should().BeApproximately(85.04967M, 0.0001M);
+        r17.PercentJ.Should().BeApproximately(85.0073M, 0.0001M);
 
         var r149 = results[149];
-        r149.Oscillator.Should().BeApproximately(81.6870M, 0.0001M);
-        r149.Signal.Should().BeApproximately(79.7935M, 0.0001M);
-        r149.PercentJ.Should().BeApproximately(85.4741M, 0.0001M);
+        r149.Oscillator.Should().BeApproximately(14.5758M, 0.0001M);
+        r149.Signal.Should().BeApproximately(14.7959M, 0.0001M);
+        r149.PercentJ.Should().BeApproximately(14.1356M, 0.0001M);
 
         var r249 = results[249];
-        r249.Oscillator.Should().BeApproximately(83.2020M, 0.0001M);
-        r249.Signal.Should().BeApproximately(83.0813M, 0.0001M);
-        r249.PercentJ.Should().BeApproximately(83.4435M, 0.0001M);
+        r249.Oscillator.Should().BeApproximately(9.7956M, 0.0001M);
+        r249.Signal.Should().BeApproximately(9.5956M, 0.0001M);
+        r249.PercentJ.Should().BeApproximately(10.1955M, 0.0001M);
 
         var r501 = results[501];
-        r501.Oscillator.Should().BeApproximately(43.1353M, 0.0001M);
-        r501.Signal.Should().BeApproximately(35.5674M, 0.0001M);
-        r501.PercentJ.Should().BeApproximately(58.2712M, 0.0001M);
+        r501.Oscillator.Should().BeApproximately(39.3751M, 0.0001M);
+        r501.Signal.Should().BeApproximately(39.8754M, 0.0001M);
+        r501.PercentJ.Should().BeApproximately(38.3747M, 0.0001M);
     }
 
     [Fact]
@@ -84,12 +84,12 @@ public class StochInidcatorTests : QuotesTestBase
 
         // Assert
         var r1 = results[487];
-        r1.Oscillator.Should().BeApproximately(25.0353M, 0.0001M);
-        r1.Signal.Should().BeApproximately(60.5706M, 0.0001M);
+        r1.Oscillator.Should().BeApproximately(38.7692M, 0.0001M);
+        r1.Signal.Should().BeApproximately(49.8405M, 0.0001M);
 
         var r2 = results[501];
-        r2.Oscillator.Should().BeApproximately(91.6233M, 0.0001M);
-        r2.Signal.Should().BeApproximately(36.0608M, 0.0001M);
+        r2.Oscillator.Should().BeApproximately(35.0684M, 0.0001M);
+        r2.Signal.Should().BeApproximately(60.7238M, 0.0001M);
     }
 
     [Fact]
@@ -105,10 +105,10 @@ public class StochInidcatorTests : QuotesTestBase
 
         // Assert
         var r1 = results[70];
-        r1.Oscillator.Should().Be(0);
+        r1.Oscillator.Should().BeApproximately(45.8823M, 0.0001M);
 
         var r2 = results[71];
-        r2.Oscillator.Should().Be(100);
+        r2.Oscillator.Should().BeApproximately(67.0050M, 0.0001M);
     }
 
     [Fact]

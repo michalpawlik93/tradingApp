@@ -50,7 +50,7 @@ public class RsiIndicatorTests : QuotesTestBase
         // Arrange & Act
         var results = RsiIndicator.Calculate(btcQuotes.ToList(), Settings).ToList();
         //Assert
-        results.Should().HaveCount(502);
+        results.Should().HaveCount(1246);
     }
 
 

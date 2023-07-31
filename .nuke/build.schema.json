@@ -72,10 +72,14 @@
           "items": {
             "type": "string",
             "enum": [
-              "Clean",
-              "Compile",
-              "Restore",
-              "UnitTests"
+              "Backend_Compile",
+              "Backend_Report",
+              "Backend_Restore",
+              "Backend_TestCoverage",
+              "Backend_UnitTest",
+              "Frontend_Clean",
+              "Frontend_Restore",
+              "Frontend_Tests"
             ]
           }
         },
@@ -89,10 +93,14 @@
           "items": {
             "type": "string",
             "enum": [
-              "Clean",
-              "Compile",
-              "Restore",
-              "UnitTests"
+              "Backend_Compile",
+              "Backend_Report",
+              "Backend_Restore",
+              "Backend_TestCoverage",
+              "Backend_UnitTest",
+              "Frontend_Clean",
+              "Frontend_Restore",
+              "Frontend_Tests"
             ]
           }
         },

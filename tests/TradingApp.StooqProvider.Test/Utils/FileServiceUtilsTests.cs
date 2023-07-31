@@ -6,9 +6,9 @@ namespace TradingApp.StooqProvider.Test.Utils;
 public class FileServiceUtilsTests
 {
     [Theory]
-    [InlineData(Granularity.Daily, "history/Dailystooq.zip")]
-    [InlineData(Granularity.Hourly, "history/Hourlystooq.zip")]
-    [InlineData(Granularity.FiveMins, "history/FiveMinsstooq.zip")]
+    [InlineData(Granularity.Daily, "history\\Dailystooq.zip")]
+    [InlineData(Granularity.Hourly, "history\\Hourlystooq.zip")]
+    [InlineData(Granularity.FiveMins, "history\\FiveMinsstooq.zip")]
     public void GetZipFilePath_ShouldReturnCorrectFilePath(Granularity granularity, string expectedFilePath)
     {
         // Act
