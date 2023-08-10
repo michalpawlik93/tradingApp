@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MediatR.NotificationPublishers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -8,10 +9,10 @@ using TradingApp.Core.Models;
 using TradingApp.Modules.Authentication.Abstraction;
 using TradingApp.Modules.Authentication.GetToken;
 using TradingApp.Modules.Authentication.Services;
-using TradingApp.Modules.Quotes.GetCypherB;
-using TradingApp.Modules.Quotes.GetCypherB.Dto;
-using TradingApp.Modules.Quotes.GetStooqCombinedQuotes.Dto;
-using TradingApp.Modules.Quotes.GetStooqQuotes;
+using TradingApp.Modules.Quotes.Application.GetCypherB;
+using TradingApp.Modules.Quotes.Application.GetCypherB.Dto;
+using TradingApp.Modules.Quotes.Application.GetStooqCombinedQuotes;
+using TradingApp.Modules.Quotes.Application.GetStooqCombinedQuotes.Dto;
 using TradingApp.StooqProvider.Setup;
 using TradingApp.TradingAdapter.Evaluator;
 using TradingApp.TradingAdapter.Interfaces;
@@ -22,7 +23,10 @@ public static class ServicesExtensionMethods
 {
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMediatR(typeof(Mediator));
+        services.AddMediatR(config =>
+        {
+            config.NotificationPublisher = new TaskWhenAllPublisher();
+        });
         services.AddScoped<
             IRequestHandler<GetTokenCommand, ServiceResponse<string>>,
             GetTokenCommandHandler

@@ -32,4 +32,8 @@
     <ProjectReference Include="..\..\src\TradingApp.Modules\TradingApp.Modules.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Quotes\Domain\" />
+  </ItemGroup>
+
 </Project>
