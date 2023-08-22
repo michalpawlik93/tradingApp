@@ -112,3 +112,7 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /tests/TradingApp.Module.Authentication.Test/obj
 /tests/TradingApp.Ports.Test/bin/Debug/net7.0
 /tests/TradingApp.Ports.Test/obj
+/src/TradingApp.Module.Quotes/bin/Debug/net7.0
+/src/TradingApp.Module.Quotes/obj
+/tests/TradingApp.Module.Quotes.Test/bin/Debug/net7.0
+/tests/TradingApp.Module.Quotes.Test/obj

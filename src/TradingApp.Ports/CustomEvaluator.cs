@@ -1,6 +1,6 @@
 ﻿using TradingApp.Evaluator.Indicators;
-using TradingApp.Modules.Application.Models;
-using TradingApp.Modules.Ports;
+using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Ports;
 
 namespace TradingApp.Evaluator;
 

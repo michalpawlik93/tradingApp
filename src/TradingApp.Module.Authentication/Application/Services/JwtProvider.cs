@@ -5,13 +5,13 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using TradingApp.Modules.Authentication.Abstraction;
-using TradingApp.Modules.Authentication.Configuration;
-using TradingApp.Modules.Authentication.Errors;
-using TradingApp.Modules.Authentication.Models;
+using TradingApp.Module.Quotes.Authentication.Abstraction;
+using TradingApp.Module.Quotes.Authentication.Configuration;
+using TradingApp.Module.Quotes.Authentication.Errors;
+using TradingApp.Module.Quotes.Authentication.Models;
 
 
-namespace TradingApp.Modules.Authentication.Services;
+namespace TradingApp.Module.Quotes.Authentication.Services;
 
 public class JwtProvider : IJwtProvider
 {

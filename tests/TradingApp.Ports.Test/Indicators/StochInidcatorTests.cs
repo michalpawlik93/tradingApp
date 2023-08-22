@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using TradingApp.Evaluator.Indicators;
-using TradingApp.Modules.Application.Models;
+using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Ports.Enums;
 using TradingApp.TestUtils;
 

@@ -1,7 +1,7 @@
 ﻿using FluentResults;
-using TradingApp.Modules.Authentication.Models;
+using TradingApp.Module.Quotes.Authentication.Models;
 
-namespace TradingApp.Modules.Authentication.Abstraction;
+namespace TradingApp.Module.Quotes.Authentication.Abstraction;
 
 public interface IJwtProvider
 {

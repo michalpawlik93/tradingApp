@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using TradingApp.Core.Models;
-using TradingApp.Modules.Authentication.Abstraction;
+using TradingApp.Module.Quotes.Authentication.Abstraction;
 
-namespace TradingApp.Modules.Authentication.GetToken;
+namespace TradingApp.Module.Quotes.Authentication.GetToken;
 
 public class GetTokenCommandHandler : IRequestHandler<GetTokenCommand, ServiceResponse<string>>
 {

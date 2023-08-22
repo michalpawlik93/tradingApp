@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace TradingApp.Modules.Authentication.Configuration;
+namespace TradingApp.Module.Quotes.Authentication.Configuration;
 
 public class JwtOptionsSetup : IConfigureOptions<JwtOptions>
 {

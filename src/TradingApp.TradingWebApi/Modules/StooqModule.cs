@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TradingApp.Modules.Application.Dtos;
-using TradingApp.Modules.Application.GetCypherB;
-using TradingApp.Modules.Application.GetCypherB.Dto;
-using TradingApp.Modules.Application.GetStooqCombinedQuotes;
+using TradingApp.Module.Quotes.Application.Dtos;
+using TradingApp.Module.Quotes.Application.GetCypherB;
+using TradingApp.Module.Quotes.Application.GetCypherB.Dto;
+using TradingApp.Module.Quotes.Application.GetStooqCombinedQuotes;
 
 namespace TradingApp.TradingWebApi.Modules;
 

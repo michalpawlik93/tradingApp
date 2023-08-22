@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingWebApi", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvider", "src\TradingApp.TradingViewProvider\TradingApp.TradingViewProvider.csproj", "{5AB850BE-5226-4DFB-B456-9A722FCF6180}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Modules", "src\TradingApp.Modules\TradingApp.Modules.csproj", "{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Module.Quotes", "src\TradingApp.Module.Quotes\TradingApp.Module.Quotes.csproj", "{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Core", "src\TradingApp.Core\TradingApp.Core.csproj", "{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Modules.Test", "tests\TradingApp.Modules.Test\TradingApp.Modules.Test.csproj", "{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Module.Quotes.Test", "tests\TradingApp.Module.Quotes.Test\TradingApp.Module.Quotes.Test.csproj", "{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvider.Test", "tests\TradingApp.TradingViewProvider.Test\TradingApp.TradingViewProvider.Test.csproj", "{68090800-38D8-453B-833B-5AFD1E4FA6DA}"
 EndProject

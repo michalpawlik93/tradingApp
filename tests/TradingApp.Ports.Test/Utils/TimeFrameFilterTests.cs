@@ -1,6 +1,6 @@
-﻿using TradingApp.Modules.Application.Models;
-using TradingApp.Modules.Domain.Enums;
-using TradingApp.Ports.Utils;
+﻿using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Application.Utils;
+using TradingApp.Module.Quotes.Domain.Enums;
 
 namespace TradingApp.Evaluator.Test.Utils;
 

@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TradingApp.Modules\TradingApp.Modules.csproj" />
+    <ProjectReference Include="..\TradingApp.Module.Quotes\TradingApp.Module.Quotes.csproj" />
   </ItemGroup>
 
 </Project>

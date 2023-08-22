@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using TradingApp.Core.Models;
-using TradingApp.Modules.Authentication.Models;
+using TradingApp.Module.Quotes.Authentication.Models;
 
-namespace TradingApp.Modules.Authentication.GetToken;
+namespace TradingApp.Module.Quotes.Authentication.GetToken;
 
 public record GetTokenCommand(User user) : IRequest<ServiceResponse<string>>;

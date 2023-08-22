@@ -3,7 +3,7 @@
 //using TradingApp.StooqProvider.Abstraction;
 //using TradingApp.StooqProvider.Services;
 //using TradingApp.Ports.Enums;
-//using TradingApp.Modules.Application.Models;
+//using TradingApp.Module.Quotes.Application.Models;
 
 //namespace TradingApp.StooqProvider.Tests.Services
 //{

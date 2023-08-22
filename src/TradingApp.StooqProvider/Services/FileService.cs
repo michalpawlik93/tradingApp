@@ -4,7 +4,7 @@ using TradingApp.Core.Utilities;
 using TradingApp.StooqProvider.Abstraction;
 using TradingApp.StooqProvider.Constants;
 using TradingApp.StooqProvider.Utils;
-using TradingApp.Modules.Application.Models;
+using TradingApp.Module.Quotes.Application.Models;
 
 namespace TradingApp.StooqProvider.Services;
 

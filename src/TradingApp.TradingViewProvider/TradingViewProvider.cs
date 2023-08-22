@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using TradingApp.Core.Utilities;
-using TradingApp.Modules.Application.Models;
-using TradingApp.Modules.Ports;
+using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Ports;
 using TradingApp.TradingViewProvider.Constants;
 using TradingApp.TradingViewProvider.Contract;
 using TradingApp.TradingViewProvider.Mappers;

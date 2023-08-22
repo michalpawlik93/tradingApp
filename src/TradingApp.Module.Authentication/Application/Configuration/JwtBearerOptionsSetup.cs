@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace TradingApp.Modules.Authentication.Configuration;
+namespace TradingApp.Module.Quotes.Authentication.Configuration;
 
 public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
 {

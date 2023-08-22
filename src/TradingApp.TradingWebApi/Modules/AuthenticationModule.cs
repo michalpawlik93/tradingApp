@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using TradingApp.Modules.Authentication.GetToken;
-using TradingApp.Modules.Authentication.Models;
+using TradingApp.Module.Quotes.Authentication.GetToken;
+using TradingApp.Module.Quotes.Authentication.Models;
 
 namespace TradingApp.TradingWebApi.Modules;
 

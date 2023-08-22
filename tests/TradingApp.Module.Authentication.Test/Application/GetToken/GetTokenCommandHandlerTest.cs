@@ -2,11 +2,11 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using TradingApp.Modules.Authentication.Abstraction;
-using TradingApp.Modules.Authentication.GetToken;
-using TradingApp.Modules.Authentication.Models;
+using TradingApp.Module.Quotes.Authentication.Abstraction;
+using TradingApp.Module.Quotes.Authentication.GetToken;
+using TradingApp.Module.Quotes.Authentication.Models;
 
-namespace TradingApp.Modules.Test.Authentication.GetToken
+namespace TradingApp.Module.Quotes.Test.Authentication.GetToken
 {
     [TestFixture]
     public class GetTokenCommandHandlerTest

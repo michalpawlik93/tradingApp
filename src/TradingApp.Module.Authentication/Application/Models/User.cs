@@ -1,7 +1,7 @@
 ﻿using FluentResults;
-using TradingApp.Modules.Authentication.Errors;
+using TradingApp.Module.Quotes.Authentication.Errors;
 
-namespace TradingApp.Modules.Authentication.Models;
+namespace TradingApp.Module.Quotes.Authentication.Models;
 
 public class User
 {

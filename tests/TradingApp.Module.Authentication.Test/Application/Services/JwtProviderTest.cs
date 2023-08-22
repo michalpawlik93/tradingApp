@@ -4,11 +4,11 @@ using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
-using TradingApp.Modules.Authentication.Configuration;
-using TradingApp.Modules.Authentication.Models;
-using TradingApp.Modules.Authentication.Services;
+using TradingApp.Module.Quotes.Authentication.Configuration;
+using TradingApp.Module.Quotes.Authentication.Models;
+using TradingApp.Module.Quotes.Authentication.Services;
 
-namespace TradingApp.Modules.Test.Authentication.Services;
+namespace TradingApp.Module.Quotes.Test.Authentication.Services;
 
 [TestFixture]
 public class JwtProviderTest

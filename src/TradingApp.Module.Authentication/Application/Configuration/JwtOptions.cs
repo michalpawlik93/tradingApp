@@ -1,4 +1,4 @@
-﻿namespace TradingApp.Modules.Authentication.Configuration;
+﻿namespace TradingApp.Module.Quotes.Authentication.Configuration;
 
 public class JwtOptions
 {

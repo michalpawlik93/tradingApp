@@ -1,4 +1,4 @@
-﻿using TradingApp.Modules.Application.Models;
+﻿using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Ports.Enums;
 
 namespace TradingApp.Evaluator.Indicators;
