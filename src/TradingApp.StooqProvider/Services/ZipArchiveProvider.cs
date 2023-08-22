@@ -1,7 +1,7 @@
 ﻿using System.IO.Compression;
+using TradingApp.Modules.Domain.Enums;
 using TradingApp.StooqProvider.Abstraction;
 using TradingApp.StooqProvider.Utils;
-using TradingApp.TradingAdapter.Enums;
 
 namespace TradingApp.StooqProvider.Services;
 

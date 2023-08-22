@@ -12,7 +12,7 @@ COPY src/TradingApp.Authorization/TradingApp.Authorization.csproj ./TradingApp.A
 COPY src/TradingApp.Application/TradingApp.Application.csproj ./TradingApp.Application/
 COPY src/TradingApp.Common/TradingApp.Common.csproj ./TradingApp.Common/
 COPY src/TradingApp.StooqProvider/TradingApp.StooqProvider.csproj ./TradingApp.StooqProvider/
-COPY src/TradingApp.TradingAdapter/TradingApp.TradingAdapter.csproj ./TradingApp.TradingAdapter/
+COPY src/TradingApp.Ports/TradingApp.Ports.csproj ./TradingApp.Ports/
 COPY src/TradingApp.TradingViewProvider/TradingApp.TradingViewProvider.csproj ./TradingApp.TradingViewProvider/
 
 # Copy the remaining source code and build the application
@@ -21,7 +21,7 @@ RUN cd ./TradingApp.Authorization && dotnet restore
 RUN cd ./TradingApp.Application && dotnet restore
 RUN cd ./TradingApp.Common && dotnet restore
 RUN cd ./TradingApp.StooqProvider && dotnet restore
-RUN cd ./TradingApp.TradingAdapter && dotnet restore
+RUN cd ./TradingApp.Ports && dotnet restore
 RUN cd ./TradingApp.TradingViewProvider && dotnet restore
 
 COPY . ./

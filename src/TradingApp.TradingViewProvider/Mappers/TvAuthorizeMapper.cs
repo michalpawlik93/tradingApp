@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using TradingApp.TradingAdapter.Models;
+using TradingApp.Modules.Application.Models;
 using TradingApp.TradingViewProvider.Constants;
 using TradingApp.TradingViewProvider.Contract;
 

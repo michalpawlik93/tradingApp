@@ -2,16 +2,15 @@
 using FluentAssertions;
 using FluentResults;
 using Moq;
-using TradingApp.Modules.Quotes.Application.GetCypherB;
-using TradingApp.StooqProvider;
-using TradingApp.TradingAdapter.Interfaces;
-using TradingApp.TradingAdapter.Models;
+using TradingApp.Modules.Application.GetCypherB;
+using TradingApp.Modules.Application.Models;
+using TradingApp.Modules.Ports;
 
 namespace TradingApp.Modules.Test.Quotes.Application.GetCypherB;
 
 public class GetCypherBCommandHandlerTests
 {
-    private readonly Mock<IStooqProvider> StooqProvider = new();
+    private readonly Mock<ITradingAdapter> StooqProvider = new();
     private readonly Mock<IEvaluator> Evaluator = new();
     private GetCypherBCommandHandler _sut;
 

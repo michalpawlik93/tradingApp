@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj" />
+    <ProjectReference Include="..\TradingApp.Modules\TradingApp.Modules.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using TradingApp.TestUtils.Fixtures;
-using TradingApp.TradingAdapter.Models;
+using TradingApp.Modules.Application.Models;
 
 namespace TradingApp.TestUtils;
 

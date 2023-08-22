@@ -1,5 +1,5 @@
-﻿using TradingApp.StooqProvider.Constants;
-using TradingApp.TradingAdapter.Enums;
+﻿using TradingApp.Modules.Domain.Enums;
+using TradingApp.StooqProvider.Constants;
 
 namespace TradingApp.StooqProvider.Utils;
 

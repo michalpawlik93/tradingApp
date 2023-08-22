@@ -6,16 +6,16 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Json;
 using TradingApp.Core.Models;
+using TradingApp.Evaluator;
+using TradingApp.Modules.Application.GetCypherB;
+using TradingApp.Modules.Application.GetCypherB.Dto;
+using TradingApp.Modules.Application.GetStooqCombinedQuotes;
+using TradingApp.Modules.Application.GetStooqCombinedQuotes.Dto;
 using TradingApp.Modules.Authentication.Abstraction;
 using TradingApp.Modules.Authentication.GetToken;
 using TradingApp.Modules.Authentication.Services;
-using TradingApp.Modules.Quotes.Application.GetCypherB;
-using TradingApp.Modules.Quotes.Application.GetCypherB.Dto;
-using TradingApp.Modules.Quotes.Application.GetStooqCombinedQuotes;
-using TradingApp.Modules.Quotes.Application.GetStooqCombinedQuotes.Dto;
+using TradingApp.Modules.Ports;
 using TradingApp.StooqProvider.Setup;
-using TradingApp.TradingAdapter.Evaluator;
-using TradingApp.TradingAdapter.Interfaces;
 
 namespace TradingApp.TradingWebApi.ExtensionMethodes;
 

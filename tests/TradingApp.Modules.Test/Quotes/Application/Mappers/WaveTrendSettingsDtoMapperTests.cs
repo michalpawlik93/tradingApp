@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
-using TradingApp.Modules.Quotes.Application.Mappers;
-using TradingApp.Modules.Quotes.Application.Models;
+using TradingApp.Modules.Application.Dtos;
+using TradingApp.Modules.Application.Mappers;
 using Xunit;
 
 namespace TradingApp.Modules.Test.Quotes.Application.Mappers;

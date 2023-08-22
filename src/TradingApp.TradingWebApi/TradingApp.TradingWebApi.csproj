@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
@@ -17,7 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TradingApp.Module.Authentication\TradingApp.Module.Authentication.csproj" />
     <ProjectReference Include="..\TradingApp.Modules\TradingApp.Modules.csproj" />
+    <ProjectReference Include="..\TradingApp.Ports\TradingApp.Evaluator.csproj" />
+    <ProjectReference Include="..\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj" />
+    <ProjectReference Include="..\TradingApp.TradingViewProvider\TradingApp.TradingViewProvider.csproj" />
   </ItemGroup>
 
 </Project>

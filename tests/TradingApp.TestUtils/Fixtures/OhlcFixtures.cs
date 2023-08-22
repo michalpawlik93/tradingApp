@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using TradingApp.TradingAdapter.Models;
+using TradingApp.Modules.Application.Models;
 
 namespace TradingApp.TestUtils.Fixtures;
 

@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\TradingApp.Core\TradingApp.Core.csproj" />
-    <ProjectReference Include="..\..\src\TradingApp.TradingAdapter\TradingApp.TradingAdapter.csproj" />
   </ItemGroup>
 
 </Project>

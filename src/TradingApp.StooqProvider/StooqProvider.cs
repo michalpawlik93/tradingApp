@@ -1,11 +1,11 @@
 ﻿using FluentResults;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using TradingApp.Modules.Application.Models;
+using TradingApp.Modules.Ports;
 using TradingApp.StooqProvider.Services;
 using TradingApp.StooqProvider.Setup;
 using TradingApp.StooqProvider.Utils;
-using TradingApp.TradingAdapter.Interfaces;
-using TradingApp.TradingAdapter.Models;
 
 namespace TradingApp.StooqProvider;
 

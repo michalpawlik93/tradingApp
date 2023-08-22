@@ -2,8 +2,8 @@
 //using System.IO.Compression;
 //using TradingApp.StooqProvider.Abstraction;
 //using TradingApp.StooqProvider.Services;
-//using TradingApp.TradingAdapter.Enums;
-//using TradingApp.TradingAdapter.Models;
+//using TradingApp.Ports.Enums;
+//using TradingApp.Modules.Application.Models;
 
 //namespace TradingApp.StooqProvider.Tests.Services
 //{

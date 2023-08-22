@@ -103,3 +103,12 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/ref/TradingApp.StooqProvider.Test.dll
 /tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/refint/TradingApp.StooqProvider.Test.dll
 /tests/TradingApp.TradingViewProvider.Test/bin/Debug/net7.0/TradingApp.TradingViewProvider.Test.deps.json
+/src/TradingApp.Module.Authentication/bin/Debug/net7.0
+/src/TradingApp.Module.Authentication/obj
+/src/TradingApp.Ports/bin/Debug/net7.0
+/src/TradingApp.Ports/obj
+/src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
+/tests/TradingApp.Module.Authentication.Test/bin/Debug/net7.0
+/tests/TradingApp.Module.Authentication.Test/obj
+/tests/TradingApp.Ports.Test/bin/Debug/net7.0
+/tests/TradingApp.Ports.Test/obj
