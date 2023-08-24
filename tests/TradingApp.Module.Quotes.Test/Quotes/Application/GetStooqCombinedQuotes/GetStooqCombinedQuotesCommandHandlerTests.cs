@@ -2,7 +2,7 @@
 using FluentAssertions;
 using FluentResults;
 using Moq;
-using TradingApp.Module.Quotes.Application.GetStooqCombinedQuotes;
+using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Ports;
 

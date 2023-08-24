@@ -15,7 +15,7 @@ public class JwtProviderTest
 {
     private IOptions<JwtOptions> JwtOptionsMock;
     private readonly Mock<ILogger<JwtProvider>> LoggerMock = new();
-    private static string ApiSecretMock = "apiSecretMockValue";
+    private static string ApiSecretMock = "ThisIsAReallyLongKeyWithMoreThan520BitsOfData12345678901234567890123456789012345678901234567890";
 
     private JwtProvider _sut;
 
@@ -46,7 +46,7 @@ public class JwtProviderTest
     public void Handle_CorrectInput_ValidTokenResulted(User user)
     {
         //Arrange
-        user.ApiSecret = ApiSecretMock;
+        user.ApiSecret = "ThisIsAReallyLongKeyWithMoreThan520BitsOfData12345678901234567890123456789012345678901234567890";
 
         //Act
         var result = _sut.Generate(user);

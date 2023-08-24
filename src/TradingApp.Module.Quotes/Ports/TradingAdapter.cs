@@ -7,7 +7,7 @@ namespace TradingApp.Module.Quotes.Ports;
 /// <summary>
 /// This class is used as a proxy
 /// </summary>
-public abstract class TradingAdapterAbstract
+public abstract class TradingAdapterAbstract : ITradingAdapter
 {
     protected TradingAdapterAbstract() { }
 

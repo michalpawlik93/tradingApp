@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TradingApp.Module.Quotes.Application.Dtos;
-using TradingApp.Module.Quotes.Application.GetCypherB;
-using TradingApp.Module.Quotes.Application.GetCypherB.Dto;
-using TradingApp.Module.Quotes.Application.GetStooqCombinedQuotes;
+using TradingApp.Module.Quotes.Application.Features.GetCypherB;
+using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
+using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
 
 namespace TradingApp.TradingWebApi.Modules;
 

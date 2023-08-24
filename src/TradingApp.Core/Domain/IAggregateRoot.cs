@@ -1,6 +1,9 @@
-﻿namespace TradingApp.Core.Domain;
+﻿using TradingApp.Core.EventBus.Events;
+
+namespace TradingApp.Core.Domain;
 
 public interface IAggregateRoot
 {
-    public IReadOnlyCollection<IEvent> DomainEvents();
+    public IReadOnlyCollection<IDomainEvent> DomainEvents();
+    public IReadOnlyCollection<IIntegrationEvent> IntegrationEvents();
 }

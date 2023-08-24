@@ -3,11 +3,11 @@ using MediatR;
 using Serilog;
 using TradingApp.Core.Models;
 using TradingApp.Domain.Modules.Constants;
-using TradingApp.Module.Quotes.Application.GetStooqCombinedQuotes.Dto;
+using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Ports;
 
-namespace TradingApp.Module.Quotes.Application.GetStooqCombinedQuotes;
+namespace TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
 
 public class GetStooqCombinedQuotesCommandHandler
     : IRequestHandler<

@@ -1,21 +1,21 @@
 ﻿using MediatR;
-using MediatR.NotificationPublishers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Json;
+using TradingApp.Core.Extensions;
 using TradingApp.Core.Models;
 using TradingApp.Evaluator;
-using TradingApp.Module.Quotes.Application.GetCypherB;
-using TradingApp.Module.Quotes.Application.GetCypherB.Dto;
-using TradingApp.Module.Quotes.Application.GetStooqCombinedQuotes;
-using TradingApp.Module.Quotes.Application.GetStooqCombinedQuotes.Dto;
+using TradingApp.Module.Quotes.Application.Features.GetCypherB;
+using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
+using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
+using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Authentication.Abstraction;
-using TradingApp.Module.Quotes.Authentication.GetToken;
 using TradingApp.Module.Quotes.Authentication.Services;
 using TradingApp.Module.Quotes.Ports;
 using TradingApp.StooqProvider.Setup;
+
 
 namespace TradingApp.TradingWebApi.ExtensionMethodes;
 
@@ -23,14 +23,7 @@ public static class ServicesExtensionMethods
 {
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMediatR(config =>
-        {
-            config.NotificationPublisher = new TaskWhenAllPublisher();
-        });
-        services.AddScoped<
-            IRequestHandler<GetTokenCommand, ServiceResponse<string>>,
-            GetTokenCommandHandler
-        >();
+        services.AddDomainEventBus();
         services.AddScoped<
             IRequestHandler<
                 GetStooqCombinedQuotesCommand,
@@ -45,6 +38,7 @@ public static class ServicesExtensionMethods
         services.AddTransient<IJwtProvider, JwtProvider>();
         services.AddTransient<IEvaluator, CustomEvaluator>();
         services.AddStooqProvider(configuration);
+        services.AddIntegrationEventBus(configuration);
     }
 
     public static void AddLogging(this WebApplicationBuilder builder)

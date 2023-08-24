@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using TradingApp.Core.Models;
-using TradingApp.Module.Quotes.Application.GetCypherB.Dto;
+using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 using TradingApp.Module.Quotes.Application.Mappers;
 using TradingApp.Module.Quotes.Application.Models;
 
-namespace TradingApp.Module.Quotes.Application.GetCypherB;
+namespace TradingApp.Module.Quotes.Application.Features.GetCypherB;
 
 public record GetCypherBCommand(TimeFrame TimeFrame, Asset Asset, WaveTrendSettings WaveTrendSettings, SRsiSettings SRsiSettings)
     : IRequest<ServiceResponse<GetCypherBResponseDto>>;

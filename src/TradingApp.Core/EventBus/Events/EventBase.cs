@@ -1,4 +1,4 @@
-﻿namespace TradingApp.Core.Domain;
+﻿namespace TradingApp.Core.EventBus.Events;
 
 public record EventBase : IEvent
 {

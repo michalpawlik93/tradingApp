@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Application.Dtos;
-using TradingApp.Module.Quotes.Application.GetStooqCombinedQuotes.Dto;
+using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Mappers;
 using TradingApp.Module.Quotes.Application.Models;
 
-namespace TradingApp.Module.Quotes.Application.GetStooqCombinedQuotes;
+namespace TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
 
 public record GetStooqCombinedQuotesCommand(TimeFrame TimeFrame, Asset Asset)
     : IRequest<ServiceResponse<GetStooqCombinedQuotesResponseDto>>;

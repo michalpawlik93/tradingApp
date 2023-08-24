@@ -8,7 +8,7 @@ public class SignalStrength : ValueObject
     protected decimal Value { get; }
     protected SignalStrengthLevel StrengthLevel { get; }
 
-    protected SignalStrength(decimal value, SignalStrengthLevel strengthLevel)
+    public SignalStrength(decimal value, SignalStrengthLevel strengthLevel)
     {
         Value = value;
         StrengthLevel = strengthLevel;

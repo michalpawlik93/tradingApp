@@ -1,6 +1,6 @@
 ﻿using TradingApp.Module.Quotes.Application.Dtos;
 
-namespace TradingApp.Module.Quotes.Application.GetCypherB.Dto;
+namespace TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 
 /// <summary>
 /// Data transfer object for fetching OHLC data.

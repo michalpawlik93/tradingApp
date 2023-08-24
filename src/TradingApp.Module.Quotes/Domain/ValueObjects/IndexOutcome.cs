@@ -6,7 +6,7 @@ public class IndexOutcome : ValueObject
 {
     protected string Name { get; }
     protected decimal Value { get; }
-    protected IndexOutcome(string name, decimal value)
+    public IndexOutcome(string name, decimal value)
     {
         Name = name;
         Value = value;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
+using TradingApp.Module.Quotes.Ports;
 using TradingApp.StooqProvider.Abstraction;
 using TradingApp.StooqProvider.Services;
 
@@ -15,7 +16,7 @@ public static class ServicesExtensionMethods
         services.AddHttpClient<StooqClient>();
         services.AddSingleton<IZipArchiveProvider, ZipArchiveProvider>();
         services.AddSingleton<IFileService, FileService>();
-        services.AddSingleton<IStooqProvider, StooqProvider>();
+        services.AddSingleton<ITradingAdapter, StooqProvider>();
     }
 }
 

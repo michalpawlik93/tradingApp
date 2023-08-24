@@ -2,7 +2,7 @@
 using FluentAssertions;
 using FluentResults;
 using Moq;
-using TradingApp.Module.Quotes.Application.GetCypherB;
+using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Ports;
 

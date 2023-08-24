@@ -12,8 +12,7 @@ using TradingApp.TradingViewProvider.Utils;
 
 namespace TradingApp.TradingViewProvider;
 
-public interface ITradingViewProvider : ITradingAdapter { };
-public sealed class TradingViewProvider : TradingAdapterAbstract, ITradingViewProvider
+public sealed class TradingViewProvider : TradingAdapterAbstract
 {
     private readonly ILogger<TradingViewProvider> _logger;
     private TradingViewClient _tradingViewClient { get; set; }

@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using TradingApp.Core.EventBus.Events;
 
 namespace TradingApp.Core.Domain;
 
@@ -13,8 +14,10 @@ public abstract class AggregateRoot<TKey> : IAggregateRoot
         Id = id;
     }
 
-    private List<IEvent> _domainEvents = new List<IEvent>();
-    public IReadOnlyCollection<IEvent> DomainEvents() => _domainEvents.AsReadOnly();
+    private List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
+    private List<IIntegrationEvent> _integrationEvents = new List<IIntegrationEvent>();
+    public IReadOnlyCollection<IDomainEvent> DomainEvents() => _domainEvents.AsReadOnly();
+    public IReadOnlyCollection<IIntegrationEvent> IntegrationEvents() => _integrationEvents.AsReadOnly();
 
     public void ClearDomainEvents()
     {
@@ -22,11 +25,15 @@ public abstract class AggregateRoot<TKey> : IAggregateRoot
     }
 
     public virtual Result Validate() => Result.Ok();
-    protected void AddDomainEvent(IEvent domainEvent)
+    protected void AddDomainEvent(IDomainEvent @event)
     {
-        _domainEvents ??= new List<IEvent>();
-
-        _domainEvents.Add(domainEvent);
+        _domainEvents ??= new List<IDomainEvent>();
+        _domainEvents.Add(@event);
+    }
+    protected void AddIntegrationEvent(IIntegrationEvent @event)
+    {
+        _integrationEvents ??= new List<IIntegrationEvent>();
+        _integrationEvents.Add(@event);
     }
 
     protected Result CheckRule(IBusinessRule rule)

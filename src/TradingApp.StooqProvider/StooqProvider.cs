@@ -9,10 +9,8 @@ using TradingApp.StooqProvider.Utils;
 
 namespace TradingApp.StooqProvider;
 
-public interface IStooqProvider : ITradingAdapter { };
-
 [ExcludeFromCodeCoverage]
-public sealed class StooqProvider : TradingAdapterAbstract, IStooqProvider
+public sealed class StooqProvider : TradingAdapterAbstract
 {
     private const string LocationHeaderKey = "Location";
     private readonly IFileService _fileService;

@@ -2,7 +2,7 @@
 
 namespace TradingApp.Core.EventBus;
 
-internal interface IInMemoryEventBus
+public interface IEventBus
 {
     public Task Publish(IAggregateRoot aggregate, CancellationToken ct);
 }
