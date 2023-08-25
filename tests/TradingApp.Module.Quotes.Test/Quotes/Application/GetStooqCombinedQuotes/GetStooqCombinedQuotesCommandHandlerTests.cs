@@ -1,10 +1,11 @@
-﻿using AutoFixture.NUnit3;
+﻿using AutoFixture.Xunit2;
 using FluentAssertions;
 using FluentResults;
 using Moq;
 using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Ports;
+using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Quotes.Application.GetStooqCombinedQuotes;
 
@@ -12,15 +13,15 @@ public class GetStooqCombinedQuotesCommandHandlerTests
 {
     private readonly Mock<ITradingAdapter> StooqProvider = new();
     private readonly Mock<IEvaluator> Evaluator = new();
-    private GetStooqCombinedQuotesCommandHandler _sut;
+    private readonly GetStooqCombinedQuotesCommandHandler _sut;
 
-    [SetUp]
-    public void SetUp()
+    public GetStooqCombinedQuotesCommandHandlerTests()
     {
         _sut = new GetStooqCombinedQuotesCommandHandler(StooqProvider.Object, Evaluator.Object);
     }
 
-    [Test]
+
+    [Theory]
     [AutoData]
     public async Task Handle_GetQuotesFailed_ResponseReturned(GetStooqCombinedQuotesCommand command)
     {
@@ -34,7 +35,8 @@ public class GetStooqCombinedQuotesCommandHandlerTests
         result.Messages.Should().Contain(x => x.Message == errrorMessage);
     }
 
-    [Test]
+
+    [Theory]
     [AutoData]
     public async Task Handle_SuccessPath_ResponseReturned(GetStooqCombinedQuotesCommand command, IEnumerable<Quote> quotes)
     {

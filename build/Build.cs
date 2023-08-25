@@ -24,9 +24,10 @@ partial class Build : NukeBuild
     private static Dictionary<string, AbsolutePath> UnitTestDirectories = new Dictionary<string, AbsolutePath>()
     {
             {"Core", RootDirectory / "tests" / "TradingApp.Core.Test"},
-            {"Modules", RootDirectory / "tests" / "TradingApp.Module.Quotes.Test"},
+            {"Quotes", RootDirectory / "tests" / "TradingApp.Module.Quotes.Test"},
+            {"Authentication", RootDirectory / "tests" / "TradingApp.Module.Authentication.Test"},
+            {"Evaluator", RootDirectory / "tests" / "TradingApp.Evaluator.Test"},
             {"StooqProvider", RootDirectory / "tests" / "TradingApp.StooqProvider.Test"},
-            {"TradingAdapter", RootDirectory / "tests" / "TradingApp.Ports.Test"},
             {"TradingViewProvider", RootDirectory / "tests" / "TradingApp.TradingViewProvider.Test"},
     };
 

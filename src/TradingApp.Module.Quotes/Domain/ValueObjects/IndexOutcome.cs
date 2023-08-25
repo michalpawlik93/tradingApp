@@ -6,10 +6,12 @@ public class IndexOutcome : ValueObject
 {
     protected string Name { get; }
     protected decimal Value { get; }
-    public IndexOutcome(string name, decimal value)
+    protected Dictionary<string, string> AdditonalParameters { get; }
+    public IndexOutcome(string name, decimal value, Dictionary<string, string> additonalParameters = null)
     {
         Name = name;
         Value = value;
+        AdditonalParameters = additonalParameters ?? new Dictionary<string, string>();
     }
     protected override IEnumerable<object> GetEqualityComponents()
     {

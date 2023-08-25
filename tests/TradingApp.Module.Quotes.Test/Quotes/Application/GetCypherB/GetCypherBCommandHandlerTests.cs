@@ -1,10 +1,11 @@
-﻿using AutoFixture.NUnit3;
+﻿using AutoFixture.Xunit2;
 using FluentAssertions;
 using FluentResults;
 using Moq;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Ports;
+using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Quotes.Application.GetCypherB;
 
@@ -12,15 +13,14 @@ public class GetCypherBCommandHandlerTests
 {
     private readonly Mock<ITradingAdapter> StooqProvider = new();
     private readonly Mock<IEvaluator> Evaluator = new();
-    private GetCypherBCommandHandler _sut;
+    private readonly GetCypherBCommandHandler _sut;
 
-    [SetUp]
-    public void SetUp()
+    public GetCypherBCommandHandlerTests()
     {
         _sut = new GetCypherBCommandHandler(StooqProvider.Object, Evaluator.Object);
     }
 
-    [Test]
+    [Theory]
     [AutoData]
     public async Task Handle_GetQuotesFailed_ResponseReturned(GetCypherBCommand command)
     {
@@ -34,7 +34,7 @@ public class GetCypherBCommandHandlerTests
         result.Messages.Should().Contain(x => x.Message == errrorMessage);
     }
 
-    [Test]
+    [Theory]
     [AutoData]
     public async Task Handle_SuccessPath_ResponseReturned(GetCypherBCommand command, IEnumerable<Quote> quotes, WaveTrendResult waveTrend)
     {
