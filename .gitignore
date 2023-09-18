@@ -125,3 +125,8 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /tests/TradingApp.MongoDb.Test/obj
 /tests/TradingApp.StooqProvider.Test/bin/Debug/net7.0/FluentResults.dll
 /tests/TradingApp.TradingViewProvider.Test/bin/Debug/net7.0/FluentResults.dll
+/src/TradingApp.EvaluationScheduler/obj/Debug/net7.0
+/src/TradingApp.EvaluationScheduler/obj
+/src/TradingApp.Evaluator/bin/Debug/net7.0
+/src/TradingApp.Evaluator/obj
+/src/TradingApp.EvaluationScheduler/bin/Debug/net7.0

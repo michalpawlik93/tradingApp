@@ -4,7 +4,7 @@ using TradingApp.Module.Quotes.Domain.ValueObjects;
 
 namespace TradingApp.Module.Quotes.Application.Services;
 
-internal class DecisionService : IDecisionService
+public class DecisionService : IDecisionService
 {
     public Decision MakeDecision(IndexOutcome indexOutcome)
     {

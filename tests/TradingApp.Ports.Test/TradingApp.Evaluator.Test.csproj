@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TradingApp.Ports\TradingApp.Evaluator.csproj" />
+    <ProjectReference Include="..\..\src\TradingApp.Evaluator\TradingApp.Evaluator.csproj" />
     <ProjectReference Include="..\TradingApp.TestUtils\TradingApp.TestUtils.csproj" />
   </ItemGroup>
 

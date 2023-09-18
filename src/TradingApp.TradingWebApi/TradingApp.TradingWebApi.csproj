@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TradingApp.Evaluator\TradingApp.Evaluator.csproj" />
     <ProjectReference Include="..\TradingApp.Module.Authentication\TradingApp.Module.Authentication.csproj" />
-    <ProjectReference Include="..\TradingApp.Ports\TradingApp.Evaluator.csproj" />
     <ProjectReference Include="..\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj" />
     <ProjectReference Include="..\TradingApp.TradingViewProvider\TradingApp.TradingViewProvider.csproj" />
   </ItemGroup>
