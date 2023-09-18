@@ -5,8 +5,8 @@ namespace TradingApp.Module.Quotes.Domain.ValueObjects;
 
 public class SignalStrength : ValueObject
 {
-    protected decimal Value { get; }
-    protected SignalStrengthLevel StrengthLevel { get; }
+    public decimal Value { get; }
+    public SignalStrengthLevel StrengthLevel { get; }
 
     public SignalStrength(decimal value, SignalStrengthLevel strengthLevel)
     {

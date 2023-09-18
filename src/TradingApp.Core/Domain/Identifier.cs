@@ -18,8 +18,6 @@ public abstract class Identifier<TSelf, TKey> : ValueObject
     protected Identifier() { }
 #pragma warning restore CS8618
 
-    public abstract TSelf Copy();
-
     public virtual ObjectId ToObjectId() =>
         ObjectId.New(GetType().Name, Id.ToString() ?? string.Empty);
 

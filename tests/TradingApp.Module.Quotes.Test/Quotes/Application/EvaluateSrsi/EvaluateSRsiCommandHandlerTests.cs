@@ -18,7 +18,7 @@ public class EvaluateSRsiCommandHandlerTests
     private readonly IEventBus EventBus = Substitute.For<IEventBus>();
     private readonly IEvaluator Evaluator = Substitute.For<IEvaluator>();
     private readonly IDecisionService DecisionService = Substitute.For<IDecisionService>();
-    private readonly IDecisionDataService DecisionDataService = Substitute.For<IDecisionDataService>();
+    private readonly IEntityDataService<Decision> DecisionDataService = Substitute.For<IEntityDataService<Decision>>();
     private readonly EvaluateSRsiCommandHandler _sut;
 
     public EvaluateSRsiCommandHandlerTests()

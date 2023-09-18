@@ -4,9 +4,9 @@ namespace TradingApp.Module.Quotes.Domain.ValueObjects;
 
 public class IndexOutcome : ValueObject
 {
-    protected string Name { get; }
-    protected decimal Value { get; }
-    protected Dictionary<string, string> AdditonalParameters { get; }
+    public string Name { get; }
+    public decimal Value { get; }
+    public Dictionary<string, string> AdditonalParameters { get; }
     public IndexOutcome(string name, decimal value, Dictionary<string, string> additonalParameters = null)
     {
         Name = name;

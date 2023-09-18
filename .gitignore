@@ -116,3 +116,12 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /src/TradingApp.Module.Quotes/obj
 /tests/TradingApp.Module.Quotes.Test/bin/Debug/net7.0
 /tests/TradingApp.Module.Quotes.Test/obj
+/src/TradingApp.MongoDb/obj/Debug/net7.0
+/src/TradingApp.MongoDb/obj
+/src/TradingApp.MongoDb/bin/Debug/net7.0
+/tests/TradingApp.MongoDb/bin/Debug/net7.0
+/tests/TradingApp.MongoDb/obj
+/tests/TradingApp.MongoDb.Test/bin/Debug/net7.0
+/tests/TradingApp.MongoDb.Test/obj
+/tests/TradingApp.StooqProvider.Test/bin/Debug/net7.0/FluentResults.dll
+/tests/TradingApp.TradingViewProvider.Test/bin/Debug/net7.0/FluentResults.dll

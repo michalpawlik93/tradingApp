@@ -35,6 +35,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Module.Authentic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Module.Authentication.Test", "tests\TradingApp.Module.Authentication.Test\TradingApp.Module.Authentication.Test.csproj", "{92DF775D-96F9-4D83-AA63-BA4DD1B31CA6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.MongoDb", "src\TradingApp.MongoDb\TradingApp.MongoDb.csproj", "{2292E20A-3D00-4BC3-A305-64E8D8E5F3D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.MongoDb.Test", "tests\TradingApp.MongoDb.Test\TradingApp.MongoDb.Test.csproj", "{3EA6B53C-0238-45F5-8E78-8E0F7E80F2EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +103,14 @@ Global
 		{92DF775D-96F9-4D83-AA63-BA4DD1B31CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92DF775D-96F9-4D83-AA63-BA4DD1B31CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92DF775D-96F9-4D83-AA63-BA4DD1B31CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2292E20A-3D00-4BC3-A305-64E8D8E5F3D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2292E20A-3D00-4BC3-A305-64E8D8E5F3D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2292E20A-3D00-4BC3-A305-64E8D8E5F3D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2292E20A-3D00-4BC3-A305-64E8D8E5F3D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA6B53C-0238-45F5-8E78-8E0F7E80F2EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA6B53C-0238-45F5-8E78-8E0F7E80F2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA6B53C-0238-45F5-8E78-8E0F7E80F2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA6B53C-0238-45F5-8E78-8E0F7E80F2EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +123,7 @@ Global
 		{C3DB2151-8099-432C-BCA5-0A8BE41DFAC6} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{70905909-5BAF-4D94-A599-A674144A4DC4} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{92DF775D-96F9-4D83-AA63-BA4DD1B31CA6} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
+		{3EA6B53C-0238-45F5-8E78-8E0F7E80F2EF} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6A546BD-170A-4937-BE8F-077A50F97E5B}

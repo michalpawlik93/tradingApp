@@ -4,6 +4,7 @@ using TradingApp.Core.EventBus;
 using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Application.Services;
+using TradingApp.Module.Quotes.Domain.Aggregates;
 using TradingApp.Module.Quotes.Domain.Constants;
 using TradingApp.Module.Quotes.Domain.ValueObjects;
 using TradingApp.Module.Quotes.Ports;
@@ -21,7 +22,7 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, S
     private readonly IEventBus _eventBus;
     private readonly IEvaluator _evaulator;
     private readonly IDecisionService _decisionService;
-    private readonly IDecisionDataService _decisionDataService;
+    private readonly IEntityDataService<Decision> _decisionDataService;
 
     private static SRsiSettings SrsiSettings = new(true, 12, 3, 3, -60, 60);
 
@@ -29,7 +30,7 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, S
         IEventBus eventBus,
         IEvaluator evaulator,
         IDecisionService decisionService,
-        IDecisionDataService decisionDataService
+        IEntityDataService<Decision> decisionDataService
     )
     {
         ArgumentNullException.ThrowIfNull(eventBus);

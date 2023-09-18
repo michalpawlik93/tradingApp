@@ -8,7 +8,7 @@ public class DecisionId : Identifier<DecisionId, Guid>
 
     public static DecisionId NewId() => new(Guid.NewGuid());
 
-    public override DecisionId Copy() => new(Id);
+    public static DecisionId Clone(Guid id) => new(id);
 
     public Guid ToGuid() => Id;
 }

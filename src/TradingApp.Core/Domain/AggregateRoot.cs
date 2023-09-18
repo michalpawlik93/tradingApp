@@ -6,7 +6,7 @@ namespace TradingApp.Core.Domain;
 
 public abstract class AggregateRoot<TKey> : IAggregateRoot
 {
-    public TKey? Id { get; internal set; }
+    public TKey? Id { get; protected set; }
 
     protected AggregateRoot() { }
     protected AggregateRoot(TKey id)
