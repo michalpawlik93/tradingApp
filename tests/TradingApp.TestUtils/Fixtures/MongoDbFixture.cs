@@ -1,8 +1,9 @@
 ﻿using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using MongoDB.Driver;
+using Xunit;
 
-namespace TradingApp.MongoDb.Test.Fixtures;
+namespace TradingApp.TestUtils.Fixtures;
 
 public class MongoDbFixture : IAsyncLifetime
 {

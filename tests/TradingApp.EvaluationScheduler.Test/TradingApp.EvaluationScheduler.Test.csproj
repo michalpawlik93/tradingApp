@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TradingApp.MongoDb\TradingApp.MongoDb.csproj" />
+    <ProjectReference Include="..\..\src\TradingApp.EvaluationScheduler\TradingApp.EvaluationScheduler.csproj" />
     <ProjectReference Include="..\TradingApp.TestUtils\TradingApp.TestUtils.csproj" />
   </ItemGroup>
 

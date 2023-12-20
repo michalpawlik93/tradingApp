@@ -6,12 +6,13 @@ using TradingApp.Module.Quotes.Domain.ValueObjects;
 using TradingApp.MongoDb.Adapters;
 using TradingApp.MongoDb.Mappers;
 using TradingApp.MongoDb.Models;
-using TradingApp.MongoDb.Test.Fixtures;
+using TradingApp.TestUtils.Collections;
+using TradingApp.TestUtils.Fixtures;
 
 namespace TradingApp.MongoDb.Test.Integration;
 
 [Collection(nameof(MongoDbFixtureCollection))]
-public class MongoDataServiceTests
+public class MongoDataServiceTests : IClassFixture<MongoDbFixture>
 {
     private readonly IMongoDbMapper<Decision, DecisionDao> Mapper = Substitute.For<
         IMongoDbMapper<Decision, DecisionDao>
@@ -24,7 +25,7 @@ public class MongoDataServiceTests
     }
 
     [Fact]
-    public async Task AddAndGet_Success()
+    public async Task Execute_Success()
     {
         //Arrange
         var decision = Decision.CreateNew(

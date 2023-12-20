@@ -130,3 +130,11 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /src/TradingApp.Evaluator/bin/Debug/net7.0
 /src/TradingApp.Evaluator/obj
 /src/TradingApp.EvaluationScheduler/bin/Debug/net7.0
+/tests/TradingApp.EvaluationScheduler.Test/bin/Debug/net7.0
+/tests/TradingApp.EvaluationScheduler.Test/obj/Debug/net7.0
+/tests/TradingApp.EvaluationScheduler.Test/obj
+/tests/TradingApp.StooqProvider.Test/obj/TradingApp.StooqProvider.Test.csproj.nuget.g.props
+/tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/TradingApp.StooqProvider.Test.AssemblyInfoInputs.cache
+/tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/TradingApp.StooqProvider.Test.AssemblyInfo.cs
+/tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/TradingApp.StooqProvider.Test.GeneratedMSBuildEditorConfig.editorconfig
+/tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/TradingApp.StooqProvider.Test.genruntimeconfig.cache

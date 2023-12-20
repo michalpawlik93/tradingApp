@@ -1,13 +1,15 @@
 ﻿using Quartz;
+using System.Diagnostics.CodeAnalysis;
 using TradingApp.EvaluationScheduler.Jobs;
 
 namespace TradingApp.EvaluationScheduler;
 
+[ExcludeFromCodeCoverage]
 public static class JobExtensions
 {
     public static IJobDetail CreateJob() =>
-         JobBuilder.Create<EvaluateJob>()
-            .WithIdentity(name: "EvaluateJob", group: "JobGroup")
+         JobBuilder.Create<Evaluate5MinJob>()
+            .WithIdentity(name: "Evaluate5MinJob", group: "JobGroup")
             .Build();
 
     public static ITrigger CreateTrigger() =>
@@ -15,6 +17,6 @@ public static class JobExtensions
             .WithIdentity(name: "RepeatingTrigger", group: "TriggerGroup")
             .WithSimpleSchedule(o => o
                 .RepeatForever()
-                .WithIntervalInSeconds(5))
+                .WithIntervalInSeconds(60))
             .Build();
 }

@@ -1,6 +1,7 @@
-﻿using TradingApp.MongoDb.Test.Fixtures;
+﻿using TradingApp.TestUtils.Fixtures;
+using Xunit;
 
-namespace TradingApp.MongoDb.Test.Integration;
+namespace TradingApp.TestUtils.Collections;
 
 [CollectionDefinition(nameof(MongoDbFixtureCollection))]
 public class MongoDbFixtureCollection : ICollectionFixture<MongoDbFixture> { }

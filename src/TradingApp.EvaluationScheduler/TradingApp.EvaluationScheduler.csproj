@@ -8,6 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.Development.json" />
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
     <PackageReference Include="Quartz" Version="3.7.0" />
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.7.0" />
@@ -16,6 +34,8 @@
   <ItemGroup>
     <ProjectReference Include="..\TradingApp.Evaluator\TradingApp.Evaluator.csproj" />
     <ProjectReference Include="..\TradingApp.Module.Quotes\TradingApp.Module.Quotes.csproj" />
+    <ProjectReference Include="..\TradingApp.MongoDb\TradingApp.MongoDb.csproj" />
+    <ProjectReference Include="..\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj" />
   </ItemGroup>
 
 </Project>

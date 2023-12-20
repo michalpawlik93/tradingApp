@@ -44,8 +44,6 @@ public class MongoDataService<TDomain, TDao> : IEntityDataService<TDomain> where
         try
         {
             var dao = await _collection.Find(d => d.Id == id).FirstOrDefaultAsync();
-            var doc = await _collection.Find(_ => true).FirstOrDefaultAsync();
-
             if (dao == null)
             {
                 return Result.Fail($"{nameof(TDomain)} not found in database");

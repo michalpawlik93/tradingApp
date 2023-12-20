@@ -39,7 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.MongoDb", "src\T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.MongoDb.Test", "tests\TradingApp.MongoDb.Test\TradingApp.MongoDb.Test.csproj", "{3EA6B53C-0238-45F5-8E78-8E0F7E80F2EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.EvaluationScheduler", "src\TradingApp.EvaluationScheduler\TradingApp.EvaluationScheduler.csproj", "{2C25CAA7-BC2F-480C-97C5-B19CC13C2F79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.EvaluationScheduler", "src\TradingApp.EvaluationScheduler\TradingApp.EvaluationScheduler.csproj", "{2C25CAA7-BC2F-480C-97C5-B19CC13C2F79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.EvaluationScheduler.Test", "tests\TradingApp.EvaluationScheduler.Test\TradingApp.EvaluationScheduler.Test.csproj", "{36831C4E-3FDD-4EF0-9CFB-01261E531308}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{2C25CAA7-BC2F-480C-97C5-B19CC13C2F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C25CAA7-BC2F-480C-97C5-B19CC13C2F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C25CAA7-BC2F-480C-97C5-B19CC13C2F79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36831C4E-3FDD-4EF0-9CFB-01261E531308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36831C4E-3FDD-4EF0-9CFB-01261E531308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36831C4E-3FDD-4EF0-9CFB-01261E531308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36831C4E-3FDD-4EF0-9CFB-01261E531308}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{70905909-5BAF-4D94-A599-A674144A4DC4} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{92DF775D-96F9-4D83-AA63-BA4DD1B31CA6} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{3EA6B53C-0238-45F5-8E78-8E0F7E80F2EF} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
+		{36831C4E-3FDD-4EF0-9CFB-01261E531308} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6A546BD-170A-4937-BE8F-077A50F97E5B}
