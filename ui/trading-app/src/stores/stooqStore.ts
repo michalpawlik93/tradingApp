@@ -4,14 +4,13 @@ import { CombinedQuote } from "../types/CombinedQuote";
 import { CypherBQuote } from "../types/CypherBQuote";
 import { RsiSettings } from "../types/RsiSettings";
 import { GetQuotesRequestDto } from "../services/dtos/GetQuotesRequestDto";
-import { GetCypherBDto } from "../services/dtos/GetCypherBDto";
 
 interface StooqState {
   combinedQuotes: CombinedQuote[];
   cypherBQuotes: CypherBQuote[];
   rsiSettings: RsiSettings;
   fetchCombinedQuotes: (request: GetQuotesRequestDto) => Promise<void>;
-  fetchCypherBQuotes: (request: GetCypherBDto) => Promise<void>;
+  fetchCypherBQuotes: (request: GetQuotesRequestDto) => Promise<void>;
 }
 
 export const useStooqStore = create<StooqState>((set) => ({
@@ -35,7 +34,7 @@ export const useStooqStore = create<StooqState>((set) => ({
       console.error("Error fetching data:", error);
     }
   },
-  fetchCypherBQuotes: async (request: GetCypherBDto) => {
+  fetchCypherBQuotes: async (request: GetQuotesRequestDto) => {
     try {
       const response = await StooqDataService.getCypherB(request);
       set({

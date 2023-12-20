@@ -4,7 +4,6 @@ import { CypherBQuote } from "../../types/CypherBQuote";
 import { useMemo } from "react";
 import { ApexCypherBChartData } from "../../types/ApexCypherBChartData";
 import { mapToApexChartData } from "../../mappers/CypherBChartMapper";
-import { WaveTrendChartCordinate } from "../../types/WaveTrendChartCordinate";
 
 interface CypherBChartProps {
   quotes: CypherBQuote[];
@@ -16,37 +15,37 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
     [quotes]
   );
 
-  const waveTrendPoints = useMemo(() => {
-    const a = chartData.waveTrend
-      .filter(
-        (cordinate: WaveTrendChartCordinate) =>
-          cordinate.crossesOver || cordinate.crossesUnder
-      )
-      .map((cordinate: WaveTrendChartCordinate) => {
-        return {
-          x: cordinate.x.toDateString(),
-          y: cordinate.y,
-          marker: {
-            size: 16,
-            fillColor: cordinate.crossesOver ? "#E83810" : "#E83810",
-            strokeColor: "#E83810",
-            radius: 2,
-          },
-          label: {
-            borderColor: "#FF4560",
-            offsetY: 0,
-            style: {
-              color: "#fff",
-              background: "#FF4560",
-            },
+  // const waveTrendPoints = useMemo(() => {
+  //   const a = chartData.waveTrend
+  //     .filter(
+  //       (cordinate: WaveTrendChartCordinate) =>
+  //         cordinate.crossesOver || cordinate.crossesUnder
+  //     )
+  //     .map((cordinate: WaveTrendChartCordinate) => {
+  //       return {
+  //         x: cordinate.x.toDateString(),
+  //         y: cordinate.y,
+  //         marker: {
+  //           size: 16,
+  //           fillColor: cordinate.crossesOver ? "#E83810" : "#E83810",
+  //           strokeColor: "#E83810",
+  //           radius: 2,
+  //         },
+  //         label: {
+  //           borderColor: "#FF4560",
+  //           offsetY: 0,
+  //           style: {
+  //             color: "#fff",
+  //             background: "#FF4560",
+  //           },
 
-            text: "Point Annotation (XY)",
-          },
-        };
-      });
-    console.log(a);
-    return a;
-  }, [chartData.waveTrend]);
+  //           text: "Point Annotation (XY)",
+  //         },
+  //       };
+  //     });
+  //   console.log(a);
+  //   return a;
+  // }, [chartData.waveTrend]);
 
   const series: ApexOptions["series"] = [
     // {

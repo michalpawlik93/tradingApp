@@ -56,22 +56,9 @@ export const ChartSettingsPanelForm = ({
   const onSubmit = async (data: IChartSettingsPanelForm) => {
     console.log(data);
     await fetchData({
-      asset: {
-        name: data.assetName,
-        type: data.assetType,
-      },
-      timeFrame: {
-        granularity: data.granularity,
-        startDate: data.startDate?.toISOString(),
-        endDate: data.endDate?.toISOString(),
-      },
-      waveTrendSettings: {
-        channelLength: 8,
-        averageLength: 6,
-        movingAverageLength: 3,
-        oversold: -80,
-        overbought: 80,
-      },
+      assetType: data.assetType,
+      assetName: data.assetName,
+      granularity: data.granularity,
     });
   };
   return (
