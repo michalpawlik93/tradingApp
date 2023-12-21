@@ -13,7 +13,6 @@
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="NSubstitute" Version="5.1.0" />
-    <PackageReference Include="Testcontainers" Version="3.5.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -26,7 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\TradingApp.EvaluationScheduler\TradingApp.EvaluationScheduler.csproj" />
-    <ProjectReference Include="..\TradingApp.TestUtils\TradingApp.TestUtils.csproj" />
+    <ProjectReference Include="..\TestUtils\TestUtils.csproj" />
   </ItemGroup>
 
 </Project>

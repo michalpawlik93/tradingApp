@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\TradingApp.Evaluator\TradingApp.Evaluator.csproj" />
-    <ProjectReference Include="..\TradingApp.TestUtils\TradingApp.TestUtils.csproj" />
+    <ProjectReference Include="..\TestUtils\TestUtils.csproj" />
   </ItemGroup>
 
 </Project>
