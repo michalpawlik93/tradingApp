@@ -11,7 +11,7 @@ public static class DateTimeUtils
             return null;
         }
 
-        if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffK", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var parsedDate))
+        if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss.fffZ", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var parsedDate))
         {
             return DateTime.SpecifyKind(parsedDate, DateTimeKind.Utc);
         }

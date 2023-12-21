@@ -32,7 +32,7 @@ public class DateTimeUtilsTests
     {
         // Arrange
         string dateString = "2023-07-12T10:30:00.000Z";
-        var expectedDateTime = new DateTime(2023, 07, 12, 12, 30, 0, DateTimeKind.Utc);
+        var expectedDateTime = new DateTime(2023, 07, 12, 10, 30, 0, DateTimeKind.Utc);
 
         // Act
         var result = DateTimeUtils.ParseIso8601DateString(dateString);
