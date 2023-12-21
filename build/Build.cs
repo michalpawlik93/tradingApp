@@ -5,8 +5,8 @@ using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.Npm;
+using Serilog;
 using System.Collections.Generic;
-using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [ShutdownDotNetAfterServerBuild]
@@ -24,9 +24,11 @@ partial class Build : NukeBuild
     private static Dictionary<string, AbsolutePath> UnitTestDirectories = new Dictionary<string, AbsolutePath>()
     {
             {"Core", RootDirectory / "tests" / "TradingApp.Core.Test"},
-            {"Quotes", RootDirectory / "tests" / "TradingApp.Module.Quotes.Test"},
-            {"Authentication", RootDirectory / "tests" / "TradingApp.Module.Authentication.Test"},
+            {"EvaluationScheduler", RootDirectory / "tests" / "TradingApp.EvaluationScheduler.Test"},
             {"Evaluator", RootDirectory / "tests" / "TradingApp.Evaluator.Test"},
+            {"Authentication", RootDirectory / "tests" / "TradingApp.Module.Authentication.Test"},
+            {"Quotes", RootDirectory / "tests" / "TradingApp.Module.Quotes.Test"},
+            {"MongoDb", RootDirectory / "tests" / "TradingApp.MongoDb.Test"},
             {"StooqProvider", RootDirectory / "tests" / "TradingApp.StooqProvider.Test"},
             {"TradingViewProvider", RootDirectory / "tests" / "TradingApp.TradingViewProvider.Test"},
     };
@@ -42,7 +44,7 @@ partial class Build : NukeBuild
         .DependsOn(Backend_Restore)
         .Executes(() =>
         {
-            Logger.Info("🚀 Build process started");
+            Log.Information("🚀 Build process started");
             DotNetBuild(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
@@ -53,13 +55,18 @@ partial class Build : NukeBuild
     .DependsOn(Backend_Compile)
     .Executes(() =>
     {
-        EnsureCleanDirectory(CoverageDirectory);
+        CoverageDirectory.CreateOrCleanDirectory();
         foreach (var directory in UnitTestDirectories)
         {
             DotNetTest(s => s
                 .SetProjectFile(directory.Value)
                 .SetConfiguration(Configuration)
                 .EnableNoRestore()
+                .SetProcessArgumentConfigurator(args => args
+                            .Add("/p:CollectCoverage=true")
+                            .Add("/p:CoverletOutputFormat=opencover")
+                            .Add($"/p:CoverletOutput={CoverageDirectory / $"opencover{directory.Key}.xml"}")
+                            .Add($"/p:CoverletThreshold=25"))
                 .EnableNoBuild());
         }
     });

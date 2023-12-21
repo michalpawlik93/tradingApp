@@ -73,9 +73,7 @@
             "type": "string",
             "enum": [
               "Backend_Compile",
-              "Backend_Report",
               "Backend_Restore",
-              "Backend_TestCoverage",
               "Backend_UnitTest",
               "Frontend_Clean",
               "Frontend_Restore",
@@ -94,9 +92,7 @@
             "type": "string",
             "enum": [
               "Backend_Compile",
-              "Backend_Report",
               "Backend_Restore",
-              "Backend_TestCoverage",
               "Backend_UnitTest",
               "Frontend_Clean",
               "Frontend_Restore",

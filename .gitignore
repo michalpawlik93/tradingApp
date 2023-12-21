@@ -167,3 +167,10 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /tests/TradingApp.StooqProvider.Test/TestResults
 /tests/TradingApp.TestUtils
 /tests/TradingApp.TradingViewProvider.Test
+/tests/TradingApp.Evaluator.Test/bin
+/tests/TradingApp.Evaluator.Test/obj/Debug/net7.0
+/tests/TradingApp.Evaluator.Test/obj
+/ui/trading-app/coverage/clover.xml
+/ui/trading-app/coverage/index.html
+/ui/trading-app/coverage/RsiChartMapper.ts.html
+/coverage
