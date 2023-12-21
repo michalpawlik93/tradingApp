@@ -40,4 +40,6 @@ partial class Build
                         s => s.SetCommand("coverage").SetProcessWorkingDirectory(FrontendDirectory)
                     );
                 });
+
+    Target BuildFrontend => _ => _.DependsOn(Frontend_Tests).Executes();
 }

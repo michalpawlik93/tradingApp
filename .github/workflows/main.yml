@@ -25,29 +25,13 @@ jobs:
       - name: Setup .NET 📦
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          
-      - name: Restore NuGet packages
-        run: dotnet restore ./TradingApp.sln
+          dotnet-version: ${{ env.DOTNET_VERSION }}     
 
-      - name: Build backend
-        run: dotnet build ./TradingApp.sln --configuration Release --no-restore
+      - name: Nuke Build
+        shell: bash
+        run: ./build.sh --target BuildBackend --verbosity verbose
 
-      - name: Test backend
-        run: dotnet test ./TradingApp.sln --configuration Release --no-restore /p:CollectCoverage=true --collect:"XPlat Code Coverage" --logger trx
-
-      - name: Code Coverage Summary Report
-        uses: irongut/CodeCoverageSummary@v1.3.0
-        with:
-          filename: '**/coverage.cobertura.xml'
-          badge: true
-          format: 'markdown'
-          output: 'both'
-
-      - name: Write to Job Summary
-        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
-
-  Build_ui:
+  Build_frontend:
     runs-on: ubuntu-latest
     environment: development
     strategy:
@@ -62,43 +46,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm ci
-        working-directory: ./ui/trading-app
-
-      - name: Run the tests
-        run: npm test
-        working-directory: ./ui/trading-app
-
-      - name: Run the test coverage
-        run: npm run coverage
-        working-directory: ./ui/trading-app
-
-      - name: Build frontend
-        run: npm run build
-        working-directory: ./ui/trading-app
-
-  Deploy:
-    needs: [Build_backend, Build_ui]
-    runs-on: ubuntu-latest
-    environment: development
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup .NET 📦
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Build and Publish 📂
-        run: |
-          dotnet restore ./TradingApp.sln
-          dotnet build ./TradingApp.sln -c Release --no-restore
-          dotnet publish ./TradingApp.sln -c Release --no-build
-
-      - name: Upload production-ready build files
-        uses: actions/upload-artifact@v3
-        with:
-          name: tradingViewApp
-          path: ./TradingApp.sln
+      - name: Nuke Build
+        shell: bash
+        run: ./build.sh --target BuildFrontend --verbosity verbose

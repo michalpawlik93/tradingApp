@@ -1,5 +1,6 @@
 ﻿using Nuke.Common;
 using Nuke.Common.CI;
+using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
@@ -11,9 +12,15 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
 
 [ShutdownDotNetAfterServerBuild]
+[GitHubActions(
+    "continuous",
+    GitHubActionsImage.UbuntuLatest,
+    OnPushBranches = new[] { "main" },
+    InvokedTargets = new[] { nameof(BuildBackend), nameof(BuildFrontend), }
+)]
 partial class Build : NukeBuild
 {
-    public static int Main() => Execute<Build>(x => x.CollectCoverage, x => x.Frontend_Tests);
+    public static int Main() => Execute<Build>(x => x.BuildBackend, x => x.Frontend_Tests);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild
@@ -82,16 +89,24 @@ partial class Build : NukeBuild
                     );
                 });
 
-    Target CollectCoverage => _ => _
-        .DependsOn(Backend_UnitTest)
-        .AssuredAfterFailure()
-        .Executes(() =>
-        {
-            TestCoverageReportDirectory.CreateOrCleanDirectory();
-            ReportGenerator(_ => _
-                .SetFramework("net7.0")
-                .SetReports($"{TestResultDirectory}/**/coverage.opencover.xml")
-                .SetReportTypes(ReportTypes.Cobertura, ReportTypes.HtmlInline_AzurePipelines_Dark)
-                .SetTargetDirectory(TestCoverageReportDirectory));
-        });
+    Target CollectCoverage =>
+        _ =>
+            _.DependsOn(Backend_UnitTest)
+                .AssuredAfterFailure()
+                .Executes(() =>
+                {
+                    TestCoverageReportDirectory.CreateOrCleanDirectory();
+                    ReportGenerator(
+                        _ =>
+                            _.SetFramework("net7.0")
+                                .SetReports($"{TestResultDirectory}/**/coverage.opencover.xml")
+                                .SetReportTypes(
+                                    ReportTypes.Cobertura,
+                                    ReportTypes.HtmlInline_AzurePipelines_Dark
+                                )
+                                .SetTargetDirectory(TestCoverageReportDirectory)
+                    );
+                });
+
+    Target BuildBackend => _ => _.DependsOn(CollectCoverage).Executes();
 }
