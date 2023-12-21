@@ -21,22 +21,9 @@ export const useCypherBQuotes = (): useCypherBQuotesResponse => {
         return;
       }
       await fetchData({
-        asset: {
-          name: AssetName.BTC,
-          type: AssetType.Cryptocurrency,
-        },
-        timeFrame: {
-          granularity: Granularity.Hourly,
-          startDate: "",
-          endDate: "",
-        },
-        waveTrendSettings: {
-          channelLength: 8,
-          averageLength: 6,
-          movingAverageLength: 3,
-          oversold: -80,
-          overbought: 80,
-        },
+        assetName: AssetName.BTC,
+        assetType: AssetType.Cryptocurrency,
+        granularity: Granularity.Hourly,
       });
     }
     fetch();

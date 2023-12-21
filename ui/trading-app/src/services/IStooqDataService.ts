@@ -1,10 +1,10 @@
 import { CombinedQuoteResponse } from "../types/CombinedQuoteResponse";
 import { CypherBResponse } from "../types/CypherBResponse";
-import { GetQuotesDtoRequest } from "./dtos/GetQuotesRequestDto";
+import { GetQuotesRequestDto } from "./dtos/GetQuotesRequestDto";
 
 export interface IStooqDataService {
   getCombinedQuotes: (
-    request: GetQuotesDtoRequest
+    request: GetQuotesRequestDto
   ) => Promise<CombinedQuoteResponse>;
-  getCypherB: (request: GetQuotesDtoRequest) => Promise<CypherBResponse>;
+  getCypherB: (request: GetQuotesRequestDto) => Promise<CypherBResponse>;
 }
