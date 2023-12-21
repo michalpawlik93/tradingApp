@@ -174,3 +174,4 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /ui/trading-app/coverage/index.html
 /ui/trading-app/coverage/RsiChartMapper.ts.html
 /coverage
+/testresults

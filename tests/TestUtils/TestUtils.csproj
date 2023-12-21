@@ -14,7 +14,9 @@
     <PackageReference Include="Testcontainers" Version="3.6.0" />
     <PackageReference Include="xunit" Version="2.6.3" />
   </ItemGroup>
-
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\TradingApp.Evaluator\TradingApp.Evaluator.csproj" />
   </ItemGroup>

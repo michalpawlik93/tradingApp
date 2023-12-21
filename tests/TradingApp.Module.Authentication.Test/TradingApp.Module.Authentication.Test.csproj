@@ -28,7 +28,9 @@
     </PackageReference>
     <PackageReference Include="xunit" Version="2.5.0" />
   </ItemGroup>
-
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\TradingApp.Module.Authentication\TradingApp.Module.Authentication.csproj" />
   </ItemGroup>

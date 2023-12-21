@@ -4,103 +4,94 @@ using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
-using Nuke.Common.Tools.Npm;
+using Nuke.Common.Tools.ReportGenerator;
 using Serilog;
-using System.Collections.Generic;
+using System.IO;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
+using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
 
 [ShutdownDotNetAfterServerBuild]
 partial class Build : NukeBuild
 {
-    public static int Main() => Execute<Build>(x => x.Backend_UnitTest, x => x.Frontend_Tests);
+    public static int Main() => Execute<Build>(x => x.CollectCoverage, x => x.Frontend_Tests);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    readonly Configuration Configuration = IsLocalBuild
+        ? Configuration.Debug
+        : Configuration.Release;
 
-    [Solution] readonly Solution Solution;
+    [Solution]
+    readonly Solution Solution;
 
-    AbsolutePath FrontendDirectory = RootDirectory / "ui" / "trading-app";
+    AbsolutePath BackendDirectory => RootDirectory / "src";
+    AbsolutePath TestsDirectory => RootDirectory / "tests";
+    AbsolutePath TestResultDirectory => RootDirectory / "testresults";
+    AbsolutePath TestCoverageReportDirectory => RootDirectory / "coverage";
 
-    private static Dictionary<string, AbsolutePath> UnitTestDirectories = new Dictionary<string, AbsolutePath>()
-    {
-            {"Core", RootDirectory / "tests" / "TradingApp.Core.Test"},
-            {"EvaluationScheduler", RootDirectory / "tests" / "TradingApp.EvaluationScheduler.Test"},
-            {"Evaluator", RootDirectory / "tests" / "TradingApp.Evaluator.Test"},
-            {"Authentication", RootDirectory / "tests" / "TradingApp.Module.Authentication.Test"},
-            {"Quotes", RootDirectory / "tests" / "TradingApp.Module.Quotes.Test"},
-            {"MongoDb", RootDirectory / "tests" / "TradingApp.MongoDb.Test"},
-            {"StooqProvider", RootDirectory / "tests" / "TradingApp.StooqProvider.Test"},
-            {"TradingViewProvider", RootDirectory / "tests" / "TradingApp.TradingViewProvider.Test"},
-    };
+    public string[] ProjectTests =>
+        Directory.GetFiles(RootDirectory, $"TradingApp.*Test*.csproj", SearchOption.AllDirectories);
 
-    Target Backend_Restore => _ => _
+    Target Backend_Clean =>
+        _ =>
+            _.Executes(() =>
+            {
+                Log.Information("Cleaning bin directories...");
+                BackendDirectory.GlobDirectories("**/bin", "**/obj").DeleteDirectories();
+            });
+
+    Target Backend_Restore =>
+        _ =>
+            _.DependsOn(Backend_Clean)
+                .Executes(() =>
+                {
+                    DotNetRestore(s => s.SetProjectFile(Solution));
+                });
+
+    Target Backend_Compile =>
+        _ =>
+            _.DependsOn(Backend_Restore)
+                .Executes(() =>
+                {
+                    Log.Information("🚀 Build process started");
+                    DotNetBuild(
+                        s =>
+                            s.SetProjectFile(Solution)
+                                .SetConfiguration(Configuration)
+                                .EnableNoRestore()
+                    );
+                });
+
+    Target Backend_UnitTest =>
+        _ =>
+            _.DependsOn(Backend_Compile)
+                .Executes(() =>
+                {
+                    TestResultDirectory.CreateOrCleanDirectory();
+
+                    DotNetTest(
+                        _ =>
+                            _.SetConfiguration(Configuration)
+                                .SetDataCollector("XPlat Code Coverage")
+                                .SetSettingsFile(TestsDirectory / "coverlet-settings.xml")
+                                .SetResultsDirectory(TestResultDirectory)
+                                .EnableNoBuild()
+                                .CombineWith(
+                                    ProjectTests,
+                                    (_, project) => _.SetProjectFile(project)
+                                )
+                    );
+                });
+
+    Target CollectCoverage => _ => _
+        .DependsOn(Backend_UnitTest)
+        .AssuredAfterFailure()
         .Executes(() =>
         {
-            DotNetRestore(s => s
-                .SetProjectFile(Solution));
-        });
-
-    Target Backend_Compile => _ => _
-        .DependsOn(Backend_Restore)
-        .Executes(() =>
-        {
-            Log.Information("🚀 Build process started");
-            DotNetBuild(s => s
-                .SetProjectFile(Solution)
-                .SetConfiguration(Configuration)
-                .EnableNoRestore());
-        });
-
-    Target Backend_UnitTest => _ => _
-    .DependsOn(Backend_Compile)
-    .Executes(() =>
-    {
-        CoverageDirectory.CreateOrCleanDirectory();
-        foreach (var directory in UnitTestDirectories)
-        {
-            DotNetTest(s => s
-                .SetProjectFile(directory.Value)
-                .SetConfiguration(Configuration)
-                .EnableNoRestore()
-                .SetProcessArgumentConfigurator(args => args
-                            .Add("/p:CollectCoverage=true")
-                            .Add("/p:CoverletOutputFormat=opencover")
-                            .Add($"/p:CoverletOutput={CoverageDirectory / $"opencover{directory.Key}.xml"}")
-                            .Add($"/p:CoverletThreshold=25"))
-                .EnableNoBuild());
-        }
-    });
-
-    Target Frontend_Clean => _ => _
-       .Before(Frontend_Restore)
-       .Executes(() =>
-       {
-           (FrontendDirectory / "node_modules").DeleteDirectory();
-       });
-
-    Target Frontend_Restore => _ => _
-        .DependsOn(Frontend_Clean)
-        .Executes(() =>
-        {
-            NpmTasks.NpmInstall(settings =>
-               settings
-                   .EnableProcessLogOutput()
-                   .SetProcessWorkingDirectory(FrontendDirectory)
-                   .SetProcessArgumentConfigurator(e => e.Add("--legacy-peer-deps"))
-                   );
-        });
-
-    Target Frontend_Tests => _ => _
-        .DependsOn(Frontend_Restore)
-        .Executes(() =>
-        {
-            NpmTasks.NpmRun(s => s
-              .SetCommand("test")
-              .SetProcessWorkingDirectory(FrontendDirectory)
-          );
-            NpmTasks.NpmRun(s => s
-              .SetCommand("coverage")
-              .SetProcessWorkingDirectory(FrontendDirectory)
-            );
+            TestCoverageReportDirectory.CreateOrCleanDirectory();
+            ReportGenerator(_ => _
+                .SetFramework("net7.0")
+                .SetReports($"{TestResultDirectory}/**/coverage.opencover.xml")
+                .SetReportTypes(ReportTypes.Cobertura, ReportTypes.HtmlInline_AzurePipelines_Dark)
+                .SetTargetDirectory(TestCoverageReportDirectory));
         });
 }

@@ -72,9 +72,11 @@
           "items": {
             "type": "string",
             "enum": [
+              "Backend_Clean",
               "Backend_Compile",
               "Backend_Restore",
               "Backend_UnitTest",
+              "CollectCoverage",
               "Frontend_Clean",
               "Frontend_Restore",
               "Frontend_Tests"
@@ -91,9 +93,11 @@
           "items": {
             "type": "string",
             "enum": [
+              "Backend_Clean",
               "Backend_Compile",
               "Backend_Restore",
               "Backend_UnitTest",
+              "CollectCoverage",
               "Frontend_Clean",
               "Frontend_Restore",
               "Frontend_Tests"

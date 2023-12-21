@@ -22,7 +22,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\TradingApp.EvaluationScheduler\TradingApp.EvaluationScheduler.csproj" />
     <ProjectReference Include="..\TestUtils\TestUtils.csproj" />
