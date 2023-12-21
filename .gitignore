@@ -138,3 +138,4 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/TradingApp.StooqProvider.Test.AssemblyInfo.cs
 /tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/TradingApp.StooqProvider.Test.GeneratedMSBuildEditorConfig.editorconfig
 /tests/TradingApp.StooqProvider.Test/obj/Debug/net7.0/TradingApp.StooqProvider.Test.genruntimeconfig.cache
+/src/TradingApp.EvaluationScheduler/history/FiveMinsstooq.zip
