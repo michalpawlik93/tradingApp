@@ -1,6 +1,5 @@
 ﻿using Nuke.Common;
 using Nuke.Common.CI;
-using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
@@ -12,12 +11,12 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks;
 
 [ShutdownDotNetAfterServerBuild]
-[GitHubActions(
-    "continuous",
-    GitHubActionsImage.UbuntuLatest,
-    OnPushBranches = new[] { "main" },
-    InvokedTargets = new[] { nameof(BuildBackend), nameof(BuildFrontend), }
-)]
+//[GitHubActions(
+//    "continuous",
+//    GitHubActionsImage.UbuntuLatest,
+//    OnPushBranches = new[] { "main" },
+//    InvokedTargets = new[] { nameof(BuildBackend), nameof(BuildFrontend), }
+//)]
 partial class Build : NukeBuild
 {
     public static int Main() => Execute<Build>(x => x.BuildBackend, x => x.Frontend_Tests);

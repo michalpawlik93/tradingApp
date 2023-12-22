@@ -19,4 +19,12 @@
     <PackageDownload Include="ReportGenerator" Version="[5.1.9]" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="..\.github\workflows\continuous.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="..\.github\workflows\continuous.yml" />
+  </ItemGroup>
+
 </Project>
