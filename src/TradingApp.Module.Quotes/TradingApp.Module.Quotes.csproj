@@ -17,4 +17,8 @@
     <ProjectReference Include="..\TradingApp.Core\TradingApp.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistance\" />
+  </ItemGroup>
+
 </Project>

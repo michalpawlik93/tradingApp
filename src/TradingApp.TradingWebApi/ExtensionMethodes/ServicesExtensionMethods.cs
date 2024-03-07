@@ -1,44 +1,23 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Json;
-using TradingApp.Core.Extensions;
-using TradingApp.Core.Models;
-using TradingApp.Evaluator;
-using TradingApp.Module.Quotes.Application.Features.GetCypherB;
-using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
-using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
-using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes.Dto;
+using System.Diagnostics.CodeAnalysis;
 using TradingApp.Module.Quotes.Authentication.Abstraction;
 using TradingApp.Module.Quotes.Authentication.Services;
-using TradingApp.Module.Quotes.Ports;
-using TradingApp.StooqProvider.Setup;
+using TradingApp.Module.Quotes.Config;
 
 
 namespace TradingApp.TradingWebApi.ExtensionMethodes;
 
+[ExcludeFromCodeCoverage]
 public static class ServicesExtensionMethods
 {
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDomainEventBus();
-        services.AddScoped<
-            IRequestHandler<
-                GetStooqCombinedQuotesCommand,
-                ServiceResponse<GetStooqCombinedQuotesResponseDto>
-            >,
-            GetStooqCombinedQuotesCommandHandler
-        >();
-        services.AddScoped<
-            IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponseDto>>,
-            GetCypherBCommandHandler
-        >();
         services.AddTransient<IJwtProvider, JwtProvider>();
-        services.AddTransient<IEvaluator, CustomEvaluator>();
-        services.AddStooqProvider(configuration);
-        services.AddIntegrationEventBus(configuration);
+        services.AddQuotoesServices(configuration);
     }
 
     public static void AddLogging(this WebApplicationBuilder builder)

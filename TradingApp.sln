@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.EvaluationSchedu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.EvaluationScheduler.Test", "tests\TradingApp.EvaluationScheduler.Test\TradingApp.EvaluationScheduler.Test.csproj", "{36831C4E-3FDD-4EF0-9CFB-01261E531308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUtils", "tests\TestUtils\TestUtils.csproj", "{A47DBA69-DA85-4A39-8FA9-BC53FEBEC2BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestUtils", "tests\TestUtils\TestUtils.csproj", "{A47DBA69-DA85-4A39-8FA9-BC53FEBEC2BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.Module.Quotes.Config", "src\TradingApp.Module.Quotes.Config\TradingApp.Module.Quotes.Config.csproj", "{77BCF4FA-5E25-4A26-AF77-48A5DD29CF62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{A47DBA69-DA85-4A39-8FA9-BC53FEBEC2BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A47DBA69-DA85-4A39-8FA9-BC53FEBEC2BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A47DBA69-DA85-4A39-8FA9-BC53FEBEC2BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77BCF4FA-5E25-4A26-AF77-48A5DD29CF62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77BCF4FA-5E25-4A26-AF77-48A5DD29CF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77BCF4FA-5E25-4A26-AF77-48A5DD29CF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77BCF4FA-5E25-4A26-AF77-48A5DD29CF62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

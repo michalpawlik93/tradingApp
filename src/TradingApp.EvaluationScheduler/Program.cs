@@ -1,16 +1,9 @@
-﻿using MediatR;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quartz;
-using TradingApp.Core.Models;
 using TradingApp.EvaluationScheduler;
-using TradingApp.Evaluator;
-using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
-using TradingApp.Module.Quotes.Application.Services;
-using TradingApp.Module.Quotes.Ports;
-using TradingApp.MongoDb.Extensions;
-using TradingApp.StooqProvider.Setup;
+using TradingApp.Module.Quotes.Config;
 
 var builder = Host.CreateDefaultBuilder()
      .ConfigureAppConfiguration((hostingContext, config) =>
@@ -27,14 +20,7 @@ var builder = Host.CreateDefaultBuilder()
             {
                 opt.WaitForJobsToComplete = true;
             });
-            services.AddSingleton<IEvaluator, CustomEvaluator>();
-            services.AddTransient<IDecisionService, DecisionService>();
-            services.AddScoped<
-                IRequestHandler<EvaluateSRsiCommand, ServiceResponse>,
-                EvaluateSRsiCommandHandler
-            >();
-            services.AddStooqProvider(cxt.Configuration);
-            services.AddMongoDbService(cxt.Configuration);
+            services.AddQuotoesServices(cxt.Configuration);
         }
     )
     .Build();

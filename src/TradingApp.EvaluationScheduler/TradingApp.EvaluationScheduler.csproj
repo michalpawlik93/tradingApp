@@ -32,10 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TradingApp.Evaluator\TradingApp.Evaluator.csproj" />
-    <ProjectReference Include="..\TradingApp.Module.Quotes\TradingApp.Module.Quotes.csproj" />
-    <ProjectReference Include="..\TradingApp.MongoDb\TradingApp.MongoDb.csproj" />
-    <ProjectReference Include="..\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj" />
+    <ProjectReference Include="..\TradingApp.Module.Quotes.Config\TradingApp.Module.Quotes.Config.csproj" />
   </ItemGroup>
 
 </Project>

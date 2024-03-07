@@ -11,8 +11,11 @@
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageReference Include="Testcontainers" Version="3.6.0" />
-    <PackageReference Include="xunit" Version="2.6.3" />
+    <PackageReference Include="Testcontainers.RabbitMq" Version="3.6.0" />
+    <PackageReference Include="xunit" Version="2.6.4" />
   </ItemGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
