@@ -6,7 +6,7 @@ using Serilog.Formatting.Json;
 using System.Diagnostics.CodeAnalysis;
 using TradingApp.Module.Quotes.Authentication.Abstraction;
 using TradingApp.Module.Quotes.Authentication.Services;
-using TradingApp.Module.Quotes.Config;
+using TradingApp.Module.Quotes.Configuration;
 
 
 namespace TradingApp.TradingWebApi.ExtensionMethodes;

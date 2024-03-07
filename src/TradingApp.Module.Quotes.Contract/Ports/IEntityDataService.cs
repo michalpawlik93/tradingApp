@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 
-namespace TradingApp.Module.Quotes.Ports;
+namespace TradingApp.Module.Quotes.Contract.Ports;
 
 public interface IEntityDataService<TEntity> where TEntity : class
 {

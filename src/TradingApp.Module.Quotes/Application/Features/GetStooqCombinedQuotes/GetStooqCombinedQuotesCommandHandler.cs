@@ -5,7 +5,9 @@ using TradingApp.Core.Models;
 using TradingApp.Domain.Modules.Constants;
 using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Ports;
+using TradingApp.Module.Quotes.Application.Services;
+using TradingApp.Module.Quotes.Contract.Models;
+using TradingApp.Module.Quotes.Contract.Ports;
 
 namespace TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
 

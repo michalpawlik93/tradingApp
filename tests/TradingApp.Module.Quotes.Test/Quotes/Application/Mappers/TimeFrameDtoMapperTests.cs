@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using TradingApp.Module.Quotes.Application.Dtos;
 using TradingApp.Module.Quotes.Application.Mappers;
-using TradingApp.Module.Quotes.Domain.Enums;
+using TradingApp.Module.Quotes.Contract.Constants;
 using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Quotes.Application.Mappers;

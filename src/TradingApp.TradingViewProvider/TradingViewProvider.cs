@@ -2,22 +2,23 @@
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using TradingApp.Core.Utilities;
-using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Ports;
+using TradingApp.TradingViewProvider.Abstraction;
 using TradingApp.TradingViewProvider.Constants;
 using TradingApp.TradingViewProvider.Contract;
-using TradingApp.TradingViewProvider.Mappers;
 using TradingApp.TradingViewProvider.Setup;
 using TradingApp.TradingViewProvider.Utils;
 
 namespace TradingApp.TradingViewProvider;
 
-public sealed class TradingViewProvider : TradingAdapterAbstract
+public sealed class TradingViewProvider : ITradingViewProvider
 {
     private readonly ILogger<TradingViewProvider> _logger;
     private TradingViewClient _tradingViewClient { get; set; }
 
-    public TradingViewProvider(ILogger<TradingViewProvider> logger, TradingViewClient tradingViewClient)
+    public TradingViewProvider(
+        ILogger<TradingViewProvider> logger,
+        TradingViewClient tradingViewClient
+    )
     {
         ArgumentNullException.ThrowIfNull(logger);
         _logger = logger;
@@ -25,17 +26,17 @@ public sealed class TradingViewProvider : TradingAdapterAbstract
         _tradingViewClient = tradingViewClient;
     }
 
-    public string ProviderName => "TradingView";
-
-    protected override async Task<Result<AuthorizeResponse>> AuthorizeAsync(AuthorizeRequest request)
+    public async Task<Result<TvAuthorizeResponse>> Authorize(TvAuthorizeRequest request)
     {
         try
         {
-            var content = HttpUtilities.ConvertToUrlEncoded(TvAuthorizeMapper.Map(request));
+            var content = HttpUtilities.ConvertToUrlEncoded(request);
             var httpResponse = await _tradingViewClient.Client.PostAsync(TvUri.Authorize, content);
-            var response = await DeserializeHttpResponse<ServiceResponse<TvAuthorizeResponse>>(httpResponse);
+            var response = await DeserializeHttpResponse<ServiceResponse<TvAuthorizeResponse>>(
+                httpResponse
+            );
             ArgumentNullException.ThrowIfNull(response);
-            return response.GetResult(TvAuthorizeMapper.Map);
+            return response.GetResult();
         }
         catch (Exception)
         {
@@ -44,7 +45,7 @@ public sealed class TradingViewProvider : TradingAdapterAbstract
         }
     }
 
-    protected override async Task<Result> LogoutAsync()
+    public async Task<Result> Logout()
     {
         try
         {
@@ -69,15 +70,5 @@ public sealed class TradingViewProvider : TradingAdapterAbstract
     {
         var responseData = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<T>(responseData);
-    }
-
-    protected override Task<Result<ICollection<Quote>>> GetQuotesAsync(TimeFrame timeFrame, Asset asset)
-    {
-        throw new NotImplementedException();
-    }
-
-    protected override Task<Result> SaveQuotesAsync(TimeFrame timeFrame, Asset asset, bool overrideFile)
-    {
-        throw new NotImplementedException();
     }
 }

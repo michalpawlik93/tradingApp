@@ -1,5 +1,5 @@
-﻿using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Ports.Enums;
+﻿using TradingApp.Module.Quotes.Contract.Constants;
+using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.Evaluator.Indicators;
 

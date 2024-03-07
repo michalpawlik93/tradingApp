@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TradingApp.Module.Quotes.Config\TradingApp.Module.Quotes.Config.csproj" />
+    <ProjectReference Include="..\TradingApp.Module.Quotes\TradingApp.Module.Quotes.csproj" />
   </ItemGroup>
 
 </Project>

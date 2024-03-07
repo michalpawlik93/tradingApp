@@ -3,6 +3,7 @@ using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 using TradingApp.Module.Quotes.Application.Mappers;
 using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.Module.Quotes.Application.Features.GetCypherB;
 

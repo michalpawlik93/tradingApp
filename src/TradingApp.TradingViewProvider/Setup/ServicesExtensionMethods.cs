@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TradingApp.Module.Quotes.Ports;
+using TradingApp.TradingViewProvider.Abstraction;
+
 
 namespace TradingApp.TradingViewProvider.Setup;
 
@@ -10,7 +11,7 @@ public static class ServicesExtensionMethods
     {
         services.Configure<TradingViewClientConfig>(configuration.GetSection(TradingViewClientConfig.ConfigSectionName));
         services.AddHttpClient<TradingViewClient>();
-        services.AddSingleton<ITradingAdapter, TradingViewProvider>();
+        services.AddSingleton<ITradingViewProvider, TradingViewProvider>();
     }
 }
 

@@ -1,4 +1,4 @@
-﻿using TradingApp.Module.Quotes.Domain.Enums;
+﻿using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.StooqProvider.Constants;
 
 namespace TradingApp.StooqProvider.Utils;

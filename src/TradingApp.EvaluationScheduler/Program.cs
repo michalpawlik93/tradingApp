@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quartz;
 using TradingApp.EvaluationScheduler;
-using TradingApp.Module.Quotes.Config;
+using TradingApp.Module.Quotes.Configuration;
 
 var builder = Host.CreateDefaultBuilder()
      .ConfigureAppConfiguration((hostingContext, config) =>

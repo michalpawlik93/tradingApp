@@ -1,3 +1,3 @@
-﻿namespace TradingApp.Module.Quotes.Application.Models;
+﻿namespace TradingApp.Module.Quotes.Contract.Models;
 
 public record WaveTrendSettings(double Oversold, double Overbought, int ChannelLength, int AverageLength, int MovingAverageLength);

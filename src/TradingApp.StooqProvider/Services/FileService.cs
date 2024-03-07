@@ -1,10 +1,10 @@
 ﻿using FluentResults;
 using System.Diagnostics.CodeAnalysis;
 using TradingApp.Core.Utilities;
+using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.StooqProvider.Abstraction;
 using TradingApp.StooqProvider.Constants;
 using TradingApp.StooqProvider.Utils;
-using TradingApp.Module.Quotes.Application.Models;
 
 namespace TradingApp.StooqProvider.Services;
 

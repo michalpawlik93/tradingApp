@@ -5,7 +5,8 @@ using Quartz;
 using TradingApp.EvaluationScheduler.Jobs;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Ports;
+using TradingApp.Module.Quotes.Application.Services;
+using TradingApp.Module.Quotes.Contract.Models;
 using Xunit;
 
 namespace TradingApp.EvaluationScheduler.Test.Integration;

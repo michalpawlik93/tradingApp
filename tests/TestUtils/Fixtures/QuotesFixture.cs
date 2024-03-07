@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.TestUtils.Importer;
-using TradingApp.Module.Quotes.Application.Models;
 
 namespace TradingApp.TestUtils.Fixtures;
 

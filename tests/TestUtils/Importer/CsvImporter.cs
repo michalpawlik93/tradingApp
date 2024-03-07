@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.TestUtils.Importer;
 

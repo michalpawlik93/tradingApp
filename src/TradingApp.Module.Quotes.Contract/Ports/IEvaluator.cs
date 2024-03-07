@@ -1,6 +1,8 @@
 ﻿using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Contract.Models;
 
-namespace TradingApp.Module.Quotes.Ports;
+namespace TradingApp.Module.Quotes.Contract.Ports;
+
 
 public interface IEvaluator
 {

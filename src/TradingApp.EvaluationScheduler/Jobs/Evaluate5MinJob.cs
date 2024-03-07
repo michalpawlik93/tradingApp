@@ -4,8 +4,9 @@ using Quartz;
 using TradingApp.EvaluationScheduler.Utils;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Domain.Enums;
-using TradingApp.Module.Quotes.Ports;
+using TradingApp.Module.Quotes.Application.Services;
+using TradingApp.Module.Quotes.Contract.Constants;
+using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.EvaluationScheduler.Jobs;
 

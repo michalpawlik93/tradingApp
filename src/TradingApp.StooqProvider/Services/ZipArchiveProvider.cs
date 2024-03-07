@@ -1,5 +1,5 @@
 ﻿using System.IO.Compression;
-using TradingApp.Module.Quotes.Domain.Enums;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.StooqProvider.Abstraction;
 using TradingApp.StooqProvider.Utils;
 

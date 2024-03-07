@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
     <PackageReference Include="NSubstitute" Version="5.1.0" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageReference Include="Testcontainers" Version="3.6.0" />
@@ -21,6 +21,6 @@
     <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TradingApp.Evaluator\TradingApp.Evaluator.csproj" />
+    <ProjectReference Include="..\..\src\TradingApp.Module.Quotes\TradingApp.Module.Quotes.csproj" />
   </ItemGroup>
 </Project>

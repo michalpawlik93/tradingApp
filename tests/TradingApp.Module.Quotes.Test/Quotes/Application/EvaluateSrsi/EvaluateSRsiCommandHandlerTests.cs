@@ -6,9 +6,10 @@ using TradingApp.Core.EventBus;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Application.Services;
+using TradingApp.Module.Quotes.Contract.Models;
+using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
 using TradingApp.Module.Quotes.Domain.ValueObjects;
-using TradingApp.Module.Quotes.Ports;
 using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Quotes.Application.EvaluateSrsi;

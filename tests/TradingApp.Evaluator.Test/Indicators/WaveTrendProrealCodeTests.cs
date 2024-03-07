@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using TradingApp.Evaluator.Indicators;
-using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.TestUtils;
 
 namespace TradingApp.Evaluator.Test.Indicators;

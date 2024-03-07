@@ -1,4 +1,4 @@
-﻿using TradingApp.Module.Quotes.Application.Models;
+﻿using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.Evaluator.Indicators;
 

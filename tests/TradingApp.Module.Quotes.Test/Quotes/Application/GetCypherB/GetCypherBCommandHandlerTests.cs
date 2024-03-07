@@ -4,7 +4,9 @@ using FluentResults;
 using Moq;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Ports;
+using TradingApp.Module.Quotes.Application.Services;
+using TradingApp.Module.Quotes.Contract.Models;
+using TradingApp.Module.Quotes.Contract.Ports;
 using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Quotes.Application.GetCypherB;

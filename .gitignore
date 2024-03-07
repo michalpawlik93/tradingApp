@@ -176,3 +176,5 @@ src/TradingApp.TradingWebApi/TradingWebApi_Log.txt
 /coverage
 /testresults
 /src/TradingApp.Module.Quotes.Config
+/src/TradingApp.Module.Quotes.Contract/obj
+/src/TradingApp.Module.Quotes.Contract/bin/Debug/net7.0

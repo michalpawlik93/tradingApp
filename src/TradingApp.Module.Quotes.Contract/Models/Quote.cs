@@ -1,4 +1,4 @@
-﻿namespace TradingApp.Module.Quotes.Application.Models;
+﻿namespace TradingApp.Module.Quotes.Contract.Models;
 
 public class Quote
 {

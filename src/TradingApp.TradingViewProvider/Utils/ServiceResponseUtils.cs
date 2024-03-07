@@ -8,11 +8,11 @@ public static class ServiceResponseUtils
 {
     public static Result<TOutput> GetResult<TInput, TOutput>(this ServiceResponse<TInput> response, Func<TInput, TOutput> mapFunc)
     {
-        if(response.s == Status.ERROR)
+        if (response.s == Status.ERROR)
         {
             return Result.Fail(response.errmsg);
         }
-        if(response.s == Status.OK)
+        if (response.s == Status.OK)
         {
             return Result.Ok(mapFunc(response.d));
         }
