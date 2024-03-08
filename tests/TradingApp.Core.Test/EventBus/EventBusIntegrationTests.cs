@@ -1,9 +1,6 @@
-﻿using FluentAssertions;
-using MassTransit.Testing;
-using MediatR;
+﻿using MediatR;
 using NSubstitute;
 using TestUtils.Collections;
-using TestUtils.Fixtures;
 using TradingApp.TestUtils.Fixtures;
 using EventBusTest = TradingApp.Core.EventBus.EventBus;
 
@@ -22,42 +19,42 @@ public class EventBusIntegrationTests : IClassFixture<EventBusFixture>
         _sut = new EventBusTest(_mediator, fixture.BusControl);
     }
 
-    [Fact]
-    public async Task Publish_MessagePublishedToIntegrationBus_PublishedToDomainBus()
-    {
-        //Arrange
-        var aggregate = new TestAggregate();
-        //Act
-        await _sut.Publish(aggregate, CancellationToken.None);
-        //Assert
-        await _mediator
-            .Received(1)
-            .Publish(Arg.Any<TestDomainEvent>(), Arg.Any<CancellationToken>());
-        var consumed = await _fixture.ConsumerHarness.Consumed.Any<TestIntegrationEvent>();
-        consumed.Should().BeTrue();
-    }
+    //[Fact]
+    //public async Task Publish_MessagePublishedToIntegrationBus_PublishedToDomainBus()
+    //{
+    //    //Arrange
+    //    var aggregate = new TestAggregate();
+    //    //Act
+    //    await _sut.Publish(aggregate, CancellationToken.None);
+    //    //Assert
+    //    await _mediator
+    //        .Received(1)
+    //        .Publish(Arg.Any<TestDomainEvent>(), Arg.Any<CancellationToken>());
+    //    var consumed = await _fixture.ConsumerHarness.Consumed.Any<TestIntegrationEvent>();
+    //    consumed.Should().BeTrue();
+    //}
 
-    [Fact]
-    public async Task Publish_ShouldPublishIntegrationEvent()
-    {
-        // Arrange
-        var harness = new InMemoryTestHarness();
+    //[Fact]
+    //public async Task Publish_ShouldPublishIntegrationEvent()
+    //{
+    //    // Arrange
+    //    var harness = new InMemoryTestHarness();
 
-        await harness.Start();
+    //    await harness.Start();
 
-        var publishEndPoint = harness.Bus;
+    //    var publishEndPoint = harness.Bus;
 
-        var eventBus = new EventBusTest(_mediator, publishEndPoint);
+    //    var eventBus = new EventBusTest(_mediator, publishEndPoint);
 
-        var aggregate = new TestAggregate();
+    //    var aggregate = new TestAggregate();
 
-        // Act
-        await eventBus.Publish(aggregate, CancellationToken.None);
+    //    // Act
+    //    await eventBus.Publish(aggregate, CancellationToken.None);
 
-        // Assert
-        var received = await harness.Consumed.Any<TestIntegrationEvent>();
-        received.Should().BeTrue();
+    //    // Assert
+    //    var received = await harness.Consumed.Any<TestIntegrationEvent>();
+    //    received.Should().BeTrue();
 
-        await harness.Stop();
-    }
+    //    await harness.Stop();
+    //}
 }

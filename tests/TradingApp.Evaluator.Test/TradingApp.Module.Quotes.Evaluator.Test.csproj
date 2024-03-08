@@ -29,7 +29,7 @@
     <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TradingApp.Evaluator\TradingApp.Evaluator.csproj" />
+    <ProjectReference Include="..\..\src\TradingApp.Evaluator\TradingApp.Module.Quotes.Evaluator.csproj" />
     <ProjectReference Include="..\TestUtils\TestUtils.csproj" />
   </ItemGroup>
 

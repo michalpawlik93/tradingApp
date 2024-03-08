@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TradingApp.Evaluator\TradingApp.Evaluator.csproj" />
+    <ProjectReference Include="..\TradingApp.Evaluator\TradingApp.Module.Quotes.Evaluator.csproj" />
     <ProjectReference Include="..\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj" />
   </ItemGroup>
 
