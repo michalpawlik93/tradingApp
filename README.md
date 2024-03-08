@@ -10,4 +10,4 @@
 
 ## Architecture
 
-![image](https://github.com/michalpawlik93/tradingApp/assets/37804978/8c4609fa-4028-456d-ad2f-bb9f3abf6342)
+![image](https://github.com/michalpawlik93/tradingApp/assets/37804978/73a529e8-870a-4a6e-a1a1-d389a258a579)
