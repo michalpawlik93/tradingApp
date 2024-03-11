@@ -1,8 +1,10 @@
-﻿using TradingApp.Module.Quotes.Contract.Constants;
+﻿using System.Diagnostics.CodeAnalysis;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.StooqProvider.Constants;
 
 namespace TradingApp.StooqProvider.Utils;
 
+[ExcludeFromCodeCoverage]
 public static class FileServiceUtils
 {
     public static string GetZipFilePath(this Granularity granularity) =>
