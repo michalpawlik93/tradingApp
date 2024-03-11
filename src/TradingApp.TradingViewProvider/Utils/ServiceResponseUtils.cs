@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using System.Text.Json;
 using TradingApp.TradingViewProvider.Constants;
 using TradingApp.TradingViewProvider.Contract;
 
@@ -6,29 +7,27 @@ namespace TradingApp.TradingViewProvider.Utils;
 
 public static class ServiceResponseUtils
 {
-    public static Result<TOutput> GetResult<TInput, TOutput>(this ServiceResponse<TInput> response, Func<TInput, TOutput> mapFunc)
-    {
-        if (response.s == Status.ERROR)
+    public static Result<T> GetResult<T>(this ServiceResponse<T> response) =>
+        response.s switch
         {
-            return Result.Fail(response.errmsg);
-        }
-        if (response.s == Status.OK)
-        {
-            return Result.Ok(mapFunc(response.d));
-        }
-        return Result.Fail("Status unknown received.");
-    }
+            Status.ERROR => Result.Fail(response.errmsg),
+            Status.OK => Result.Ok(response.d),
+            _ => Result.Fail("Status unknown received.")
+        };
 
-    public static Result GetResult(this ServiceResponseBase response)
+    public static Result GetResult(this ServiceResponseBase response) =>
+        response.s switch
+        {
+            Status.ERROR => Result.Fail(response.errmsg),
+            Status.OK => Result.Ok(),
+            _ => Result.Fail("Status unknown received.")
+        };
+
+    public static async Task<T> DeserializeHttpResponse<T>(HttpResponseMessage response)
     {
-        if (response.s == Status.ERROR)
-        {
-            return Result.Fail(response.errmsg);
-        }
-        if (response.s == Status.OK)
-        {
-            return Result.Ok();
-        }
-        return Result.Fail("Status unknown received.");
+        var responseData = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<T>(responseData);
+        ArgumentNullException.ThrowIfNull(result);
+        return result;
     }
 }

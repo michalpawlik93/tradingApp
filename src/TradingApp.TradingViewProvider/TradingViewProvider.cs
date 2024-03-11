@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 using TradingApp.Core.Utilities;
 using TradingApp.TradingViewProvider.Abstraction;
 using TradingApp.TradingViewProvider.Constants;
@@ -32,10 +31,9 @@ public sealed class TradingViewProvider : ITradingViewProvider
         {
             var content = HttpUtilities.ConvertToUrlEncoded(request);
             var httpResponse = await _tradingViewClient.Client.PostAsync(TvUri.Authorize, content);
-            var response = await DeserializeHttpResponse<ServiceResponse<TvAuthorizeResponse>>(
-                httpResponse
-            );
-            ArgumentNullException.ThrowIfNull(response);
+            var response = await ServiceResponseUtils.DeserializeHttpResponse<
+                ServiceResponse<TvAuthorizeResponse>
+            >(httpResponse);
             return response.GetResult();
         }
         catch (Exception)
@@ -49,8 +47,10 @@ public sealed class TradingViewProvider : ITradingViewProvider
     {
         try
         {
-            var httpResponse = await _tradingViewClient.Client.PostAsync(TvUri.Authorize, null);
-            var response = await DeserializeHttpResponse<ServiceResponseBase>(httpResponse);
+            var httpResponse = await _tradingViewClient.Client.PostAsync(TvUri.Logout, null);
+            var response = await ServiceResponseUtils.DeserializeHttpResponse<ServiceResponseBase>(
+                httpResponse
+            );
             ArgumentNullException.ThrowIfNull(response);
             return response.GetResult();
         }
@@ -64,11 +64,5 @@ public sealed class TradingViewProvider : ITradingViewProvider
     public static class TradingViewProviderErrorMessages
     {
         public const string ExceptionErrorMessage = "TradingViewProvider exception.";
-    }
-
-    public async Task<T?> DeserializeHttpResponse<T>(HttpResponseMessage response)
-    {
-        var responseData = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<T>(responseData);
     }
 }
