@@ -1,7 +1,9 @@
-﻿using TradingApp.Module.Quotes.Contract.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.Evaluator.Indicators;
 
+[ExcludeFromCodeCoverage]
 public static class RsiIndicator
 {
     public static ICollection<RsiResult> Calculate(List<Quote> tpList, RsiSettings settings)

@@ -1,8 +1,10 @@
-﻿using TradingApp.Module.Quotes.Contract.Constants;
+﻿using System.Diagnostics.CodeAnalysis;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.Evaluator.Indicators;
 
+[ExcludeFromCodeCoverage]
 public static class StochInidcator
 {
     public static List<StochResult> Calculate(

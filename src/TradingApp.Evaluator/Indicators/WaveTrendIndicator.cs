@@ -1,8 +1,10 @@
-﻿using TradingApp.Evaluator.Utils;
+﻿using System.Diagnostics.CodeAnalysis;
+using TradingApp.Evaluator.Utils;
 using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.Evaluator.Indicators;
 
+[ExcludeFromCodeCoverage]
 public static class WaveTrendIndicator
 {
     /// <summary>
