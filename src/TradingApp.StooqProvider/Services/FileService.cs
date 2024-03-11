@@ -14,6 +14,8 @@ public interface IFileService
     Task SaveHistoryQuotaFile(byte[] fileData, TimeFrame timeFrame, Asset asset);
     bool FileExist(TimeFrame timeFrame, Asset asset);
 }
+
+[ExcludeFromCodeCoverage]
 public class FileService : IFileService
 {
     private readonly IZipArchiveProvider _zipArchiveProvider;

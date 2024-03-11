@@ -19,6 +19,7 @@ public static class ServicesExtensionMethods
     }
 }
 
+[ExcludeFromCodeCoverage]
 public class StooqClientConfig
 {
     public const string ConfigSectionName = "StooqClient";

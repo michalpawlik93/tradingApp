@@ -1,5 +1,8 @@
-﻿namespace TradingApp.StooqProvider.Constants;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace TradingApp.StooqProvider.Constants;
+
+[ExcludeFromCodeCoverage]
 public static class StooqFoldersConsts
 {
     public const string SubdirectoryPath = "history";
