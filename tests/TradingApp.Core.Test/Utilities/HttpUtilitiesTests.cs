@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using FluentAssertions;
+using System.Text;
 using System.Text.Json;
 using TradingApp.Core.Utilities;
 
@@ -7,7 +8,7 @@ namespace TradingApp.Core.Tests.Utilities;
 public class HttpUtilitiesTests
 {
     [Fact]
-    public void ConvertToHttpContent_SerializesObjectToJsonAndSetsContentTypeHeader()
+    public async Task ConvertToHttpContent_SerializesObjectToJsonAndSetsContentTypeHeader()
     {
         // Arrange
         var model = new { Name = "John", Age = 30 };
@@ -18,28 +19,33 @@ public class HttpUtilitiesTests
         var result = HttpUtilities.ConvertToHttpContent(model);
 
         // Assert
-        Assert.NotNull(result.Headers.ContentType);
-        Assert.Equal(expectedContent.Headers.ContentType?.MediaType, result.Headers.ContentType?.MediaType);
-        Assert.Equal(expectedJson, result.ReadAsStringAsync().Result);
+        result.Headers.ContentType.Should().NotBeNull();
+        expectedContent.Headers.ContentType?.MediaType
+            .Should()
+            .Be(result.Headers.ContentType?.MediaType);
+        var strinContent = await result.ReadAsStringAsync();
+        expectedJson.Should().Be(strinContent);
     }
 
     [Fact]
-    public void ConvertToUrlEncoded_ConvertsObjectToFormUrlEncodedContent()
+    public async Task ConvertToUrlEncoded_ConvertsObjectToFormUrlEncodedContent()
     {
         // Arrange
         var model = new { Name = "John", Age = 30 };
-        var expectedContent = new FormUrlEncodedContent(new Dictionary<string, string>
-        {
-            { "Name", "John" },
-            { "Age", "30" }
-        });
+        var expectedContent = new FormUrlEncodedContent(
+            new Dictionary<string, string> { { "Name", "John" }, { "Age", "30" } }
+        );
 
         // Act
         var result = HttpUtilities.ConvertToUrlEncoded(model);
 
         // Assert
-        Assert.NotNull(result.Headers.ContentType);
-        Assert.Equal(expectedContent.Headers.ContentType?.MediaType, result.Headers.ContentType?.MediaType);
-        Assert.Equal(expectedContent.ReadAsStringAsync().Result, result.ReadAsStringAsync().Result);
+        result.Headers.ContentType.Should().NotBeNull();
+        expectedContent.Headers.ContentType?.MediaType
+            .Should()
+            .Be(result.Headers.ContentType?.MediaType);
+        var strinContent = await result.ReadAsStringAsync();
+        var expectedStringContent = await expectedContent.ReadAsStringAsync();
+        expectedStringContent.Should().Be(strinContent);
     }
 }

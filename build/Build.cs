@@ -77,7 +77,7 @@ partial class Build : NukeBuild
                     DotNetTest(
                         _ =>
                             _.SetConfiguration(Configuration)
-                                .SetDataCollector("XPlat Code Coverage")
+                                //.SetDataCollector("XPlat Code Coverage")
                                 .SetSettingsFile(TestsDirectory / "coverlet-settings.xml")
                                 .SetResultsDirectory(TestResultDirectory)
                                 .EnableNoBuild()
@@ -97,7 +97,7 @@ partial class Build : NukeBuild
                     TestCoverageReportDirectory.CreateOrCleanDirectory();
                     ReportGenerator(
                         _ =>
-                            _.SetFramework("net7.0")
+                            _.SetFramework("net8.0")
                                 .SetReports($"{TestResultDirectory}/**/coverage.opencover.xml")
                                 .SetReportTypes(
                                     ReportTypes.Cobertura,

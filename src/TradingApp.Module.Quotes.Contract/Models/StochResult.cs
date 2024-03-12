@@ -1,5 +1,8 @@
-﻿namespace TradingApp.Module.Quotes.Contract.Models;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace TradingApp.Module.Quotes.Contract.Models;
+
+[ExcludeFromCodeCoverage]
 public class StochResult
 {
     public StochResult(DateTime date)

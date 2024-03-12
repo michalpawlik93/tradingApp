@@ -1,5 +1,8 @@
-﻿namespace TradingApp.Core.Enums;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace TradingApp.Core.Enums;
+
+[ExcludeFromCodeCoverage]
 public static class MessageType
 {
     public const string Info = "Info";

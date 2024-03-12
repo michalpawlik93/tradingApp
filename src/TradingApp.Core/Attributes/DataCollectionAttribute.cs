@@ -1,5 +1,8 @@
-﻿namespace TradingApp.Core.Attributes;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace TradingApp.Core.Attributes;
+
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
 public class DataCollectionAttribute : Attribute
 {

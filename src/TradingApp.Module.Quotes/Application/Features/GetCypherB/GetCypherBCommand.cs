@@ -12,14 +12,12 @@ public record GetCypherBCommand(TimeFrame TimeFrame, Asset Asset, WaveTrendSetti
 
 public static class GetCypherBCommandExtensions
 {
-    public static GetCypherBCommand CreateCommand(this GetCypherBDto request)
-    {
-        return new GetCypherBCommand(
+    public static GetCypherBCommand CreateCommand(this GetCypherBDto request) =>
+        new GetCypherBCommand(
             TimeFrameDtoMapper.ToDomainModel(request.TimeFrame),
             AssetDtoMapper.ToDomainModel(request.Asset),
             WaveTrendSettingsDtoMapper.ToDomainModel(request.WaveTrendSettings),
             SRsiSettingsDtoMapper.ToDomainModel(request.SRsiSettings)
         );
-    }
 }
 
