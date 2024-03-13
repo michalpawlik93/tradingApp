@@ -77,7 +77,7 @@ partial class Build : NukeBuild
                     DotNetTest(
                         _ =>
                             _.SetConfiguration(Configuration)
-                                //.SetDataCollector("XPlat Code Coverage")
+                                .SetDataCollector("XPlat Code Coverage")
                                 .SetSettingsFile(TestsDirectory / "coverlet-settings.xml")
                                 .SetResultsDirectory(TestResultDirectory)
                                 .EnableNoBuild()
