@@ -17,5 +17,5 @@ public static class OhlcFixtures
         };
     }
 
-    private static DateTime StartDate = new DateTime(2023, 1, 1, 1, 1, 1);
+    private static DateTime StartDate = new(2023, 1, 1, 1, 1, 1);
 }

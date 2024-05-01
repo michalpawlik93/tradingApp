@@ -20,7 +20,7 @@ var builder = Host.CreateDefaultBuilder()
             {
                 opt.WaitForJobsToComplete = true;
             });
-            services.AddQuotoesServices(cxt.Configuration);
+            services.AddQuotesServices(cxt.Configuration);
         }
     )
     .Build();

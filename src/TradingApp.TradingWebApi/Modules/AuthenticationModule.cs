@@ -9,9 +9,9 @@ public static class AuthenticationModule
 {
     public static void AddAuthenticationModule(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/authentication", [AllowAnonymous] async (User model, IMediator medaitor) =>
+        app.MapPost("/authentication", [AllowAnonymous] async (User model, IMediator mediator) =>
         {
-            var response = await medaitor.Send(new GetTokenCommand(model));
+            var response = await mediator.Send(new GetTokenCommand(model));
             return Results.Ok(response);
         })
             .WithName("Issue Token")

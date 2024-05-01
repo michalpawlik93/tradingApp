@@ -7,17 +7,24 @@ using System.Diagnostics.CodeAnalysis;
 using TradingApp.Module.Quotes.Authentication.Abstraction;
 using TradingApp.Module.Quotes.Authentication.Services;
 using TradingApp.Module.Quotes.Configuration;
+using TradingApp.TradingWebApi.Modules;
 
 
-namespace TradingApp.TradingWebApi.ExtensionMethodes;
+namespace TradingApp.TradingWebApi.ExtensionMethods;
 
 [ExcludeFromCodeCoverage]
 public static class ServicesExtensionMethods
 {
+    public static void AddModules(this WebApplication webApplication)
+    {
+        webApplication.AddAuthenticationModule();
+        webApplication.AddTestModule();
+        webApplication.AddQuotesModule();
+    }
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<IJwtProvider, JwtProvider>();
-        services.AddQuotoesServices(configuration);
+        services.AddQuotesServices(configuration);
     }
 
     public static void AddLogging(this WebApplicationBuilder builder)

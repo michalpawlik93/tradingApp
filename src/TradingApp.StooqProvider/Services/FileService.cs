@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using TradingApp.Core.Utilities;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.StooqProvider.Abstraction;
-using TradingApp.StooqProvider.Constants;
 using TradingApp.StooqProvider.Utils;
 
 namespace TradingApp.StooqProvider.Services;
@@ -11,8 +10,6 @@ namespace TradingApp.StooqProvider.Services;
 public interface IFileService
 {
     Task<Result<ICollection<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset);
-    Task SaveHistoryQuotaFile(byte[] fileData, TimeFrame timeFrame, Asset asset);
-    bool FileExist(TimeFrame timeFrame, Asset asset);
 }
 
 [ExcludeFromCodeCoverage]
@@ -61,17 +58,4 @@ public class FileService : IFileService
         }
         return Result.Ok<ICollection<Quote>>(quotes);
     }
-
-    [ExcludeFromCodeCoverage]
-    public async Task SaveHistoryQuotaFile(byte[] fileData, TimeFrame timeFrame, Asset asset)
-    {
-        if (!Directory.Exists(StooqFoldersConsts.SubdirectoryPath))
-        {
-            Directory.CreateDirectory(StooqFoldersConsts.SubdirectoryPath);
-        }
-        await File.WriteAllBytesAsync(timeFrame.Granularity.GetZipFilePath(), fileData);
-    }
-
-    [ExcludeFromCodeCoverage]
-    public bool FileExist(TimeFrame timeFrame, Asset asset) => File.Exists(timeFrame.Granularity.GetZipFilePath());
 }

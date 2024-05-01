@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using TradingApp.Module.Quotes.Authentication.Configuration;
-using TradingApp.TradingWebApi.ExtensionMethodes;
+using TradingApp.TradingWebApi.ExtensionMethods;
 using TradingApp.TradingWebApi.Middlewares;
-using TradingApp.TradingWebApi.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
@@ -42,12 +41,7 @@ app.UseSwaggerUI(options =>
 
 });
 app.UseHttpsRedirection();
-app.UseExceptionHandler(app => app.UseExceptionHandlerMiddleware());
+app.UseExceptionHandler(builder => builder.UseExceptionHandlerMiddleware());
 
-app.UseCors();
-app.UseAuthentication();
-app.UseAuthorization();
-app.AddAuthenticationModule();
-app.AddTestModule();
-app.AddStooqModule();
+app.AddModules();
 app.Run();

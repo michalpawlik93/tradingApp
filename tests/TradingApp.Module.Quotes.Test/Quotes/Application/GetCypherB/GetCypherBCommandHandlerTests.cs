@@ -3,8 +3,6 @@ using FluentAssertions;
 using FluentResults;
 using Moq;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
-using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Application.Services;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using Xunit;
@@ -13,13 +11,13 @@ namespace TradingApp.Module.Quotes.Test.Quotes.Application.GetCypherB;
 
 public class GetCypherBCommandHandlerTests
 {
-    private readonly Mock<ITradingAdapter> StooqProvider = new();
-    private readonly Mock<IEvaluator> Evaluator = new();
+    private readonly Mock<ITradingAdapter> _adapter = new();
+    private readonly Mock<IEvaluator> _evaluator = new();
     private readonly GetCypherBCommandHandler _sut;
 
     public GetCypherBCommandHandlerTests()
     {
-        _sut = new GetCypherBCommandHandler(StooqProvider.Object, Evaluator.Object);
+        _sut = new GetCypherBCommandHandler(_adapter.Object, _evaluator.Object);
     }
 
     [Theory]
@@ -27,13 +25,13 @@ public class GetCypherBCommandHandlerTests
     public async Task Handle_GetQuotesFailed_ResponseReturned(GetCypherBCommand command)
     {
         //Arrange
-        const string errrorMessage = "errorMessage";
-        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errrorMessage));
+        const string errorMessage = "errorMessage";
+        _adapter.Setup(_ => _.GetQuotes(command.TimeFrame, command.Asset, new PostProcessing(true), CancellationToken.None)).ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errorMessage));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
         //Assert
-        result.Messages.Should().Contain(x => x.Message == errrorMessage);
+        result.Messages.Should().Contain(x => x.Message == errorMessage);
     }
 
     [Theory]
@@ -41,11 +39,11 @@ public class GetCypherBCommandHandlerTests
     public async Task Handle_SuccessPath_ResponseReturned(GetCypherBCommand command, IEnumerable<Quote> quotes, WaveTrendResult waveTrend)
     {
         //Arrange
-        StooqProvider.Setup(_ => _.GetQuotes(new GetQuotesRequest(command.TimeFrame, command.Asset, new PostProcessing(true)))).ReturnsAsync(Result.Ok(quotes));
+        _adapter.Setup(_ => _.GetQuotes(command.TimeFrame, command.Asset, new PostProcessing(true), CancellationToken.None)).ReturnsAsync(Result.Ok(quotes));
         var values = Enumerable.Range(0, quotes.Count()).Select(_ => new VWapResult() { Value = (decimal?)new Random().NextDouble() }).ToList();
         var waveTrends = Enumerable.Range(0, quotes.Count()).Select(_ => waveTrend).ToList();
-        Evaluator.Setup(_ => _.GetVwap(It.IsAny<List<Quote>>())).Returns(values);
-        Evaluator.Setup(_ => _.GetWaveTrend(It.IsAny<List<Quote>>(), It.IsAny<WaveTrendSettings>())).Returns(waveTrends);
+        _evaluator.Setup(_ => _.GetVwap(It.IsAny<List<Quote>>())).Returns(values);
+        _evaluator.Setup(_ => _.GetWaveTrend(It.IsAny<List<Quote>>(), It.IsAny<WaveTrendSettings>())).Returns(waveTrends);
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 

@@ -30,7 +30,7 @@ public static class EventBusExtensions
         {
             cfg.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host(rabbitMqSettings.Uri, "/", c =>
+                cfg.Host("rabbitmq", "/", c =>
                 {
                     c.Username(rabbitMqSettings.UserName);
                     c.Password(rabbitMqSettings.Password);

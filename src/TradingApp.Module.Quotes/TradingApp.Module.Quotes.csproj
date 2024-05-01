@@ -10,13 +10,13 @@
     <PackageReference Include="FluentResults" Version="3.15.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
     <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TradingApp.Evaluator\TradingApp.Module.Quotes.Evaluator.csproj" />
     <ProjectReference Include="..\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj" />
+    <ProjectReference Include="..\TradingApp.TingoProvider\TradingApp.TingoProvider.csproj" />
   </ItemGroup>
 
 </Project>

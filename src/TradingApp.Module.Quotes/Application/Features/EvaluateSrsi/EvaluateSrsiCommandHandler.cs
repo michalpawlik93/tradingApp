@@ -21,7 +21,7 @@ public record EvaluateSRsiCommand(List<Quote> Quotes) : IRequest<ServiceResponse
 public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, ServiceResponse>
 {
     private readonly IEventBus _eventBus;
-    private readonly IEvaluator _evaulator;
+    private readonly IEvaluator _evaluator;
     private readonly IDecisionService _decisionService;
     private readonly IEntityDataService<Decision> _decisionDataService;
 
@@ -39,7 +39,7 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, S
         ArgumentNullException.ThrowIfNull(decisionService);
         ArgumentNullException.ThrowIfNull(decisionDataService);
         _eventBus = eventBus;
-        _evaulator = evaulator;
+        _evaluator = evaulator;
         _decisionService = decisionService;
         _decisionDataService = decisionDataService;
     }
@@ -49,8 +49,8 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, S
         CancellationToken cancellationToken
     )
     {
-        var results = _evaulator.GetSRSI(request.Quotes, SrsiSettings);
-        if (!results.Any())
+        var results = _evaluator.GetSRSI(request.Quotes, SrsiSettings);
+        if (results.Count == 0)
         {
             return new ServiceResponse(Result.Fail("Received empty rsi calculation"));
         }

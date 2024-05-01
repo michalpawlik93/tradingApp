@@ -11,17 +11,8 @@ public static class ServicesExtensionMethods
 {
     public static void AddStooqProvider(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<StooqClientConfig>(configuration.GetSection(StooqClientConfig.ConfigSectionName));
-        services.AddHttpClient<StooqClient>();
         services.AddSingleton<IZipArchiveProvider, ZipArchiveProvider>();
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<IStooqProvider, StooqProvider>();
     }
-}
-
-[ExcludeFromCodeCoverage]
-public class StooqClientConfig
-{
-    public const string ConfigSectionName = "StooqClient";
-    public string? BaseUrl { get; set; }
 }

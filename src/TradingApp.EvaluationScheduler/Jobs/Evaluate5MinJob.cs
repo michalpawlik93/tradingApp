@@ -3,10 +3,9 @@ using MediatR;
 using Quartz;
 using TradingApp.EvaluationScheduler.Utils;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
-using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Application.Services;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
+using TradingApp.Module.Quotes.Contract.Ports;
 
 namespace TradingApp.EvaluationScheduler.Jobs;
 
@@ -43,7 +42,7 @@ public class Evaluate5MinJob : IJob
         var timeFrame = new TimeFrame(Granularity.FiveMins, startDate, startDate.AddHours(5));
         var asset = new Asset(AssetName.BTC, AssetType.Cryptocurrency);
         return _provider.GetQuotes(
-            new GetQuotesRequest(timeFrame, asset, new PostProcessing(true))
+            timeFrame, asset, new PostProcessing(true), CancellationToken.None
         );
     }
 

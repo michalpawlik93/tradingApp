@@ -1,0 +1,21 @@
+version: "3.4"
+
+services:
+  # tradingapp.api:
+  #   image: ${DOCKER_REGISTRY-}tradingapi
+  #   build:
+  #     context: .
+  #     dockerfile: TradingWebApi/Dockerfile
+  #   ports:
+  #     - "7047:443"
+  #     - "7048:80"
+  #   depends_on:
+  #     - "rabbitmq"
+
+  rabbitmq:
+    container_name: "rabbitmqcontainer"
+    image: rabbitmq:management
+    hostname: "rabbitmq"
+    ports:
+      - "5672:5672"
+      - "15672:15672"

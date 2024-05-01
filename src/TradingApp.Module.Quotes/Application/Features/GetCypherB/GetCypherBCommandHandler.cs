@@ -3,7 +3,6 @@ using MediatR;
 using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Application.Services;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 
@@ -29,7 +28,7 @@ public class GetCypherBCommandHandler
     )
     {
         var getQuotesResponse = await _provider.GetQuotes(
-            new GetQuotesRequest(request.TimeFrame, request.Asset, new PostProcessing(true))
+            request.TimeFrame, request.Asset, new PostProcessing(true), cancellationToken
         );
         if (getQuotesResponse.IsFailed)
         {

@@ -5,7 +5,6 @@ using TradingApp.Core.Models;
 using TradingApp.Domain.Modules.Constants;
 using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Application.Services;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 
@@ -17,14 +16,14 @@ public class GetStooqCombinedQuotesCommandHandler
         ServiceResponse<GetStooqCombinedQuotesResponseDto>
     >
 {
-    private readonly ITradingAdapter _provider;
+    private readonly ITradingAdapter _adapter;
     private readonly IEvaluator _customEvaluator;
 
-    public GetStooqCombinedQuotesCommandHandler(ITradingAdapter provider, IEvaluator customEvaluator)
+    public GetStooqCombinedQuotesCommandHandler(ITradingAdapter adapter, IEvaluator customEvaluator)
     {
-        ArgumentNullException.ThrowIfNull(provider);
+        ArgumentNullException.ThrowIfNull(adapter);
         ArgumentNullException.ThrowIfNull(customEvaluator);
-        _provider = provider;
+        _adapter = adapter;
         _customEvaluator = customEvaluator;
     }
 
@@ -37,8 +36,8 @@ public class GetStooqCombinedQuotesCommandHandler
             "{handlerName} started.",
             nameof(GetStooqCombinedQuotesCommandHandler)
         );
-        var getQuotesResponse = await _provider.GetQuotes(
-            new GetQuotesRequest(request.TimeFrame, request.Asset, new PostProcessing(true))
+        var getQuotesResponse = await _adapter.GetQuotes(
+            request.TimeFrame, request.Asset, new PostProcessing(true), cancellationToken
         );
         if (getQuotesResponse.IsFailed)
         {

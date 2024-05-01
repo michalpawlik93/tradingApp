@@ -4,9 +4,8 @@ using NSubstitute;
 using Quartz;
 using TradingApp.EvaluationScheduler.Jobs;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
-using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Application.Services;
 using TradingApp.Module.Quotes.Contract.Models;
+using TradingApp.Module.Quotes.Contract.Ports;
 using Xunit;
 
 namespace TradingApp.EvaluationScheduler.Test.Integration;
@@ -28,11 +27,11 @@ public class Evaluate5MinJobTests
     {
         //Arrange
         var expectedQuotes = new List<Quote>() { new Quote(), new Quote() };
-        _tradingAdapter.GetQuotes(Arg.Any<GetQuotesRequest>()).Returns(Result.Ok<IEnumerable<Quote>>(expectedQuotes));
+        _tradingAdapter.GetQuotes(Arg.Any<TimeFrame>(), Arg.Any<Asset>(), Arg.Any<PostProcessing>(), Arg.Any<CancellationToken>()).Returns(Result.Ok<IEnumerable<Quote>>(expectedQuotes));
         //Act
         await _sut.Execute(_jobExecutionContext);
         //Assert
-        await _tradingAdapter.Received().GetQuotes(Arg.Any<GetQuotesRequest>());
+        await _tradingAdapter.Received().GetQuotes(Arg.Any<TimeFrame>(), Arg.Any<Asset>(), Arg.Any<PostProcessing>(), Arg.Any<CancellationToken>());
         await _mediator.Received().Send(Arg.Any<EvaluateSRsiCommand>());
     }
 }

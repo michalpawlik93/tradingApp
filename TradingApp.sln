@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingWebApi", "src\TradingApp.TradingWebApi\TradingApp.TradingWebApi.csproj", "{BF61A1B1-2F7F-4BDE-A72F-70261C228A7F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvider", "src\TradingApp.TradingViewProvider\TradingApp.TradingViewProvider.csproj", "{5AB850BE-5226-4DFB-B456-9A722FCF6180}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Module.Quotes", "src\TradingApp.Module.Quotes\TradingApp.Module.Quotes.csproj", "{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Core", "src\TradingApp.Core\TradingApp.Core.csproj", "{9CFB6FE8-E23D-4CA8-8024-A414C215E4F0}"
@@ -14,8 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Module.Quotes.Test", "tests\TradingApp.Module.Quotes.Test\TradingApp.Module.Quotes.Test.csproj", "{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingViewProvider.Test", "tests\TradingApp.TradingViewProvider.Test\TradingApp.TradingViewProvider.Test.csproj", "{68090800-38D8-453B-833B-5AFD1E4FA6DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.StooqProvider", "src\TradingApp.StooqProvider\TradingApp.StooqProvider.csproj", "{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}"
 EndProject
@@ -41,6 +37,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestUtils", "tests\TestUtil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Module.Quotes.Contract", "src\TradingApp.Module.Quotes.Contract\TradingApp.Module.Quotes.Contract.csproj", "{970ABAC1-EA9C-4E12-BC93-58F5F6644AA9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TingoProvider", "src\TradingApp.TingoProvider\TradingApp.TingoProvider.csproj", "{B1CDBCF2-C72E-45B8-BB6A-5D28BE2722AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TingoProvider.Test", "tests\TradingApp.TingoProvider.Test\TradingApp.TingoProvider.Test.csproj", "{2B750479-04BA-41DE-9232-BC26638AF671}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,10 +51,6 @@ Global
 		{BF61A1B1-2F7F-4BDE-A72F-70261C228A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF61A1B1-2F7F-4BDE-A72F-70261C228A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF61A1B1-2F7F-4BDE-A72F-70261C228A7F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5AB850BE-5226-4DFB-B456-9A722FCF6180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AB850BE-5226-4DFB-B456-9A722FCF6180}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AB850BE-5226-4DFB-B456-9A722FCF6180}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AB850BE-5226-4DFB-B456-9A722FCF6180}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50427D30-E244-4B3A-AE8D-0B772EAB6FCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,10 +63,6 @@ Global
 		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68090800-38D8-453B-833B-5AFD1E4FA6DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68090800-38D8-453B-833B-5AFD1E4FA6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68090800-38D8-453B-833B-5AFD1E4FA6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68090800-38D8-453B-833B-5AFD1E4FA6DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE4F7807-6B81-46E9-BF63-DE70F57AC3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -117,19 +109,27 @@ Global
 		{970ABAC1-EA9C-4E12-BC93-58F5F6644AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{970ABAC1-EA9C-4E12-BC93-58F5F6644AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{970ABAC1-EA9C-4E12-BC93-58F5F6644AA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1CDBCF2-C72E-45B8-BB6A-5D28BE2722AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1CDBCF2-C72E-45B8-BB6A-5D28BE2722AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1CDBCF2-C72E-45B8-BB6A-5D28BE2722AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1CDBCF2-C72E-45B8-BB6A-5D28BE2722AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B750479-04BA-41DE-9232-BC26638AF671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B750479-04BA-41DE-9232-BC26638AF671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B750479-04BA-41DE-9232-BC26638AF671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B750479-04BA-41DE-9232-BC26638AF671}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{60D381C8-4A5A-42E7-A0A5-DA875D13F6E4} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
-		{68090800-38D8-453B-833B-5AFD1E4FA6DA} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{60A8C40A-FEEE-43FE-9CE1-DE242FCF5C7C} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{A87A86CD-124F-4070-A94B-4FB1C32E947A} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{C3DB2151-8099-432C-BCA5-0A8BE41DFAC6} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{92DF775D-96F9-4D83-AA63-BA4DD1B31CA6} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{36831C4E-3FDD-4EF0-9CFB-01261E531308} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{A47DBA69-DA85-4A39-8FA9-BC53FEBEC2BF} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
+		{2B750479-04BA-41DE-9232-BC26638AF671} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6A546BD-170A-4937-BE8F-077A50F97E5B}
