@@ -13,8 +13,8 @@ public static class TimeFrameDtoMapper
             Enum.TryParse<Granularity>(dto.Granularity, out var granularityParsed)
                 ? granularityParsed
                 : Granularity.Hourly,
-            DateTimeUtils.ParseIso8601DateString(dto.StartDate),
-            DateTimeUtils.ParseIso8601DateString(dto.EndDate)
+            DateTimeUtils.ConvertIso8601_1DateStringToDateTime(dto.StartDate),
+            DateTimeUtils.ConvertIso8601_1DateStringToDateTime(dto.EndDate)
         );
     }
 }

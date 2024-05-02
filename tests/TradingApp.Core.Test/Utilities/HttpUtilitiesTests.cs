@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using TradingApp.Core.Utilities;
@@ -7,6 +8,32 @@ namespace TradingApp.Core.Tests.Utilities;
 
 public class HttpUtilitiesTests
 {
+    [Fact]
+    public async Task GetResultAsync_ReturnsFails()
+    {
+        // Arrange
+        var response = new HttpResponseMessage
+        {
+            StatusCode = HttpStatusCode.Accepted,
+            Content = new StringContent("2")
+        };
+        //Act
+        var result = await response.GetResultAsync<int>();
+        //Assert
+        result.IsSuccess.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task GetResultAsync_ReturnsSuccess()
+    {
+        // Arrange
+        var response = new HttpResponseMessage { StatusCode = HttpStatusCode.NotFound };
+        //Act
+        var result = await response.GetResultAsync<int>();
+        //Assert
+        result.IsSuccess.Should().BeFalse();
+    }
+
     [Fact]
     public async Task ConvertToHttpContent_SerializesObjectToJsonAndSetsContentTypeHeader()
     {
@@ -23,8 +50,8 @@ public class HttpUtilitiesTests
         expectedContent.Headers.ContentType?.MediaType
             .Should()
             .Be(result.Headers.ContentType?.MediaType);
-        var strinContent = await result.ReadAsStringAsync();
-        expectedJson.Should().Be(strinContent);
+        var stringContent = await result.ReadAsStringAsync();
+        expectedJson.Should().Be(stringContent);
     }
 
     [Fact]
@@ -44,8 +71,8 @@ public class HttpUtilitiesTests
         expectedContent.Headers.ContentType?.MediaType
             .Should()
             .Be(result.Headers.ContentType?.MediaType);
-        var strinContent = await result.ReadAsStringAsync();
+        var stringContent = await result.ReadAsStringAsync();
         var expectedStringContent = await expectedContent.ReadAsStringAsync();
-        expectedStringContent.Should().Be(strinContent);
+        expectedStringContent.Should().Be(stringContent);
     }
 }

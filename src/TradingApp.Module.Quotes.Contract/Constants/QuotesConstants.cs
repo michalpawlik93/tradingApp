@@ -9,7 +9,8 @@ public enum AssetName
 {
     ANC,
     USDPLN,
-    BTC
+    BTC,
+    CUREBTC
 }
 
 public enum AssetType

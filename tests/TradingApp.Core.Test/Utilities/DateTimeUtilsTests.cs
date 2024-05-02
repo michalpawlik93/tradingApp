@@ -5,37 +5,38 @@ namespace TradingApp.Core.Tests.Utilities;
 public class DateTimeUtilsTests
 {
     [Fact]
-    public void ParseIso8601DateString_NullDateString_ReturnsNull()
+    public void ConvertUtcIso8601_2DateStringToDateTime_ValidDateString_ReturnsCorrectDateTime()
     {
         // Arrange
-        string dateString = null!;
+        string dateString = "2023-07-12T10:30:00+01:00";
+        var expectedDateTime = new DateTime(2023, 07, 12, 09, 30, 0, DateTimeKind.Utc);
 
         // Act
-        var result = DateTimeUtils.ParseIso8601DateString(dateString);
+        var result = DateTimeUtils.ConvertUtcIso8601_2DateStringToDateTime(dateString);
 
         // Assert
-        Assert.Null(result);
+        Assert.Equal(expectedDateTime, result);
     }
 
     [Fact]
-    public void ParseIso8601DateString_InvalidDateString_ThrowsArgumentException()
+    public void ConvertIso8601_1DateStringToDateTime_InvalidDateString_ThrowsArgumentException()
     {
         // Arrange
         string dateString = "invalid-date";
 
         // Act & Assert
-        Assert.Throws<ArgumentException>(() => DateTimeUtils.ParseIso8601DateString(dateString));
+        Assert.Throws<ArgumentException>(() => DateTimeUtils.ConvertIso8601_1DateStringToDateTime(dateString));
     }
 
     [Fact]
-    public void ParseIso8601DateString_ValidDateString_ReturnsCorrectDateTime()
+    public void ConvertIso8601_1DateStringToDateTime_ValidDateString_ReturnsCorrectDateTime()
     {
         // Arrange
         string dateString = "2023-07-12T10:30:00.000Z";
         var expectedDateTime = new DateTime(2023, 07, 12, 10, 30, 0, DateTimeKind.Utc);
 
         // Act
-        var result = DateTimeUtils.ParseIso8601DateString(dateString);
+        var result = DateTimeUtils.ConvertIso8601_1DateStringToDateTime(dateString);
 
         // Assert
         Assert.Equal(expectedDateTime, result);

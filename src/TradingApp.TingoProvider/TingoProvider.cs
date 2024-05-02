@@ -1,9 +1,12 @@
 ﻿using FluentResults;
+using TradingApp.Core.Utilities;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
+using TradingApp.TingoProvider.Contract;
 using TradingApp.TingoProvider.Contstants;
+using TradingApp.TingoProvider.Mappers;
 using TradingApp.TingoProvider.Setup;
-using TradingApp.TingoProvider.Utils;
 
 namespace TradingApp.TingoProvider;
 
@@ -20,9 +23,21 @@ public class TingoProvider : ITingoProvider
         _tingoClient = tingoClient;
     }
 
-    public Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame TimeFrame, Asset Asset, CancellationToken cancellationToken)
+    public async Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        if (asset.Type != AssetType.Cryptocurrency)
+        {
+            return Result.Fail("Only cryptocurrency is supported");
+        }
+
+        var ticker = asset.Map();
+        if (!Ticker.Tickers.Contains(ticker))
+        {
+            return Result.Fail("Provide correct ticker");
+        }
+        var response = await _tingoClient.Client.GetAsync(UrlMapper.GetCryptoQuotesUri(ticker, timeFrame), cancellationToken);
+        var result = await response.GetResultAsync<TingoQuote[]>();
+        return result.IsSuccess ? result.ToResult(TingoQuoteMapper.MapToQuotes) : result.ToResult<IEnumerable<Quote>>();
     }
 
     public async Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(string ticker, CancellationToken cancellationToken)
@@ -35,3 +50,6 @@ public class TingoProvider : ITingoProvider
         return await response.GetResultAsync<CryptocurrencyMetadata[]>();
     }
 }
+
+
+

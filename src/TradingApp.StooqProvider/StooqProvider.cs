@@ -19,7 +19,7 @@ public sealed class StooqProvider : IStooqProvider
         _fileService = fileService;
     }
 
-    public Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame TimeFrame, Asset Asset, CancellationToken cancellationToken)
+    public Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

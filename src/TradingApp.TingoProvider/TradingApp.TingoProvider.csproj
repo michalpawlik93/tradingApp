@@ -11,8 +11,4 @@
     <ProjectReference Include="..\TradingApp.Module.Quotes.Contract\TradingApp.Module.Quotes.Contract.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abstraction\" />
-  </ItemGroup>
-
 </Project>
