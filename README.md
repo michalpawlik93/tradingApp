@@ -10,4 +10,5 @@
 
 ## Architecture (Depracated)
 
-![image](https://github.com/michalpawlik93/tradingApp/assets/37804978/73a529e8-870a-4a6e-a1a1-d389a258a579)
+![image](https://github.com/michalpawlik93/tradingApp/assets/37804978/1de6bd00-7dd0-42eb-965f-8aa29b3049b3)
+
