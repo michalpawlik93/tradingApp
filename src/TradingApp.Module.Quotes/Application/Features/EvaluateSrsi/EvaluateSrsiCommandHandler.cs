@@ -29,17 +29,17 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, S
 
     public EvaluateSRsiCommandHandler(
         IEventBus eventBus,
-        IEvaluator evaulator,
+        IEvaluator evaluator,
         IDecisionService decisionService,
         IEntityDataService<Decision> decisionDataService
     )
     {
         ArgumentNullException.ThrowIfNull(eventBus);
-        ArgumentNullException.ThrowIfNull(evaulator);
+        ArgumentNullException.ThrowIfNull(evaluator);
         ArgumentNullException.ThrowIfNull(decisionService);
         ArgumentNullException.ThrowIfNull(decisionDataService);
         _eventBus = eventBus;
-        _evaluator = evaulator;
+        _evaluator = evaluator;
         _decisionService = decisionService;
         _decisionDataService = decisionDataService;
     }

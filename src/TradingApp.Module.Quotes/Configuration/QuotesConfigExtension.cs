@@ -7,10 +7,10 @@ using TradingApp.Core.Extensions;
 using TradingApp.Core.Models;
 using TradingApp.Evaluator;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
+using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
+using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
-using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
-using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Features.TickerMetadata;
 using TradingApp.Module.Quotes.Application.Services;
 using TradingApp.Module.Quotes.Contract.Models;
@@ -34,10 +34,10 @@ public static class QuotesConfigExtension
         services.AddIntegrationEventBus(configuration);
         services.AddScoped<
             IRequestHandler<
-                GetStooqCombinedQuotesCommand,
-                ServiceResponse<GetStooqCombinedQuotesResponseDto>
+                GetCombinedQuotesCommand,
+                ServiceResponse<GetCombinedQuotesResponseDto>
             >,
-            GetStooqCombinedQuotesCommandHandler
+            GetCombinedQuotesCommandHandler
         >();
         services.AddScoped<
             IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponseDto>>,

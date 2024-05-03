@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TradingApp.Module.Quotes.Application.Dtos;
+using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
-using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.TickerMetadata;
 
 namespace TradingApp.TradingWebApi.Modules;
@@ -28,7 +28,7 @@ public static class QuotesModule
         async ([AsParameters] GetQuotesDtoRequest request, IMediator mediator) =>
                 {
                     var response = await mediator.Send(
-                        GetStooqCombinedQuotesCommandExtensions.CreateCommandRequest(
+                        GetCombinedQuotesCommandExtensions.CreateCommandRequest(
                             request.Granularity,
                             request.AssetType,
                             request.AssetName,
@@ -40,6 +40,7 @@ public static class QuotesModule
                 }
             )
             .WithName("Get combined quotes of stoqq")
+            .WithDescription("Get quotes after evaluation")
             .WithOpenApi();
 
         app.MapPost(

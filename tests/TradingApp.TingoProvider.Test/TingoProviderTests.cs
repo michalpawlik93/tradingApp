@@ -94,14 +94,14 @@ public class TingoProviderTests
 public class MockQuotesOk : MockHttpMessageHandlerBase
 {
     protected override string HttpContent =>
-        "[{\"ticker\":\"btcusd\",\"baseCurrency\":\"btc\",\"quoteCurrency\":\"usd\",\"priceData\":[{\"open\":3914.749407813885,\"high\":3942.374263716895,\"low\":3846.1755315352952,\"close\":3849.1217299601617,\"date\":\"2019-01-02T00\"}]}]";
+        "[{\"ticker\":\"btcusd\",\"baseCurrency\":\"btc\",\"quoteCurrency\":\"usd\",\"priceData\":[{\"open\":3914.749407813885,\"high\":3942.374263716895,\"low\":3846.1755315352952,\"close\":3849.1217299601617,\"date\":\"2024-05-02T00:00:00+00:00\", \"volume\":3849.1217299601617, \"volumeNotional\":3849.1217299601617, \"tradesDone\":2000.0}]}]";
     protected override HttpStatusCode StatusCode => HttpStatusCode.OK;
 }
 
 public class MockTickerMetadataOk : MockHttpMessageHandlerBase
 {
     protected override string HttpContent =>
-        "[{\"ticker\":\"curebtc\",\"name\":\"CureCoin (CURE/BTC)\",\"baseCurrency\":\"cure\",\"quoteCurrency\":\"btc\"}]";
+        "[{\"ticker\":\"btcusd\",\"name\":\"CureCoin (CURE/BTC)\",\"baseCurrency\":\"cure\",\"quoteCurrency\":\"btc\"}]";
     protected override HttpStatusCode StatusCode => HttpStatusCode.OK;
 }
 

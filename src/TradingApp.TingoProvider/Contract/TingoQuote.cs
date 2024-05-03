@@ -6,4 +6,4 @@ public record TingoQuote(string Ticker,
     TingoPriceData[] PriceData);
 
 
-public record TingoPriceData(decimal Open, decimal High, decimal Low, decimal Close, string Date, int TradesDone, decimal Volume, decimal VolumeNotional);
+public record TingoPriceData(decimal Open, decimal High, decimal Low, decimal Close, string Date, float TradesDone, decimal Volume, decimal VolumeNotional);

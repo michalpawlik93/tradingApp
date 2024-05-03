@@ -2,28 +2,28 @@
 using FluentAssertions;
 using FluentResults;
 using Moq;
-using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
+using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using Xunit;
 
-namespace TradingApp.Module.Quotes.Test.Quotes.Application.GetStooqCombinedQuotes;
+namespace TradingApp.Module.Quotes.Test.Quotes.Application.GetCombinedQuotes;
 
-public class GetStooqCombinedQuotesCommandHandlerTests
+public class GetCombinedQuotesCommandHandlerTests
 {
     private readonly Mock<ITradingAdapter> _adapter = new();
     private readonly Mock<IEvaluator> Evaluator = new();
-    private readonly GetStooqCombinedQuotesCommandHandler _sut;
+    private readonly GetCombinedQuotesCommandHandler _sut;
 
-    public GetStooqCombinedQuotesCommandHandlerTests()
+    public GetCombinedQuotesCommandHandlerTests()
     {
-        _sut = new GetStooqCombinedQuotesCommandHandler(_adapter.Object, Evaluator.Object);
+        _sut = new GetCombinedQuotesCommandHandler(_adapter.Object, Evaluator.Object);
     }
 
 
     [Theory]
     [AutoData]
-    public async Task Handle_GetQuotesFailed_ResponseReturned(GetStooqCombinedQuotesCommand command)
+    public async Task Handle_GetQuotesFailed_ResponseReturned(GetCombinedQuotesCommand command)
     {
         //Arrange
         const string errorMessage = "errorMessage";
@@ -38,7 +38,7 @@ public class GetStooqCombinedQuotesCommandHandlerTests
 
     [Theory]
     [AutoData]
-    public async Task Handle_SuccessPath_ResponseReturned(GetStooqCombinedQuotesCommand command, IEnumerable<Quote> quotes)
+    public async Task Handle_SuccessPath_ResponseReturned(GetCombinedQuotesCommand command, IEnumerable<Quote> quotes)
     {
         //Arrange
         _adapter.Setup(_ => _.GetQuotes(command.TimeFrame, command.Asset, new PostProcessing(true), CancellationToken.None)).ReturnsAsync(Result.Ok(quotes));

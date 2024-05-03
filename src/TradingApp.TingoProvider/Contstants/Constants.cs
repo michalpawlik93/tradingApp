@@ -3,7 +3,8 @@
 public static class Ticker
 {
     public const string Curebtc = "curebtc";
-    public static readonly string[] Tickers = [Curebtc];
+    public const string Btcusd = "btcusd";
+    public static readonly string[] Tickers = [Curebtc, Btcusd];
 }
 
 public static class ResambleFreq

@@ -3,23 +3,23 @@ using MediatR;
 using Serilog;
 using TradingApp.Core.Models;
 using TradingApp.Domain.Modules.Constants;
-using TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes.Dto;
+using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 
-namespace TradingApp.Module.Quotes.Application.Features.GetStooqCombinedQuotes;
+namespace TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 
-public class GetStooqCombinedQuotesCommandHandler
+public class GetCombinedQuotesCommandHandler
     : IRequestHandler<
-        GetStooqCombinedQuotesCommand,
-        ServiceResponse<GetStooqCombinedQuotesResponseDto>
+        GetCombinedQuotesCommand,
+        ServiceResponse<GetCombinedQuotesResponseDto>
     >
 {
     private readonly ITradingAdapter _adapter;
     private readonly IEvaluator _customEvaluator;
 
-    public GetStooqCombinedQuotesCommandHandler(ITradingAdapter adapter, IEvaluator customEvaluator)
+    public GetCombinedQuotesCommandHandler(ITradingAdapter adapter, IEvaluator customEvaluator)
     {
         ArgumentNullException.ThrowIfNull(adapter);
         ArgumentNullException.ThrowIfNull(customEvaluator);
@@ -27,21 +27,21 @@ public class GetStooqCombinedQuotesCommandHandler
         _customEvaluator = customEvaluator;
     }
 
-    public async Task<ServiceResponse<GetStooqCombinedQuotesResponseDto>> Handle(
-        GetStooqCombinedQuotesCommand request,
+    public async Task<ServiceResponse<GetCombinedQuotesResponseDto>> Handle(
+        GetCombinedQuotesCommand request,
         CancellationToken cancellationToken
     )
     {
         Log.Logger.Information(
             "{handlerName} started.",
-            nameof(GetStooqCombinedQuotesCommandHandler)
+            nameof(GetCombinedQuotesCommandHandler)
         );
         var getQuotesResponse = await _adapter.GetQuotes(
             request.TimeFrame, request.Asset, new PostProcessing(true), cancellationToken
         );
         if (getQuotesResponse.IsFailed)
         {
-            return new ServiceResponse<GetStooqCombinedQuotesResponseDto>(
+            return new ServiceResponse<GetCombinedQuotesResponseDto>(
                 getQuotesResponse.ToResult()
             );
         }
@@ -57,9 +57,9 @@ public class GetStooqCombinedQuotesCommandHandler
         var combinedResults = getQuotesResponse.Value
             .Select((q, i) => new CombinedQuote(q, rsiResults.ElementAt(i).Value, null))
             .ToList();
-        return new ServiceResponse<GetStooqCombinedQuotesResponseDto>(
+        return new ServiceResponse<GetCombinedQuotesResponseDto>(
             Result.Ok(
-                new GetStooqCombinedQuotesResponseDto(
+                new GetCombinedQuotesResponseDto(
                     combinedResults,
                     new RsiSettings(
                         RsiSettingsConst.Oversold,

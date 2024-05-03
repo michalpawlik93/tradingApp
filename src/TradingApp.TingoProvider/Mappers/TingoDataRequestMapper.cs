@@ -10,7 +10,8 @@ public static class TingoDataRequestMapper
         asset.Name switch
         {
             AssetName.CUREBTC => Ticker.Curebtc,
-            _ => throw new NotImplementedException()
+            AssetName.BTCUSD => Ticker.Btcusd,
+            _ => Ticker.Btcusd
         };
 
     public static TingoTimeFrame Map(this TimeFrame timeFrame) =>
@@ -20,7 +21,7 @@ public static class TingoDataRequestMapper
             timeFrame.EndDate.HasValue ? timeFrame.EndDate.ToString() : null
         );
 
-    public static string Map(this Granularity granularity) =>
+    private static string Map(this Granularity granularity) =>
         granularity switch
         {
             Granularity.FiveMins => ResambleFreq.FiveMin,
