@@ -26,28 +26,57 @@ public class GetCypherBCommandHandlerTests
     {
         //Arrange
         const string errorMessage = "errorMessage";
-        _adapter.Setup(_ => _.GetQuotes(command.TimeFrame, command.Asset, new PostProcessing(true), CancellationToken.None)).ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errorMessage));
+        _adapter
+            .Setup(
+                _ =>
+                    _.GetQuotes(
+                        command.TimeFrame,
+                        command.Asset,
+                        new PostProcessing(true),
+                        CancellationToken.None
+                    )
+            )
+            .ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errorMessage));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
         //Assert
-        result.Messages.Should().Contain(x => x.Message == errorMessage);
+        result.Errors.Should().Contain(x => x.Message == errorMessage);
     }
 
     [Theory]
     [AutoData]
-    public async Task Handle_SuccessPath_ResponseReturned(GetCypherBCommand command, IEnumerable<Quote> quotes, WaveTrendResult waveTrend)
+    public async Task Handle_SuccessPath_ResponseReturned(
+        GetCypherBCommand command,
+        IEnumerable<Quote> quotes,
+        WaveTrendResult waveTrend
+    )
     {
         //Arrange
-        _adapter.Setup(_ => _.GetQuotes(command.TimeFrame, command.Asset, new PostProcessing(true), CancellationToken.None)).ReturnsAsync(Result.Ok(quotes));
-        var values = Enumerable.Range(0, quotes.Count()).Select(_ => new VWapResult() { Value = (decimal?)new Random().NextDouble() }).ToList();
+        _adapter
+            .Setup(
+                _ =>
+                    _.GetQuotes(
+                        command.TimeFrame,
+                        command.Asset,
+                        new PostProcessing(true),
+                        CancellationToken.None
+                    )
+            )
+            .ReturnsAsync(Result.Ok(quotes));
+        var values = Enumerable
+            .Range(0, quotes.Count())
+            .Select(_ => new VWapResult() { Value = (decimal?)new Random().NextDouble() })
+            .ToList();
         var waveTrends = Enumerable.Range(0, quotes.Count()).Select(_ => waveTrend).ToList();
         _evaluator.Setup(_ => _.GetVwap(It.IsAny<List<Quote>>())).Returns(values);
-        _evaluator.Setup(_ => _.GetWaveTrend(It.IsAny<List<Quote>>(), It.IsAny<WaveTrendSettings>())).Returns(waveTrends);
+        _evaluator
+            .Setup(_ => _.GetWaveTrend(It.IsAny<List<Quote>>(), It.IsAny<WaveTrendSettings>()))
+            .Returns(waveTrends);
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
         //Assert
-        result.Data.Quotes.Should().HaveCount(quotes.Count());
+        result.Value.Quotes.Should().HaveCount(quotes.Count());
     }
 }

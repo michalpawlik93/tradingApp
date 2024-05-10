@@ -1,18 +1,26 @@
-﻿namespace TradingApp.Module.Quotes.Application.Dtos;
+﻿using System.ComponentModel;
+
+namespace TradingApp.Module.Quotes.Application.Dtos;
 
 public class TimeFrameDto
 {
     /// <summary>
-    /// Gets or sets the time interval for the OHLC data (e.g., 1-minute, 5-minute, etc.).
+    ///  Resample type
     /// </summary>
+    /// <example>FiveMins</example>
+    [DefaultValue(nameof(Contract.Constants.Granularity.FiveMins))]
     public string Granularity { get; set; }
     /// <summary>
-    /// Gets or sets the start date for the OHLC data.
+    /// ISO 8601 Required
     /// </summary>
+    /// <example>2023-07-09T10:30:00.000Z</example>
+    [DefaultValue("2023-07-09T10:30:00.000Z")]
     public string StartDate { get; set; }
 
     /// <summary>
-    /// Gets or sets the end date for the OHLC data.
+    /// ISO 8601 Required
     /// </summary>
+    /// <example>2023-07-12T10:30:00.000Z</example>
+    [DefaultValue("2023-07-12T10:30:00.000Z")]
     public string EndDate { get; set; }
 }

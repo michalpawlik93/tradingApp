@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using System.Diagnostics.CodeAnalysis;
 using TradingApp.Core.Enums;
+using TradingApp.Core.Extensions;
 
 namespace TradingApp.Core.Models;
 
@@ -70,7 +71,7 @@ public class ServiceResponse
 [ExcludeFromCodeCoverage]
 public class ServiceResponse<T>
 {
-    public ServiceResponse(Result<T> result)
+    public ServiceResponse(IResult<T> result)
     {
         Messages = GetServiceResponseMessages(result);
         Data = result.ValueOrDefault;
@@ -86,20 +87,18 @@ public class ServiceResponse<T>
     /// </summary>
     public List<ServiceResponseMessage> Messages { get; }
 
-    private static List<ServiceResponseMessage> GetServiceResponseMessages(Result<T> result)
-    {
-        if (result.IsFailed)
-        {
-            return result.Errors
-                .Select(error => new ServiceResponseMessage(error.Message, MessageType.Error))
+    private static List<ServiceResponseMessage> GetServiceResponseMessages(IResult<T> result) =>
+        result.IsFailed
+            ? result.Errors
+                .Select(
+                    error =>
+                        new ServiceResponseMessage(
+                            error.Message,
+                            error.GetErrorServiceResponseMessage()
+                        )
+                )
+                .ToList()
+            : result.Successes
+                .Select(success => new ServiceResponseMessage(success.Message, MessageType.Success))
                 .ToList();
-        }
-        if (result.IsSuccess)
-        {
-            return result.Successes
-                .Select(success => new ServiceResponseMessage(success.Message, MessageType.Info))
-                .ToList();
-        }
-        return new();
-    }
 }

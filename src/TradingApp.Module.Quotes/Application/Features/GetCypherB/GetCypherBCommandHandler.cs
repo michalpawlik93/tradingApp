@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using MediatR;
-using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
@@ -9,7 +8,7 @@ using TradingApp.Module.Quotes.Contract.Ports;
 namespace TradingApp.Module.Quotes.Application.Features.GetCypherB;
 
 public class GetCypherBCommandHandler
-    : IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponseDto>>
+    : IRequestHandler<GetCypherBCommand, IResult<GetCypherBResponseDto>>
 {
     private readonly ITradingAdapter _provider;
     private readonly IEvaluator _evaluator;
@@ -22,7 +21,7 @@ public class GetCypherBCommandHandler
         _evaluator = evaluator;
     }
 
-    public async Task<ServiceResponse<GetCypherBResponseDto>> Handle(
+    public async Task<IResult<GetCypherBResponseDto>> Handle(
         GetCypherBCommand request,
         CancellationToken cancellationToken
     )
@@ -32,7 +31,7 @@ public class GetCypherBCommandHandler
         );
         if (getQuotesResponse.IsFailed)
         {
-            return new ServiceResponse<GetCypherBResponseDto>(getQuotesResponse.ToResult());
+            return getQuotesResponse.ToResult<GetCypherBResponseDto>();
         }
 
         var quotes = getQuotesResponse.Value.ToList();
@@ -52,8 +51,6 @@ public class GetCypherBCommandHandler
                 (q, i) => new CypherBQuote(q, waveTrend.ElementAt(i), null, vwap.ElementAt(i).Value)
             )
             .ToList();
-        return new ServiceResponse<GetCypherBResponseDto>(
-            Result.Ok(new GetCypherBResponseDto(combinedResults))
-        );
+        return Result.Ok(new GetCypherBResponseDto(combinedResults));
     }
 }

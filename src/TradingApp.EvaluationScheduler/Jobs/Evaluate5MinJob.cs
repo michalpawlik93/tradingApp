@@ -32,7 +32,7 @@ public class Evaluate5MinJob : IJob
             return;
         }
         var evaluateSRsiResponse = await _mediator.Send(new EvaluateSRsiCommand(getQuotesResponse.Value.ToList()));
-        await ConsoleUtils.WriteMessages(evaluateSRsiResponse);
+        await ConsoleUtils.WriteResultMessages(evaluateSRsiResponse);
         await Console.Out.WriteLineAsync($"{nameof(Evaluate5MinJob)} finished.");
     }
 

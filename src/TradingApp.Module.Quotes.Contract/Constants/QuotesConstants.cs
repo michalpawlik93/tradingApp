@@ -24,3 +24,9 @@ public enum MaType
 {
     SMA,
 }
+
+public enum TechnicalIndicator
+{
+    Rsi,
+    Srsi
+}

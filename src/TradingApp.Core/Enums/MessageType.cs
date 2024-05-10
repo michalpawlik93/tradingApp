@@ -5,7 +5,8 @@ namespace TradingApp.Core.Enums;
 [ExcludeFromCodeCoverage]
 public static class MessageType
 {
-    public const string Info = "Info";
     public const string Error = "Error";
-    public const string Warning = "Warning";
+    public const string BadRequest = "BadRequest";
+    public const string Success = "Success";
+    public const string NotFound = "NotFound";
 }

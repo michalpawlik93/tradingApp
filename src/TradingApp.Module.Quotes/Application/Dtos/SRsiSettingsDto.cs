@@ -1,4 +1,5 @@
-﻿using TradingApp.Module.Quotes.Application.Models;
+﻿using System.ComponentModel;
+using TradingApp.Module.Quotes.Application.Models;
 
 namespace TradingApp.Module.Quotes.Application.Dtos;
 
@@ -10,22 +11,24 @@ public class SRsiSettingsDto : OscillationSettings
     /// <summary>
     /// Show SRSI
     /// </summary>
+    [DefaultValue(true)]
     public bool Enable { get; set; }
 
     /// <summary>
     /// Gets or sets the number of periods used to calculate the SRSI width.
     /// </summary>
+    [DefaultValue(8)]
     public int Length { get; set; }
 
     /// <summary>
     /// Gets or sets the number of periods used to calculate the Stochastic RSI %K value.
     /// </summary>
-    /// Example value: 3
+    [DefaultValue(3)]
     public int StochKSmooth { get; set; }
 
     /// <summary>
     /// Gets or sets the number of periods used to calculate the Stochastic RSI %D value.
     /// </summary>
-    /// Example value: 3
+    [DefaultValue(3)]
     public int StochDSmooth { get; set; }
 };

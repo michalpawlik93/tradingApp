@@ -1,7 +1,6 @@
 ﻿using FluentResults;
 using MediatR;
 using TradingApp.Core.EventBus;
-using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Application.Services;
 using TradingApp.Module.Quotes.Contract.Models;
@@ -16,9 +15,9 @@ namespace TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 /// Evaluate decision for last date in quotes
 /// </summary>
 /// <param name="Quotes"></param>
-public record EvaluateSRsiCommand(List<Quote> Quotes) : IRequest<ServiceResponse>;
+public record EvaluateSRsiCommand(List<Quote> Quotes) : IRequest<IResultBase>;
 
-public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, ServiceResponse>
+public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, IResultBase>
 {
     private readonly IEventBus _eventBus;
     private readonly IEvaluator _evaluator;
@@ -44,7 +43,7 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, S
         _decisionDataService = decisionDataService;
     }
 
-    public async Task<ServiceResponse> Handle(
+    public async Task<IResultBase> Handle(
         EvaluateSRsiCommand request,
         CancellationToken cancellationToken
     )
@@ -52,7 +51,7 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, S
         var results = _evaluator.GetSRSI(request.Quotes, SrsiSettings);
         if (results.Count == 0)
         {
-            return new ServiceResponse(Result.Fail("Received empty rsi calculation"));
+            return Result.Fail("Received empty rsi calculation");
         }
         var last = results.Last();
         var additionalParams = new Dictionary<string, string>()
@@ -64,6 +63,6 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, S
         );
         await _decisionDataService.Add(decision, cancellationToken);
         await _eventBus.Publish(decision, cancellationToken);
-        return new ServiceResponse(Result.Ok());
+        return Result.Ok();
     }
 }

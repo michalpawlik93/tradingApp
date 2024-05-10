@@ -6,6 +6,7 @@ using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 using TradingApp.Module.Quotes.Application.Features.TickerMetadata;
+using TradingApp.TradingWebApi.ExtensionMethods;
 
 namespace TradingApp.TradingWebApi.Modules;
 
@@ -14,45 +15,39 @@ public static class QuotesModule
     public static void AddQuotesModule(this IEndpointRouteBuilder app)
     {
         app.MapGet(
-                "/tingo/tickermetadata",
+                "/quotes/tingo/tickermetadata",
                 [AllowAnonymous]
-        async ([AsParameters] GetTickerMetadataDto request, IMediator mediator) => Results.Ok(await mediator.Send(
-            new GetTickerMetadataQuery(request.Ticker)
-        )))
+        async ([AsParameters] GetTickerMetadataDto request, IMediator mediator) =>
+                    HttpResultMapper.MapToResult(
+                        await mediator.Send(new GetTickerMetadataQuery(request.Ticker))
+                    )
+            )
             .WithName("Get ticker metadata")
             .WithOpenApi();
 
         app.MapGet(
-                "/stooq/combinedquote/getall",
+                "/quotes/combinedquotes",
                 [AllowAnonymous]
         async ([AsParameters] GetQuotesDtoRequest request, IMediator mediator) =>
-                {
-                    var response = await mediator.Send(
-                        GetCombinedQuotesCommandExtensions.CreateCommandRequest(
-                            request.Granularity,
-                            request.AssetType,
-                            request.AssetName,
-                            request.StartDate,
-                            request.EndDate
+                    HttpResultMapper.MapToResult(
+                        await mediator.Send(
+                            GetCombinedQuotesCommandExtensions.CreateCommandRequest(request)
                         )
-                    );
-                    return Results.Ok(response);
-                }
+                    )
             )
-            .WithName("Get combined quotes of stoqq")
-            .WithDescription("Get quotes after evaluation")
+            .WithName("Get combined quotes")
+            .WithDescription(
+                "Get quotes after evaluation. Specify time frame and type of technical indicies"
+            )
             .WithOpenApi();
 
         app.MapPost(
-                "/stooq/cypherb",
+                "/quotes/cypherb",
                 [AllowAnonymous]
         async ([FromBody] GetCypherBDto request, IMediator mediator) =>
-                {
-                    var response = await mediator.Send(request.CreateCommand());
-                    return Results.Ok(response);
-                }
+                    HttpResultMapper.MapToResult(await mediator.Send(request.CreateCommand()))
             )
-            .WithName("Get cypherb for stoqq data")
+            .WithName("Get cypherb technical indicator for quotes in time range")
             .WithOpenApi();
     }
 }

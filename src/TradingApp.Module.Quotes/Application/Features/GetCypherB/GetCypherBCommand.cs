@@ -1,5 +1,5 @@
-﻿using MediatR;
-using TradingApp.Core.Models;
+﻿using FluentResults;
+using MediatR;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 using TradingApp.Module.Quotes.Application.Mappers;
 using TradingApp.Module.Quotes.Application.Models;
@@ -8,12 +8,12 @@ using TradingApp.Module.Quotes.Contract.Models;
 namespace TradingApp.Module.Quotes.Application.Features.GetCypherB;
 
 public record GetCypherBCommand(TimeFrame TimeFrame, Asset Asset, WaveTrendSettings WaveTrendSettings, SRsiSettings SRsiSettings)
-    : IRequest<ServiceResponse<GetCypherBResponseDto>>;
+    : IRequest<IResult<GetCypherBResponseDto>>;
 
 public static class GetCypherBCommandExtensions
 {
     public static GetCypherBCommand CreateCommand(this GetCypherBDto request) =>
-        new GetCypherBCommand(
+        new(
             TimeFrameDtoMapper.ToDomainModel(request.TimeFrame),
             AssetDtoMapper.ToDomainModel(request.Asset),
             WaveTrendSettingsDtoMapper.ToDomainModel(request.WaveTrendSettings),

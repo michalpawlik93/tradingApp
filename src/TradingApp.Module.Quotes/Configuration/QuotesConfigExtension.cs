@@ -1,10 +1,10 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 using TradingApp.Core.EventBus;
 using TradingApp.Core.Extensions;
-using TradingApp.Core.Models;
 using TradingApp.Evaluator;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
@@ -35,20 +35,20 @@ public static class QuotesConfigExtension
         services.AddScoped<
             IRequestHandler<
                 GetCombinedQuotesCommand,
-                ServiceResponse<GetCombinedQuotesResponseDto>
+                IResult<GetCombinedQuotesResponseDto>
             >,
             GetCombinedQuotesCommandHandler
         >();
         services.AddScoped<
-            IRequestHandler<GetCypherBCommand, ServiceResponse<GetCypherBResponseDto>>,
+            IRequestHandler<GetCypherBCommand, IResult<GetCypherBResponseDto>>,
             GetCypherBCommandHandler
         >();
         services.AddScoped<
-            IRequestHandler<EvaluateSRsiCommand, ServiceResponse>,
+            IRequestHandler<EvaluateSRsiCommand, IResultBase>,
             EvaluateSRsiCommandHandler
         >();
         services.AddScoped<
-            IRequestHandler<GetTickerMetadataQuery, ServiceResponse<CryptocurrencyMetadata[]>>,
+            IRequestHandler<GetTickerMetadataQuery, IResult<CryptocurrencyMetadata[]>>,
             GetTickerMetadataQueryHandler
         >();
 

@@ -1,20 +1,17 @@
 ﻿using FluentResults;
 using MediatR;
 using Serilog;
-using TradingApp.Core.Models;
 using TradingApp.Domain.Modules.Constants;
 using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes.Dto;
-using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Application.Mappers;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 
 namespace TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 
 public class GetCombinedQuotesCommandHandler
-    : IRequestHandler<
-        GetCombinedQuotesCommand,
-        ServiceResponse<GetCombinedQuotesResponseDto>
-    >
+    : IRequestHandler<GetCombinedQuotesCommand, IResult<GetCombinedQuotesResponseDto>>
 {
     private readonly ITradingAdapter _adapter;
     private readonly IEvaluator _customEvaluator;
@@ -27,48 +24,40 @@ public class GetCombinedQuotesCommandHandler
         _customEvaluator = customEvaluator;
     }
 
-    public async Task<ServiceResponse<GetCombinedQuotesResponseDto>> Handle(
+    public async Task<IResult<GetCombinedQuotesResponseDto>> Handle(
         GetCombinedQuotesCommand request,
         CancellationToken cancellationToken
     )
     {
-        Log.Logger.Information(
-            "{handlerName} started.",
-            nameof(GetCombinedQuotesCommandHandler)
-        );
+        Log.Logger.Information("{handlerName} started.", nameof(GetCombinedQuotesCommandHandler));
         var getQuotesResponse = await _adapter.GetQuotes(
-            request.TimeFrame, request.Asset, new PostProcessing(true), cancellationToken
+            request.TimeFrame,
+            request.Asset,
+            new PostProcessing(true),
+            cancellationToken
         );
         if (getQuotesResponse.IsFailed)
         {
-            return new ServiceResponse<GetCombinedQuotesResponseDto>(
-                getQuotesResponse.ToResult()
+            return getQuotesResponse.ToResult<GetCombinedQuotesResponseDto>();
+        }
+
+        ICollection<RsiResult> rsiResults = null;
+        var includeRsi = request.TechnicalIndicators.Contains(TechnicalIndicator.Rsi);
+        if (includeRsi)
+        {
+            rsiResults = _customEvaluator.GetRSI(
+                getQuotesResponse.Value.ToList(),
+                new RsiSettings(
+                    RsiSettingsConst.Oversold,
+                    RsiSettingsConst.Overbought,
+                    true,
+                    RsiSettingsConst.DefaultPeriod
+                )
             );
         }
-        var rsiResults = _customEvaluator.GetRSI(
-            getQuotesResponse.Value.ToList(),
-            new RsiSettings(
-                RsiSettingsConst.Oversold,
-                RsiSettingsConst.Overbought,
-                true,
-                RsiSettingsConst.DefaultPeriod
-            )
-        );
-        var combinedResults = getQuotesResponse.Value
-            .Select((q, i) => new CombinedQuote(q, rsiResults.ElementAt(i).Value, null))
-            .ToList();
-        return new ServiceResponse<GetCombinedQuotesResponseDto>(
-            Result.Ok(
-                new GetCombinedQuotesResponseDto(
-                    combinedResults,
-                    new RsiSettings(
-                        RsiSettingsConst.Oversold,
-                        RsiSettingsConst.Overbought,
-                        true,
-                        14
-                    )
-                )
-            )
+
+        return Result.Ok(
+            GetCombinedQuotesResponseMapper.ToDto(getQuotesResponse.Value, rsiResults, includeRsi)
         );
     }
 }
