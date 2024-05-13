@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using System.Diagnostics.CodeAnalysis;
+using TradingApp.Core.Models;
 using TradingApp.Core.Utilities;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.StooqProvider.Abstraction;
@@ -9,7 +10,7 @@ namespace TradingApp.StooqProvider.Services;
 
 public interface IFileService
 {
-    Task<Result<ICollection<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset);
+    Task<Result<IEnumerable<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset);
 }
 
 [ExcludeFromCodeCoverage]
@@ -22,16 +23,17 @@ public class FileService : IFileService
         _zipArchiveProvider = zipArchiveProvider;
     }
 
-    public async Task<Result<ICollection<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset)
+    public async Task<Result<IEnumerable<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset)
     {
         using var zipArchive = _zipArchiveProvider.OpenRead(timeFrame.Granularity);
         var zipEntry = _zipArchiveProvider.GetEntry(zipArchive, timeFrame.Granularity, asset.Type, asset.Name);
 
         if (zipEntry == null)
         {
-            return Result.Fail<ICollection<Quote>>($"Can not found file. Path: {FileServiceUtils.AncvFilePath}");
+            return Result.Fail<IEnumerable<Quote>>(new ValidationError($"Can not find file. Path: {FileServiceUtils.AncvFilePath}"));
         }
-        using var entryStream = zipEntry.Open();
+
+        await using var entryStream = zipEntry.Open();
         using var reader = new StreamReader(entryStream);
         string fileContent = await reader.ReadToEndAsync();
         string[] lines = fileContent.Split('\n');
@@ -56,6 +58,6 @@ public class FileService : IFileService
                 }
             }
         }
-        return Result.Ok<ICollection<Quote>>(quotes);
+        return Result.Ok<IEnumerable<Quote>>(quotes);
     }
 }

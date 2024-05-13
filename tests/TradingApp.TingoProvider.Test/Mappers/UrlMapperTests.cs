@@ -15,12 +15,13 @@ public class UrlMapperTests
     {
         // Arrange
         var timeFrame = new TimeFrame(Granularity.FiveMins, null, null);
+        var asset = new Asset(AssetName.CUREBTC, AssetType.Cryptocurrency);
         // Act
-        var url = UrlMapper.GetCryptoQuotesUri(Ticker.Curebtc, timeFrame);
+        var url = UrlMapper.GetCryptoQuotesUri(asset, timeFrame);
 
         // Assert
         url.Should()
-            .Be($"tiingo/crypto/prices?tickers=curebtc&resampleFreq={ResambleFreq.FiveMin}");
+            .Be($"tiingo/crypto/prices?tickers={Ticker.Curebtc}&resampleFreq={ResambleFreq.FiveMin}");
     }
 
     [Fact]
@@ -34,13 +35,27 @@ public class UrlMapperTests
             DateTimeUtils.ConvertUtcIso8601_2DateStringToDateTime(startDate),
             DateTimeUtils.ConvertUtcIso8601_2DateStringToDateTime(endDate)
         );
+        var asset = new Asset(AssetName.CUREBTC, AssetType.Cryptocurrency);
         // Act
-        var url = UrlMapper.GetCryptoQuotesUri(Ticker.Curebtc, timeFrame);
+        var url = UrlMapper.GetCryptoQuotesUri(asset, timeFrame);
 
         // Assert
         url.Should()
             .Be(
-                $"tiingo/crypto/prices?tickers=curebtc&startDate={startDate}&endDate={endDate}&resampleFreq={ResambleFreq.FiveMin}"
+                $"tiingo/crypto/prices?tickers={Ticker.Curebtc}&startDate={startDate}&endDate={endDate}&resampleFreq={ResambleFreq.FiveMin}"
             );
+    }
+
+    [Fact]
+    public void GetTickerMetadataUri_AllParams_ReturnsUrl()
+    {
+        // Arrange
+        var asset = new Asset(AssetName.CUREBTC, AssetType.Cryptocurrency);
+        // Act
+        var url = UrlMapper.GetTickerMetadataUri(asset);
+
+        // Assert
+        url.Should()
+            .Be($"tiingo/crypto?tickers={Ticker.Curebtc}");
     }
 }

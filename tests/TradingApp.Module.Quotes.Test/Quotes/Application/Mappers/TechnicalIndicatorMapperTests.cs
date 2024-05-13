@@ -11,7 +11,7 @@ public class TechnicalIndicatorMapperTests
     public void ToDomainModel_Should_Return_Correct_Model()
     {
         // Arrange
-        var technicalIndicators = new List<string> { nameof(TechnicalIndicator.Srsi), nameof(TechnicalIndicator.Srsi), "default" };
+        var technicalIndicators = new string[] { nameof(TechnicalIndicator.Srsi), nameof(TechnicalIndicator.Srsi), "default" };
         // Act
         var result = TechnicalIndicatorMapper.ToDomainModel(technicalIndicators);
 

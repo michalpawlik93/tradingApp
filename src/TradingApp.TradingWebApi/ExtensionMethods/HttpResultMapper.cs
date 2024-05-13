@@ -8,7 +8,7 @@ public static class HttpResultMapper
     {
         if (!result.IsFailed) return Results.Ok(new ServiceResponse<T>(result));
         var res = (result as Result<T>);
-        if (res != null && res.HasError<BadRequestError>())
+        if (res != null && res.HasError<ValidationError>())
         {
             return Results.BadRequest(new ServiceResponse<T>(result));
         }

@@ -10,7 +10,7 @@ public static class ErrorsExtensions
     {
         return error switch
         {
-            BadRequestError _ => MessageType.BadRequest,
+            ValidationError _ => MessageType.BadRequest,
             SystemError _ => MessageType.Error,
             NotFoundError _ => MessageType.NotFound,
             _ => MessageType.Error

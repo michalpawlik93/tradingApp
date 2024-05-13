@@ -5,7 +5,6 @@ using System.Net;
 using TestUtils.Fixtures;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
-using TradingApp.TingoProvider.Contstants;
 using TradingApp.TingoProvider.Setup;
 using Xunit;
 
@@ -34,7 +33,7 @@ public class TingoProviderTests
         // Arrange
         var sut = CreateProvider<MockTickerMetadataOk>();
         // Act
-        var result = await sut.GetTickerMetadata(Ticker.Curebtc, CancellationToken.None);
+        var result = await sut.GetTickerMetadata(new Asset(AssetName.BTCUSD, AssetType.Cryptocurrency), CancellationToken.None);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -46,7 +45,7 @@ public class TingoProviderTests
         // Arrange
         var sut = CreateProvider<MockTickerMetadataOk>();
         // Act
-        var result = await sut.GetTickerMetadata("ticker", CancellationToken.None);
+        var result = await sut.GetTickerMetadata(new Asset(AssetName.BTC, AssetType.Cryptocurrency), CancellationToken.None);
 
         // Assert
         result.IsFailed.Should().BeTrue();
@@ -58,7 +57,7 @@ public class TingoProviderTests
         // Arrange
         var sut = CreateProvider<MockTickerMetadataFail>();
         // Act
-        var result = await sut.GetTickerMetadata(Ticker.Curebtc, CancellationToken.None);
+        var result = await sut.GetTickerMetadata(new Asset(AssetName.CUREBTC, AssetType.Cryptocurrency), CancellationToken.None);
 
         // Assert
         result.IsFailed.Should().BeTrue();

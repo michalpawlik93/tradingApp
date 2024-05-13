@@ -50,6 +50,7 @@ public static class FileServiceUtils
         {
             AssetName.ANC => "anc.v.txt",
             AssetName.BTC => "btc.v.txt",
+            AssetName.BTCUSD => "btc.v.txt",
             AssetName.USDPLN => "usdpln.txt",
             _ => throw new ArgumentException($"No exisiting {nameof(assetName)}: {assetName}"),
         };

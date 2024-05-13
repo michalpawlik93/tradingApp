@@ -10,7 +10,7 @@ public class TradingAdapter : ITradingAdapter
     private readonly ITradingProviderFactory _tradingProviderFactory;
     private ITradingProvider _tradingProvider;
 
-    private const string DefaultProvider = nameof(TingoProvider);
+    private const string DefaultProvider = nameof(StooqProvider);
 
     public TradingAdapter(ITradingProviderFactory tradingProviderFactory)
     {
@@ -21,7 +21,10 @@ public class TradingAdapter : ITradingAdapter
 
     public void SetProvider(string providerName)
     {
-        _tradingProvider = _tradingProviderFactory.CreateProvider(providerName);
+        if (providerName != DefaultProvider)
+        {
+            _tradingProvider = _tradingProviderFactory.CreateProvider(providerName);
+        }
     }
 
     public async Task<Result<IEnumerable<Quote>>> GetQuotes(

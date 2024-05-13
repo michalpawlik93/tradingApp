@@ -11,7 +11,7 @@ public static class TingoDataRequestMapper
         {
             AssetName.CUREBTC => Ticker.Curebtc,
             AssetName.BTCUSD => Ticker.Btcusd,
-            _ => Ticker.Btcusd
+            _ => string.Empty
         };
 
     public static TingoTimeFrame Map(this TimeFrame timeFrame) =>
@@ -27,7 +27,7 @@ public static class TingoDataRequestMapper
             Granularity.FiveMins => ResambleFreq.FiveMin,
             Granularity.Hourly => ResambleFreq.OneHour,
             Granularity.Daily => ResambleFreq.OneDay,
-            _ => ResambleFreq.FiveMin
+            _ => string.Empty
         };
 }
 

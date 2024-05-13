@@ -3,14 +3,14 @@ using TradingApp.Module.Quotes.Contract.Constants;
 
 namespace TradingApp.Module.Quotes.Application.Dtos;
 
-public class GetQuotesDtoRequest
+public class GetQuotesDtoRequest : AssetAsParamsDto
 {
     /// <summary>
     ///  Specify technical indicator do include it in combined result
     /// </summary>
     /// <example>Rsi</example>
     [DefaultValue(new string[] { nameof(TechnicalIndicator.Rsi) })]
-    public List<string> TechnicalIndicators { get; set; }
+    public string[] TechnicalIndicators { get; set; }
 
     /// <summary>
     ///  Resample type
@@ -18,20 +18,6 @@ public class GetQuotesDtoRequest
     /// <example>FiveMins</example>
     [DefaultValue(nameof(Contract.Constants.Granularity.FiveMins))]
     public string Granularity { get; set; }
-
-    /// <summary>
-    ///  Asset type
-    /// </summary>
-    /// <example>Cryptocurrency</example>
-    [DefaultValue(nameof(Contract.Constants.AssetType.Cryptocurrency))]
-    public string AssetType { get; set; }
-
-    /// <summary>
-    ///  Asset name
-    /// </summary>
-    /// <example>ANC</example>
-    [DefaultValue(nameof(Contract.Constants.AssetName.BTCUSD))]
-    public string AssetName { get; set; }
 
     /// <summary>
     /// ISO 8601 Required

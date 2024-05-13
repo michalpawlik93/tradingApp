@@ -17,9 +17,11 @@ public static class QuotesModule
         app.MapGet(
                 "/quotes/tingo/tickermetadata",
                 [AllowAnonymous]
-        async ([AsParameters] GetTickerMetadataDto request, IMediator mediator) =>
+        async ([AsParameters] AssetAsParamsDto request, IMediator mediator) =>
                     HttpResultMapper.MapToResult(
-                        await mediator.Send(new GetTickerMetadataQuery(request.Ticker))
+                        await mediator.Send(
+                            GetTickerMetadataQueryExtensions.CreateCommandRequest(request)
+                        )
                     )
             )
             .WithName("Get ticker metadata")

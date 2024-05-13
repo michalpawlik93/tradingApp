@@ -10,7 +10,7 @@ public class ErrorsExtensionsTest
 {
     public static IEnumerable<object[]> TestData()
     {
-        yield return [new BadRequestError("message"), MessageType.BadRequest];
+        yield return [new ValidationError("message"), MessageType.BadRequest];
         yield return [new SystemError("message"), MessageType.Error];
         yield return [new NotFoundError("message"), MessageType.NotFound];
         yield return [new Error("message"), MessageType.Error];

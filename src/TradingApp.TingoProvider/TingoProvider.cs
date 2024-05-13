@@ -1,12 +1,11 @@
 ﻿using FluentResults;
 using TradingApp.Core.Utilities;
-using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.TingoProvider.Contract;
-using TradingApp.TingoProvider.Contstants;
 using TradingApp.TingoProvider.Mappers;
 using TradingApp.TingoProvider.Setup;
+using TradingApp.TingoProvider.Utils;
 
 namespace TradingApp.TingoProvider;
 
@@ -25,28 +24,23 @@ public class TingoProvider : ITingoProvider
 
     public async Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
     {
-        if (asset.Type != AssetType.Cryptocurrency)
+        if (!asset.IsValid(out var validationResult))
         {
-            return Result.Fail("Only cryptocurrency is supported");
+            return validationResult;
         }
-
-        var ticker = asset.Map();
-        if (!Ticker.Tickers.Contains(ticker))
-        {
-            return Result.Fail("Provide correct ticker");
-        }
-        var response = await _tingoClient.Client.GetAsync(UrlMapper.GetCryptoQuotesUri(ticker, timeFrame), cancellationToken);
+        var response = await _tingoClient.Client.GetAsync(UrlMapper.GetCryptoQuotesUri(asset, timeFrame), cancellationToken);
         var result = await response.GetResultAsync<TingoQuote[]>();
         return result.IsSuccess ? result.ToResult(TingoQuoteMapper.MapToQuotes) : result.ToResult<IEnumerable<Quote>>();
     }
 
-    public async Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(string ticker, CancellationToken cancellationToken)
+    public async Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(Asset asset, CancellationToken cancellationToken)
     {
-        if (!Ticker.Tickers.Contains(ticker))
+        if (!asset.IsValid(out var validationResult))
         {
-            return Result.Fail("Provide correct ticker");
+            return validationResult;
         }
-        var response = await _tingoClient.Client.GetAsync($"tiingo/crypto?tickers={ticker}", cancellationToken);
+
+        var response = await _tingoClient.Client.GetAsync(UrlMapper.GetTickerMetadataUri(asset), cancellationToken);
         return await response.GetResultAsync<CryptocurrencyMetadata[]>();
     }
 }

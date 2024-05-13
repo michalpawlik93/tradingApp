@@ -12,7 +12,7 @@ public class TingoDataRequestMapperTests
     [Theory]
     [InlineData(AssetName.CUREBTC, Ticker.Curebtc)]
     [InlineData(AssetName.BTCUSD, Ticker.Btcusd)]
-    [InlineData((AssetName)100, Ticker.Btcusd)]
+    [InlineData((AssetName)100, "")]
     public void MapAsset_Asset_String(AssetName assetName, string expectedTicker)
     {
         // Arrange
@@ -28,7 +28,7 @@ public class TingoDataRequestMapperTests
     [InlineData(Granularity.FiveMins, ResambleFreq.FiveMin)]
     [InlineData(Granularity.Hourly, ResambleFreq.OneHour)]
     [InlineData(Granularity.Daily, ResambleFreq.OneDay)]
-    [InlineData((Granularity)100, ResambleFreq.FiveMin)]
+    [InlineData((Granularity)100, "")]
     public void Map_TimeFrame_TingoTimeFrame(Granularity granularity, string expectedGranularity)
     {
         // Arrange

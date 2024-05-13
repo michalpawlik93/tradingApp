@@ -6,10 +6,10 @@ namespace TradingApp.TingoProvider.Mappers;
 
 public static class UrlMapper
 {
-    public static string GetCryptoQuotesUri(string ticker, TimeFrame timeFrame)
+    public static string GetCryptoQuotesUri(Asset asset, TimeFrame timeFrame)
     {
         var tingoTimeFrame = timeFrame.Map();
-        var sb = new StringBuilder($"tiingo/crypto/prices?tickers={ticker}");
+        var sb = new StringBuilder($"tiingo/crypto/prices?tickers={asset.Map()}");
         if (tingoTimeFrame.StartDate != null)
         {
             sb.Append($"&startDate={DateTimeUtils.ConvertDateTimeToIso8601_2String(timeFrame.StartDate.Value)}");
@@ -21,4 +21,7 @@ public static class UrlMapper
         sb.Append($"&resampleFreq={tingoTimeFrame.ResampleFreq}");
         return sb.ToString();
     }
+
+    public static string GetTickerMetadataUri(Asset asset) =>
+        $"tiingo/crypto?tickers={asset.Map()}";
 }

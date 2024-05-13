@@ -1,13 +1,14 @@
 ﻿using FluentResults;
+using Microsoft.AspNetCore.Http;
 
 namespace TradingApp.Core.Models;
 
-public class BadRequestError : Error
+public class ValidationError : Error
 {
-    public BadRequestError(string message)
+    public ValidationError(string message)
         : base(message)
     {
-        Metadata.Add("ErrorCode", 400);
+        Metadata.Add("ErrorCode", StatusCodes.Status400BadRequest);
     }
 }
 
@@ -25,6 +26,6 @@ public class NotFoundError : Error
     public NotFoundError(string message)
         : base(message)
     {
-        Metadata.Add("ErrorCode", 404);
+        Metadata.Add("ErrorCode", StatusCodes.Status404NotFound);
     }
 }

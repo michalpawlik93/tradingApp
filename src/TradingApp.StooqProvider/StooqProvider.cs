@@ -19,15 +19,10 @@ public sealed class StooqProvider : IStooqProvider
         _fileService = fileService;
     }
 
-    public Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
+        => await _fileService.ReadHistoryQuotaFile(timeFrame, asset);
 
-    public async Task<Result<ICollection<Quote>>> GetQuotesAsync(TimeFrame timeFrame, Asset asset) =>
-        await _fileService.ReadHistoryQuotaFile(timeFrame, asset);
-
-    public Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(string ticker, CancellationToken cancellationToken)
+    public Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(Asset ticker, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

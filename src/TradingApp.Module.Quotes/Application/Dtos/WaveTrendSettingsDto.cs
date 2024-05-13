@@ -30,11 +30,11 @@ public class WaveTrendSettingsDto : OscillationSettings
     /// Show Vwap for WaveTrend
     /// </summary>
     [DefaultValue(true)]
-    public decimal EnableVwap { get; set; }
+    public bool EnableVwap { get; set; }
 
     /// <summary>
     /// Show WaveTrend
     /// </summary>
     [DefaultValue(true)]
-    public decimal Enable { get; set; }
+    public bool Enable { get; set; }
 }
