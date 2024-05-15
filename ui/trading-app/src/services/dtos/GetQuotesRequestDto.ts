@@ -1,4 +1,5 @@
 export interface GetQuotesRequestDto {
+  technicalIndicators: string[];
   granularity: string;
   assetType: string;
   assetName: string;

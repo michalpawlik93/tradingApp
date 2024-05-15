@@ -8,9 +8,13 @@ import { useForm } from "react-hook-form";
 import { CommonButton } from "../presentational/Button";
 import { FormDropdown } from "../presentational/FormDropdown";
 import { FormDateTimePicker } from "../presentational/FormDateTimePicker";
-import { useStooqStore } from "../../stores/stooqStore";
+import { useQuotesStore } from "../../stores/quotesStore";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { GetQuotesRequestDto } from "../../services/dtos/GetQuotesRequestDto";
+import {
+  sRsiSettingsDefault,
+  waveTrendSettingsDefault,
+} from "../../consts/technicalIndicatorsSettings";
 
 export interface IChartSettingsPanelForm
   extends Pick<GetQuotesRequestDto, "granularity" | "assetType" | "assetName"> {
@@ -49,16 +53,22 @@ export const ChartSettingsPanelForm = ({
   minDate,
   maxDate,
 }: ChartSettingsPanelFormProps) => {
-  const fetchData = useStooqStore((state) => state.fetchCypherBQuotes);
+  const fetchData = useQuotesStore((state) => state.fetchCypherBQuotes);
   const { handleSubmit, reset, control } = useForm<IChartSettingsPanelForm>({
     defaultValues: defaultValues,
   });
   const onSubmit = async (data: IChartSettingsPanelForm) => {
     console.log(data);
     await fetchData({
-      assetType: data.assetType,
-      assetName: data.assetName,
-      granularity: data.granularity,
+      asset: {
+        name: data.assetName,
+        type: data.assetType,
+      },
+      timeFrame: {
+        granularity: data.granularity,
+      },
+      waveTrendSettings: waveTrendSettingsDefault,
+      sRsiSettings: sRsiSettingsDefault,
     });
   };
   return (

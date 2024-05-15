@@ -1,4 +1,4 @@
-import { useStooqStore } from "../../stores/stooqStore";
+import { useQuotesStore } from "../../stores/quotesStore";
 import { CombinedQuote } from "../../types/CombinedQuote";
 import { RsiChart } from "../presentational/RsiChart";
 
@@ -8,7 +8,7 @@ interface RSIChartContainerProps {
 export const RsiChartContiner = ({
   combinedQuotes,
 }: RSIChartContainerProps) => {
-  const rsiSettings = useStooqStore((state) => state.rsiSettings);
+  const rsiSettings = useQuotesStore((state) => state.rsiSettings);
 
   return <RsiChart rsiSettings={rsiSettings} combinedQuotes={combinedQuotes} />;
 };

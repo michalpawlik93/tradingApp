@@ -2,9 +2,9 @@ import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { CombinedQuote } from "../../types/CombinedQuote";
 import { useMemo } from "react";
-import { RsiSettings } from "../../types/RsiSettings";
 import { ApexRsiChartData } from "../../types/ApexRsiChartData";
 import { mapToApexRsiChartData } from "../../mappers/RsiChartMapper";
+import { RsiSettings } from "../../types/RsiSettings";
 
 interface RsiChartProps {
   combinedQuotes: CombinedQuote[];
