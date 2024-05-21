@@ -7,6 +7,7 @@ import {
   Menu,
   MenuItem,
   Toolbar,
+  useTheme,
 } from "@mui/material";
 import { css } from "@emotion/react";
 import BarChartIcon from "@mui/icons-material/BarChart";
@@ -47,6 +48,7 @@ const topBarCss = {
 };
 
 export const TopBar = () => {
+  const theme: Theme = useTheme();
   const trigger = useScrollTrigger();
   const [anchor, setAnchor] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
@@ -67,10 +69,10 @@ export const TopBar = () => {
   };
   return (
     <Slide appear={false} direction="down" in={!trigger}>
-      <AppBar elevation={0} css={topBarCss.appBar}>
-        <Breadcrumbs css={topBarCss.breadCrumbsStyle} />
-        <Toolbar css={topBarCss.toolBar}>
-          <IconButton css={topBarCss.iconStyle}></IconButton>
+      <AppBar elevation={0} css={topBarCss.appBar(theme)}>
+        <Breadcrumbs css={topBarCss.breadCrumbsStyle(theme)} />
+        <Toolbar css={topBarCss.toolBar(theme)}>
+          <IconButton css={topBarCss.iconStyle(theme)}></IconButton>
           <IconButton
             size="large"
             aria-label="charts"
@@ -97,9 +99,7 @@ export const TopBar = () => {
             onClose={handleClose}
           >
             <MenuItem onClick={navigateToSimpleCharts}>Simple Charts</MenuItem>
-            <MenuItem onClick={navigateToAdvancedCharts}>
-              Advanced Charts
-            </MenuItem>
+            <MenuItem onClick={navigateToAdvancedCharts}>Advanced Charts</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>

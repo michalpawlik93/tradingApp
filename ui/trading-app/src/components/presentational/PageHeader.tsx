@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { CardHeader, Typography, Theme } from "@mui/material";
 import { css } from "@emotion/react";
+import { useTheme } from "@mui/system";
 
 export interface PageHeaderProps {
   description?: string;
@@ -25,12 +26,13 @@ const pageHeaderCss = {
 
 export const PageHeader: FC<PageHeaderProps> = ({ title, description }) => {
   const titleComponent = <Typography variant={"h2"}>{title}</Typography>;
+  const theme: Theme = useTheme();
   return (
     <CardHeader
-      css={pageHeaderCss.cardHeader}
+      css={pageHeaderCss.cardHeader(theme)}
       title={titleComponent}
       subheader={description}
-      subheaderTypographyProps={{ css: pageHeaderCss.cardDescription }}
+      subheaderTypographyProps={{ css: pageHeaderCss.cardDescription(theme) }}
     />
   );
 };

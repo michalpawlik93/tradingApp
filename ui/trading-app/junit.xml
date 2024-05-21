@@ -1,3 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="0" failures="0" errors="0" time="0.274">
+<testsuites name="vitest tests" tests="11" failures="0" errors="0" time="3.266">
+    <testsuite name="src/hooks/__tests__/useCombinedQuotes.test.tsx" timestamp="2024-05-21T14:41:27.094Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.025">
+        <testcase classname="src/hooks/__tests__/useCombinedQuotes.test.tsx" name="useCombinedQuotes &gt; should return empty arrays" time="0.024">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/mappers/__tests__/RsiChartMapper.test.ts" timestamp="2024-05-21T14:41:27.098Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.003">
+        <testcase classname="src/mappers/__tests__/RsiChartMapper.test.ts" name="mapToApexRsiChartData &gt; should return empty arrays" time="0.002">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/services/__tests__/QuotesDataService.test.ts" timestamp="2024-05-21T14:41:27.099Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.006">
+        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCombinedQuotes" time="0.003">
+        </testcase>
+        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCypherB" time="0.002">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/stores/__tests__/quotesStore.test.tsx" timestamp="2024-05-21T14:41:27.100Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.166">
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; default state - intial values are set correctly" time="0.015">
+        </testcase>
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCombinedQuotes - request - combinedQuotes fetched" time="0.078">
+        </testcase>
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCypherBQuotes - request - cypherBQuotes fetched" time="0.072">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/root/__tests__/ErrorFallback.test.tsx" timestamp="2024-05-21T14:41:27.101Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.024">
+        <testcase classname="src/components/root/__tests__/ErrorFallback.test.tsx" name="Root component tests &gt; Error Boundary - catches error thrown by child component" time="0.022">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/root/__tests__/root.component.test.tsx" timestamp="2024-05-21T14:41:27.102Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.022">
+        <testcase classname="src/components/root/__tests__/root.component.test.tsx" name="Root component tests &gt; Root - renders" time="0.021">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/root/__tests__/routerConfig.test.tsx" timestamp="2024-05-21T14:41:27.102Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.137">
+        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - SimpleCharts path - returns simpleChartsContainer" time="0.107">
+        </testcase>
+        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - AdvancedCharts path - returns AdvancedChartsView" time="0.03">
+        </testcase>
+    </testsuite>
 </testsuites>

@@ -24,9 +24,7 @@ export const useQuotesStore = create<QuotesState>((set) => ({
       const response = await QuotesDataService.getCombinedQuotes(request);
       set({
         combinedQuotes:
-          response.quotes.length > 1000
-            ? response.quotes.slice(0, 1000)
-            : response.quotes,
+          response.quotes.length > 1000 ? response.quotes.slice(0, 1000) : response.quotes,
         rsiSettings: response.rsiSettings,
       });
     } catch (error) {
@@ -38,9 +36,7 @@ export const useQuotesStore = create<QuotesState>((set) => ({
       const response = await QuotesDataService.getCypherB(request);
       set({
         cypherBQuotes:
-          response.quotes.length > 1000
-            ? response.quotes.slice(0, 1000)
-            : response.quotes,
+          response.quotes.length > 1000 ? response.quotes.slice(0, 1000) : response.quotes,
       });
     } catch (error) {
       console.error("Error fetching cypherB quotes:", error);

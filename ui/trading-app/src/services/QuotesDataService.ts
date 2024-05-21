@@ -7,15 +7,13 @@ import { GetCypherBDto } from "./dtos/GetCypherBDto";
 
 export const QuotesDataService: IQuotesDataService = {
   getCombinedQuotes: async (
-    request: GetQuotesRequestDto
+    request: GetQuotesRequestDto,
   ): Promise<GetCombinedQuotesResponseDto> => {
     const { granularity, assetType, assetName, startDate, endDate } = request;
     const url = `${StooqUrls.combinedQuote.getAll}?granularity=${granularity}&assetType=${assetType}&assetName=${assetName}&startDate=${startDate}&endDate=${endDate}`;
     return fetchData(url, "GET", undefined);
   },
-  getCypherB: async (
-    request: GetCypherBDto
-  ): Promise<GetCypherBResponseDto> => {
+  getCypherB: async (request: GetCypherBDto): Promise<GetCypherBResponseDto> => {
     const url = `${StooqUrls.cypherB.get}`;
     return fetchData(url, "POST", request);
   },
@@ -24,10 +22,11 @@ export const QuotesDataService: IQuotesDataService = {
 async function fetchData<TInput, TOutput>(
   url: string,
   method: string,
-  requestData: TInput
+  requestData: TInput,
 ): Promise<TOutput> {
   try {
     const response = await fetch(url, {
+      mode: "cors",
       method: method,
       headers: {
         "Content-Type": "application/json",

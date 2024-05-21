@@ -11,13 +11,10 @@ interface RsiChartProps {
   rsiSettings: RsiSettings;
 }
 
-export const RsiChart = ({
-  combinedQuotes,
-  rsiSettings,
-}: RsiChartProps): JSX.Element => {
+export const RsiChart = ({ combinedQuotes, rsiSettings }: RsiChartProps): JSX.Element => {
   const data: ApexRsiChartData = useMemo(
     () => mapToApexRsiChartData(combinedQuotes, rsiSettings),
-    [combinedQuotes, rsiSettings]
+    [combinedQuotes, rsiSettings],
   );
 
   const series: ApexOptions["series"] = [

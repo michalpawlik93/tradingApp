@@ -12,8 +12,8 @@ builder.Services.AddCors(options =>
     policy =>
     {
         policy.AllowAnyOrigin()
-               .AllowAnyHeader()
-               .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
 builder.Services.AddSwagger();
@@ -42,6 +42,6 @@ app.UseSwaggerUI(options =>
 });
 app.UseHttpsRedirection();
 app.UseExceptionHandler(builder => builder.UseExceptionHandlerMiddleware());
-
+app.UseCors();
 app.AddModules();
 app.Run();
