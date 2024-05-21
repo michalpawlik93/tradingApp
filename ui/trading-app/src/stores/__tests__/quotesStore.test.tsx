@@ -3,8 +3,7 @@ import { useQuotesStore } from "../quotesStore";
 import { rsiSettingsDefault } from "src/consts/technicalIndicatorsSettings";
 import { createQuotesDataServiceMock } from "src/__fixtures__/QuotesDataServiceMock";
 import { QuotesDataService } from "../../services/QuotesDataService";
-
-vi.unmock("../quotesStore");
+import { GetCypherBDtoMock, GetQuotesRequestDtoMock } from "src/__fixtures__/quotes";
 
 describe("useQuotesStore", () => {
   test("default state - intial values are set correctly", () => {
@@ -24,12 +23,7 @@ describe("useQuotesStore", () => {
     );
     //Act
     const { result } = renderHook(() => useQuotesStore());
-    result.current.fetchCombinedQuotes({
-      technicalIndicators: [],
-      granularity: "",
-      assetType: "",
-      assetName: "",
-    });
+    result.current.fetchCombinedQuotes(GetQuotesRequestDtoMock());
     //Assert
     await waitFor(() => {
       expect(result.current.combinedQuotes).toHaveLength(1);
@@ -43,28 +37,7 @@ describe("useQuotesStore", () => {
     );
     //Act
     const { result } = renderHook(() => useQuotesStore());
-    result.current.fetchCypherBQuotes({
-      asset: {
-        name: "",
-        type: "",
-      },
-      timeFrame: {
-        granularity: "",
-      },
-      waveTrendSettings: {
-        channelLength: 0,
-        averageLength: 0,
-        movingAverageLength: 0,
-        oversold: 0,
-        overbought: 0,
-      },
-      sRsiSettings: {
-        enable: false,
-        length: 0,
-        stochKSmooth: 0,
-        stochDSmooth: 0,
-      },
-    });
+    result.current.fetchCypherBQuotes(GetCypherBDtoMock());
     //Assert
     await waitFor(() => {
       expect(result.current.cypherBQuotes).toHaveLength(1);

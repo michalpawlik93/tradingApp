@@ -15,3 +15,13 @@ const ResizeObserverMock = vi.fn(() => ({
 vi.stubGlobal("ResizeObserver", ResizeObserverMock);
 
 vi.mock("./services/QuotesDataService");
+
+vi.mock("./hooks/useCombinedQuotes", () => ({
+  useCombinedQuotes: vi.fn(),
+}));
+vi.mock("./hooks/useCypherBQuotes", () => ({
+  useCypherBQuotes: vi.fn(),
+}));
+vi.mock("./hooks/useTimeFrameHook", () => ({
+  useTimeFrameHook: vi.fn(),
+}));

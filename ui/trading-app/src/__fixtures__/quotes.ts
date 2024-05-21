@@ -1,5 +1,10 @@
+import { AssetName } from "src/consts/assetName";
+import { AssetType } from "src/consts/assetType";
+import { Granularity } from "src/consts/granularity";
 import { GetCombinedQuotesResponseDto } from "src/services/dtos/GetCombinedQuotesResponseDto";
+import { GetCypherBDto } from "src/services/dtos/GetCypherBDto";
 import { GetCypherBResponseDto } from "src/services/dtos/GetCypherBResponseDto";
+import { GetQuotesRequestDto } from "src/services/dtos/GetQuotesRequestDto";
 import { CombinedQuote } from "src/types/CombinedQuote";
 import { CypherBQuote } from "src/types/CypherBQuote";
 import { Quote } from "src/types/Quote";
@@ -12,7 +17,7 @@ export const GetCombinedQuotesResponseDtoMock = (): GetCombinedQuotesResponseDto
   },
 });
 
-const CombinedQuoteMock = (): CombinedQuote => ({
+export const CombinedQuoteMock = (): CombinedQuote => ({
   ohlc: QuoteMock(),
   rsi: 58022.10327374051,
   sma: 58072.10338574051,
@@ -31,7 +36,7 @@ export const GetCypherBResponseDtoMock = (): GetCypherBResponseDto => ({
   quotes: [CypherBQuoteMock()],
 });
 
-const CypherBQuoteMock = (): CypherBQuote => ({
+export const CypherBQuoteMock = (): CypherBQuote => ({
   ohlc: QuoteMock(),
   waveTrend: {
     value: 58073.10338579051,
@@ -40,4 +45,36 @@ const CypherBQuoteMock = (): CypherBQuote => ({
   },
   mfi: 58073.10338574051,
   vwap: 58072.10338574051,
+});
+
+export const GetQuotesRequestDtoMock = (): GetQuotesRequestDto => ({
+  technicalIndicators: [],
+  granularity: Granularity.Daily,
+  assetType: AssetType.Cryptocurrency,
+  assetName: AssetName.BTC,
+  startDate: "2023-01-01",
+  endDate: "2023-12-31",
+});
+
+export const GetCypherBDtoMock = (): GetCypherBDto => ({
+  asset: {
+    name: AssetName.ANC,
+    type: AssetType.Cryptocurrency,
+  },
+  timeFrame: {
+    granularity: Granularity.Daily,
+  },
+  waveTrendSettings: {
+    channelLength: 8,
+    averageLength: 8,
+    movingAverageLength: 8,
+    oversold: 60,
+    overbought: 60,
+  },
+  sRsiSettings: {
+    enable: true,
+    length: 8,
+    stochKSmooth: 8,
+    stochDSmooth: 8,
+  },
 });

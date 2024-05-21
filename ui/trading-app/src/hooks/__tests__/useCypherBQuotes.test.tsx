@@ -1,26 +1,26 @@
 import { renderHook } from "@testing-library/react";
-import { useCombinedQuotes } from "../useCombinedQuotes";
 import { TestingProvider } from "../../__fixtures__/TestingProvider";
 import { waitFor } from "@testing-library/react";
 import { QuotesDataService } from "../../services/QuotesDataService";
 import { createQuotesDataServiceMock } from "../../__fixtures__/QuotesDataServiceMock";
+import { useCypherBQuotes } from "../useCypherBQuotes";
 
-vi.unmock("../useCombinedQuotes");
+vi.unmock("../useCypherBQuotes");
 
-describe("useCombinedQuotes tests", () => {
-  test("useCombinedQuotes - should fetch combined quotes", async () => {
+describe("useCypherBQuotes tests", () => {
+  test("useCypherBQuotes - should fetch cypherb quotes", async () => {
     // Arrange
-    vi.mocked(QuotesDataService.getCombinedQuotes).mockImplementation(
-      createQuotesDataServiceMock().getCombinedQuotes,
+    vi.mocked(QuotesDataService.getCypherB).mockImplementation(
+      createQuotesDataServiceMock().getCypherB,
     );
     // Act
-    const { result } = renderHook(useCombinedQuotes, {
+    const { result } = renderHook(useCypherBQuotes, {
       wrapper: TestingProvider,
     });
 
     // Assert
     await waitFor(() => {
-      expect(result.current.combinedQuotes).toHaveLength(1);
+      expect(result.current.cypherBQuotes).toHaveLength(1);
     });
   });
 });

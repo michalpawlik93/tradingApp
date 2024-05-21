@@ -17,10 +17,11 @@ export const useCombinedQuotes = (): useCombinedQuotesResponse => {
 
   useEffect(() => {
     async function fetch() {
-      if (!isDataFetched.current) {
+      if (isDataFetched.current) {
         isDataFetched.current = true;
         return;
       }
+      isDataFetched.current = true;
       await fetchData({
         granularity: Granularity.FiveMins,
         assetType: AssetType.Currencies,

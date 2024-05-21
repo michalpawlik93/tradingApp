@@ -1,12 +1,12 @@
 import {
   GetCombinedQuotesResponseDtoMock,
+  GetCypherBDtoMock,
   GetCypherBResponseDtoMock,
+  GetQuotesRequestDtoMock,
 } from "src/__fixtures__/quotes";
 import { QuotesDataService } from "../QuotesDataService";
 import { GetCombinedQuotesResponseDto } from "../dtos/GetCombinedQuotesResponseDto";
-import { GetCypherBDto } from "../dtos/GetCypherBDto";
 import { GetCypherBResponseDto } from "../dtos/GetCypherBResponseDto";
-import { GetQuotesRequestDto } from "../dtos/GetQuotesRequestDto";
 import { StooqUrls } from "../urls/stooqUrl";
 import { Mock } from "vitest";
 
@@ -14,15 +14,6 @@ vi.unmock("../QuotesDataService");
 describe("QuotesDataService", () => {
   test("getCombinedQuotes", async () => {
     // Arrange
-    const request: GetQuotesRequestDto = {
-      technicalIndicators: [],
-      granularity: "daily",
-      assetType: "stock",
-      assetName: "AAPL",
-      startDate: "2023-01-01",
-      endDate: "2023-12-31",
-    };
-
     const expectedResponse: GetCombinedQuotesResponseDto = GetCombinedQuotesResponseDtoMock();
     const mockedImplementation = () =>
       Promise.resolve({
@@ -33,12 +24,12 @@ describe("QuotesDataService", () => {
     global.fetch = vi.fn(mockedImplementation) as Mock;
 
     // Act
-    const response = await QuotesDataService.getCombinedQuotes(request);
+    const response = await QuotesDataService.getCombinedQuotes(GetQuotesRequestDtoMock());
 
     // Assert
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
-      `${StooqUrls.combinedQuote.getAll}?granularity=daily&assetType=stock&assetName=AAPL&startDate=2023-01-01&endDate=2023-12-31`,
+      `${StooqUrls.combinedQuote.getAll}?granularity=Daily&assetType=Cryptocurrency&assetName=BTC&startDate=2023-01-01&endDate=2023-12-31`,
       {
         mode: "cors",
         method: "GET",
@@ -53,31 +44,8 @@ describe("QuotesDataService", () => {
 
   test("getCypherB", async () => {
     // Arrange
-    const request: GetCypherBDto = {
-      asset: {
-        name: "",
-        type: "",
-      },
-      timeFrame: {
-        granularity: "",
-      },
-      waveTrendSettings: {
-        channelLength: 0,
-        averageLength: 0,
-        movingAverageLength: 0,
-        oversold: 0,
-        overbought: 0,
-      },
-      sRsiSettings: {
-        enable: false,
-        length: 0,
-        stochKSmooth: 0,
-        stochDSmooth: 0,
-      },
-    };
-
+    const request = GetCypherBDtoMock();
     const expectedResponse: GetCypherBResponseDto = GetCypherBResponseDtoMock();
-
     const mockedImplementation = () =>
       Promise.resolve({
         json() {

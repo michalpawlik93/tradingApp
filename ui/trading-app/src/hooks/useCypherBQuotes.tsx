@@ -20,10 +20,11 @@ export const useCypherBQuotes = (): useCypherBQuotesResponse => {
 
   useEffect(() => {
     async function fetch() {
-      if (!isDataFetched.current) {
+      if (isDataFetched.current) {
         isDataFetched.current = true;
         return;
       }
+      isDataFetched.current = true;
       await fetchData({
         asset: {
           name: AssetName.BTC,
