@@ -1,7 +1,9 @@
 import { ReactNode } from "react";
-import { StyledEngineProvider, ThemeProvider, createTheme as createMuiTheme } from "@mui/material";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material";
 import { RouteObject, RouterProvider, createMemoryRouter } from "react-router-dom";
 import { createTheme } from "../assets/themes/createTheme";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 interface TestingProviderProps {
   children?: ReactNode;
@@ -24,11 +26,13 @@ export const TestingProvider = ({ children, overrideRouter }: TestingProviderPro
       });
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={memoryRouter} />
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <RouterProvider router={memoryRouter} />
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </LocalizationProvider>
   );
 };
 

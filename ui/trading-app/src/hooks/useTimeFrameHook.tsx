@@ -1,13 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 
-export interface useTimeFrameHookResponse {
+export interface UseTimeFrameHookResponse {
   minDate: Date;
   maxDate: Date;
 }
 
-export const useTimeFrameHook = (
-  inputDates: Date[]
-): useTimeFrameHookResponse => {
+export const useTimeFrameHook = (inputDates: Date[]): UseTimeFrameHookResponse => {
   const [minDate, setMinDate] = useState(new Date());
   const [maxDate, setMaxDate] = useState(new Date());
   const hasRunEffect = useRef(false);

@@ -22,7 +22,7 @@ export interface IChartSettingsPanelForm
   endDate?: Date;
 }
 
-const defaultValues: IChartSettingsPanelForm = {
+export const defaultValues: IChartSettingsPanelForm = {
   startDate: new Date(),
   endDate: new Date(),
   granularity: Granularity.Hourly,
@@ -49,10 +49,7 @@ export interface ChartSettingsPanelFormProps {
   maxDate: Date;
 }
 
-export const ChartSettingsPanelForm = ({
-  minDate,
-  maxDate,
-}: ChartSettingsPanelFormProps) => {
+export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelFormProps) => {
   const fetchData = useQuotesStore((state) => state.fetchCypherBQuotes);
   const { handleSubmit, reset, control } = useForm<IChartSettingsPanelForm>({
     defaultValues: defaultValues,
@@ -106,17 +103,8 @@ export const ChartSettingsPanelForm = ({
         options={Object.values(AssetType).map((x): Option => [x, x])}
       />
       <ButtonGroup css={chartSettingsPanelCss.buttonBar}>
-        <CommonButton
-          text="Submit"
-          type="submit"
-          onClick={handleSubmit(onSubmit)}
-        />
-        <CommonButton
-          text="Reset"
-          type="reset"
-          secondary
-          onClick={() => reset()}
-        />
+        <CommonButton text="Submit" type="submit" onClick={handleSubmit(onSubmit)} />
+        <CommonButton text="Reset" type="reset" secondary onClick={() => reset()} />
       </ButtonGroup>
     </Box>
   );
