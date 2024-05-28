@@ -8,89 +8,102 @@ namespace TradingApp.Evaluator.Indicators;
 public static class WaveTrendIndicator
 {
     /// <summary>
-    /// wt - ema expotentially weighted moving average
-    /// wtma - sma movign average
+    /// WaveTrend uses Close price as source.
+    /// hlc3 -  (high + low + close) / 3
+    /// ema - Exponential Moving Average
+    /// d - difference of hlc3 and ema
+    /// ci - composite index , difference of hlv3 and emea
+    /// wt1 - wave trend value
+    /// wt2 - sma for wave trend value
     /// </summary>
     /// <param name="domainQuotes"></param>
     /// <param name="settings"></param>
     /// <param name="scaleResult"></param>
     /// <param name="resultDecimalPlace"></param>
     /// <returns></returns>
-    public static List<WaveTrendResult> Calculate(
+    ///
+
+    public static List<WaveTrendResult?> Calculate(
         IEnumerable<Quote> domainQuotes,
         WaveTrendSettings settings,
         bool scaleResult,
         int resultDecimalPlace
     )
     {
-        List<WaveTrendResult> waveTrends = new List<WaveTrendResult>();
-
-        decimal[] src = domainQuotes.Select(quote => quote.Close).ToArray();
-        decimal[] esa = MovingAverage.Calculate(settings.ChannelLength, src);
-        decimal[] d = MovingAverage.Calculate(
+        var hlc3 = domainQuotes.Select(quote => quote.Close + quote.Low + quote.High).ToArray();
+        var ema = MovingAverage.Calculate(settings.ChannelLength, hlc3);
+        var d = MovingAverage.Calculate(
             settings.ChannelLength,
-            src.Select((x, i) => Math.Abs(x - esa[i])).ToArray()
+            hlc3.Select((hlc, i) => Math.Abs(hlc - ema[i])).ToArray()
         );
-        decimal[] ci = src.Select((x, i) => d[i] != 0 ? (x - esa[i]) / (0.015m * d[i]) : 0)
+        var ci = hlc3.Select((close, i) => d[i] != 0 ? (close - ema[i]) / (d[i]) : 0)
             .ToArray();
-        decimal[] tci = MovingAverage.Calculate(settings.AverageLength, ci);
-        decimal[] wt = tci;
-        decimal[] wtma = MovingAverage.Calculate(settings.MovingAverageLength, wt);
+        var wt1 = MovingAverage.Calculate(settings.AverageLength, ci);
+        var wt2 = MovingAverage.Calculate(settings.MovingAverageLength, wt1);
 
         if (scaleResult)
         {
-            decimal scaleFactor = Scale.ByMaxMin(wt);
-            wt = wt.Select(x => x * scaleFactor).ToArray();
-            wtma = wtma.Select(x => x * scaleFactor).ToArray();
+            var scaleFactor = Scale.ByMaxMin(wt1);
+            wt1 = wt1.Select(x => x * scaleFactor).ToArray();
+            wt2 = wt2.Select(x => x * scaleFactor).ToArray();
         }
 
-        //  WTO
-        bool[] momchangelong = CrossesOver(wt, wtma);
-        bool[] momchangeshort = CrossesUnder(wt, wtma);
+        var crossOvers = CrossesOver(wt1, wt2, settings);
+        var crossUnders = CrossesUnder(wt1, wt2, settings);
 
-        for (int i = 0; i < wt.Length; i++)
+
+        return CreateWaveTrendResults(wt1, wt2, crossOvers, crossUnders, resultDecimalPlace);
+    }
+
+    private static List<WaveTrendResult?> CreateWaveTrendResults(IReadOnlyList<decimal> wt1, IReadOnlyList<decimal> wt2, IReadOnlyList<bool> crossOvers, IReadOnlyList<bool> crossUnders, int resultDecimalPlace)
+    {
+        var waveTrends = new List<WaveTrendResult?>();
+        for (var i = 0; i < wt1.Count; i++)
         {
-            decimal? currentWt = wt[i];
-            decimal? currentWtma = wtma[i];
-            bool crossesUnder = momchangelong[i];
-            bool crossesOver = momchangeshort[i];
+            var currentWt1 = wt1[i];
+            var currentWt2 = wt2[i];
+            var crossesUnder = crossOvers[i];
+            var crossesOver = crossUnders[i];
 
-            if (i > 0 && momchangelong[i] && !momchangelong[i - 1])
+            if (i > 0 && crossOvers[i] && !crossOvers[i - 1])
             {
-                currentWt = wt[i - 1];
-                currentWtma = wtma[i - 1];
+                currentWt1 = wt1[i - 1];
+                currentWt2 = wt2[i - 1];
                 crossesOver = false;
             }
 
-            var vwap = currentWt - currentWtma;
-            waveTrends.Add(
+            var vwap = currentWt1 - currentWt2;
+            waveTrends.Add(currentWt1 != 0 && currentWt2 != 0 ?
                 new WaveTrendResult(
-                    MathUtils.RoundValue(currentWt.Value, resultDecimalPlace),
+                    Math.Round(currentWt1, resultDecimalPlace),
+                    Math.Round(currentWt2, resultDecimalPlace),
                     MathUtils.RoundValue(vwap, resultDecimalPlace),
                     crossesOver,
                     crossesUnder
-                )
+                ) : null
             );
         }
+
         return waveTrends;
     }
 
-    static bool[] CrossesOver(decimal[] arr1, decimal[] arr2)
+
+    private static bool[] CrossesOver(IReadOnlyList<decimal> wt1, IReadOnlyList<decimal> wt2, WaveTrendSettings settings)
     {
-        bool[] result = new bool[arr1.Length];
-        for (int i = 1; i < arr1.Length; i++)
+        var result = new bool[wt1.Count];
+        for (var i = 1; i < wt1.Count; i++)
         {
-            result[i] = arr1[i] > arr2[i] && arr1[i - 1] <= arr2[i - 1];
+            result[i] = wt1[i] > wt2[i] && wt1[i - 1] <= wt2[i - 1] && decimal.ToDouble(wt1[i]) < settings.OversoldLevel2;
         }
         return result;
     }
 
-    static bool[] CrossesUnder(decimal[] arr1, decimal[] arr2)
+    private static bool[] CrossesUnder(IReadOnlyList<decimal> wt1, IReadOnlyList<decimal> wt2, WaveTrendSettings settings)
     {
-        bool[] result = new bool[arr1.Length];
-        for (int i = 1; i < arr1.Length; i++)
+        var result = new bool[wt1.Count];
+        for (var i = 1; i < wt1.Count; i++)
         {
-            result[i] = arr1[i] < arr2[i] && arr1[i - 1] >= arr2[i - 1];
+            result[i] = wt1[i] < wt2[i] && wt1[i - 1] >= wt2[i - 1] && decimal.ToDouble(wt1[i]) > settings.OverboughtLevel2;
         }
         return result;
     }

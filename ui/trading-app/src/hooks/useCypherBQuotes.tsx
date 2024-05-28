@@ -32,6 +32,8 @@ export const useCypherBQuotes = (): useCypherBQuotesResponse => {
         },
         timeFrame: {
           granularity: Granularity.Hourly,
+          startDate: new Date(2023, 5, 24).toISOString(),
+          endDate: new Date(2023, 5, 28).toISOString(),
         },
         waveTrendSettings: waveTrendSettingsDefault,
         sRsiSettings: sRsiSettingsDefault,

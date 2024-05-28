@@ -8,12 +8,8 @@ import { mapToApexChartData } from "../../mappers/CypherBChartMapper";
 interface CypherBChartProps {
   quotes: CypherBQuote[];
 }
-//https://hackernoon.com/how-to-get-cipher-indicators-for-free-and-use-them-to-crush-the-market-yb1j359c
 export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
-  const chartData: ApexCypherBChartData = useMemo(
-    () => mapToApexChartData(quotes),
-    [quotes]
-  );
+  const chartData: ApexCypherBChartData = useMemo(() => mapToApexChartData(quotes), [quotes]);
 
   // const waveTrendPoints = useMemo(() => {
   //   const a = chartData.waveTrend
@@ -52,33 +48,51 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
     //   name: "MFI",
     //   data: chartData.mfi,
     // },
-    // {
-    //   name: "Trend Wave",
-    //   data: chartData.waveTrend,
-    // },
     {
-      name: "VWAP",
-      data: chartData.vwap,
+      name: "Wave Trend 1",
+      data: chartData.waveTrendWt1,
+      type: "line",
     },
+    {
+      name: "Wave Trend 2",
+      data: chartData.waveTrendWt2,
+      type: "line",
+    },
+    // {
+    //   name: "VWAP",
+    //   data: chartData.vwap,
+    // },
   ];
 
   const options: ApexOptions = {
     annotations: {
       yaxis: [
         {
-          y: 80,
-          borderColor: "#00E396",
+          y: 60,
+          borderColor: "#e3004d",
           label: {
-            borderColor: "#00E396",
+            borderColor: "#e3004d",
             style: {
               color: "#fff",
-              background: "#00E396",
+              background: "#e3004d",
             },
             text: "Overbought",
           },
         },
         {
-          y: -80,
+          y: 53,
+          borderColor: "#e3004d",
+          label: {
+            borderColor: "#e3004d",
+            style: {
+              color: "#fff",
+              background: "#e3004d",
+            },
+            text: "Overbought Level 2",
+          },
+        },
+        {
+          y: -60,
           borderColor: "#00E396",
           label: {
             borderColor: "#00E396",
@@ -87,6 +101,18 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
               background: "#00E396",
             },
             text: "Oversold",
+          },
+        },
+        {
+          y: -53,
+          borderColor: "#00E396",
+          label: {
+            borderColor: "#00E396",
+            style: {
+              color: "#fff",
+              background: "#00E396",
+            },
+            text: "Oversold Level 2",
           },
         },
       ],
@@ -153,9 +179,5 @@ export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
     },
   };
 
-  return quotes.length > 0 ? (
-    <Chart type="area" options={options} series={series} />
-  ) : (
-    <></>
-  );
+  return quotes.length > 0 ? <Chart type="line" options={options} series={series} /> : <></>;
 };

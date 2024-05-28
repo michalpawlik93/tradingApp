@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using TradingApp.Domain.Modules.Constants;
 using TradingApp.Module.Quotes.Application.Models;
 
 namespace TradingApp.Module.Quotes.Application.Dtos;
@@ -11,19 +12,19 @@ public class WaveTrendSettingsDto : OscillationSettings
     /// <summary>
     /// Gets or sets the number of periods used to calculate the channel's width.
     /// </summary>
-    [DefaultValue(8)]
+    [DefaultValue(WaveTrendSettingsConst.ChannelLength)]
     public int ChannelLength { get; set; }
 
     /// <summary>
     /// Gets or sets the number of periods used to compute the average true range.
     /// </summary>
-    [DefaultValue(8)]
+    [DefaultValue(WaveTrendSettingsConst.AverageLength)]
     public int AverageLength { get; set; }
 
     /// <summary>
     /// Gets or sets the number of periods for the moving average, which smoothens the trend.
     /// </summary>
-    [DefaultValue(3)]
+    [DefaultValue(WaveTrendSettingsConst.MovingAverageLength)]
     public int MovingAverageLength { get; set; }
 
     /// <summary>
@@ -37,4 +38,15 @@ public class WaveTrendSettingsDto : OscillationSettings
     /// </summary>
     [DefaultValue(true)]
     public bool Enable { get; set; }
+
+    /// <summary>
+    /// Gets or sets the threshold level below which an asset is considered oversold.
+    [DefaultValue(WaveTrendSettingsConst.OversoldLevel2)]
+    public double OversoldLevel2 { get; set; }
+
+    /// <summary>
+    /// Gets or sets the threshold level above which an asset is considered overbought.
+    /// </summary>
+    [DefaultValue(WaveTrendSettingsConst.OverboughtLevel2)]
+    public double OverboughtLevel2 { get; set; }
 }

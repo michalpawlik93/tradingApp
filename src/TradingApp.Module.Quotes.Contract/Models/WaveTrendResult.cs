@@ -1,3 +1,3 @@
 ﻿namespace TradingApp.Module.Quotes.Contract.Models;
 
-public record WaveTrendResult(decimal? Value, decimal? Vwap, bool CrossesOver, bool CrossesUnder);
+public record WaveTrendResult(decimal Wt1, decimal Wt2, decimal? Vwap, bool? CrossesOver, bool? CrossesUnder);

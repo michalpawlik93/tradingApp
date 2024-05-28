@@ -25,7 +25,7 @@ export const useQuotesStore = create<QuotesState>((set) => ({
       set({
         combinedQuotes:
           response.quotes.length > 1000 ? response.quotes.slice(0, 1000) : response.quotes,
-        rsiSettings: response.rsiSettings,
+        rsiSettings: response.rsiSettings ?? rsiSettingsDefault,
       });
     } catch (error) {
       console.error("Error fetching combined quotes:", error);

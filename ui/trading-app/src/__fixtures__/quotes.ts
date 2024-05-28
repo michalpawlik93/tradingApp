@@ -39,7 +39,9 @@ export const GetCypherBResponseDtoMock = (): GetCypherBResponseDto => ({
 export const CypherBQuoteMock = (): CypherBQuote => ({
   ohlc: QuoteMock(),
   waveTrend: {
-    value: 58073.10338579051,
+    wt1: 12.1314,
+    wt2: 13.1314,
+    vwap: 11.1314,
     crossesOver: false,
     crossesUnder: false,
   },

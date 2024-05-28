@@ -1,11 +1,11 @@
 import { ApexCypherBChartData } from "../types/ApexCypherBChartData";
 import { CypherBQuote } from "../types/CypherBQuote";
 
-export function mapToApexChartData(
-  quotes: CypherBQuote[]
-): ApexCypherBChartData {
+export function mapToApexChartData(quotes: CypherBQuote[]): ApexCypherBChartData {
   const result: ApexCypherBChartData = {
-    waveTrend: [],
+    waveTrendWt1: [],
+    waveTrendWt2: [],
+    waveTrendVwap: [],
     mfi: [],
     vwap: [],
     lowestY: Infinity,
@@ -18,17 +18,43 @@ export function mapToApexChartData(
       const x = new Date(quotes[i].ohlc.date);
       const { waveTrend, mfi, vwap } = quotes[i];
 
-      result.waveTrend.push({
-        y: waveTrend.value,
-        x,
-        crossesOver: waveTrend.crossesOver,
-        crossesUnder: waveTrend.crossesUnder,
-      });
+      if (waveTrend !== null) {
+        result.waveTrendWt1.push({
+          y: waveTrend.wt1,
+          x,
+          crossesOver: waveTrend.crossesOver,
+          crossesUnder: waveTrend.crossesUnder,
+        });
+        result.waveTrendWt2.push({
+          y: waveTrend.wt2,
+          x,
+        });
+        if (waveTrend.vwap !== null) {
+          result.waveTrendVwap.push({
+            y: waveTrend.vwap as number,
+            x,
+          });
+        }
+      }
       result.mfi.push({ y: mfi, x });
       result.vwap.push({ y: vwap, x });
 
-      result.lowestY = Math.min(result.lowestY, waveTrend.value, mfi, vwap);
-      result.highestY = Math.max(result.highestY, waveTrend.value, mfi, vwap);
+      // result.lowestY = Math.min(
+      //   result.lowestY,
+      //   waveTrend.wt1,
+      //   waveTrend.wt2,
+      //   waveTrend.vwap,
+      //   mfi,
+      //   vwap,
+      // );
+      // result.highestY = Math.max(
+      //   result.highestY,
+      //   waveTrend.wt1,
+      //   waveTrend.wt2,
+      //   waveTrend.vwap,
+      //   mfi,
+      //   vwap,
+      // );
     }
   }
   return result;

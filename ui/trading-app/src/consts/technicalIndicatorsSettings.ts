@@ -10,14 +10,14 @@ export const sRsiSettingsDefault: SRsiSettings = {
 };
 
 export const waveTrendSettingsDefault: WaveTrendSettings = {
-  channelLength: 0,
-  averageLength: 0,
-  movingAverageLength: 0,
-  oversold: 0,
-  overbought: 0,
+  channelLength: 10,
+  averageLength: 21,
+  movingAverageLength: 3,
+  oversold: -60,
+  overbought: 60,
 };
 
 export const rsiSettingsDefault: RsiSettings = {
-  oversold: 0,
-  overbought: 0,
+  oversold: -60,
+  overbought: 60,
 };

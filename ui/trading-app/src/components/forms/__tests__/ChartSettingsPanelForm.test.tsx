@@ -3,6 +3,7 @@ import { ChartSettingsPanelForm, defaultValues } from "../ChartSettingsPanelForm
 import { QuotesDataService } from "../../../services/QuotesDataService";
 import { createQuotesDataServiceMock } from "../../../__fixtures__/QuotesDataServiceMock";
 import { TestingProvider } from "../../../__fixtures__/TestingProvider";
+import { waveTrendSettingsDefault } from "../../../consts/technicalIndicatorsSettings";
 
 describe("ChartSettingsPanelForm tests", () => {
   test("click submit button - fetch is called with form values", async () => {
@@ -35,13 +36,7 @@ describe("ChartSettingsPanelForm tests", () => {
         timeFrame: {
           granularity: defaultValues.granularity,
         },
-        waveTrendSettings: {
-          averageLength: 0,
-          channelLength: 0,
-          movingAverageLength: 0,
-          overbought: 0,
-          oversold: 0,
-        },
+        waveTrendSettings: waveTrendSettingsDefault,
       });
     });
   });

@@ -1,5 +1,7 @@
 export interface WaveTrend {
-  value: number;
-  crossesOver: boolean;
-  crossesUnder: boolean;
+  wt1: number;
+  wt2: number;
+  vwap?: number;
+  crossesOver?: boolean;
+  crossesUnder?: boolean;
 }

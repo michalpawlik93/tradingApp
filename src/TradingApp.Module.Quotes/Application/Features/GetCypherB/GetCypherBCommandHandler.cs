@@ -37,13 +37,7 @@ public class GetCypherBCommandHandler
         var quotes = getQuotesResponse.Value.ToList();
         var waveTrend = _evaluator.GetWaveTrend(
             quotes,
-            new WaveTrendSettings(
-                request.WaveTrendSettings.Oversold,
-                request.WaveTrendSettings.Overbought,
-                request.WaveTrendSettings.ChannelLength,
-                request.WaveTrendSettings.AverageLength,
-                request.WaveTrendSettings.MovingAverageLength
-            )
+            request.WaveTrendSettings
         );
         var vwap = _evaluator.GetVwap(quotes);
         var combinedResults = quotes
