@@ -4,7 +4,6 @@ import { CypherBChartContiner } from "../CypherBChartContiner";
 import { mockUseCypherBQuotes } from "../../../__fixtures__/useCypherBQuotesMock";
 import { mockUseTimeFrameHook } from "../../../__fixtures__/useTimeFrameHookMock";
 
-vi.mock("react-apexcharts", () => ({ __esModule: true, default: () => <div>Chart</div> }));
 describe("CypherBChartContiner tests", () => {
   test("Charts are rendered", async () => {
     // Arrange
@@ -18,6 +17,6 @@ describe("CypherBChartContiner tests", () => {
     );
 
     // Assert
-    expect(screen.getAllByText("Chart")).toHaveLength(2);
+    expect(screen.getAllByTestId("echarts-react")).toHaveLength(2);
   });
 });

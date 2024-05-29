@@ -1,7 +1,7 @@
-import { OhlcChart } from "../presentational/OhlcChart";
+import { OhlcChart } from "../presentational/Charts/OhlcChart";
 import { useCypherBQuotes } from "../../hooks/useCypherBQuotes";
 import { ChartStyledPageItemsWrapper } from "../../components/presentational/PageItemWrapper";
-import { CypherBChart } from "../../components/presentational/CypherBChart";
+import { CypherBChart } from "../../components/presentational/Charts/CypherBChart";
 import { useTimeFrameHook } from "../../hooks/useTimeFrameHook";
 import { ChartSettingsPanelForm } from "../forms/ChartSettingsPanelForm";
 

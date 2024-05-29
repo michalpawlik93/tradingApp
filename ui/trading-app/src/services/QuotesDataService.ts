@@ -9,8 +9,8 @@ export const QuotesDataService: IQuotesDataService = {
   getCombinedQuotes: async (
     request: GetQuotesRequestDto,
   ): Promise<GetCombinedQuotesResponseDto> => {
-    const { granularity, assetType, assetName, startDate, endDate } = request;
-    const url = `${StooqUrls.combinedQuote.getAll}?granularity=${granularity}&assetType=${assetType}&assetName=${assetName}&startDate=${startDate}&endDate=${endDate}`;
+    const { granularity, assetType, assetName, startDate, endDate, technicalIndicators } = request;
+    const url = `${StooqUrls.combinedQuote.getAll}?TechnicalIndicators=${technicalIndicators.join(",")}&granularity=${granularity}&assetType=${assetType}&assetName=${assetName}&startDate=${startDate}&endDate=${endDate}`;
     return fetchData(url, "GET", undefined);
   },
   getCypherB: async (request: GetCypherBDto): Promise<GetCypherBResponseDto> => {

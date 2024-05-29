@@ -1,4 +1,4 @@
-import { OhlcChart } from "../presentational/OhlcChart";
+import { OhlcChart } from "../presentational/Charts/OhlcChart";
 import { useCombinedQuotes } from "../../hooks/useCombinedQuotes";
 import { PageItemsWrapper } from "../../components/presentational/PageItemWrapper";
 import { RsiChartContiner } from "./RsiChartContiner";

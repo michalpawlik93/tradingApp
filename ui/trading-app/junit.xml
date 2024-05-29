@@ -1,434 +1,175 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="36" failures="1" errors="0" time="12.017">
-    <testsuite name="src/hooks/__tests__/useCombinedQuotes.test.tsx" timestamp="2024-05-28T15:22:43.075Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.122">
-        <testcase classname="src/hooks/__tests__/useCombinedQuotes.test.tsx" name="useCombinedQuotes tests &gt; useCombinedQuotes - should fetch combined quotes" time="0.12">
+<testsuites name="vitest tests" tests="41" failures="1" errors="0" time="11.718">
+    <testsuite name="src/hooks/__tests__/useCombinedQuotes.test.tsx" timestamp="2024-05-29T19:55:08.525Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.119">
+        <testcase classname="src/hooks/__tests__/useCombinedQuotes.test.tsx" name="useCombinedQuotes tests &gt; useCombinedQuotes - should fetch combined quotes" time="0.116">
         </testcase>
     </testsuite>
-    <testsuite name="src/hooks/__tests__/useCypherBQuotes.test.tsx" timestamp="2024-05-28T15:22:43.078Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.116">
-        <testcase classname="src/hooks/__tests__/useCypherBQuotes.test.tsx" name="useCypherBQuotes tests &gt; useCypherBQuotes - should fetch cypherb quotes" time="0.114">
+    <testsuite name="src/hooks/__tests__/useCypherBQuotes.test.tsx" timestamp="2024-05-29T19:55:08.529Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.111">
+        <testcase classname="src/hooks/__tests__/useCypherBQuotes.test.tsx" name="useCypherBQuotes tests &gt; useCypherBQuotes - should fetch cypherb quotes" time="0.109">
         </testcase>
     </testsuite>
-    <testsuite name="src/hooks/__tests__/useTimeFrameHook.test.tsx" timestamp="2024-05-28T15:22:43.079Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.068">
-        <testcase classname="src/hooks/__tests__/useTimeFrameHook.test.tsx" name="useTimeFrameHook tests &gt; useTimeFrameHook - should fetch cypherb quotes" time="0.066">
+    <testsuite name="src/hooks/__tests__/useTimeFrameHook.test.tsx" timestamp="2024-05-29T19:55:08.529Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.056">
+        <testcase classname="src/hooks/__tests__/useTimeFrameHook.test.tsx" name="useTimeFrameHook tests &gt; useTimeFrameHook - should fetch cypherb quotes" time="0.054">
         </testcase>
     </testsuite>
-    <testsuite name="src/mappers/__tests__/RsiChartMapper.test.ts" timestamp="2024-05-28T15:22:43.079Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.005">
+    <testsuite name="src/mappers/__tests__/RsiChartMapper.test.ts" timestamp="2024-05-29T19:55:08.530Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.005">
         <testcase classname="src/mappers/__tests__/RsiChartMapper.test.ts" name="mapToApexRsiChartData &gt; should return empty arrays" time="0.004">
         </testcase>
     </testsuite>
-    <testsuite name="src/services/__tests__/QuotesDataService.test.ts" timestamp="2024-05-28T15:22:43.080Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.005">
-        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCombinedQuotes" time="0.004">
+    <testsuite name="src/mappers/__tests__/WaveTrendChartDataMapper.test.ts" timestamp="2024-05-29T19:55:08.531Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.004">
+        <testcase classname="src/mappers/__tests__/WaveTrendChartDataMapper.test.ts" name="mapToWaveTrendChartData &gt; should map quotes to wave trend chart data" time="0.002">
         </testcase>
-        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCypherB" time="0.001">
+        <testcase classname="src/mappers/__tests__/WaveTrendChartDataMapper.test.ts" name="mapToWaveTrendChartData &gt; should handle empty quotes array" time="0">
         </testcase>
-    </testsuite>
-    <testsuite name="src/stores/__tests__/quotesStore.test.tsx" timestamp="2024-05-28T15:22:43.081Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.176">
-        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; default state - intial values are set correctly" time="0.021">
-        </testcase>
-        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCombinedQuotes - request - combinedQuotes fetched" time="0.075">
-        </testcase>
-        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCypherBQuotes - request - cypherBQuotes fetched" time="0.079">
+        <testcase classname="src/mappers/__tests__/WaveTrendChartDataMapper.test.ts" name="mapToWaveTrendChartData &gt; should ignore invalid dates" time="0">
         </testcase>
     </testsuite>
-    <testsuite name="src/views/__tests__/AdvancedChartsView.test.tsx" timestamp="2024-05-28T15:22:43.082Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.623">
-        <testcase classname="src/views/__tests__/AdvancedChartsView.test.tsx" name="AdvancedChartsView tests &gt; Charts are rendered" time="0.621">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/views/__tests__/SimpleChartsView.test.tsx" timestamp="2024-05-28T15:22:43.082Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.077">
-        <testcase classname="src/views/__tests__/SimpleChartsView.test.tsx" name="SimpleChartsView tests &gt; Charts are rendered" time="0.075">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/components/containers/__tests__/CypherBChartContiner.test.tsx" timestamp="2024-05-28T15:22:43.083Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.538">
-        <testcase classname="src/components/containers/__tests__/CypherBChartContiner.test.tsx" name="CypherBChartContiner tests &gt; Charts are rendered" time="0.536">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/components/containers/__tests__/RsiChartContiner.test.tsx" timestamp="2024-05-28T15:22:43.083Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.04">
-        <testcase classname="src/components/containers/__tests__/RsiChartContiner.test.tsx" name="RsiChartContiner tests &gt; RsiChart is rendered" time="0.038">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" timestamp="2024-05-28T15:22:43.084Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.044">
-        <testcase classname="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" name="SimpleChartsContainer tests &gt; Charts are rendered" time="0.042">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" timestamp="2024-05-28T15:22:43.084Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="1" errors="0" skipped="0" time="1.693">
-        <testcase classname="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" name="ChartSettingsPanelForm tests &gt; click submit button - fetch is called with form values" time="1.692">
-            <system-out>
-{
-  startDate: [35m2024-05-28T15:22:37.466Z[39m,
-  endDate: [35m2024-05-28T15:22:37.466Z[39m,
-  granularity: [32m&apos;Hourly&apos;[39m,
-  assetType: [32m&apos;Cryptocurrency&apos;[39m,
-  assetName: [32m&apos;BTC&apos;[39m
-}
-
-            </system-out>
-            <failure message="expected &quot;getCypherB&quot; to be called with arguments: [ { …(4) } ][90m
+    <testsuite name="src/services/__tests__/QuotesDataService.test.ts" timestamp="2024-05-29T19:55:08.532Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="1" errors="0" skipped="0" time="0.015">
+        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCombinedQuotes" time="0.012">
+            <failure message="expected &quot;mockedImplementation&quot; to be called with arguments: [ …(2) ][90m
 
 Received: 
 
-[1m  1st getCypherB call:
+[1m  1st mockedImplementation call:
 
 [22m[2m  Array [[22m
+[32m-   &quot;http://localhost:5244/quotes/combinedquotes?granularity=Daily&amp;assetType=Cryptocurrency&amp;assetName=BTC&amp;startDate=2023-01-01&amp;endDate=2023-12-31&quot;,[90m
+[31m+   &quot;http://localhost:5244/quotes/combinedquotes?TechnicalIndicators=&amp;granularity=Daily&amp;assetType=Cryptocurrency&amp;assetName=BTC&amp;startDate=2023-01-01&amp;endDate=2023-12-31&quot;,[90m
 [2m    Object {[22m
-[2m      &quot;asset&quot;: Object {[22m
-[2m        &quot;name&quot;: &quot;BTC&quot;,[22m
-[2m        &quot;type&quot;: &quot;Cryptocurrency&quot;,[22m
+[2m      &quot;body&quot;: undefined,[22m
+[2m      &quot;headers&quot;: Object {[22m
+[2m        &quot;Content-Type&quot;: &quot;application/json&quot;,[22m
 [2m      },[22m
-[2m      &quot;sRsiSettings&quot;: Object {[22m
-[2m        &quot;enable&quot;: false,[22m
-[2m        &quot;length&quot;: 0,[22m
-[2m        &quot;stochDSmooth&quot;: 0,[22m
-[2m        &quot;stochKSmooth&quot;: 0,[22m
-[2m      },[22m
-[2m      &quot;timeFrame&quot;: Object {[22m
-[2m        &quot;granularity&quot;: &quot;Hourly&quot;,[22m
-[2m      },[22m
-[2m      &quot;waveTrendSettings&quot;: Object {[22m
-[32m-       &quot;averageLength&quot;: 0,[90m
-[32m-       &quot;channelLength&quot;: 0,[90m
-[32m-       &quot;movingAverageLength&quot;: 0,[90m
-[32m-       &quot;overbought&quot;: 0,[90m
-[32m-       &quot;oversold&quot;: 0,[90m
-[31m+       &quot;averageLength&quot;: 6,[90m
-[31m+       &quot;channelLength&quot;: 8,[90m
-[31m+       &quot;movingAverageLength&quot;: 3,[90m
-[31m+       &quot;overbought&quot;: 60,[90m
-[31m+       &quot;oversold&quot;: -60,[90m
-[2m      },[22m
+[2m      &quot;method&quot;: &quot;GET&quot;,[22m
+[2m      &quot;mode&quot;: &quot;cors&quot;,[22m
 [2m    },[22m
 [2m  ][22m
 [39m[90m
 
 Number of calls: [1m1[22m
-[39m
-
-Ignored nodes: comments, script, style
-[36m&lt;html&gt;[39m
-  [36m&lt;head /&gt;[39m
-  [36m&lt;body&gt;[39m
-    [36m&lt;div&gt;[39m
-      [36m&lt;div[39m
-        [33mclass[39m=[32m&quot;css-13he4n9-ChartSettingsPanelForm MuiBox-root css-0&quot;[39m
-      [36m&gt;[39m
-        [36m&lt;div[39m
-          [33mclass[39m=[32m&quot;MuiFormControl-root css-1nrlq1o-MuiFormControl-root&quot;[39m
-        [36m&gt;[39m
-          [36m&lt;label[39m
-            [33mclass[39m=[32m&quot;MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined css-17abpe0-MuiFormLabel-root-MuiInputLabel-root&quot;[39m
-            [33mdata-shrink[39m=[32m&quot;false&quot;[39m
-          [36m&gt;[39m
-            [0mStart Date[0m
-          [36m&lt;/label&gt;[39m
-          [36m&lt;div[39m
-            [33mclass[39m=[32m&quot;MuiFormControl-root MuiTextField-root css-1xgritd-MuiFormControl-root-MuiTextField-root&quot;[39m
-          [36m&gt;[39m
-            [36m&lt;div[39m
-              [33mclass[39m=[32m&quot;MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1e24lwd-MuiInputBase-root-MuiInput-root&quot;[39m
-            [36m&gt;[39m
-              [36m&lt;input[39m
-                [33maria-invalid[39m=[32m&quot;false&quot;[39m
-                [33mautocomplete[39m=[32m&quot;off&quot;[39m
-                [33mclass[39m=[32m&quot;MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd css-blhjy8-MuiInputBase-input-MuiInput-input&quot;[39m
-                [33mid[39m=[32m&quot;:r0:&quot;[39m
-                [33minputmode[39m=[32m&quot;text&quot;[39m
-                [33mplaceholder[39m=[32m&quot;MM/DD/YYYY hh:mm aa&quot;[39m
-                [33mtype[39m=[32m&quot;text&quot;[39m
-                [33mvalue[39m=[32m&quot;05/28/2024 05:22 PM&quot;[39m
-              [36m/&gt;[39m
-              [36m&lt;div[39m
-                [33mclass[39m=[32m&quot;MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-standard MuiInputAdornment-sizeMedium css-1qysqr4-MuiInputAdornment-root&quot;[39m
-              [36m&gt;[39m
-                [36m&lt;button[39m
-                  [33maria-label[39m=[32m&quot;Choose date, selected date is May 28, 2024&quot;[39m
-                  [33mclass[39m=[32m&quot;MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root&quot;[39m
-                  [33mtabindex[39m=[32m&quot;0&quot;[39m
-                  [33mtype[39m=[32m&quot;button&quot;[39m
-                [36m&gt;[39m
-                  [36m&lt;svg[39m
-                    [33maria-hidden[39m=[32m&quot;true&quot;[39m
-                    [33mclass[39m=[32m&quot;MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root&quot;[39m
-                    [33mdata-testid[39m=[32m&quot;CalendarIcon&quot;[39m
-                    [33mfocusable[39m=[32m&quot;false&quot;[39m
-                    [33mviewBox[39m=[32m&quot;0 0 24 24&quot;[39m
-                  [36m&gt;[39m
-                    [36m&lt;path[39m
-                      [33md[39m=[32m&quot;M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z&quot;[39m
-                    [36m/&gt;[39m
-                  [36m&lt;/svg&gt;[39m
-                  [36m&lt;span[39m
-                    [33mclass[39m=[32m&quot;MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root&quot;[39m
-                  [36m/&gt;[39m
-                [36m&lt;/button&gt;[39m
-              [36m&lt;/div&gt;[39m
-            [36m&lt;/div&gt;[39m
-          [36m&lt;/div&gt;[39m
-        [36m&lt;/div&gt;[39m
-        [36m&lt;div[39m
-          [33mclass[39m=[32m&quot;MuiFormControl-root css-1nrlq1o-MuiFormControl-root&quot;[39m
-        [36m&gt;[39m
-          [36m&lt;label[39m
-            [33mclass[39m=[32m&quot;MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined css-17abpe0-MuiFormLabel-root-MuiInputLabel-root&quot;[39m
-            [33mdata-shrink[39m=[32m&quot;false&quot;[39m
-          [36m&gt;[39m
-            [0mEnd Date[0m
-          [36m&lt;/label&gt;[39m
-          [36m&lt;div[39m
-            [33mclass[39m=[32m&quot;MuiFormControl-root MuiTextField-root css-1xgritd-MuiFormControl-root-MuiTextField-root&quot;[39m
-          [36m&gt;[39m
-            [36m&lt;div[39m
-              [33mclass[39m=[32m&quot;MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1e24lwd-MuiInputBase-root-MuiInput-root&quot;[39m
-            [36m&gt;[39m
-              [36m&lt;input[39m
-                [33maria-invalid[39m=[32m&quot;false&quot;[39m
-                [33mautocomplete[39m=[32m&quot;off&quot;[39m
-                [33mclass[39m=[32m&quot;MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd css-blhjy8-MuiInputBase-input-MuiInput-input&quot;[39m
-                [33mid[39m=[32m&quot;:r2:&quot;[39m
-                [33minputmode[39m=[32m&quot;text&quot;[39m
-                [33mplaceholder[39m=[32m&quot;MM/DD/YYYY hh:mm aa&quot;[39m
-                [33mtype[39m=[32m&quot;text&quot;[39m
-                [33mvalue[39m=[32m&quot;05/28/2024 05:22 PM&quot;[39m
-              [36m/&gt;[39m
-              [36m&lt;div[39m
-                [33mclass[39m=[32m&quot;MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-standard MuiInputAdornment-sizeMedium css-1qysqr4-MuiInputAdornment-root&quot;[39m
-              [36m&gt;[39m
-                [36m&lt;button[39m
-                  [33maria-label[39m=[32m&quot;Choose date, selected date is May 28, 2024&quot;[39m
-                  [33mclass[39m=[32m&quot;MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root&quot;[39m
-                  [33mtabindex[39m=[32m&quot;0&quot;[39m
-                  [33mtype[39m=[32m&quot;button&quot;[39m
-                [36m&gt;[39m
-                  [36m&lt;svg[39m
-                    [33maria-hidden[39m=[32m&quot;true&quot;[39m
-                    [33mclass[39m=[32m&quot;MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root&quot;[39m
-                    [33mdata-testid[39m=[32m&quot;CalendarIcon&quot;[39m
-                    [33mfocusable[39m=[32m&quot;false&quot;[39m
-                    [33mviewBox[39m=[32m&quot;0 0 24 24&quot;[39m
-                  [36m&gt;[39m
-                    [36m&lt;path[39m
-                      [33md[39m=[32m&quot;M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z&quot;[39m
-                    [36m/&gt;[39m
-                  [36m&lt;/svg&gt;[39m
-                  [36m&lt;span[39m
-                    [33mclass[39m=[32m&quot;MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root&quot;[39m
-                  [36m/&gt;[39m
-                [36m&lt;/button&gt;[39m
-              [36m&lt;/div&gt;[39m
-            [36m&lt;/div&gt;[39m
-          [36m&lt;/div&gt;[39m
-        [36m&lt;/div&gt;[39m
-        [36m&lt;div[39m
-    ..." type="AssertionError">
-AssertionError: expected &quot;getCypherB&quot; to be called with arguments: [ { …(4) } ]
+[39m" type="AssertionError">
+AssertionError: expected &quot;mockedImplementation&quot; to be called with arguments: [ …(2) ]
 
 Received: 
 
-  1st getCypherB call:
+  1st mockedImplementation call:
 
   Array [
+-   &quot;http://localhost:5244/quotes/combinedquotes?granularity=Daily&amp;assetType=Cryptocurrency&amp;assetName=BTC&amp;startDate=2023-01-01&amp;endDate=2023-12-31&quot;,
++   &quot;http://localhost:5244/quotes/combinedquotes?TechnicalIndicators=&amp;granularity=Daily&amp;assetType=Cryptocurrency&amp;assetName=BTC&amp;startDate=2023-01-01&amp;endDate=2023-12-31&quot;,
     Object {
-      &quot;asset&quot;: Object {
-        &quot;name&quot;: &quot;BTC&quot;,
-        &quot;type&quot;: &quot;Cryptocurrency&quot;,
+      &quot;body&quot;: undefined,
+      &quot;headers&quot;: Object {
+        &quot;Content-Type&quot;: &quot;application/json&quot;,
       },
-      &quot;sRsiSettings&quot;: Object {
-        &quot;enable&quot;: false,
-        &quot;length&quot;: 0,
-        &quot;stochDSmooth&quot;: 0,
-        &quot;stochKSmooth&quot;: 0,
-      },
-      &quot;timeFrame&quot;: Object {
-        &quot;granularity&quot;: &quot;Hourly&quot;,
-      },
-      &quot;waveTrendSettings&quot;: Object {
--       &quot;averageLength&quot;: 0,
--       &quot;channelLength&quot;: 0,
--       &quot;movingAverageLength&quot;: 0,
--       &quot;overbought&quot;: 0,
--       &quot;oversold&quot;: 0,
-+       &quot;averageLength&quot;: 6,
-+       &quot;channelLength&quot;: 8,
-+       &quot;movingAverageLength&quot;: 3,
-+       &quot;overbought&quot;: 60,
-+       &quot;oversold&quot;: -60,
-      },
+      &quot;method&quot;: &quot;GET&quot;,
+      &quot;mode&quot;: &quot;cors&quot;,
     },
   ]
 
 
 Number of calls: 1
 
-
-Ignored nodes: comments, script, style
-&lt;html&gt;
-  &lt;head /&gt;
-  &lt;body&gt;
-    &lt;div&gt;
-      &lt;div
-        class=&quot;css-13he4n9-ChartSettingsPanelForm MuiBox-root css-0&quot;
-      &gt;
-        &lt;div
-          class=&quot;MuiFormControl-root css-1nrlq1o-MuiFormControl-root&quot;
-        &gt;
-          &lt;label
-            class=&quot;MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined css-17abpe0-MuiFormLabel-root-MuiInputLabel-root&quot;
-            data-shrink=&quot;false&quot;
-          &gt;
-            Start Date
-          &lt;/label&gt;
-          &lt;div
-            class=&quot;MuiFormControl-root MuiTextField-root css-1xgritd-MuiFormControl-root-MuiTextField-root&quot;
-          &gt;
-            &lt;div
-              class=&quot;MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1e24lwd-MuiInputBase-root-MuiInput-root&quot;
-            &gt;
-              &lt;input
-                aria-invalid=&quot;false&quot;
-                autocomplete=&quot;off&quot;
-                class=&quot;MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd css-blhjy8-MuiInputBase-input-MuiInput-input&quot;
-                id=&quot;:r0:&quot;
-                inputmode=&quot;text&quot;
-                placeholder=&quot;MM/DD/YYYY hh:mm aa&quot;
-                type=&quot;text&quot;
-                value=&quot;05/28/2024 05:22 PM&quot;
-              /&gt;
-              &lt;div
-                class=&quot;MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-standard MuiInputAdornment-sizeMedium css-1qysqr4-MuiInputAdornment-root&quot;
-              &gt;
-                &lt;button
-                  aria-label=&quot;Choose date, selected date is May 28, 2024&quot;
-                  class=&quot;MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root&quot;
-                  tabindex=&quot;0&quot;
-                  type=&quot;button&quot;
-                &gt;
-                  &lt;svg
-                    aria-hidden=&quot;true&quot;
-                    class=&quot;MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root&quot;
-                    data-testid=&quot;CalendarIcon&quot;
-                    focusable=&quot;false&quot;
-                    viewBox=&quot;0 0 24 24&quot;
-                  &gt;
-                    &lt;path
-                      d=&quot;M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z&quot;
-                    /&gt;
-                  &lt;/svg&gt;
-                  &lt;span
-                    class=&quot;MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root&quot;
-                  /&gt;
-                &lt;/button&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div
-          class=&quot;MuiFormControl-root css-1nrlq1o-MuiFormControl-root&quot;
-        &gt;
-          &lt;label
-            class=&quot;MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined css-17abpe0-MuiFormLabel-root-MuiInputLabel-root&quot;
-            data-shrink=&quot;false&quot;
-          &gt;
-            End Date
-          &lt;/label&gt;
-          &lt;div
-            class=&quot;MuiFormControl-root MuiTextField-root css-1xgritd-MuiFormControl-root-MuiTextField-root&quot;
-          &gt;
-            &lt;div
-              class=&quot;MuiInputBase-root MuiInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1e24lwd-MuiInputBase-root-MuiInput-root&quot;
-            &gt;
-              &lt;input
-                aria-invalid=&quot;false&quot;
-                autocomplete=&quot;off&quot;
-                class=&quot;MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd css-blhjy8-MuiInputBase-input-MuiInput-input&quot;
-                id=&quot;:r2:&quot;
-                inputmode=&quot;text&quot;
-                placeholder=&quot;MM/DD/YYYY hh:mm aa&quot;
-                type=&quot;text&quot;
-                value=&quot;05/28/2024 05:22 PM&quot;
-              /&gt;
-              &lt;div
-                class=&quot;MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-standard MuiInputAdornment-sizeMedium css-1qysqr4-MuiInputAdornment-root&quot;
-              &gt;
-                &lt;button
-                  aria-label=&quot;Choose date, selected date is May 28, 2024&quot;
-                  class=&quot;MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root&quot;
-                  tabindex=&quot;0&quot;
-                  type=&quot;button&quot;
-                &gt;
-                  &lt;svg
-                    aria-hidden=&quot;true&quot;
-                    class=&quot;MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root&quot;
-                    data-testid=&quot;CalendarIcon&quot;
-                    focusable=&quot;false&quot;
-                    viewBox=&quot;0 0 24 24&quot;
-                  &gt;
-                    &lt;path
-                      d=&quot;M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z&quot;
-                    /&gt;
-                  &lt;/svg&gt;
-                  &lt;span
-                    class=&quot;MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root&quot;
-                  /&gt;
-                &lt;/button&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div
-    ...
- ❯ src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx:24:44
- ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
- ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
- ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+ ❯ src/services/__tests__/QuotesDataService.test.ts:31:19
             </failure>
         </testcase>
-    </testsuite>
-    <testsuite name="src/components/navigation/__tests__/Breadcrumbs.test.tsx" timestamp="2024-05-28T15:22:43.087Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.056">
-        <testcase classname="src/components/navigation/__tests__/Breadcrumbs.test.tsx" name="Breadcrumbs tests &gt; renders breadcrumbs based on route matches" time="0.054">
+        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCypherB" time="0.001">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/navigation/__tests__/Layout.test.tsx" timestamp="2024-05-28T15:22:43.087Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.202">
-        <testcase classname="src/components/navigation/__tests__/Layout.test.tsx" name="Layout component tests &gt; renders Layout component" time="0.201">
+    <testsuite name="src/stores/__tests__/quotesStore.test.tsx" timestamp="2024-05-29T19:55:08.534Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.142">
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; default state - intial values are set correctly" time="0.016">
+        </testcase>
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCombinedQuotes - request - combinedQuotes fetched" time="0.06">
+        </testcase>
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCypherBQuotes - request - cypherBQuotes fetched" time="0.065">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/navigation/__tests__/TopBar.test.tsx" timestamp="2024-05-28T15:22:43.088Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.413">
-        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; renders TopBar component" time="0.288">
-        </testcase>
-        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; opens menu and shows menu items on icon click" time="0.123">
+    <testsuite name="src/views/__tests__/AdvancedChartsView.test.tsx" timestamp="2024-05-29T19:55:08.536Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.63">
+        <testcase classname="src/views/__tests__/AdvancedChartsView.test.tsx" name="AdvancedChartsView tests &gt; Charts are rendered" time="0.628">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/Button.test.tsx" timestamp="2024-05-28T15:22:43.089Z" hostname="LAPTOP-BEK9E24L" tests="6" failures="0" errors="0" skipped="0" time="0.154">
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with given text" time="0.081">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a disabled button when disabled prop is true" time="0.008">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; calls onClick handler when button is clicked" time="0.027">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a secondary button when secondary prop is true" time="0.017">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with startIcon when startIcon prop is provided" time="0.012">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with specified type" time="0.007">
+    <testsuite name="src/views/__tests__/SimpleChartsView.test.tsx" timestamp="2024-05-29T19:55:08.536Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.079">
+        <testcase classname="src/views/__tests__/SimpleChartsView.test.tsx" name="SimpleChartsView tests &gt; Charts are rendered" time="0.077">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/ButtonBar.test.tsx" timestamp="2024-05-28T15:22:43.091Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.058">
-        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with children" time="0.045">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with multiple children" time="0.005">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with outlined variant" time="0.007">
+    <testsuite name="src/components/containers/__tests__/CypherBChartContiner.test.tsx" timestamp="2024-05-29T19:55:08.537Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.566">
+        <testcase classname="src/components/containers/__tests__/CypherBChartContiner.test.tsx" name="CypherBChartContiner tests &gt; Charts are rendered" time="0.562">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/Dropdown.test.tsx" timestamp="2024-05-28T15:22:43.092Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.144">
-        <testcase classname="src/components/presentational/__tests__/Dropdown.test.tsx" name="Dropdown component tests &gt; Should render disabled input" time="0.143">
+    <testsuite name="src/components/containers/__tests__/RsiChartContiner.test.tsx" timestamp="2024-05-29T19:55:08.537Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.028">
+        <testcase classname="src/components/containers/__tests__/RsiChartContiner.test.tsx" name="RsiChartContiner tests &gt; RsiChart is rendered" time="0.026">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" timestamp="2024-05-28T15:22:43.092Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.338">
-        <testcase classname="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" name="FormDateTimePicker component tests &gt; should render the DateTimePicker with the correct label" time="0.203">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" name="FormDateTimePicker component tests &gt; should display the default date value" time="0.133">
+    <testsuite name="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" timestamp="2024-05-29T19:55:08.537Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.044">
+        <testcase classname="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" name="SimpleChartsContainer tests &gt; Charts are rendered" time="0.043">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/FormDropdown.test.tsx" timestamp="2024-05-28T15:22:43.093Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.457">
-        <testcase classname="src/components/presentational/__tests__/FormDropdown.test.tsx" name="FormDropdown tests &gt; renders correctly with given options" time="0.455">
+    <testsuite name="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" timestamp="2024-05-29T19:55:08.538Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.817">
+        <testcase classname="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" name="ChartSettingsPanelForm tests &gt; click submit button - fetch is called with form values" time="0.812">
+            <system-out>
+{
+  startDate: [35m2024-05-29T19:55:03.019Z[39m,
+  endDate: [35m2024-05-29T19:55:03.019Z[39m,
+  granularity: [32m&apos;Hourly&apos;[39m,
+  assetType: [32m&apos;Cryptocurrency&apos;[39m,
+  assetName: [32m&apos;BTC&apos;[39m
+}
+
+            </system-out>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/navigation/__tests__/Breadcrumbs.test.tsx" timestamp="2024-05-29T19:55:08.539Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.051">
+        <testcase classname="src/components/navigation/__tests__/Breadcrumbs.test.tsx" name="Breadcrumbs tests &gt; renders breadcrumbs based on route matches" time="0.05">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/navigation/__tests__/Layout.test.tsx" timestamp="2024-05-29T19:55:08.539Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.12">
+        <testcase classname="src/components/navigation/__tests__/Layout.test.tsx" name="Layout component tests &gt; renders Layout component" time="0.12">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/navigation/__tests__/TopBar.test.tsx" timestamp="2024-05-29T19:55:08.540Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.432">
+        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; renders TopBar component" time="0.317">
+        </testcase>
+        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; opens menu and shows menu items on icon click" time="0.114">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/Button.test.tsx" timestamp="2024-05-29T19:55:08.540Z" hostname="LAPTOP-BEK9E24L" tests="6" failures="0" errors="0" skipped="0" time="0.202">
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with given text" time="0.129">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a disabled button when disabled prop is true" time="0.014">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; calls onClick handler when button is clicked" time="0.017">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a secondary button when secondary prop is true" time="0.022">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with startIcon when startIcon prop is provided" time="0.01">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with specified type" time="0.009">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/ButtonBar.test.tsx" timestamp="2024-05-29T19:55:08.542Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.073">
+        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with children" time="0.055">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with multiple children" time="0.008">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with outlined variant" time="0.008">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/CypherBChart.test.tsx" timestamp="2024-05-29T19:55:08.542Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.036">
+        <testcase classname="src/components/presentational/__tests__/CypherBChart.test.tsx" name="CypherBChart &gt; should render the CypherBChart component" time="0.033">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/Dropdown.test.tsx" timestamp="2024-05-29T19:55:08.543Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.174">
+        <testcase classname="src/components/presentational/__tests__/Dropdown.test.tsx" name="Dropdown component tests &gt; Should render disabled input" time="0.173">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" timestamp="2024-05-29T19:55:08.543Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.32">
+        <testcase classname="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" name="FormDateTimePicker component tests &gt; should render the DateTimePicker with the correct label" time="0.217">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" name="FormDateTimePicker component tests &gt; should display the default date value" time="0.102">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/FormDropdown.test.tsx" timestamp="2024-05-29T19:55:08.544Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.41">
+        <testcase classname="src/components/presentational/__tests__/FormDropdown.test.tsx" name="FormDropdown tests &gt; renders correctly with given options" time="0.408">
             <system-err>
 MUI: You have provided an out-of-range value `undefined` for the select component.
 Consider providing a value that matches one of the available options or &apos;&apos;.
@@ -443,18 +184,22 @@ The available values are `Daily`, `Hourly`, `FiveMins`.
             </system-err>
         </testcase>
     </testsuite>
-    <testsuite name="src/components/root/__tests__/ErrorFallback.test.tsx" timestamp="2024-05-28T15:22:43.094Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.028">
-        <testcase classname="src/components/root/__tests__/ErrorFallback.test.tsx" name="Root component tests &gt; Error Boundary - catches error thrown by child component" time="0.026">
+    <testsuite name="src/components/presentational/__tests__/OhlcChart.test.tsx" timestamp="2024-05-29T19:55:08.544Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.023">
+        <testcase classname="src/components/presentational/__tests__/OhlcChart.test.tsx" name="OhlcChart &gt; should render the OhlcChart component" time="0.022">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/root/__tests__/root.component.test.tsx" timestamp="2024-05-28T15:22:43.094Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.022">
+    <testsuite name="src/components/root/__tests__/ErrorFallback.test.tsx" timestamp="2024-05-29T19:55:08.544Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.025">
+        <testcase classname="src/components/root/__tests__/ErrorFallback.test.tsx" name="Root component tests &gt; Error Boundary - catches error thrown by child component" time="0.023">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/root/__tests__/root.component.test.tsx" timestamp="2024-05-29T19:55:08.545Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.022">
         <testcase classname="src/components/root/__tests__/root.component.test.tsx" name="Root component tests &gt; Root - renders" time="0.021">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/root/__tests__/routerConfig.test.tsx" timestamp="2024-05-28T15:22:43.095Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.284">
-        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - SimpleCharts path - returns simpleChartsContainer" time="0.216">
+    <testsuite name="src/components/root/__tests__/routerConfig.test.tsx" timestamp="2024-05-29T19:55:08.545Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.278">
+        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - SimpleCharts path - returns simpleChartsContainer" time="0.222">
         </testcase>
-        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - AdvancedCharts path - returns AdvancedChartsView" time="0.066">
+        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - AdvancedCharts path - returns AdvancedChartsView" time="0.054">
         </testcase>
     </testsuite>
 </testsuites>

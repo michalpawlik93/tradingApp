@@ -29,7 +29,7 @@ describe("QuotesDataService", () => {
     // Assert
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
-      `${StooqUrls.combinedQuote.getAll}?granularity=Daily&assetType=Cryptocurrency&assetName=BTC&startDate=2023-01-01&endDate=2023-12-31`,
+      `${StooqUrls.combinedQuote.getAll}?TechnicalIndicators=&granularity=Daily&assetType=Cryptocurrency&assetName=BTC&startDate=2023-01-01&endDate=2023-12-31`,
       {
         mode: "cors",
         method: "GET",

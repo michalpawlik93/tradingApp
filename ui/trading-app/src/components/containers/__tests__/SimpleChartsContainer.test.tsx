@@ -3,7 +3,6 @@ import { TestingProvider } from "../../../__fixtures__/TestingProvider";
 import { SimpleChartsContainer } from "../SimpleChartsContainer";
 import { mockUseCombinedQuotes } from "../../../__fixtures__/useCombinedQuotesMock";
 
-vi.mock("react-apexcharts", () => ({ __esModule: true, default: () => <div>Chart</div> }));
 describe("SimpleChartsContainer tests", () => {
   test("Charts are rendered", async () => {
     // Arrange
@@ -16,6 +15,6 @@ describe("SimpleChartsContainer tests", () => {
     );
 
     // Assert
-    expect(screen.getAllByText("Chart")).toHaveLength(2);
+    expect(screen.getAllByTestId("echarts-react")).toHaveLength(2);
   });
 });

@@ -8,6 +8,7 @@ import { GetQuotesRequestDto } from "src/services/dtos/GetQuotesRequestDto";
 import { CombinedQuote } from "src/types/CombinedQuote";
 import { CypherBQuote } from "src/types/CypherBQuote";
 import { Quote } from "src/types/Quote";
+import { WaveTrend } from "../types/WaveTrend";
 
 export const GetCombinedQuotesResponseDtoMock = (): GetCombinedQuotesResponseDto => ({
   quotes: [CombinedQuoteMock()],
@@ -23,7 +24,7 @@ export const CombinedQuoteMock = (): CombinedQuote => ({
   sma: 58072.10338574051,
 });
 
-const QuoteMock = (): Quote => ({
+export const QuoteMock = (): Quote => ({
   date: "2024-05-02T00:20:00+00:00",
   open: 58299.680022649416,
   high: 58299.83445841243,
@@ -38,15 +39,17 @@ export const GetCypherBResponseDtoMock = (): GetCypherBResponseDto => ({
 
 export const CypherBQuoteMock = (): CypherBQuote => ({
   ohlc: QuoteMock(),
-  waveTrend: {
-    wt1: 12.1314,
-    wt2: 13.1314,
-    vwap: 11.1314,
-    crossesOver: false,
-    crossesUnder: false,
-  },
+  waveTrend: WaveTrendMock(),
   mfi: 58073.10338574051,
   vwap: 58072.10338574051,
+});
+
+export const WaveTrendMock = (): WaveTrend => ({
+  wt1: 12.1314,
+  wt2: 13.1314,
+  vwap: 11.1314,
+  crossesOver: true,
+  crossesUnder: true,
 });
 
 export const GetQuotesRequestDtoMock = (): GetQuotesRequestDto => ({
