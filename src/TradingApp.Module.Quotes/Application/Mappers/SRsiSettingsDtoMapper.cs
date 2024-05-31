@@ -6,5 +6,5 @@ namespace TradingApp.Module.Quotes.Application.Mappers;
 public static class SRsiSettingsDtoMapper
 {
     public static SRsiSettings ToDomainModel(SRsiSettingsDto dto) =>
-        new SRsiSettings(dto.Enable, dto.Length, dto.StochKSmooth, dto.StochDSmooth, dto.Oversold, dto.Overbought);
+        new(dto.Enable, dto.ChannelLength, dto.StochKSmooth, dto.StochDSmooth, dto.Oversold, dto.Overbought);
 }

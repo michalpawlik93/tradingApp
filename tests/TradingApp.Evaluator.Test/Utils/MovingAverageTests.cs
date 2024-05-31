@@ -20,7 +20,7 @@ public class MovingAverageTests
         // Arrange
         var inputs = new decimal[] { first, second };
         // Act
-        var result = MovingAverage.Calculate(period, inputs);
+        var result = MovingAverage.CalculateSMA(period, inputs);
 
         // Assert
         result[0].Should().Be(expectedFirst);
@@ -33,7 +33,7 @@ public class MovingAverageTests
         // Arrange
         var inputs = new decimal[] { };
         // Act
-        var result = MovingAverage.Calculate(2, inputs);
+        var result = MovingAverage.CalculateSMA(2, inputs);
 
         // Assert
         result.Should().BeEmpty();

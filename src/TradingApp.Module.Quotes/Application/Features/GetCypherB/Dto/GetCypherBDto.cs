@@ -27,4 +27,9 @@ public class GetCypherBDto
     /// Gets or sets the settings for the SRSI calculation.
     /// </summary>
     public SRsiSettingsDto SRsiSettings { get; set; }
+
+    /// <summary>
+    /// Gets or sets the settings for the Mfi calculation.
+    /// </summary>
+    public MfiSettingsDto MfiSettings { get; set; }
 }

@@ -8,7 +8,11 @@ namespace TradingApp.Evaluator.Indicators;
 public static class WaveTrendIndicator
 {
     /// <summary>
-    /// WaveTrend uses Close price as source.
+    /// WaveTrend uses CLH price as source.
+    /// Bullish (buy) - When WT1 crosses above WT2,
+    /// Bullish (buy) - When Closing price is above VWAP
+    /// Bearish (sell) - When WT1 crosses below WT2
+    /// Bearish (sell) - When Closing price is below VWAP
     /// hlc3 -  (high + low + close) / 3
     /// ema - Exponential Moving Average
     /// d - difference of hlc3 and ema
@@ -31,15 +35,15 @@ public static class WaveTrendIndicator
     )
     {
         var hlc3 = domainQuotes.Select(quote => quote.Close + quote.Low + quote.High).ToArray();
-        var ema = MovingAverage.Calculate(settings.ChannelLength, hlc3);
-        var d = MovingAverage.Calculate(
+        var esa = MovingAverage.CalculateEMA(settings.ChannelLength, hlc3);
+        var d = MovingAverage.CalculateEMA(
             settings.ChannelLength,
-            hlc3.Select((hlc, i) => Math.Abs(hlc - ema[i])).ToArray()
+            hlc3.Select((hlc, i) => Math.Abs(hlc - esa[i])).ToArray()
         );
-        var ci = hlc3.Select((close, i) => d[i] != 0 ? (close - ema[i]) / (d[i]) : 0)
+        var ci = hlc3.Select((close, i) => d[i] != 0 ? (close - esa[i]) / (d[i]) : 0)
             .ToArray();
-        var wt1 = MovingAverage.Calculate(settings.AverageLength, ci);
-        var wt2 = MovingAverage.Calculate(settings.MovingAverageLength, wt1);
+        var wt1 = MovingAverage.CalculateEMA(settings.AverageLength, ci);
+        var wt2 = MovingAverage.CalculateSMA(settings.MovingAverageLength, wt1);
 
         if (scaleResult)
         {

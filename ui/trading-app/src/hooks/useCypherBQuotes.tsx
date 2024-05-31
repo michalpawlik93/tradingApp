@@ -5,6 +5,7 @@ import { Granularity } from "../consts/granularity";
 import { AssetType } from "../consts/assetType";
 import { AssetName } from "../consts/assetName";
 import {
+  mfiSettingsDefault,
   sRsiSettingsDefault,
   waveTrendSettingsDefault,
 } from "../consts/technicalIndicatorsSettings";
@@ -37,6 +38,7 @@ export const useCypherBQuotes = (): useCypherBQuotesResponse => {
         },
         waveTrendSettings: waveTrendSettingsDefault,
         sRsiSettings: sRsiSettingsDefault,
+        mfiSettings: mfiSettingsDefault,
       });
     }
     fetch();

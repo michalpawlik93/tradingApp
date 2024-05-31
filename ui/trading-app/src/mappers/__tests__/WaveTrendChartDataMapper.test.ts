@@ -1,34 +1,38 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect } from "vitest";
 import { CypherBQuote } from "../../types/CypherBQuote";
-import { mapToWaveTrendChartData } from "../WaveTrendChartDataMapper";
-import { WaveTrendChartData } from "../../types/WaveTrendChartData";
-import { CypherBQuoteMock, QuoteMock, WaveTrendMock } from "../../__fixtures__/quotes";
+import { mapToCypherBChartData } from "../WaveTrendChartDataMapper";
+import { CypherBQuoteMock, MfiMock, QuoteMock, WaveTrendMock } from "../../__fixtures__/quotes";
+import { CypherBChartData } from "../../types/ChartData";
 describe("mapToWaveTrendChartData", () => {
   test("should map quotes to wave trend chart data", () => {
     const quotes: CypherBQuote[] = [CypherBQuoteMock()];
     const quote = QuoteMock();
-    const waveTrendWt1Value = 12.1314;
-    const expected: WaveTrendChartData = {
-      waveTrendWt1: [[Date.parse(quote.date), waveTrendWt1Value]],
-      waveTrendWt2: [[Date.parse(quote.date), 13.1314]],
-      sellSignals: [[Date.parse(quote.date), waveTrendWt1Value]],
-      buySignals: [[Date.parse(quote.date), waveTrendWt1Value]],
+    const waveTrendMock = WaveTrendMock();
+    const expected: CypherBChartData = {
+      waveTrendWt1: [[Date.parse(quote.date), waveTrendMock.wt1]],
+      waveTrendWt2: [[Date.parse(quote.date), waveTrendMock.wt2]],
+      waveTrendVwap: [[Date.parse(quote.date), waveTrendMock.vwap as number]],
+      sellSignals: [[Date.parse(quote.date), waveTrendMock.wt1]],
+      buySignals: [[Date.parse(quote.date), waveTrendMock.wt1]],
+      mfi: [[Date.parse(quote.date), MfiMock().mfi]],
     };
 
-    const result = mapToWaveTrendChartData(quotes);
+    const result = mapToCypherBChartData(quotes);
     expect(result).toEqual(expected);
   });
 
   test("should handle empty quotes array", () => {
     const quotes: CypherBQuote[] = [];
-    const expected: WaveTrendChartData = {
+    const expected: CypherBChartData = {
       waveTrendWt1: [],
       waveTrendWt2: [],
+      waveTrendVwap: [],
       sellSignals: [],
       buySignals: [],
+      mfi: [],
     };
 
-    const result = mapToWaveTrendChartData(quotes);
+    const result = mapToCypherBChartData(quotes);
     expect(result).toEqual(expected);
   });
 
@@ -40,19 +44,20 @@ describe("mapToWaveTrendChartData", () => {
           date: "invalid-date",
         },
         waveTrend: WaveTrendMock(),
-        mfi: 50,
-        vwap: 30471.3006,
+        mfi: MfiMock(),
       },
     ];
 
-    const expected: WaveTrendChartData = {
+    const expected: CypherBChartData = {
       waveTrendWt1: [],
       waveTrendWt2: [],
+      waveTrendVwap: [],
       sellSignals: [],
       buySignals: [],
+      mfi: [],
     };
 
-    const result = mapToWaveTrendChartData(quotes);
+    const result = mapToCypherBChartData(quotes);
     expect(result).toEqual(expected);
   });
 });

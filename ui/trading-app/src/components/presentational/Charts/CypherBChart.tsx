@@ -1,32 +1,35 @@
 import { useMemo } from "react";
 import { ReactEChart } from "./ReactEChart";
 import { CypherBQuote } from "../../../types/CypherBQuote";
-import { WaveTrendChartData } from "../../../types/ChartData";
-import { mapToWaveTrendChartData } from "../../../mappers/WaveTrendChartDataMapper";
+import { CypherBChartData } from "../../../types/ChartData";
+import { mapToCypherBChartData } from "../../../mappers/WaveTrendChartDataMapper";
 import { EChartsOption } from "echarts";
 import { zoomOptions } from "./CommonChartOptions";
 
 const formatter = (params: any) => {
   const date = new Date(params[0].value[0]).toLocaleString();
-  const wt1 = params[0].value[1];
-  const wt2 = params[1].value[1];
-  const sell = params[2]?.value[1];
-  const buy = params[3]?.value[1];
-
+  const wt1 = params.find((x: any) => x.seriesName === "WaveTrend WT1").value[1];
+  const wt2 = params.find((x: any) => x.seriesName === "WaveTrend WT2").value[1];
+  const buy = params.find((x: any) => x.seriesName === "Buy Signal")?.value[1];
+  const sell = params.find((x: any) => x.seriesName === "Sell Signal")?.value[1];
+  const vwap = params.find((x: any) => x.seriesName === "WaveTrend Vwap")?.value[1];
+  const mfi = params.find((x: any) => x.seriesName === "Mfi")?.value[1];
   return `
     <strong>Date:</strong> ${date}<br>
     <strong>WT1:</strong> ${wt1}<br>
     <strong>WT2:</strong> ${wt2}<br>
+    ${vwap !== undefined ? `<strong>Vwap</strong> ${vwap}<br>` : ""}
+    ${mfi !== undefined ? `<strong>Money Flow Index</strong> ${mfi}<br>` : ""}
     ${sell !== undefined ? `<strong>Sell signal appeared</strong><br>` : ""}
     ${buy !== undefined ? `<strong>Buy signal appeared</strong>` : ""}
   `;
 };
 
-export const getOptions = (chartData: WaveTrendChartData): EChartsOption => ({
+export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
   title: {},
   ...zoomOptions,
   legend: {
-    data: ["WaveTrend WT1", "WaveTrend WT2"],
+    data: ["WaveTrend WT1", "WaveTrend WT2", "WaveTrend Vwap", "Mfi"],
     orient: "horizontal",
     left: 0,
   },
@@ -154,12 +157,36 @@ export const getOptions = (chartData: WaveTrendChartData): EChartsOption => ({
       symbolSize: 20,
       data: chartData.buySignals,
     },
+    {
+      type: "line",
+      name: "WaveTrend Vwap",
+      color: "rgb(137, 207, 240)",
+      areaStyle: {},
+      smooth: true,
+      lineStyle: {
+        width: 0,
+      },
+      showSymbol: false,
+      data: chartData.waveTrendVwap,
+    },
+    {
+      type: "line",
+      name: "Mfi",
+      color: "rgba(0, 255, 127, 0.2)",
+      areaStyle: {},
+      smooth: true,
+      lineStyle: {
+        width: 0,
+      },
+      showSymbol: false,
+      data: chartData.mfi,
+    },
   ],
 });
 
 export const CypherBChart = ({ quotes }: CypherBChartProps): JSX.Element => {
   const options = useMemo(() => {
-    const chartData = mapToWaveTrendChartData(quotes);
+    const chartData = mapToCypherBChartData(quotes);
     return getOptions(chartData);
   }, [quotes]);
   return <ReactEChart option={options} />;

@@ -39,10 +39,13 @@ public class GetCypherBCommandHandler
             quotes,
             request.WaveTrendSettings
         );
-        var vwap = _evaluator.GetVwap(quotes);
+        var mfi = _evaluator.GetMfi(
+            quotes,
+            request.MfiSettings
+        );
         var combinedResults = quotes
             .Select(
-                (q, i) => new CypherBQuote(q, waveTrend.ElementAt(i), null, vwap.ElementAt(i).Value)
+                (q, i) => new CypherBQuote(q, waveTrend.ElementAt(i), mfi.ElementAt(i))
             )
             .ToList();
         return Result.Ok(new GetCypherBResponseDto(combinedResults));

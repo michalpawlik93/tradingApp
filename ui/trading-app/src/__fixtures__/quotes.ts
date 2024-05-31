@@ -9,6 +9,8 @@ import { CombinedQuote } from "src/types/CombinedQuote";
 import { CypherBQuote } from "src/types/CypherBQuote";
 import { Quote } from "src/types/Quote";
 import { WaveTrend } from "../types/WaveTrend";
+import { Mfi } from "../types/Mfi";
+import { mfiSettingsDefault, sRsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
 
 export const GetCombinedQuotesResponseDtoMock = (): GetCombinedQuotesResponseDto => ({
   quotes: [CombinedQuoteMock()],
@@ -40,8 +42,7 @@ export const GetCypherBResponseDtoMock = (): GetCypherBResponseDto => ({
 export const CypherBQuoteMock = (): CypherBQuote => ({
   ohlc: QuoteMock(),
   waveTrend: WaveTrendMock(),
-  mfi: 58073.10338574051,
-  vwap: 58072.10338574051,
+  mfi: MfiMock(),
 });
 
 export const WaveTrendMock = (): WaveTrend => ({
@@ -50,6 +51,10 @@ export const WaveTrendMock = (): WaveTrend => ({
   vwap: 11.1314,
   crossesOver: true,
   crossesUnder: true,
+});
+
+export const MfiMock = (): Mfi => ({
+  mfi: 5.1314,
 });
 
 export const GetQuotesRequestDtoMock = (): GetQuotesRequestDto => ({
@@ -76,10 +81,6 @@ export const GetCypherBDtoMock = (): GetCypherBDto => ({
     oversold: 60,
     overbought: 60,
   },
-  sRsiSettings: {
-    enable: true,
-    length: 8,
-    stochKSmooth: 8,
-    stochDSmooth: 8,
-  },
+  sRsiSettings: sRsiSettingsDefault,
+  mfiSettings: mfiSettingsDefault,
 });

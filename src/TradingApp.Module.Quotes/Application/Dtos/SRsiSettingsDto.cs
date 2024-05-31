@@ -18,7 +18,7 @@ public class SRsiSettingsDto : OscillationSettings
     /// Gets or sets the number of periods used to calculate the SRSI width.
     /// </summary>
     [DefaultValue(8)]
-    public int Length { get; set; }
+    public int ChannelLength { get; set; }
 
     /// <summary>
     /// Gets or sets the number of periods used to calculate the Stochastic RSI %K value.

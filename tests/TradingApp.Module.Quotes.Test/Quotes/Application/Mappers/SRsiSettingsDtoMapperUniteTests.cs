@@ -20,7 +20,7 @@ public class SRsiSettingsDtoMapperUniteTests
         // Assert
         result.Should().NotBeNull();
         result.Enable.Should().Be(dto.Enable);
-        result.Length.Should().Be(dto.Length);
+        result.ChannelLength.Should().Be(dto.ChannelLength);
         result.Overbought.Should().Be(dto.Overbought);
         result.Oversold.Should().Be(dto.Oversold);
         result.StochDSmooth.Should().Be(dto.StochDSmooth);

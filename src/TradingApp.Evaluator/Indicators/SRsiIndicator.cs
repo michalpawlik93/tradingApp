@@ -15,8 +15,8 @@ public static class SRsiIndicator
 {
     public static List<SRsiResult> Calculate(List<Quote> domainQuotes, SRsiSettings settings)
     {
-        var rsiPeriods = settings.Length;
-        var stochPeriods = settings.Length;
+        var rsiPeriods = settings.ChannelLength;
+        var stochPeriods = settings.ChannelLength;
         var smoothPeriodsD = settings.StochDSmooth;
         var smoothPeriodsK = settings.StochKSmooth;
         // check parameter arguments
@@ -31,7 +31,7 @@ public static class SRsiIndicator
         {
             results.Add(new SRsiResult(domainQuotes[i].Date, null, null));
         }
-        var rsiResults = RsiIndicator.Calculate(domainQuotes, new RsiSettings(settings.Oversold, settings.Overbought, true, settings.Length))
+        var rsiResults = RsiIndicator.Calculate(domainQuotes, new RsiSettings(settings.Oversold, settings.Overbought, true, settings.ChannelLength))
             .Remove(Math.Min(rsiPeriods, length)).
             Select((x, index) => new Quote
             {

@@ -8,7 +8,7 @@ public static class RsiIndicator
 {
     public static ICollection<RsiResult> Calculate(List<Quote> tpList, RsiSettings settings)
     {
-        ValidateRsi(settings.Length);
+        ValidateRsi(settings.ChannelLength);
 
         // initialize
         int ohlcLength = tpList.Count;
@@ -37,10 +37,10 @@ public static class RsiIndicator
             lastValue = tpList[i].Close;
 
             // calculate RSI
-            if (i > settings.Length)
+            if (i > settings.ChannelLength)
             {
-                avgGain = ((avgGain * (settings.Length - 1)) + gain[i]) / settings.Length;
-                avgLoss = ((avgLoss * (settings.Length - 1)) + loss[i]) / settings.Length;
+                avgGain = ((avgGain * (settings.ChannelLength - 1)) + gain[i]) / settings.ChannelLength;
+                avgLoss = ((avgLoss * (settings.ChannelLength - 1)) + loss[i]) / settings.ChannelLength;
 
                 if (avgLoss > 0)
                 {
@@ -53,19 +53,19 @@ public static class RsiIndicator
                 }
             }
             // initialize average gain
-            else if (i == settings.Length)
+            else if (i == settings.ChannelLength)
             {
                 decimal sumGain = 0;
                 decimal sumLoss = 0;
 
-                for (int p = 1; p <= settings.Length; p++)
+                for (int p = 1; p <= settings.ChannelLength; p++)
                 {
                     sumGain += gain[p];
                     sumLoss += loss[p];
                 }
 
-                avgGain = sumGain / settings.Length;
-                avgLoss = sumLoss / settings.Length;
+                avgGain = sumGain / settings.ChannelLength;
+                avgLoss = sumLoss / settings.ChannelLength;
 
                 r.Value = (avgLoss > 0) ? 100 - (100 / (1 + (avgGain / avgLoss))) : 100;
             }

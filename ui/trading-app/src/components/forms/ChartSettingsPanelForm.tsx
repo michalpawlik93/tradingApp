@@ -12,6 +12,7 @@ import { useQuotesStore } from "../../stores/quotesStore";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { GetQuotesRequestDto } from "../../services/dtos/GetQuotesRequestDto";
 import {
+  mfiSettingsDefault,
   sRsiSettingsDefault,
   waveTrendSettingsDefault,
 } from "../../consts/technicalIndicatorsSettings";
@@ -66,6 +67,7 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelF
       },
       waveTrendSettings: waveTrendSettingsDefault,
       sRsiSettings: sRsiSettingsDefault,
+      mfiSettings: mfiSettingsDefault,
     });
   };
   return (

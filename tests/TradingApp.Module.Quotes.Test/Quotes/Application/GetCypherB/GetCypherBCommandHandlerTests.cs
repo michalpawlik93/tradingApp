@@ -66,10 +66,10 @@ public class GetCypherBCommandHandlerTests
             .ReturnsAsync(Result.Ok(quotes));
         var values = Enumerable
             .Range(0, quotes.Count())
-            .Select(_ => new VWapResult() { Value = (decimal?)new Random().NextDouble() })
+            .Select(_ => new MfiResult((decimal)new Random().NextDouble()))
             .ToList();
         var waveTrends = Enumerable.Range(0, quotes.Count()).Select(_ => waveTrend).ToList();
-        _evaluator.Setup(_ => _.GetVwap(It.IsAny<List<Quote>>())).Returns(values);
+        _evaluator.Setup(_ => _.GetMfi(It.IsAny<List<Quote>>(), It.IsAny<MfiSettings>())).Returns(values);
         _evaluator
             .Setup(_ => _.GetWaveTrend(It.IsAny<List<Quote>>(), It.IsAny<WaveTrendSettings>()))
             .Returns(waveTrends);

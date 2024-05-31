@@ -1,6 +1,6 @@
 export interface SRsiSettings {
   enable: boolean;
-  length: number;
+  channelLength: number;
   stochKSmooth: number;
   stochDSmooth: number;
 }

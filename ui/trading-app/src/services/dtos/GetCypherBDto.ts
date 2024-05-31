@@ -1,3 +1,4 @@
+import { MfiSettings } from "../../types/MfiSettings";
 import { SRsiSettings } from "../../types/SRsiSettings";
 import { WaveTrendSettings } from "../../types/WaveTrendSettings";
 import { AssetDto } from "./AssetDto";
@@ -8,4 +9,5 @@ export interface GetCypherBDto {
   timeFrame: TimeFrameDto;
   waveTrendSettings: WaveTrendSettings;
   sRsiSettings: SRsiSettings;
+  mfiSettings: MfiSettings;
 }

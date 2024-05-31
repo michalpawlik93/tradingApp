@@ -19,4 +19,8 @@ public interface IEvaluator
         List<Quote> quotes,
         SRsiSettings settings
     );
+    ICollection<MfiResult> GetMfi(
+        List<Quote> quotes,
+        MfiSettings settings
+    );
 }
