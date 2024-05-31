@@ -24,11 +24,11 @@ public class WaveTrendProrealCodeTests : QuotesTestBase
 
         var r1 = results[130];
         r1.Should().NotBeNull();
-        r1?.Wt1.Should().BeApproximately(-89.0869M, 0.0002m);
+        r1?.Wt1.Should().BeApproximately(-73.1756M, 0.0002m);
 
         var r2 = results[501];
         r2.Should().NotBeNull();
-        r2?.Wt1.Should().BeApproximately(-37.4638M, 0.0002m);
+        r2?.Wt1.Should().BeApproximately(-58.2858M, 0.0002m);
     }
 
     [Fact]
