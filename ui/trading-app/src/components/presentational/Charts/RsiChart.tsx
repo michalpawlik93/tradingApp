@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { ReactEChart } from "./ReactEChart";
 import { RsiChartData } from "../../../types/ChartData";
 import { EChartsOption } from "echarts";
-import { mapToRsiChartData } from "../../../mappers/RsiChartDataMapper";
+import { mapToRsiChartData } from "../../../mappers/RsiChartMapper";
 import { CombinedQuote } from "../../../types/CombinedQuote";
 import { RsiSettings } from "../../../types/RsiSettings";
 import { zoomOptions } from "./CommonChartOptions";

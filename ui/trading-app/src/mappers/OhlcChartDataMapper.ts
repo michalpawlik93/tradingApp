@@ -1,4 +1,4 @@
-import { OhlcChartData } from "../components/presentational/Charts/OhlcChart";
+import { OhlcChartData } from "../types/ChartData";
 import { Quote } from "../types/Quote";
 
 export function mapToOhlcChartData(quotes: Quote[]): OhlcChartData {

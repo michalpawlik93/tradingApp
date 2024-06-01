@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { ReactEChart } from "./ReactEChart";
 import { CypherBQuote } from "../../../types/CypherBQuote";
 import { CypherBChartData } from "../../../types/ChartData";
-import { mapToCypherBChartData } from "../../../mappers/WaveTrendChartDataMapper";
+import { mapToCypherBChartData } from "../../../mappers/CypherBChartDataMapper";
 import { EChartsOption } from "echarts";
 import { zoomOptions } from "./CommonChartOptions";
 

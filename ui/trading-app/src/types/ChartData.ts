@@ -14,7 +14,7 @@ export interface WaveTrendChartData {
 export interface RsiChartData {
   overbought: number;
   oversold: number;
-  rsi: [string, number][];
+  rsi: (number | Date)[][];
 }
 
 interface MfiChartData {

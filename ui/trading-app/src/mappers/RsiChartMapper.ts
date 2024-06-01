@@ -1,23 +1,23 @@
-import { ApexRsiChartData } from "../types/ApexRsiChartData";
+import { rsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
+import { RsiChartData } from "../types/ChartData";
 import { CombinedQuote } from "../types/CombinedQuote";
 import { RsiSettings } from "../types/RsiSettings";
 
-export function mapToApexRsiChartData(
+export function mapToRsiChartData(
   combinedQuotes: CombinedQuote[],
-  rsiSettings: RsiSettings
-): ApexRsiChartData {
-  const result: ApexRsiChartData = {
-    overbought: [],
-    oversold: [],
+  rsiSettings: RsiSettings,
+): RsiChartData {
+  const result: RsiChartData = {
+    ...rsiSettingsDefault,
     rsi: [],
   };
+  result.overbought = rsiSettings.overbought;
+  result.oversold = rsiSettings.oversold;
   for (let i = 0; i < combinedQuotes.length; i++) {
     const timestamp = Date.parse(combinedQuotes[i].ohlc.date);
     if (!isNaN(timestamp)) {
-      const x = new Date(combinedQuotes[i].ohlc.date);
-      result.overbought.push({ y: rsiSettings.overbought, x: x });
-      result.oversold.push({ y: rsiSettings.oversold, x: x });
-      result.rsi.push({ y: combinedQuotes[i].rsi, x: x });
+      const x = new Date(combinedQuotes[i].ohlc.date).getTime();
+      result.rsi.push([x, combinedQuotes[i].rsi]);
     }
   }
   return result;

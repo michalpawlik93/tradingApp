@@ -1,6 +1,6 @@
 import { describe, expect } from "vitest";
 import { CypherBQuote } from "../../types/CypherBQuote";
-import { mapToCypherBChartData } from "../WaveTrendChartDataMapper";
+import { mapToCypherBChartData } from "../CypherBChartDataMapper";
 import { CypherBQuoteMock, MfiMock, QuoteMock, WaveTrendMock } from "../../__fixtures__/quotes";
 import { CypherBChartData } from "../../types/ChartData";
 describe("mapToWaveTrendChartData", () => {
