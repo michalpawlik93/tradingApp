@@ -17,6 +17,6 @@ describe("CypherBChartContiner tests", () => {
     );
 
     // Assert
-    expect(screen.getAllByTestId("echarts-react")).toHaveLength(2);
+    expect(screen.getAllByTestId("echarts-react")).toHaveLength(1);
   });
 });

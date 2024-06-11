@@ -1,11 +1,11 @@
-import { expect, it, describe } from "vitest";
+import { expect, describe } from "vitest";
 import { mapToRsiChartData } from "../RsiChartMapper";
 import { rsiSettingsDefault } from "../../consts/technicalIndicatorsSettings";
 import { CombinedQuoteMock } from "../../__fixtures__/quotes";
 import { RsiChartData } from "../../types/ChartData";
 
 describe("mapToApexRsiChartData", () => {
-  it("should return empty array", () => {
+  test("should return empty array", () => {
     // Arrange
 
     // Act
@@ -17,7 +17,7 @@ describe("mapToApexRsiChartData", () => {
     expect(result.rsi).toHaveLength(0);
   });
 
-  it("should map to rsi chart data", () => {
+  test("should map to rsi chart data", () => {
     // Arrange
     const data = CombinedQuoteMock();
     const expected: RsiChartData = {

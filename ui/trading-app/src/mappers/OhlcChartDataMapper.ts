@@ -2,8 +2,17 @@ import { OhlcChartData } from "../types/ChartData";
 import { Quote } from "../types/Quote";
 
 export function mapToOhlcChartData(quotes: Quote[]): OhlcChartData {
-  const categoryData = quotes.map((quote) => quote.date);
-  const values = quotes.map((quote) => [quote.open, quote.close, quote.low, quote.high]);
+  const result: OhlcChartData = {
+    ohlc: [],
+  };
 
-  return { categoryData, values };
+  quotes.forEach((quote) => {
+    const timestamp = Date.parse(quote.date);
+    if (!isNaN(timestamp)) {
+      const x = new Date(quote.date).getTime();
+      result.ohlc.push([x, quote.open, quote.close, quote.low, quote.high]);
+    }
+  });
+
+  return result;
 }

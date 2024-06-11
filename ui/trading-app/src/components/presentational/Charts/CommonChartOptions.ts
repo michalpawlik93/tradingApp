@@ -16,12 +16,14 @@ export const zoomOptions: Partial<EChartsOption> = {
       realtime: true,
       start: 65,
       end: 85,
+      xAxisIndex: [0, 1],
     },
     {
       type: "inside",
       realtime: true,
       start: 65,
       end: 85,
+      xAxisIndex: [0, 1],
     },
   ],
 };

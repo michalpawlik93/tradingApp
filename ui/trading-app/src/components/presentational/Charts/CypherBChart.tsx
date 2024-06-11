@@ -5,58 +5,81 @@ import { CypherBChartData } from "../../../types/ChartData";
 import { mapToCypherBChartData } from "../../../mappers/CypherBChartDataMapper";
 import { EChartsOption } from "echarts";
 import { zoomOptions } from "./CommonChartOptions";
+import { waveTrendSettingsDefault } from "../../../consts/technicalIndicatorsSettings";
+import { cypherBFormatter } from "./formatters";
 
-const formatter = (params: any) => {
-  const date = new Date(params[0].value[0]).toLocaleString();
-  const wt1 = params.find((x: any) => x.seriesName === "WaveTrend WT1").value[1];
-  const wt2 = params.find((x: any) => x.seriesName === "WaveTrend WT2").value[1];
-  const buy = params.find((x: any) => x.seriesName === "Buy Signal")?.value[1];
-  const sell = params.find((x: any) => x.seriesName === "Sell Signal")?.value[1];
-  const vwap = params.find((x: any) => x.seriesName === "WaveTrend Vwap")?.value[1];
-  const mfi = params.find((x: any) => x.seriesName === "Mfi")?.value[1];
-  return `
-    <strong>Date:</strong> ${date}<br>
-    <strong>WT1:</strong> ${wt1}<br>
-    <strong>WT2:</strong> ${wt2}<br>
-    ${vwap !== undefined ? `<strong>Vwap</strong> ${vwap}<br>` : ""}
-    ${mfi !== undefined ? `<strong>Money Flow Index</strong> ${mfi}<br>` : ""}
-    ${sell !== undefined ? `<strong>Sell signal appeared</strong><br>` : ""}
-    ${buy !== undefined ? `<strong>Buy signal appeared</strong>` : ""}
-  `;
-};
-
+const upColor = "#ec0000";
+const upBorderColor = "#8A0000";
+const downColor = "#00da3c";
+const downBorderColor = "#008F28";
 export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
-  title: {},
-  ...zoomOptions,
-  legend: {
-    data: ["WaveTrend WT1", "WaveTrend WT2", "WaveTrend Vwap", "Mfi"],
-    orient: "horizontal",
+  title: {
+    text: "Cypher B",
     left: 0,
   },
-  xAxis: {
-    nameLocation: "middle",
-    name: "Date",
-    type: "time",
-    nameGap: 25,
-    nameTextStyle: {
-      fontSize: 14,
-      fontWeight: "bold",
-    },
+  ...zoomOptions,
+  legend: {
+    data: ["WaveTrend WT1", "WaveTrend WT2", "WaveTrend Vwap", "Mfi Buy", "Mfi Sell", "Ohlc"],
+    orient: "horizontal",
+    left: 300,
   },
-  yAxis: {
-    scale: true,
-    nameLocation: "middle",
-    name: "Value",
-    type: "value",
-    nameGap: 48,
-    nameTextStyle: {
-      fontSize: 14,
-      fontWeight: "bold",
+  grid: [
+    { top: "10%", left: "5%", right: "5%", height: "50%" },
+    { left: "5%", right: "5%", top: "70%", height: "20%" },
+  ],
+  xAxis: [
+    {
+      nameLocation: "middle",
+      name: "Date",
+      type: "time",
+      nameGap: 25,
+      nameTextStyle: {
+        fontSize: 14,
+        fontWeight: "bold",
+      },
+      gridIndex: 0,
     },
-  },
+    {
+      nameLocation: "middle",
+      name: "Date",
+      type: "time",
+      nameGap: 25,
+      nameTextStyle: {
+        fontSize: 14,
+        fontWeight: "bold",
+      },
+      gridIndex: 1,
+    },
+  ],
+  yAxis: [
+    {
+      scale: true,
+      nameLocation: "middle",
+      name: "Value",
+      type: "value",
+      nameGap: 48,
+      nameTextStyle: {
+        fontSize: 14,
+        fontWeight: "bold",
+      },
+      gridIndex: 0,
+    },
+    {
+      scale: true,
+      nameLocation: "middle",
+      name: "Ohlc",
+      type: "value",
+      nameGap: 48,
+      nameTextStyle: {
+        fontSize: 14,
+        fontWeight: "bold",
+      },
+      gridIndex: 1,
+    },
+  ],
   tooltip: {
     trigger: "axis",
-    formatter,
+    formatter: cypherBFormatter,
     axisPointer: {
       type: "cross",
       label: {
@@ -78,7 +101,7 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
       markLine: {
         data: [
           {
-            yAxis: 60,
+            yAxis: waveTrendSettingsDefault.overbought,
             lineStyle: { color: "#e3004d" },
             label: {
               show: true,
@@ -89,7 +112,7 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
             },
           },
           {
-            yAxis: 53,
+            yAxis: waveTrendSettingsDefault.overboughtLevel2,
             lineStyle: { color: "#e3004d" },
             label: {
               show: true,
@@ -100,7 +123,7 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
             },
           },
           {
-            yAxis: -60,
+            yAxis: waveTrendSettingsDefault.oversold,
             lineStyle: { color: "#00E396" },
             label: {
               show: true,
@@ -111,7 +134,7 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
             },
           },
           {
-            yAxis: -53,
+            yAxis: waveTrendSettingsDefault.oversoldLevel2,
             lineStyle: { color: "#00E396" },
             label: {
               show: true,
@@ -123,6 +146,8 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
           },
         ],
       },
+      xAxisIndex: 0,
+      yAxisIndex: 0,
     },
     {
       type: "scatter",
@@ -134,6 +159,8 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
       symbol: "circle",
       symbolSize: 5,
       data: chartData.waveTrendWt2,
+      xAxisIndex: 0,
+      yAxisIndex: 0,
     },
     {
       type: "scatter",
@@ -144,7 +171,9 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
       },
       symbol: "square",
       symbolSize: 20,
-      data: chartData.sellSignals,
+      data: chartData.waveTrendSell,
+      xAxisIndex: 0,
+      yAxisIndex: 0,
     },
     {
       type: "scatter",
@@ -155,7 +184,9 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
       },
       symbol: "square",
       symbolSize: 20,
-      data: chartData.buySignals,
+      data: chartData.waveTrendBuy,
+      xAxisIndex: 0,
+      yAxisIndex: 0,
     },
     {
       type: "line",
@@ -168,10 +199,12 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
       },
       showSymbol: false,
       data: chartData.waveTrendVwap,
+      xAxisIndex: 0,
+      yAxisIndex: 0,
     },
     {
       type: "line",
-      name: "Mfi",
+      name: "Mfi Buy",
       color: "rgba(0, 255, 127, 0.2)",
       areaStyle: {},
       smooth: true,
@@ -179,7 +212,36 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
         width: 0,
       },
       showSymbol: false,
-      data: chartData.mfi,
+      data: chartData.mfiBuy,
+      xAxisIndex: 0,
+      yAxisIndex: 0,
+    },
+    {
+      type: "line",
+      name: "Mfi Sell",
+      color: "rgba(255, 0, 0, 0.2)",
+      areaStyle: {},
+      smooth: true,
+      lineStyle: {
+        width: 0,
+      },
+      showSymbol: false,
+      data: chartData.mfiSell,
+      xAxisIndex: 0,
+      yAxisIndex: 0,
+    },
+    {
+      name: "Ohlc",
+      type: "candlestick",
+      data: chartData.ohlc,
+      xAxisIndex: 1,
+      yAxisIndex: 1,
+      itemStyle: {
+        color: upColor,
+        color0: downColor,
+        borderColor: upBorderColor,
+        borderColor0: downBorderColor,
+      },
     },
   ],
 });

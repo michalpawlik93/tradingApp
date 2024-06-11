@@ -5,7 +5,7 @@ namespace TradingApp.Core.Configuration;
 [ExcludeFromCodeCoverage]
 public class RabbitMqSettings
 {
-    public string Uri { get; set; } = null!;
-    public string UserName { get; set; } = null!;
-    public string Password { get; set; } = null!;
+    public string Host { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 }

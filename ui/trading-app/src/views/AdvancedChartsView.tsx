@@ -7,7 +7,7 @@ export const AdvancedChartsView = () => {
   return (
     <Page
       headerProps={{
-        title: "Stooq Advanced Charts",
+        title: "Advanced Charts",
       }}
     >
       <Suspense fallback={<CircularProgress />}>

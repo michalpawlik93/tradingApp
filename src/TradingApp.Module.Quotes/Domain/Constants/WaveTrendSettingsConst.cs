@@ -9,9 +9,9 @@ public static class WaveTrendSettingsConst
     public const int MovingAverageLength = 3;
 
     public const int Oversold = -60;
-    public const int OversoldLevel2 = -53;
+    public const int OversoldLevel2 = -43;
     public const int Overbought = 60;
-    public const int OverboughtLevel2 = 53;
+    public const int OverboughtLevel2 = 43;
 
     public static WaveTrendSettings WaveTrendSettingsDefault =
         new(

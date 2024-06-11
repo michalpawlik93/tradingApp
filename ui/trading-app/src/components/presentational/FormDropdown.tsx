@@ -10,12 +10,7 @@ export interface FormDropdownProps {
   control: Control<IChartSettingsPanelForm>;
 }
 
-export const FormDropdown: React.FC<FormDropdownProps> = ({
-  options,
-  name,
-  label,
-  control,
-}) => {
+export const FormDropdown: React.FC<FormDropdownProps> = ({ options, name, label, control }) => {
   return (
     <FormControl size="small">
       <InputLabel>{label}</InputLabel>

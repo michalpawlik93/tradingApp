@@ -4,4 +4,6 @@ export interface WaveTrendSettings {
   movingAverageLength: number;
   oversold: number;
   overbought: number;
+  overboughtLevel2: number;
+  oversoldLevel2: number;
 }

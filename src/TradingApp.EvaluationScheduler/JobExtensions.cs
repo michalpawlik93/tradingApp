@@ -8,8 +8,8 @@ namespace TradingApp.EvaluationScheduler;
 public static class JobExtensions
 {
     public static IJobDetail CreateJob() =>
-         JobBuilder.Create<Evaluate5MinJob>()
-            .WithIdentity(name: "Evaluate5MinJob", group: "JobGroup")
+         JobBuilder.Create<Evaluate5MinJCipherBJob>()
+            .WithIdentity(name: "Evaluate5MinJCipherBJob", group: "JobGroup")
             .Build();
 
     public static ITrigger CreateTrigger() =>

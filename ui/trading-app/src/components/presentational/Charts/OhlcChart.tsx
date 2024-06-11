@@ -5,6 +5,7 @@ import { Quote } from "../../../types/Quote";
 import { mapToOhlcChartData } from "../../../mappers/OhlcChartDataMapper";
 import { OhlcChartData } from "../../../types/ChartData";
 import { zoomOptions } from "./CommonChartOptions";
+import { ohlcFormatter } from "./formatters";
 
 const upColor = "#ec0000";
 const upBorderColor = "#8A0000";
@@ -13,7 +14,7 @@ const downBorderColor = "#008F28";
 
 export const getOptions = (chartData: OhlcChartData): EChartsOption => ({
   title: {
-    text: "OHLC Chart",
+    text: "OHLC Candlestick",
     left: 0,
   },
   ...zoomOptions,
@@ -22,38 +23,52 @@ export const getOptions = (chartData: OhlcChartData): EChartsOption => ({
     axisPointer: {
       type: "cross",
     },
-    formatter: (params: any) => {
-      const date = new Date(params[0].value[0]).toLocaleString();
-      return `
-        <strong>Date:</strong> ${date}<br>
-        <strong>Open:</strong> ${params[0].value[1]}<br>
-        <strong>Close:</strong> ${params[0].value[2]}<br>
-        <strong>Low:</strong> ${params[0].value[3]}<br>
-        <strong>High:</strong> ${params[0].value[4]}<br>
-      `;
-    },
+    formatter: ohlcFormatter,
   },
   legend: {
-    data: ["Candlestick"],
+    data: ["Ohlc"],
+    orient: "horizontal",
+    left: 300,
   },
   grid: {
     left: "10%",
     right: "10%",
     bottom: "15%",
   },
-  xAxis: {
-    type: "category",
-    data: chartData.categoryData,
-    boundaryGap: true,
-  },
-  yAxis: {
-    scale: true,
-  },
+  xAxis: [
+    {
+      nameLocation: "middle",
+      name: "Date",
+      type: "time",
+      nameGap: 25,
+      nameTextStyle: {
+        fontSize: 14,
+        fontWeight: "bold",
+      },
+      gridIndex: 0,
+    },
+  ],
+  yAxis: [
+    {
+      scale: true,
+      nameLocation: "middle",
+      name: "Value",
+      type: "value",
+      nameGap: 48,
+      nameTextStyle: {
+        fontSize: 14,
+        fontWeight: "bold",
+      },
+      gridIndex: 0,
+    },
+  ],
   series: [
     {
-      name: "Candlestick",
+      name: "Ohlc",
       type: "candlestick",
-      data: chartData.values,
+      data: chartData.ohlc,
+      xAxisIndex: 0,
+      yAxisIndex: 0,
       itemStyle: {
         color: upColor,
         color0: downColor,

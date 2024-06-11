@@ -1,14 +1,13 @@
 export interface OhlcChartData {
-  categoryData: string[];
-  values: number[][];
+  ohlc: [number, number, number, number, number][];
 }
 
 export interface WaveTrendChartData {
   waveTrendWt1: (number | Date)[][];
   waveTrendWt2: (number | Date)[][];
   waveTrendVwap: (number | Date)[][];
-  sellSignals: (number | Date)[][];
-  buySignals: (number | Date)[][];
+  waveTrendSell: (number | Date)[][];
+  waveTrendBuy: (number | Date)[][];
 }
 
 export interface RsiChartData {
@@ -18,7 +17,8 @@ export interface RsiChartData {
 }
 
 interface MfiChartData {
-  mfi: (number | Date)[][];
+  mfiBuy: (number | Date)[][];
+  mfiSell: (number | Date)[][];
 }
 
-export interface CypherBChartData extends MfiChartData, WaveTrendChartData {}
+export interface CypherBChartData extends MfiChartData, WaveTrendChartData, OhlcChartData {}

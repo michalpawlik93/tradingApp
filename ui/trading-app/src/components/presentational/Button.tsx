@@ -7,7 +7,7 @@ export interface CommonButtonProps {
   onClick?: React.MouseEventHandler;
   secondary?: boolean;
   startIcon?: React.ReactNode;
-  size?: "extra-small" | "small" | "medium";
+  size?: "large" | "small" | "medium";
   type?: "button" | "submit" | "reset";
 }
 
@@ -18,6 +18,7 @@ const CommonButtonInternal = ({
   secondary,
   startIcon,
   type = "button",
+  size = "medium",
 }: CommonButtonProps): JSX.Element => {
   const variant = secondary ? "outlined" : "contained";
 
@@ -29,6 +30,7 @@ const CommonButtonInternal = ({
       onClick={onClick}
       disabled={disabled}
       startIcon={startIcon}
+      size={size}
     >
       {text}
     </Button>

@@ -2,14 +2,13 @@ import { Option } from "../presentational/Dropdown";
 import { Granularity } from "../../consts/granularity";
 import { AssetName } from "../../consts/assetName";
 import { AssetType } from "../../consts/assetType";
-import { Box } from "@mui/material";
+import { Box, Typography, Paper } from "@mui/material";
 import { css } from "@emotion/react";
 import { useForm } from "react-hook-form";
 import { CommonButton } from "../presentational/Button";
 import { FormDropdown } from "../presentational/FormDropdown";
 import { FormDateTimePicker } from "../presentational/FormDateTimePicker";
 import { useQuotesStore } from "../../stores/quotesStore";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import { GetQuotesRequestDto } from "../../services/dtos/GetQuotesRequestDto";
 import {
   mfiSettingsDefault,
@@ -32,16 +31,30 @@ export const defaultValues: IChartSettingsPanelForm = {
 };
 
 const chartSettingsPanelCss = {
-  chartSettingsPanelStyle: () =>
+  container: () =>
     css({
-      display: "flex",
+      padding: "1rem",
+      backgroundColor: "#f9f9f9",
+      borderRadius: "8px",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+    }),
+  header: () =>
+    css({
+      marginBottom: "1rem",
+    }),
+  form: () =>
+    css({
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+      gap: "1rem",
       alignItems: "center",
-      gap: "3.25rem",
-      marginBottom: "0.5rem",
     }),
   buttonBar: () =>
     css({
-      marginTop: "auto",
+      marginTop: "1rem",
+      display: "flex",
+      justifyContent: "flex-end",
+      gap: "1rem",
     }),
 };
 
@@ -55,6 +68,7 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelF
   const { handleSubmit, reset, control } = useForm<IChartSettingsPanelForm>({
     defaultValues: defaultValues,
   });
+
   const onSubmit = async (data: IChartSettingsPanelForm) => {
     console.log(data);
     await fetchData({
@@ -70,44 +84,50 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelF
       mfiSettings: mfiSettingsDefault,
     });
   };
+
   return (
-    <Box css={chartSettingsPanelCss.chartSettingsPanelStyle}>
-      <FormDateTimePicker
-        name="startDate"
-        control={control}
-        label="Start Date"
-        minDate={minDate ?? undefined}
-        maxDate={maxDate ?? undefined}
-      />
-      <FormDateTimePicker
-        name="endDate"
-        control={control}
-        label="End Date"
-        minDate={minDate ?? undefined}
-        maxDate={maxDate ?? undefined}
-      />
-      <FormDropdown
-        name="granularity"
-        control={control}
-        label="Granularity"
-        options={Object.values(Granularity).map((x): Option => [x, x])}
-      />
-      <FormDropdown
-        name="assetName"
-        control={control}
-        label="Asset Name"
-        options={Object.values(AssetName).map((x): Option => [x, x])}
-      />
-      <FormDropdown
-        name="assetType"
-        control={control}
-        label="Asset Type"
-        options={Object.values(AssetType).map((x): Option => [x, x])}
-      />
-      <ButtonGroup css={chartSettingsPanelCss.buttonBar}>
-        <CommonButton text="Submit" type="submit" onClick={handleSubmit(onSubmit)} />
-        <CommonButton text="Reset" type="reset" secondary onClick={() => reset()} />
-      </ButtonGroup>
-    </Box>
+    <Paper css={chartSettingsPanelCss.container}>
+      <Typography variant="h6" css={chartSettingsPanelCss.header}>
+        Chart Settings
+      </Typography>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} css={chartSettingsPanelCss.form}>
+        <FormDropdown
+          name="granularity"
+          control={control}
+          label="Granularity"
+          options={Object.values(Granularity).map((x): Option => [x, x])}
+        />
+        <FormDropdown
+          name="assetName"
+          control={control}
+          label="Asset Name"
+          options={Object.values(AssetName).map((x): Option => [x, x])}
+        />
+        <FormDropdown
+          name="assetType"
+          control={control}
+          label="Asset Type"
+          options={Object.values(AssetType).map((x): Option => [x, x])}
+        />
+        <FormDateTimePicker
+          name="startDate"
+          control={control}
+          label="Start Date"
+          minDate={minDate ?? undefined}
+          maxDate={maxDate ?? undefined}
+        />
+        <FormDateTimePicker
+          name="endDate"
+          control={control}
+          label="End Date"
+          minDate={minDate ?? undefined}
+          maxDate={maxDate ?? undefined}
+        />
+        <Box css={chartSettingsPanelCss.buttonBar}>
+          <CommonButton text="Submit" type="submit" size="small" />
+          <CommonButton text="Reset" type="reset" secondary size="small" onClick={() => reset()} />
+        </Box>
+      </Box>
+    </Paper>
   );
 };

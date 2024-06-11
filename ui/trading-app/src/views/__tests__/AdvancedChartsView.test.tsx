@@ -18,6 +18,6 @@ describe("AdvancedChartsView tests", () => {
     );
 
     // Assert
-    expect(screen.getByText("Stooq Advanced Charts")).toBeInTheDocument();
+    expect(screen.getByText("Advanced Charts")).toBeInTheDocument();
   });
 });

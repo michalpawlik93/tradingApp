@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.NetworkInformation;
 using TradingApp.Core.Configuration;
-using TradingApp.Core.EventBus.Events;
 
 namespace TradingApp.Core.Extensions;
 
@@ -26,16 +25,16 @@ public static class EventBusExtensions
     {
         var rabbitMqSettings = configuration.GetSection(nameof(RabbitMqSettings)).Get<RabbitMqSettings>();
         ArgumentNullException.ThrowIfNull(rabbitMqSettings);
-        return services.AddMassTransit(cfg =>
+        return services.AddMassTransit(busConfigurator =>
         {
-            cfg.UsingRabbitMq((context, cfg) =>
+            busConfigurator.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host("rabbitmq", "/", c =>
+                cfg.Host("localhost", "/", c =>
                 {
-                    c.Username(rabbitMqSettings.UserName);
+                    c.Username(rabbitMqSettings.Username);
                     c.Password(rabbitMqSettings.Password);
                 });
-                cfg.Publish<IIntegrationEvent>(x => { });
+                //cfg.Publish<IIntegrationEvent>(x => { });
             });
         });
     }

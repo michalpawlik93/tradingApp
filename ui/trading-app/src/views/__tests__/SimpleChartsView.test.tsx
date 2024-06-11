@@ -16,6 +16,6 @@ describe("SimpleChartsView tests", () => {
     );
 
     // Assert
-    expect(screen.getByText("Stooq Charts")).toBeInTheDocument();
+    expect(screen.getByText("Simple Charts")).toBeInTheDocument();
   });
 });

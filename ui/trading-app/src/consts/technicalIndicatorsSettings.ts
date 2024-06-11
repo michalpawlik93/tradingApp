@@ -15,7 +15,9 @@ export const waveTrendSettingsDefault: WaveTrendSettings = {
   averageLength: 12,
   movingAverageLength: 3,
   oversold: -60,
-  overbought: 60,
+  overbought: 70,
+  overboughtLevel2: 20,
+  oversoldLevel2: -20,
 };
 
 export const rsiSettingsDefault: RsiSettings = {

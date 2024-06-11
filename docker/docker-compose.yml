@@ -13,8 +13,8 @@ services:
   #     - "rabbitmq"
 
   rabbitmq:
-    container_name: "rabbitmqcontainer"
-    image: rabbitmq:management
+    image: rabbitmq:3-management
+    container_name: "rabbitmq"
     hostname: "rabbitmq"
     ports:
       - "5672:5672"

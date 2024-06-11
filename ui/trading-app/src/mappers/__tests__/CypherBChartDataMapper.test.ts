@@ -3,7 +3,7 @@ import { CypherBQuote } from "../../types/CypherBQuote";
 import { mapToCypherBChartData } from "../CypherBChartDataMapper";
 import { CypherBQuoteMock, MfiMock, QuoteMock, WaveTrendMock } from "../../__fixtures__/quotes";
 import { CypherBChartData } from "../../types/ChartData";
-describe("mapToWaveTrendChartData", () => {
+describe("mapToCypherBChartData", () => {
   test("should map quotes to wave trend chart data", () => {
     const quotes: CypherBQuote[] = [CypherBQuoteMock()];
     const quote = QuoteMock();
@@ -12,9 +12,11 @@ describe("mapToWaveTrendChartData", () => {
       waveTrendWt1: [[Date.parse(quote.date), waveTrendMock.wt1]],
       waveTrendWt2: [[Date.parse(quote.date), waveTrendMock.wt2]],
       waveTrendVwap: [[Date.parse(quote.date), waveTrendMock.vwap as number]],
-      sellSignals: [[Date.parse(quote.date), waveTrendMock.wt1]],
-      buySignals: [[Date.parse(quote.date), waveTrendMock.wt1]],
-      mfi: [[Date.parse(quote.date), MfiMock().mfi]],
+      waveTrendSell: [[Date.parse(quote.date), waveTrendMock.wt1]],
+      waveTrendBuy: [[Date.parse(quote.date), waveTrendMock.wt1]],
+      mfiSell: [],
+      mfiBuy: [[Date.parse(quote.date), MfiMock().mfi]],
+      ohlc: [[Date.parse(quote.date), quote.open, quote.close, quote.low, quote.high]],
     };
 
     const result = mapToCypherBChartData(quotes);
@@ -27,9 +29,11 @@ describe("mapToWaveTrendChartData", () => {
       waveTrendWt1: [],
       waveTrendWt2: [],
       waveTrendVwap: [],
-      sellSignals: [],
-      buySignals: [],
-      mfi: [],
+      waveTrendSell: [],
+      waveTrendBuy: [],
+      mfiBuy: [],
+      mfiSell: [],
+      ohlc: [],
     };
 
     const result = mapToCypherBChartData(quotes);
@@ -52,9 +56,11 @@ describe("mapToWaveTrendChartData", () => {
       waveTrendWt1: [],
       waveTrendWt2: [],
       waveTrendVwap: [],
-      sellSignals: [],
-      buySignals: [],
-      mfi: [],
+      waveTrendSell: [],
+      waveTrendBuy: [],
+      mfiBuy: [],
+      mfiSell: [],
+      ohlc: [],
     };
 
     const result = mapToCypherBChartData(quotes);

@@ -1,4 +1,3 @@
-import { OhlcChart } from "../presentational/Charts/OhlcChart";
 import { useCypherBQuotes } from "../../hooks/useCypherBQuotes";
 import { ChartStyledPageItemsWrapper } from "../../components/presentational/PageItemWrapper";
 import { CypherBChart } from "../../components/presentational/Charts/CypherBChart";
@@ -15,9 +14,6 @@ export const CypherBChartContiner = () => {
   return (
     <>
       <ChartSettingsPanelForm minDate={minDate} maxDate={maxDate} />
-      <ChartStyledPageItemsWrapper>
-        <OhlcChart quotes={quotes} />
-      </ChartStyledPageItemsWrapper>
       <ChartStyledPageItemsWrapper>
         <CypherBChart quotes={cypherBQuotes} />
       </ChartStyledPageItemsWrapper>

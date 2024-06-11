@@ -6,15 +6,19 @@ export function mapToCypherBChartData(quotes: CypherBQuote[]): CypherBChartData 
     waveTrendWt1: [],
     waveTrendWt2: [],
     waveTrendVwap: [],
-    sellSignals: [],
-    buySignals: [],
-    mfi: [],
+    waveTrendSell: [],
+    waveTrendBuy: [],
+    mfiBuy: [],
+    mfiSell: [],
+    ohlc: [],
   };
 
   quotes.forEach((quote) => {
     const timestamp = Date.parse(quote.ohlc.date);
     if (!isNaN(timestamp)) {
       const x = new Date(quote.ohlc.date).getTime();
+
+      result.ohlc.push([x, quote.ohlc.open, quote.ohlc.close, quote.ohlc.low, quote.ohlc.high]);
       const { waveTrend, mfi } = quote;
 
       if (waveTrend !== null) {
@@ -24,15 +28,19 @@ export function mapToCypherBChartData(quotes: CypherBQuote[]): CypherBChartData 
           result.waveTrendVwap.push([x, waveTrend.vwap]);
         }
         if (waveTrend.crossesOver) {
-          result.sellSignals.push([x, waveTrend.wt1]);
+          result.waveTrendBuy.push([x, waveTrend.wt1]);
         }
         if (waveTrend.crossesUnder) {
-          result.buySignals.push([x, waveTrend.wt1]);
+          result.waveTrendSell.push([x, waveTrend.wt1]);
         }
       }
 
       if (mfi !== null) {
-        result.mfi.push([x, mfi.mfi]);
+        if (mfi.mfi > 0) {
+          result.mfiBuy.push([x, mfi.mfi]);
+        } else {
+          result.mfiSell.push([x, mfi.mfi]);
+        }
       }
     }
   });
