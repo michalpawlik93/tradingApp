@@ -69,6 +69,7 @@ public class EvaluateSRsiCommandHandlerTests
 
         var rsiResults = new List<SRsiResult>() { rsiResult, secondResult };
         _evaluator.GetSRSI(Arg.Any<List<Quote>>(), Arg.Any<SRsiSettings>()).Returns(rsiResults);
+
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
