@@ -48,6 +48,7 @@ public class EvaluateSRsiCommandHandlerTests
 
         //Assert
         result.Errors.Should().NotBeEmpty();
+
         _decisionService.Received(0).MakeDecision(Arg.Any<IndexOutcome>());
         await _eventBus
             .Received(0)
