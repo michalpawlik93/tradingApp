@@ -66,6 +66,7 @@ public class EvaluateSRsiCommandHandlerTests
             StochD = 0,
             StochK = 2
         };
+
         var rsiResults = new List<SRsiResult>() { rsiResult, secondResult };
         _evaluator.GetSRSI(Arg.Any<List<Quote>>(), Arg.Any<SRsiSettings>()).Returns(rsiResults);
         //Act
