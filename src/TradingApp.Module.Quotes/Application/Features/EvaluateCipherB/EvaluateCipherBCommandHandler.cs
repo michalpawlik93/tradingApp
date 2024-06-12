@@ -1,13 +1,9 @@
 ﻿using FluentResults;
 using MediatR;
-using System.Globalization;
 using TradingApp.Core.EventBus;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Application.Services;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
-using TradingApp.Module.Quotes.Domain.Constants;
-using TradingApp.Module.Quotes.Domain.ValueObjects;
 
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 
@@ -16,13 +12,13 @@ public record EvaluateCipherBCommand(IEnumerable<CypherBQuote> Quotes) : IReques
 public class EvaluateCipherBCommandHandler : IRequestHandler<EvaluateCipherBCommand, IResultBase>
 {
     private readonly IEventBus _eventBus;
-    private readonly IDecisionService _decisionService;
+    private readonly ICypherBDecisionService _decisionService;
     private readonly IEntityDataService<Decision> _decisionDataService;
 
 
     public EvaluateCipherBCommandHandler(
         IEventBus eventBus,
-        IDecisionService decisionService,
+        ICypherBDecisionService decisionService,
         IEntityDataService<Decision> decisionDataService
     )
     {
@@ -39,16 +35,7 @@ public class EvaluateCipherBCommandHandler : IRequestHandler<EvaluateCipherBComm
         CancellationToken cancellationToken
     )
     {
-        var latestQuote = request.Quotes.Last();
-        var additionalParams = new Dictionary<string, string>
-        {
-            { nameof(latestQuote.WaveTrend.Wt2), latestQuote.WaveTrend.Wt2.ToString(CultureInfo.InvariantCulture) },
-            { nameof(latestQuote.WaveTrend.Vwap), latestQuote.WaveTrend.Vwap.ToString() },
-            { nameof(latestQuote.Mfi.Mfi), latestQuote.Mfi.Mfi.ToString(CultureInfo.InvariantCulture) }
-        };
-        var decision = _decisionService.MakeDecision(
-            new IndexOutcome(IndexNames.CipherB, latestQuote.WaveTrend.Wt1, additionalParams)
-        );
+        var decision = _decisionService.MakeDecision(request.Quotes);
         await _decisionDataService.Add(decision, cancellationToken);
         await _eventBus.Publish(decision, cancellationToken);
         return Result.Ok();

@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using TradingApp.Core.EventBus;
 using TradingApp.Core.Extensions;
 using TradingApp.Evaluator;
+using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes.Dto;
@@ -58,6 +59,7 @@ public static class QuotesConfigExtension
         services.AddStooqProvider(configuration);
         services.AddTingoProvider(configuration);
         services.AddMongoDbService(configuration);
-        services.AddTransient<IDecisionService, DecisionService>();
+        services.AddTransient<ICypherBDecisionService, CypherBDecisionService>();
+        services.AddTransient<ISrsiDecisionService, SrsiDecisionService>();
     }
 }

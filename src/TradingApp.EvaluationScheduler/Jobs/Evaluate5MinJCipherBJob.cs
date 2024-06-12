@@ -31,8 +31,8 @@ public class Evaluate5MinJCipherBJob : IJob
             await ConsoleUtils.WriteResultMessages(getQuotesResponse);
             return;
         }
-        var evaluateSRsiResponse = await _mediator.Send(new EvaluateCipherBCommand(getQuotesResponse.Value.Quotes));
-        await ConsoleUtils.WriteResultMessages(evaluateSRsiResponse);
+        var evaluateResponse = await _mediator.Send(new EvaluateCipherBCommand(getQuotesResponse.Value.Quotes));
+        await ConsoleUtils.WriteResultMessages(evaluateResponse);
         await Console.Out.WriteLineAsync($"{nameof(Evaluate5MinJCipherBJob)} finished.");
     }
 

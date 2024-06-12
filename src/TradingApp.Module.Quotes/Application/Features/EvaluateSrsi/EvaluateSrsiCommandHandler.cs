@@ -2,12 +2,9 @@
 using MediatR;
 using TradingApp.Core.EventBus;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Application.Services;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
-using TradingApp.Module.Quotes.Domain.Constants;
-using TradingApp.Module.Quotes.Domain.ValueObjects;
 
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 
@@ -21,7 +18,7 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, I
 {
     private readonly IEventBus _eventBus;
     private readonly IEvaluator _evaluator;
-    private readonly IDecisionService _decisionService;
+    private readonly ISrsiDecisionService _decisionService;
     private readonly IEntityDataService<Decision> _decisionDataService;
 
     private static SRsiSettings SrsiSettings = new(true, 12, 3, 3, -60, 60);
@@ -29,7 +26,7 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, I
     public EvaluateSRsiCommandHandler(
         IEventBus eventBus,
         IEvaluator evaluator,
-        IDecisionService decisionService,
+        ISrsiDecisionService decisionService,
         IEntityDataService<Decision> decisionDataService
     )
     {
@@ -53,14 +50,7 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, I
         {
             return Result.Fail("Received empty rsi calculation");
         }
-        var last = results.Last();
-        var additionalParams = new Dictionary<string, string>()
-        {
-            { nameof(last.StochK), last.StochK.ToString() }
-        };
-        var decision = _decisionService.MakeDecision(
-            new IndexOutcome(IndexNames.Srsi, last.StochD.Value, additionalParams)
-        );
+        var decision = _decisionService.MakeDecision(results);
         await _decisionDataService.Add(decision, cancellationToken);
         await _eventBus.Publish(decision, cancellationToken);
         return Result.Ok();
