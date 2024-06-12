@@ -41,12 +41,12 @@ public class GetCombinedQuotesCommandHandler
             return getQuotesResponse.ToResult<GetCombinedQuotesResponseDto>();
         }
 
-        ICollection<RsiResult> rsiResults = null;
+        IEnumerable<RsiResult> rsiResults = null;
         var includeRsi = request.TechnicalIndicators.Contains(TechnicalIndicator.Rsi);
         if (includeRsi)
         {
-            rsiResults = _customEvaluator.GetRSI(
-                getQuotesResponse.Value.ToList(),
+            rsiResults = _customEvaluator.GetRsi(
+                getQuotesResponse.Value,
                 new RsiSettings(
                     RsiSettingsConst.Oversold,
                     RsiSettingsConst.Overbought,

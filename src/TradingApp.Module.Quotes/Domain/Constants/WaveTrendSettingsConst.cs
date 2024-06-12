@@ -13,7 +13,7 @@ public static class WaveTrendSettingsConst
     public const int Overbought = 60;
     public const int OverboughtLevel2 = 43;
 
-    public static WaveTrendSettings WaveTrendSettingsDefault =
+    public static readonly WaveTrendSettings WaveTrendSettingsDefault =
         new(
             Oversold,
             Overbought,

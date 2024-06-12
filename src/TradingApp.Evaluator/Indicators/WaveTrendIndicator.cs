@@ -27,7 +27,7 @@ public static class WaveTrendIndicator
     /// <returns></returns>
     ///
 
-    public static List<WaveTrendResult?> Calculate(
+    public static IEnumerable<WaveTrendResult?> Calculate(
         IEnumerable<Quote> domainQuotes,
         WaveTrendSettings settings,
         bool scaleResult,

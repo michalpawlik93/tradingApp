@@ -13,7 +13,7 @@ namespace TradingApp.Evaluator.Indicators;
 [ExcludeFromCodeCoverage]
 public static class SRsiIndicator
 {
-    public static List<SRsiResult> Calculate(List<Quote> domainQuotes, SRsiSettings settings)
+    public static IEnumerable<SRsiResult> Calculate(IEnumerable<Quote> domainQuotes, SRsiSettings settings)
     {
         var rsiPeriods = settings.ChannelLength;
         var stochPeriods = settings.ChannelLength;
@@ -23,19 +23,19 @@ public static class SRsiIndicator
         ValidateStochRsi(rsiPeriods, stochPeriods, smoothPeriodsK, smoothPeriodsD);
 
         // initialize results
-        int length = domainQuotes.Count;
+        int length = domainQuotes.Count();
         int initPeriods = Math.Min(rsiPeriods + stochPeriods - 1, length);
         List<SRsiResult> results = new(length);
 
         for (int i = 0; i < initPeriods; i++)
         {
-            results.Add(new SRsiResult(domainQuotes[i].Date, null, null));
+            results.Add(new SRsiResult(domainQuotes.ElementAt(i).Date, null, null));
         }
         var rsiResults = RsiIndicator.Calculate(domainQuotes, new RsiSettings(settings.Oversold, settings.Overbought, true, settings.ChannelLength))
             .Remove(Math.Min(rsiPeriods, length)).
             Select((x, index) => new Quote
             {
-                Date = domainQuotes[index].Date,
+                Date = domainQuotes.ElementAt(index).Date,
                 High = x.Value ?? 0,
                 Low = x.Value ?? 0,
                 Close = x.Value ?? 0,

@@ -10,5 +10,5 @@ public static class SRsiSettingsConst
     public const int StochKSmooth = 3;
     public const int StochDSmooth = 3;
 
-    public static SRsiSettings SRsiSettingsDefault = new(true, ChannelLength, StochKSmooth, StochDSmooth, Oversold, Overbought);
+    public static readonly SRsiSettings SRsiSettingsDefault = new(true, ChannelLength, StochKSmooth, StochDSmooth, Oversold, Overbought);
 }

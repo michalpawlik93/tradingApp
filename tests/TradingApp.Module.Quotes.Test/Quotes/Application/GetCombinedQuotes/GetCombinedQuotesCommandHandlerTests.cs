@@ -75,7 +75,7 @@ public class GetCombinedQuotesCommandHandlerTests
             .Select(_ => new RsiResult() { Value = (decimal?)new Random().NextDouble() })
             .ToList();
         _evaluator
-            .Setup(_ => _.GetRSI(It.IsAny<List<Quote>>(), It.IsAny<RsiSettings>()))
+            .Setup(_ => _.GetRsi(It.IsAny<IEnumerable<Quote>>(), It.IsAny<RsiSettings>()))
             .Returns(values);
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);

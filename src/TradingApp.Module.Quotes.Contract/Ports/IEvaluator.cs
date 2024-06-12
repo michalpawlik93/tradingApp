@@ -6,21 +6,20 @@ namespace TradingApp.Module.Quotes.Contract.Ports;
 
 public interface IEvaluator
 {
-    ICollection<RsiResult> GetRSI(
-        List<Quote> quotes,
+    IEnumerable<RsiResult?> GetRsi(
+        IEnumerable<Quote> quotes,
         RsiSettings settings
     );
-    ICollection<VWapResult> GetVwap(List<Quote> quotes);
-    ICollection<WaveTrendResult> GetWaveTrend(
-        List<Quote> quotes,
+    IEnumerable<WaveTrendResult?> GetWaveTrend(
+        IEnumerable<Quote> quotes,
         WaveTrendSettings settings
     );
-    ICollection<SRsiResult> GetSRSI(
-        List<Quote> quotes,
+    IEnumerable<SRsiResult?> GetSrsi(
+        IEnumerable<Quote> quotes,
         SRsiSettings settings
     );
-    ICollection<MfiResult> GetMfi(
-        List<Quote> quotes,
+    IEnumerable<MfiResult?> GetMfi(
+        IEnumerable<Quote> quotes,
         MfiSettings settings
     );
 }

@@ -6,12 +6,12 @@ namespace TradingApp.Evaluator.Indicators;
 [ExcludeFromCodeCoverage]
 public static class RsiIndicator
 {
-    public static ICollection<RsiResult> Calculate(List<Quote> tpList, RsiSettings settings)
+    public static IEnumerable<RsiResult> Calculate(IEnumerable<Quote> tpList, RsiSettings settings)
     {
         ValidateRsi(settings.ChannelLength);
 
         // initialize
-        int ohlcLength = tpList.Count;
+        int ohlcLength = tpList.Count();
         decimal avgGain = 0;
         decimal avgLoss = 0;
 
@@ -26,15 +26,16 @@ public static class RsiIndicator
         }
         else
         {
-            lastValue = tpList[0].Close;
+            lastValue = tpList.First().Close;
         }
 
         for (int i = 0; i < ohlcLength; i++)
         {
             var r = new RsiResult();
-            gain[i] = (tpList[i].Close > lastValue) ? tpList[i].Close - lastValue : 0;
-            loss[i] = (tpList[i].Close < lastValue) ? lastValue - tpList[i].Close : 0;
-            lastValue = tpList[i].Close;
+            var ele = tpList.ElementAt(i);
+            gain[i] = (ele.Close > lastValue) ? ele.Close - lastValue : 0;
+            loss[i] = (ele.Close < lastValue) ? lastValue - ele.Close : 0;
+            lastValue = ele.Close;
 
             // calculate RSI
             if (i > settings.ChannelLength)

@@ -69,9 +69,9 @@ public class GetCypherBCommandHandlerTests
             .Select(_ => new MfiResult((decimal)new Random().NextDouble()))
             .ToList();
         var waveTrends = Enumerable.Range(0, quotes.Count()).Select(_ => waveTrend).ToList();
-        _evaluator.Setup(_ => _.GetMfi(It.IsAny<List<Quote>>(), It.IsAny<MfiSettings>())).Returns(values);
+        _evaluator.Setup(_ => _.GetMfi(It.IsAny<IEnumerable<Quote>>(), It.IsAny<MfiSettings>())).Returns(values);
         _evaluator
-            .Setup(_ => _.GetWaveTrend(It.IsAny<List<Quote>>(), It.IsAny<WaveTrendSettings>()))
+            .Setup(_ => _.GetWaveTrend(It.IsAny<IEnumerable<Quote>>(), It.IsAny<WaveTrendSettings>()))
             .Returns(waveTrends);
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);

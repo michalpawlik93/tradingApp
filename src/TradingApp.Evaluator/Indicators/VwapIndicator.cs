@@ -6,7 +6,7 @@ namespace TradingApp.Evaluator.Indicators;
 [ExcludeFromCodeCoverage]
 public static class VwapIndicator
 {
-    public static ICollection<VWapResult> Calculate(List<Quote> quotes, int resultDecimalPlace)
+    public static IEnumerable<VWapResult> Calculate(IEnumerable<Quote> quotes, int resultDecimalPlace)
     {
         var result = new List<VWapResult>();
         decimal vwap = 0;
@@ -31,7 +31,7 @@ public static class VwapIndicator
                 vwap = sumVolumePrice / sumVolume;
             }
 
-            result.Add(new VWapResult() { Value = Math.Round(vwap, resultDecimalPlace) });
+            result.Add(new VWapResult(Math.Round(vwap, resultDecimalPlace)));
             currentDate = currentQuote.Date.Date;
         }
 

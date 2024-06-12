@@ -8,7 +8,7 @@ namespace TradingApp.Module.Quotes.Evaluator.Indicators;
 /// </summary>
 public static class MoneyFlowIndicator
 {
-    public static List<MfiResult> Calculate(
+    public static IEnumerable<MfiResult> Calculate(
         IEnumerable<Quote> domainQuotes,
         MfiSettings settings,
         bool scaleResult,

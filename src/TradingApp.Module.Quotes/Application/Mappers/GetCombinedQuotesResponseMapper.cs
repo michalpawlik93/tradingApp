@@ -9,7 +9,7 @@ public static class GetCombinedQuotesResponseMapper
 {
     public static GetCombinedQuotesResponseDto ToDto(
         IEnumerable<Quote> quotes,
-        ICollection<RsiResult> rsiResults,
+        IEnumerable<RsiResult> rsiResults,
         bool includeRsi
     ) =>
         new(
@@ -21,7 +21,7 @@ public static class GetCombinedQuotesResponseMapper
 
     public static IEnumerable<CombinedQuote> ToCombinedResults(
         IEnumerable<Quote> rawQuotes,
-        ICollection<RsiResult> rsiResults,
+        IEnumerable<RsiResult> rsiResults,
         bool includeRsi
     )
     {

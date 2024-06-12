@@ -34,16 +34,15 @@ public class GetCypherBCommandHandler
             return getQuotesResponse.ToResult<GetCypherBResponseDto>();
         }
 
-        var quotes = getQuotesResponse.Value.ToList();
         var waveTrend = _evaluator.GetWaveTrend(
-            quotes,
+            getQuotesResponse.Value,
             request.WaveTrendSettings
         );
         var mfi = _evaluator.GetMfi(
-            quotes,
+            getQuotesResponse.Value,
             request.MfiSettings
         );
-        var combinedResults = quotes
+        var combinedResults = getQuotesResponse.Value
             .Select(
                 (q, i) => new CypherBQuote(q, waveTrend.ElementAt(i), mfi.ElementAt(i))
             )

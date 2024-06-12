@@ -7,8 +7,8 @@ namespace TradingApp.Evaluator.Indicators;
 [ExcludeFromCodeCoverage]
 public static class StochInidcator
 {
-    public static List<StochResult> Calculate(
-    this List<Quote> qdList,
+    public static IEnumerable<StochResult> Calculate(
+    this IEnumerable<Quote> qdList,
     int lookbackPeriods,
     int signalPeriods,
     int smoothPeriods,
@@ -22,13 +22,13 @@ public static class StochInidcator
             kFactor, dFactor, movingAverageType);
 
         // initialize
-        int length = qdList.Count;
+        int length = qdList.Count();
         List<StochResult> results = new(length);
 
         // roll through quotes
         for (int i = 0; i < length; i++)
         {
-            Quote q = qdList[i];
+            Quote q = qdList.ElementAt(i);
 
             StochResult r = new(q.Date);
             results.Add(r);
@@ -40,7 +40,7 @@ public static class StochInidcator
 
                 for (int p = i + 1 - lookbackPeriods; p <= i; p++)
                 {
-                    Quote x = qdList[p];
+                    Quote x = qdList.ElementAt(p);
 
                     if (x.High > highHigh)
                     {

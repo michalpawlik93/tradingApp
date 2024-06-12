@@ -19,7 +19,7 @@ namespace TradingApp.Module.Quotes.Evaluator.Test.Indicators
 
             // Assert
             Assert.NotNull(results);
-            Assert.Equal(quotes.Count(), results.Count);
+            Assert.Equal(quotes.Count(), results.Count());
         }
 
         [Fact]
