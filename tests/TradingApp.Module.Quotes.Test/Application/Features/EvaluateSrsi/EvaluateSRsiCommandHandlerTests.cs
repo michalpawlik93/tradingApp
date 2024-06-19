@@ -9,7 +9,7 @@ using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
 using Xunit;
 
-namespace TradingApp.Module.Quotes.Test.Quotes.Application.EvaluateSrsi;
+namespace TradingApp.Module.Quotes.Test.Application.Features.EvaluateSrsi;
 
 public class EvaluateSRsiCommandHandlerTests
 {

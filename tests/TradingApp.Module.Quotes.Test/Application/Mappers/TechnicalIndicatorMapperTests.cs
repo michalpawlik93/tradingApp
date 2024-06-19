@@ -3,7 +3,7 @@ using TradingApp.Module.Quotes.Application.Mappers;
 using TradingApp.Module.Quotes.Contract.Constants;
 using Xunit;
 
-namespace TradingApp.Module.Quotes.Test.Quotes.Application.Mappers;
+namespace TradingApp.Module.Quotes.Test.Application.Mappers;
 
 public class TechnicalIndicatorMapperTests
 {

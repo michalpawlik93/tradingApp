@@ -8,7 +8,7 @@ using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using Xunit;
 
-namespace TradingApp.Module.Quotes.Test.Quotes.Application.GetCombinedQuotes;
+namespace TradingApp.Module.Quotes.Test.Application.Features.GetCombinedQuotes;
 
 public class GetCombinedQuotesCommandHandlerTests
 {

@@ -39,7 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.Module.Quotes.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TingoProvider", "src\TradingApp.TingoProvider\TradingApp.TingoProvider.csproj", "{B1CDBCF2-C72E-45B8-BB6A-5D28BE2722AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TingoProvider.Test", "tests\TradingApp.TingoProvider.Test\TradingApp.TingoProvider.Test.csproj", "{2B750479-04BA-41DE-9232-BC26638AF671}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TingoProvider.Test", "tests\TradingApp.TingoProvider.Test\TradingApp.TingoProvider.Test.csproj", "{2B750479-04BA-41DE-9232-BC26638AF671}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TradingWebApi.Test", "tests\TradingApp.TradingWebApi.Test\TradingApp.TradingWebApi.Test.csproj", "{DF757D00-64B0-4784-BF47-AE356C966CF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{2B750479-04BA-41DE-9232-BC26638AF671}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B750479-04BA-41DE-9232-BC26638AF671}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B750479-04BA-41DE-9232-BC26638AF671}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF757D00-64B0-4784-BF47-AE356C966CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF757D00-64B0-4784-BF47-AE356C966CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF757D00-64B0-4784-BF47-AE356C966CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF757D00-64B0-4784-BF47-AE356C966CF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{36831C4E-3FDD-4EF0-9CFB-01261E531308} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{A47DBA69-DA85-4A39-8FA9-BC53FEBEC2BF} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 		{2B750479-04BA-41DE-9232-BC26638AF671} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
+		{DF757D00-64B0-4784-BF47-AE356C966CF9} = {0D8A7A20-21F0-4CAE-8206-AC55ECD2250E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6A546BD-170A-4937-BE8F-077A50F97E5B}

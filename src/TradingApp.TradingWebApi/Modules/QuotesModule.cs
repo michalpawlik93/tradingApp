@@ -6,6 +6,7 @@ using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 using TradingApp.Module.Quotes.Application.Features.TickerMetadata;
+using TradingApp.Module.Quotes.Application.Validators;
 using TradingApp.TradingWebApi.ExtensionMethods;
 
 namespace TradingApp.TradingWebApi.Modules;
@@ -37,6 +38,7 @@ public static class QuotesModule
                         )
                     )
             )
+            .AddEndpointFilter<ValidatorFilter<GetQuotesDtoRequest>>()
             .WithName("Get combined quotes")
             .WithDescription(
                 "Get quotes after evaluation. Specify time frame and type of technical indicies"
@@ -49,6 +51,7 @@ public static class QuotesModule
         async ([FromBody] GetCypherBDto request, IMediator mediator) =>
                     HttpResultMapper.MapToResult(await mediator.Send(request.CreateCommand()))
             )
+            .AddEndpointFilter<ValidatorFilter<GetCypherBDto>>()
             .WithName("Get cypherb technical indicator for quotes in time range")
             .WithOpenApi();
     }

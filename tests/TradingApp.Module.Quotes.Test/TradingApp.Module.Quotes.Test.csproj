@@ -10,12 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Quotes\Domain\**" />
-    <EmbeddedResource Remove="Quotes\Domain\**" />
-    <None Remove="Quotes\Domain\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.18.1" />
     <PackageReference Include="AutoFixture.Xunit2" Version="4.18.1" />
     <PackageReference Include="coverlet.msbuild" Version="6.0.1">

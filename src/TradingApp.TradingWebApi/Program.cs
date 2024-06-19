@@ -45,3 +45,5 @@ app.UseExceptionHandler(builder => builder.UseExceptionHandlerMiddleware());
 app.UseCors();
 app.AddModules();
 app.Run();
+
+public partial class Program { }

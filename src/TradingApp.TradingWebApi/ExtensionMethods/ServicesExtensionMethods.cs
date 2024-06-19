@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Json;
 using System.Diagnostics.CodeAnalysis;
+using TradingApp.Module.Quotes.Application.Validators;
 using TradingApp.Module.Quotes.Authentication.Abstraction;
 using TradingApp.Module.Quotes.Authentication.Services;
 using TradingApp.Module.Quotes.Configuration;
 using TradingApp.TradingWebApi.Modules;
-
 
 namespace TradingApp.TradingWebApi.ExtensionMethods;
 
@@ -25,6 +26,7 @@ public static class ServicesExtensionMethods
     {
         services.AddTransient<IJwtProvider, JwtProvider>();
         services.AddQuotesServices(configuration);
+        services.AddValidatorsFromAssemblyContaining<GetCypherBDtoValidator>();
     }
 
     public static void AddLogging(this WebApplicationBuilder builder)

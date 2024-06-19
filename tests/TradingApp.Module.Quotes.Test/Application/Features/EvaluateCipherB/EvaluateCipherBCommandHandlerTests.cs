@@ -9,7 +9,7 @@ using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
 using Xunit;
 
-namespace TradingApp.Module.Quotes.Test.Quotes.Application.EvaluateCipherB
+namespace TradingApp.Module.Quotes.Test.Application.Features.EvaluateCipherB
 {
     public class EvaluateCipherBCommandHandlerTests
     {

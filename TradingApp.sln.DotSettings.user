@@ -2,5 +2,6 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e387abd7_002Db2d4_002D4083_002Db34d_002D136238bb82e6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TingoDataRequestMapperTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::2B750479-04BA-41DE-9232-BC26638AF671::net8.0::TradingApp.TingoProvider.Test.Mappers.TingoDataRequestMapperTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::DF757D00-64B0-4784-BF47-AE356C966CF9::net8.0::TradingApp.TradingWebApi.Test.Modules.QuotesModuleTests.GetCypherB_ReturnsOk&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
