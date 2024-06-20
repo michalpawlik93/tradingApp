@@ -8,36 +8,27 @@ public class GetQuotesDtoRequestValidator : AbstractValidator<GetQuotesDtoReques
 {
     public GetQuotesDtoRequestValidator()
     {
-        RuleFor(x => x.StartDate).NotNull().WithMessage("StartDate is required");
-        RuleFor(x => x.EndDate).NotNull().WithMessage("EndDate is required");
-        RuleFor(x => x.Granularity)
-            .NotEmpty()
-            .WithMessage(("Granularity is required"))
-            .Must(g => Enum.TryParse(g, out Granularity _))
-            .WithMessage("Parameter Granularity must be one of Granularity enumeration.");
-
+        CommonValidationRules.RuleForNullable(this, x => x.StartDate);
+        CommonValidationRules.RuleForNullable(this, x => x.EndDate);
+        CommonValidationRules.RuleForEnum<GetQuotesDtoRequest, string, Granularity>(
+            this,
+            dto => dto.Granularity
+        );
         RuleForEach(p => p.TechnicalIndicators)
-            .ChildRules(
-                p =>
-                    p.RuleFor(x => x)
-                        .NotEmpty()
-                        .WithMessage(("TechnicalIndicators is required"))
-                        .Must(type => Enum.TryParse(type, out TechnicalIndicator _))
-                        .WithMessage(
-                            "Parameter TechnicalIndicators must be one of TechnicalIndicator enumeration."
-                        )
-            );
-
-        RuleFor(x => x.AssetName)
-            .NotEmpty()
-            .WithMessage(("AssetName is required"))
-            .Must(name => Enum.TryParse(name, out AssetName _))
-            .WithMessage("Parameter AssetName must be one of AssetName enumeration.");
-
-        RuleFor(x => x.AssetType)
-            .NotEmpty()
-            .WithMessage(("Type is required"))
-            .Must(type => Enum.TryParse(type, out AssetType _))
-            .WithMessage("Parameter AssetType must be one of AssetType enumeration.");
+            .ChildRules(indicator =>
+            {
+                CommonValidationRules.RuleForEnum<string, string, TechnicalIndicator>(
+                    indicator,
+                    x => x
+                );
+            });
+        CommonValidationRules.RuleForEnum<GetQuotesDtoRequest, string, AssetName>(
+            this,
+            dto => dto.AssetName
+        );
+        CommonValidationRules.RuleForEnum<GetQuotesDtoRequest, string, AssetType>(
+            this,
+            dto => dto.AssetType
+        );
     }
 }

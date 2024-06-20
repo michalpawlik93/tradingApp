@@ -78,7 +78,7 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
             .Send(Arg.Any<GetCombinedQuotesCommand>())
             .Returns(Result.Ok(new GetCombinedQuotesResponseDto([], null)));
         // Act
-        var result = await Client.GetAsync("/quotes/combinedquotes?TechnicalIndicators=Rsi&Granularity=FiveMins&StartDate=2023-07-09T10:30:00.000Z&EndDate=2023-07-12T10:30:00.000Z");
+        var result = await Client.GetAsync("/quotes/combinedquotes?TechnicalIndicators=Rsi&Granularity=FiveMins&StartDate=2023-07-09T10:30:00.000Z&EndDate=2023-07-12T10:30:00.000Z&AssetType=Cryptocurrency&AssetName=BTCUSD");
         // Assert
         result.StatusCode.Should().Be(HttpStatusCode.OK);
     }
