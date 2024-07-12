@@ -27,7 +27,7 @@ public static class WaveTrendIndicator
     /// <returns></returns>
     ///
 
-    public static IEnumerable<WaveTrendResult?> Calculate(
+    public static IEnumerable<WaveTrendResult> Calculate(
         IEnumerable<Quote> domainQuotes,
         WaveTrendSettings settings,
         bool scaleResult,
@@ -44,24 +44,22 @@ public static class WaveTrendIndicator
         var wt1 = MovingAverage.CalculateEMA(settings.AverageLength, ci);
         var wt2 = MovingAverage.CalculateSMA(settings.MovingAverageLength, wt1);
 
-        if (scaleResult)
-        {
-            var scaleFactor = Scale.ByMaxMin(wt1);
-            wt1 = wt1.Select(x => x * scaleFactor).ToArray();
-            wt2 = wt2.Select(x => x * scaleFactor).ToArray();
-        }
+        if (!scaleResult) return CreateWaveTrendResults(wt1, wt2, resultDecimalPlace, settings);
+        var scaleFactor = Scale.ByMaxMin(wt1);
+        wt1 = wt1.Select(x => x * scaleFactor).ToArray();
+        wt2 = wt2.Select(x => x * scaleFactor).ToArray();
 
         return CreateWaveTrendResults(wt1, wt2, resultDecimalPlace, settings);
     }
 
-    private static List<WaveTrendResult?> CreateWaveTrendResults(
+    private static List<WaveTrendResult> CreateWaveTrendResults(
         IReadOnlyList<decimal> wt1,
         IReadOnlyList<decimal> wt2,
         int resultDecimalPlace,
         WaveTrendSettings settings
     )
     {
-        var waveTrends = new List<WaveTrendResult?>();
+        var waveTrends = new List<WaveTrendResult>();
         for (var i = 0; i < wt1.Count; i++)
         {
             var currentWt1 = wt1[i];
@@ -141,7 +139,7 @@ public static class WaveTrendIndicator
 // jak trend ogolny maleje to wt moze dawac false sygnały żeby kupowac
 
 // Buy streategy
-// wt crosses over, wtf is between level lines
+// wt crosses over, wt1 is between level lines
 // Check adx, adx line crosses above 20 line strong trend is happening
 
-// Ideal for 12h-1day, for low time frame to many signals can eb genearated
+// Ideal for 12h-1day, for low time frame too many signals can be genearated

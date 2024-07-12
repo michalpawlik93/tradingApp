@@ -14,11 +14,17 @@ public class GetQuotesDtoRequestValidatorTests
         // Arrange
         var dto = new GetQuotesDtoRequest
         {
-            StartDate = "2023-07-09T10:30:00.000Z",
-            EndDate = "2023-08-09T10:30:00.000Z",
-            Granularity = nameof(Granularity.Daily),
-            AssetName = nameof(AssetName.BTCUSD),
-            AssetType = nameof(AssetType.Cryptocurrency)
+            Asset = new AssetDto
+            {
+                Name = nameof(AssetName.BTCUSD),
+                Type = nameof(AssetType.Cryptocurrency)
+            },
+            TimeFrame = new TimeFrameDto
+            {
+                StartDate = "2023-07-09T10:30:00.000Z",
+                EndDate = "2023-08-09T10:30:00.000Z",
+                Granularity = nameof(Granularity.Daily)
+            },
         };
 
         var validator = new GetQuotesDtoRequestValidator();
@@ -37,11 +43,8 @@ public class GetQuotesDtoRequestValidatorTests
         var dto = new GetQuotesDtoRequest
         {
             TechnicalIndicators = [],
-            StartDate = null,
-            EndDate = null,
-            Granularity = "unknown",
-            AssetName = "unknown",
-            AssetType = "unknown",
+            Asset = null,
+            TimeFrame = null,
         };
 
         var validator = new GetQuotesDtoRequestValidator();
@@ -51,7 +54,7 @@ public class GetQuotesDtoRequestValidatorTests
 
         // Assert  
         results.IsValid.Should().BeFalse();
-        results.Errors.Should().HaveCount(5);
+        results.Errors.Should().HaveCount(2);
     }
 }
 

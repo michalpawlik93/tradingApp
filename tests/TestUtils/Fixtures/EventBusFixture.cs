@@ -12,7 +12,9 @@ public class EventBusFixture : IAsyncLifetime
     public ITestHarness TestHarness { get; private set; }
     public IConsumerTestHarness<TestIntegrationEventConsumer> ConsumerHarness { get; private set; }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public EventBusFixture()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
     }
 
@@ -41,9 +43,10 @@ public class EventBusFixture : IAsyncLifetime
     {
         public bool ConsumerReceivedMessage { get; private set; }
 
-        public async Task Consume(ConsumeContext<TestIntegrationEvent> context)
+        public Task Consume(ConsumeContext<TestIntegrationEvent> context)
         {
             ConsumerReceivedMessage = true;
+            return Task.CompletedTask;
         }
     }
 }

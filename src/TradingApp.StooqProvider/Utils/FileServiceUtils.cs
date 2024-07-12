@@ -13,17 +13,17 @@ public static class FileServiceUtils
             Granularity.Daily
                 => Path.Combine(
                     StooqFoldersConsts.SubdirectoryPath,
-                    Granularity.Daily.ToString() + StooqFoldersConsts.Extension
+                    Granularity.Daily + StooqFoldersConsts.Extension
                 ),
             Granularity.Hourly
                 => Path.Combine(
                     StooqFoldersConsts.SubdirectoryPath,
-                    Granularity.Hourly.ToString() + StooqFoldersConsts.Extension
+                    Granularity.Hourly + StooqFoldersConsts.Extension
                 ),
             Granularity.FiveMins
                 => Path.Combine(
                     StooqFoldersConsts.SubdirectoryPath,
-                    Granularity.FiveMins.ToString() + StooqFoldersConsts.Extension
+                    Granularity.FiveMins + StooqFoldersConsts.Extension
                 ),
             _ => throw new ArgumentException("Invalid type", nameof(granularity)),
         };
@@ -52,6 +52,7 @@ public static class FileServiceUtils
             AssetName.BTC => "btc.v.txt",
             AssetName.BTCUSD => "btc.v.txt",
             AssetName.USDPLN => "usdpln.txt",
+            AssetName.EURPLN => "eurpln.txt",
             _ => throw new ArgumentException($"No exisiting {nameof(assetName)}: {assetName}"),
         };
 
@@ -71,8 +72,8 @@ public static class FileServiceUtils
     public static string FileLocation(Granularity granularity) =>
         granularity switch
         {
-            Granularity.Daily => $"db/d/?b=d_world_txt",
-            Granularity.Hourly => $"db/d/?b=h_world_txt",
+            Granularity.Daily => "db/d/?b=d_world_txt",
+            Granularity.Hourly => "db/d/?b=h_world_txt",
             _ => throw new ArgumentException("Invalid type", nameof(granularity)),
         };
 }

@@ -5,23 +5,16 @@ using System.Text;
 
 namespace TradingApp.Module.Quotes.Authentication.Configuration;
 
-public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
+public class JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
 {
-    private readonly JwtOptions _jwtOptions;
-
-    public JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions)
-    {
-        _jwtOptions = jwtOptions.Value;
-    }
-
     public void Configure(string name, JwtBearerOptions options)
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidIssuer = _jwtOptions.Issuer,
-            ValidAudience = _jwtOptions.Audience,
+            ValidIssuer = jwtOptions.Value.Issuer,
+            ValidAudience = jwtOptions.Value.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)
+                Encoding.UTF8.GetBytes(jwtOptions.Value.SecretKey)
             ),
             ValidateIssuer = true,
             ValidateAudience = true,

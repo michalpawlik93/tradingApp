@@ -12,15 +12,15 @@ public class CustomEvaluator : IEvaluator
 {
     private const int DecimalPlace = 4;
 
-    public IEnumerable<WaveTrendResult?> GetWaveTrend(IEnumerable<Quote> quotes, WaveTrendSettings settings) =>
+    public IEnumerable<WaveTrendResult> GetWaveTrend(IEnumerable<Quote> quotes, WaveTrendSettings settings) =>
         WaveTrendIndicator.Calculate(quotes, settings, true, DecimalPlace);
 
-    public IEnumerable<SRsiResult?> GetSrsi(IEnumerable<Quote> quotes, SRsiSettings settings) =>
+    public IEnumerable<SRsiResult> GetSrsi(IEnumerable<Quote> quotes, SRsiSettings settings) =>
         SRsiIndicator.Calculate(quotes, settings);
 
-    public IEnumerable<MfiResult?> GetMfi(IEnumerable<Quote> quotes, MfiSettings settings) =>
+    public IEnumerable<MfiResult> GetMfi(IEnumerable<Quote> quotes, MfiSettings settings) =>
         MoneyFlowIndicator.Calculate(quotes, settings, true, DecimalPlace);
 
-    public IEnumerable<RsiResult?> GetRsi(IEnumerable<Quote> quotes, RsiSettings settings) =>
+    public IEnumerable<RsiResult> GetRsi(IEnumerable<Quote> quotes, RsiSettings settings) =>
         RsiIndicator.Calculate(quotes, settings);
 }

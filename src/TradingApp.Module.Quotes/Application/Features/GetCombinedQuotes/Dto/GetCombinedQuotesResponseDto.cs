@@ -5,5 +5,5 @@ namespace TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes.Dto;
 
 public record GetCombinedQuotesResponseDto(
     IEnumerable<CombinedQuote> Quotes,
-    RsiSettings? RsiSettings
+    RsiSettings RsiSettings
 );

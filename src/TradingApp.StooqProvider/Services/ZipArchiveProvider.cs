@@ -9,7 +9,7 @@ namespace TradingApp.StooqProvider.Services;
 [ExcludeFromCodeCoverage]
 internal class ZipArchiveProvider : IZipArchiveProvider
 {
-    public ZipArchiveEntry? GetEntry(ZipArchive zipArchive, Granularity granularity, AssetType type, AssetName name)
+    public ZipArchiveEntry GetEntry(ZipArchive zipArchive, Granularity granularity, AssetType type, AssetName name)
     {
         return zipArchive.GetEntry(FileServiceUtils.AncvFilePath(granularity, type, name));
     }

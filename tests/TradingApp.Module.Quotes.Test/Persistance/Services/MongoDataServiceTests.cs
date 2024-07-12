@@ -33,7 +33,6 @@ public class MongoDataServiceTests : IClassFixture<MongoDbFixture>
                 new IndexOutcome("RSI", 0.023M),
                 DateTime.UtcNow,
                 TradeAction.Buy,
-                new SignalStrength(0.023M, SignalStrengthLevel.High),
                 MarketDirection.Bullish
             );
         var decisionId = decision.Id!.ToGuid();

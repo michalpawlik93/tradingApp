@@ -28,13 +28,13 @@ public static class QuotesModule
             .WithName("Get ticker metadata")
             .WithOpenApi();
 
-        app.MapGet(
+        app.MapPost(
                 "/quotes/combinedquotes",
                 [AllowAnonymous]
-        async ([AsParameters] GetQuotesDtoRequest request, IMediator mediator) =>
+        async ([FromBody] GetQuotesDtoRequest request, IMediator mediator) =>
                     HttpResultMapper.MapToResult(
                         await mediator.Send(
-                            GetCombinedQuotesCommandExtensions.CreateCommandRequest(request)
+                            request.CreateCommand()
                         )
                     )
             )

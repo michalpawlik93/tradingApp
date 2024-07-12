@@ -59,11 +59,13 @@ export const MfiMock = (): Mfi => ({
 
 export const GetQuotesRequestDtoMock = (): GetQuotesRequestDto => ({
   technicalIndicators: [],
-  granularity: Granularity.Daily,
-  assetType: AssetType.Cryptocurrency,
-  assetName: AssetName.BTC,
-  startDate: "2023-01-01",
-  endDate: "2023-12-31",
+  asset: {
+    name: AssetName.ANC,
+    type: AssetType.Cryptocurrency,
+  },
+  timeFrame: {
+    granularity: Granularity.Daily,
+  },
 });
 
 export const GetCypherBDtoMock = (): GetCypherBDto => ({
@@ -78,8 +80,10 @@ export const GetCypherBDtoMock = (): GetCypherBDto => ({
     channelLength: 8,
     averageLength: 8,
     movingAverageLength: 8,
-    oversold: 60,
+    oversold: -60,
     overbought: 60,
+    overboughtLevel2: 60,
+    oversoldLevel2: -60,
   },
   sRsiSettings: sRsiSettingsDefault,
   mfiSettings: mfiSettingsDefault,

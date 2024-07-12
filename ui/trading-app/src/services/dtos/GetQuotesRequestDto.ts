@@ -1,8 +1,8 @@
+import { AssetDto } from "./AssetDto";
+import { TimeFrameDto } from "./TimeFrameDto";
+
 export interface GetQuotesRequestDto {
   technicalIndicators: string[];
-  granularity: string;
-  assetType: string;
-  assetName: string;
-  startDate?: string;
-  endDate?: string;
+  asset: AssetDto;
+  timeFrame: TimeFrameDto;
 }

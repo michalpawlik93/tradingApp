@@ -31,4 +31,4 @@ public static class TingoDataRequestMapper
         };
 }
 
-public record TingoTimeFrame(string ResampleFreq, string? StartDate, string? EndDate);
+public record TingoTimeFrame(string ResampleFreq, string StartDate, string EndDate);

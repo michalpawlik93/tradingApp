@@ -8,12 +8,7 @@ public class GetQuotesDtoRequestValidator : AbstractValidator<GetQuotesDtoReques
 {
     public GetQuotesDtoRequestValidator()
     {
-        CommonValidationRules.RuleForNullable(this, x => x.StartDate);
-        CommonValidationRules.RuleForNullable(this, x => x.EndDate);
-        CommonValidationRules.RuleForEnum<GetQuotesDtoRequest, string, Granularity>(
-            this,
-            dto => dto.Granularity
-        );
+        CommonValidationRules.RuleForNullable(this, request => request.Asset, new AssetValidator());
         RuleForEach(p => p.TechnicalIndicators)
             .ChildRules(indicator =>
             {
@@ -22,13 +17,6 @@ public class GetQuotesDtoRequestValidator : AbstractValidator<GetQuotesDtoReques
                     x => x
                 );
             });
-        CommonValidationRules.RuleForEnum<GetQuotesDtoRequest, string, AssetName>(
-            this,
-            dto => dto.AssetName
-        );
-        CommonValidationRules.RuleForEnum<GetQuotesDtoRequest, string, AssetType>(
-            this,
-            dto => dto.AssetType
-        );
+        CommonValidationRules.RuleForNullable(this, request => request.TimeFrame, new TimeFrameValidator());
     }
 }

@@ -22,8 +22,7 @@ public class DecisionMapperTests
     {
         //Arrange
         var indexOutcome = new IndexOutcome("RSI", 0.023M);
-        var signalStrength = new SignalStrength(0.023M, SignalStrengthLevel.High);
-        var decision = Decision.CreateNew(indexOutcome, DateTime.UtcNow, TradeAction.Buy, signalStrength, MarketDirection.Bullish);
+        var decision = Decision.CreateNew(indexOutcome, DateTime.UtcNow, TradeAction.Buy, MarketDirection.Bullish);
         //Act
         var dao = _sut.ToDao(decision);
         //Assert
@@ -42,8 +41,6 @@ public class DecisionMapperTests
             IndexOutcomeValue = 1.22M,
             MarketDirection = MarketDirection.Bullish.ToString(),
             TimeStamp = DateTime.UtcNow,
-            SignalStrengthLevel = SignalStrengthLevel.High.ToString(),
-            SignalStrengthValue = 1.23M,
         };
         //Act
         var domain = _sut.ToDomain(decision);

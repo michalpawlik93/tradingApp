@@ -21,7 +21,7 @@ public class SrsiDecisionService : ISrsiDecisionService
          {
              { nameof(last.StochK), last.StochK.ToString() }
          };
-        var decision = Decision.CreateNew(new IndexOutcome(IndexNames.Srsi, last.StochD.Value, additionalParams), DateTime.UtcNow, TradeAction.Buy, new SignalStrength(0.02M, SignalStrengthLevel.High), MarketDirection.Bullish);
+        var decision = Decision.CreateNew(new IndexOutcome(IndexNames.Srsi, last.StochD.Value, additionalParams), DateTime.UtcNow, TradeAction.Buy, MarketDirection.Bullish);
         return decision;
     }
 }

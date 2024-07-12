@@ -14,19 +14,10 @@ public record GetCombinedQuotesCommand(IImmutableSet<TechnicalIndicator> Technic
 
 public static class GetCombinedQuotesCommandExtensions
 {
-    public static GetCombinedQuotesCommand CreateCommandRequest(
-        GetQuotesDtoRequest request
-    ) =>
-        new(
-            TechnicalIndicatorMapper.ToDomainModel(request.TechnicalIndicators),
-            TimeFrameDtoMapper.ToDomainModel(
-                new TimeFrameDto
-                {
-                    Granularity = request.Granularity,
-                    StartDate = request.StartDate,
-                    EndDate = request.EndDate
-                }
-            ),
-            AssetDtoMapper.ToDomainModel(new AssetDto { Name = request.AssetName, Type = request.AssetType })
+    public static GetCombinedQuotesCommand CreateCommand(this GetQuotesDtoRequest request) =>
+        new(TechnicalIndicatorMapper.ToDomainModel(request.TechnicalIndicators),
+            TimeFrameDtoMapper.ToDomainModel(request.TimeFrame),
+            AssetDtoMapper.ToDomainModel(request.Asset)
         );
 }
+

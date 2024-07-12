@@ -3,8 +3,17 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Domain\**" />
+    <Compile Remove="Ports\**" />
+    <EmbeddedResource Remove="Domain\**" />
+    <EmbeddedResource Remove="Ports\**" />
+    <None Remove="Domain\**" />
+    <None Remove="Ports\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentResults" Version="3.15.2" />
@@ -14,11 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TradingApp.Core\TradingApp.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Ports\" />
   </ItemGroup>
 
 </Project>

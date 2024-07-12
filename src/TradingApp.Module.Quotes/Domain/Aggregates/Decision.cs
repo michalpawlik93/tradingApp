@@ -12,18 +12,16 @@ public class Decision : AggregateRoot<DecisionId>
     public DateTime TimeStamp { get; }
     public TradeAction Action { get; }
 
-    public SignalStrength SignalStrength { get; }
     public MarketDirection MarketDirection { get; }
 
     public static Decision CreateNew(
         IndexOutcome indexOutcome,
         DateTime timeStamp,
         TradeAction action,
-        SignalStrength signalStrength,
         MarketDirection marketDirection
     )
     {
-        return new Decision(indexOutcome, timeStamp, action, signalStrength, marketDirection);
+        return new Decision(indexOutcome, timeStamp, action, marketDirection);
     }
 
     private Decision() { }
@@ -32,14 +30,12 @@ public class Decision : AggregateRoot<DecisionId>
         IndexOutcome indexOutcome,
         DateTime timeStamp,
         TradeAction action,
-        SignalStrength signalStrength,
         MarketDirection marketDirection
     ) : base(DecisionId.NewId())
     {
         IndexOutcome = indexOutcome;
         TimeStamp = timeStamp;
         Action = action;
-        SignalStrength = signalStrength;
         MarketDirection = marketDirection;
         AddDomainEvent(new DecisionCreatedDomainEvent(Id));
         AddIntegrationEvent(new DecisionCreatedIntegrationEvent(Id.ToGuid()));
@@ -50,14 +46,12 @@ public class Decision : AggregateRoot<DecisionId>
         IndexOutcome indexOutcome,
         DateTime timeStamp,
         TradeAction action,
-        SignalStrength signalStrength,
         MarketDirection marketDirection
     ) : base(DecisionId.Clone(id))
     {
         IndexOutcome = indexOutcome;
         TimeStamp = timeStamp;
         Action = action;
-        SignalStrength = signalStrength;
         MarketDirection = marketDirection;
     }
 
@@ -66,10 +60,9 @@ public class Decision : AggregateRoot<DecisionId>
         IndexOutcome indexOutcome,
         DateTime timeStamp,
         TradeAction action,
-        SignalStrength signalStrength,
         MarketDirection marketDirection
     )
     {
-        return new Decision(id, indexOutcome, timeStamp, action, signalStrength, marketDirection);
+        return new Decision(id, indexOutcome, timeStamp, action, marketDirection);
     }
 }

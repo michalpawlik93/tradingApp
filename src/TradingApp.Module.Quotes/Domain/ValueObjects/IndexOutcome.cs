@@ -5,13 +5,13 @@ namespace TradingApp.Module.Quotes.Domain.ValueObjects;
 public class IndexOutcome : ValueObject
 {
     public string Name { get; }
-    public decimal Value { get; }
-    public Dictionary<string, string> AdditonalParameters { get; }
-    public IndexOutcome(string name, decimal value, Dictionary<string, string> additonalParameters = null)
+    public decimal? Value { get; }
+    public Dictionary<string, string> AdditionalParameters { get; }
+    public IndexOutcome(string name, decimal? value = null, Dictionary<string, string> additionalParameters = null)
     {
         Name = name;
         Value = value;
-        AdditonalParameters = additonalParameters ?? new Dictionary<string, string>();
+        AdditionalParameters = additionalParameters ?? [];
     }
     protected override IEnumerable<object> GetEqualityComponents()
     {
