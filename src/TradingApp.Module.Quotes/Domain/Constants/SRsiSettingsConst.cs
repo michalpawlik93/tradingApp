@@ -4,8 +4,8 @@ namespace TradingApp.Module.Quotes.Domain.Constants;
 
 public static class SRsiSettingsConst
 {
-    public const double Overbought = 60;
-    public const double Oversold = -60;
+    public const decimal Overbought = 60;
+    public const decimal Oversold = -60;
     public const int ChannelLength = 14;
     public const int StochKSmooth = 3;
     public const int StochDSmooth = 3;

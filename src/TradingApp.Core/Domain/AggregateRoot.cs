@@ -6,7 +6,7 @@ namespace TradingApp.Core.Domain;
 
 public abstract class AggregateRoot<TKey> : IAggregateRoot
 {
-    public TKey? Id { get; protected set; }
+    public TKey Id { get; protected set; }
 
     protected AggregateRoot() { }
     protected AggregateRoot(TKey id)
@@ -14,8 +14,8 @@ public abstract class AggregateRoot<TKey> : IAggregateRoot
         Id = id;
     }
 
-    private List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
-    private List<IIntegrationEvent> _integrationEvents = new List<IIntegrationEvent>();
+    private List<IDomainEvent> _domainEvents = [];
+    private List<IIntegrationEvent> _integrationEvents = [];
     public IReadOnlyCollection<IDomainEvent> DomainEvents() => _domainEvents.AsReadOnly();
     public IReadOnlyCollection<IIntegrationEvent> IntegrationEvents() => _integrationEvents.AsReadOnly();
 
@@ -27,12 +27,12 @@ public abstract class AggregateRoot<TKey> : IAggregateRoot
     public virtual Result Validate() => Result.Ok();
     protected void AddDomainEvent(IDomainEvent @event)
     {
-        _domainEvents ??= new List<IDomainEvent>();
+        _domainEvents ??= [];
         _domainEvents.Add(@event);
     }
     protected void AddIntegrationEvent(IIntegrationEvent @event)
     {
-        _integrationEvents ??= new List<IIntegrationEvent>();
+        _integrationEvents ??= [];
         _integrationEvents.Add(@event);
     }
 

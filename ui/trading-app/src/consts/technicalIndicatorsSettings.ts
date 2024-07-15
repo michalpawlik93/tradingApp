@@ -6,8 +6,10 @@ import { WaveTrendSettings } from "../types/WaveTrendSettings";
 export const sRsiSettingsDefault: SRsiSettings = {
   enable: false,
   channelLength: 10,
-  stochKSmooth: 0,
-  stochDSmooth: 0,
+  stochKSmooth: 1,
+  stochDSmooth: 1,
+  oversold: -60,
+  overbought: 60,
 };
 
 export const waveTrendSettingsDefault: WaveTrendSettings = {

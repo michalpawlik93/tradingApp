@@ -33,10 +33,13 @@ public static class MoneyFlowIndicator
     /// <returns></returns>
     public static decimal[] CalculateVwma(MfiSettings settings, IEnumerable<Quote> domainQuotes)
     {
-        var prices = domainQuotes.Select(q => (q.Close - q.Open) / (q.High - q.Low)).ToArray();
+        var prices = domainQuotes
+            .Select(q => (q.Close - q.Open) / DivideByNullGuard((q.High - q.Low)))
+            .ToArray();
         var smaP = MovingAverage.CalculateSMA(settings.ChannelLength, prices);
 
         return smaP;
     }
 
+    private static decimal DivideByNullGuard(decimal result) => result == 0 ? 1 : result;
 }

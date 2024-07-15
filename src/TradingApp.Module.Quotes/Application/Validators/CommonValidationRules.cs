@@ -57,7 +57,7 @@ public static class CommonValidationRules
 
     public static void RuleForOversold<T>(
         AbstractValidator<T> validator,
-        Expression<Func<T, double>> expression
+        Expression<Func<T, decimal>> expression
     ) =>
         validator
             .RuleFor(expression)
@@ -67,7 +67,7 @@ public static class CommonValidationRules
 
     public static void RuleForOverbought<T>(
         AbstractValidator<T> validator,
-        Expression<Func<T, double>> expression
+        Expression<Func<T, decimal>> expression
     ) =>
         validator
             .RuleFor(expression)

@@ -1,4 +1,4 @@
 ﻿namespace TradingApp.Module.Quotes.Contract.Models;
 
-public record RsiSettings(double Oversold, double Overbought, bool Enable, int ChannelLength);
+public record RsiSettings(decimal Oversold, decimal Overbought, bool Enable, int ChannelLength);
 

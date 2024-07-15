@@ -9,25 +9,26 @@ import { CommonButton } from "../presentational/Button";
 import { FormDropdown } from "../presentational/FormDropdown";
 import { FormDateTimePicker } from "../presentational/FormDateTimePicker";
 import { useQuotesStore } from "../../stores/quotesStore";
-import { GetQuotesRequestDto } from "../../services/dtos/GetQuotesRequestDto";
 import {
   mfiSettingsDefault,
   sRsiSettingsDefault,
   waveTrendSettingsDefault,
 } from "../../consts/technicalIndicatorsSettings";
 
-export interface IChartSettingsPanelForm
-  extends Pick<GetQuotesRequestDto, "granularity" | "assetType" | "assetName"> {
-  startDate?: Date;
-  endDate?: Date;
+export interface IChartSettingsPanelForm {
+  startDate: Date;
+  endDate: Date;
+  granularity: string;
+  assetName: string;
+  assetType: string;
 }
 
 export const defaultValues: IChartSettingsPanelForm = {
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: new Date(2023, 5, 24),
+  endDate: new Date(2023, 5, 28),
   granularity: Granularity.Hourly,
-  assetType: AssetType.Cryptocurrency,
-  assetName: AssetName.BTC,
+  assetName: AssetName.USDPLN,
+  assetType: AssetType.Currencies,
 };
 
 const chartSettingsPanelCss = {
@@ -78,6 +79,8 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelF
       },
       timeFrame: {
         granularity: data.granularity,
+        startDate: data.startDate.toISOString(),
+        endDate: data.endDate.toISOString(),
       },
       waveTrendSettings: waveTrendSettingsDefault,
       sRsiSettings: sRsiSettingsDefault,

@@ -34,6 +34,8 @@ describe("ChartSettingsPanelForm tests", () => {
       sRsiSettings: sRsiSettingsDefault,
       timeFrame: {
         granularity: defaultValues.granularity,
+        startDate: new Date(2023, 5, 24).toISOString(),
+        endDate: new Date(2023, 5, 28).toISOString(),
       },
       waveTrendSettings: waveTrendSettingsDefault,
       mfiSettings: mfiSettingsDefault,

@@ -3,4 +3,6 @@ export interface SRsiSettings {
   channelLength: number;
   stochKSmooth: number;
   stochDSmooth: number;
+  overbought: number;
+  oversold: number;
 }

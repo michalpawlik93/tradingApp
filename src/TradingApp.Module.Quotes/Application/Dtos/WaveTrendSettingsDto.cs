@@ -42,11 +42,11 @@ public class WaveTrendSettingsDto : OscillationSettings
     /// <summary>
     /// Gets or sets the threshold level below which an asset is considered oversold.
     [DefaultValue(WaveTrendSettingsConst.OversoldLevel2)]
-    public double OversoldLevel2 { get; set; }
+    public decimal OversoldLevel2 { get; set; }
 
     /// <summary>
     /// Gets or sets the threshold level above which an asset is considered overbought.
     /// </summary>
     [DefaultValue(WaveTrendSettingsConst.OverboughtLevel2)]
-    public double OverboughtLevel2 { get; set; }
+    public decimal OverboughtLevel2 { get; set; }
 }

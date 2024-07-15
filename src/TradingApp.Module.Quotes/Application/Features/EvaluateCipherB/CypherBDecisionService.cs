@@ -3,6 +3,7 @@ using System.Globalization;
 using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
+using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Domain.Aggregates;
 using TradingApp.Module.Quotes.Domain.Enums;
 using TradingApp.Module.Quotes.Domain.ValueObjects;
@@ -11,26 +12,32 @@ namespace TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 
 public interface ICypherBDecisionService
 {
-    IResult<Decision> MakeDecision(IEnumerable<CypherBQuote> quotes, Granularity granularity);
+    IResult<Decision> MakeDecision(CypherBDecisionRequest request);
 }
+
+public record CypherBDecisionRequest(IEnumerable<CypherBQuote> Quotes, Granularity Granularity, WaveTrendSettings WaveTrendSettings);
 
 public class CypherBDecisionService : ICypherBDecisionService
 {
-    public IResult<Decision> MakeDecision(IEnumerable<CypherBQuote> quotes, Granularity granularity)
+    public IResult<Decision> MakeDecision(CypherBDecisionRequest request)
     {
-        var maxSignalAgeResult = GetMaxSignalAge(granularity);
+        var maxSignalAgeResult = Minutes.GetMaxSignalAge(request.Granularity);
         if (maxSignalAgeResult.IsFailed)
         {
             return maxSignalAgeResult.ToResult<Decision>();
         }
 
 
-        var latestQuote = quotes.Last();
+        var latestQuote = request.Quotes.LastOrDefault();
+        if (latestQuote == null)
+        {
+            return Result.Fail<Decision>(new ValidationError("Quotes is empty"));
+        }
 
         var decision = Decision.CreateNew(
-            new IndexOutcome("CipherB", 0, GetAdditionalParams(latestQuote)),
+            new IndexOutcome("CipherB", null, GetAdditionalParams(latestQuote)),
             DateTime.UtcNow,
-            GetCumulativeTradeAction(quotes, latestQuote, maxSignalAgeResult.Value),
+            GetCumulativeTradeAction(request.Quotes, latestQuote, maxSignalAgeResult.Value, request.WaveTrendSettings),
             GetMarketDirection()
         );
         return Result.Ok(decision);
@@ -58,11 +65,12 @@ public class CypherBDecisionService : ICypherBDecisionService
         }
     };
 
-    private static TradeAction GetCumulativeTradeAction(IEnumerable<CypherBQuote> quotes, CypherBQuote latestQuote, Minutes maxSignalAge)
+    private static TradeAction GetCumulativeTradeAction(IEnumerable<CypherBQuote> quotes, CypherBQuote latestQuote, Minutes maxSignalAge, WaveTrendSettings WaveTrendSettings)
     {
         var vwapTradeAction = GeVwapTradeAction(latestQuote);
         var wtTradeAction = GetWtSignalsTradeAction(quotes, latestQuote, maxSignalAge);
-        TradeAction[] tradeActions = [vwapTradeAction, wtTradeAction];
+        var mfiTradeAction = GeMfiTradeAction(latestQuote, WaveTrendSettings);
+        TradeAction[] tradeActions = [vwapTradeAction, wtTradeAction, mfiTradeAction];
 
         if (Array.TrueForAll(tradeActions, x => x == TradeAction.Buy))
             return TradeAction.Buy;
@@ -94,27 +102,19 @@ public class CypherBDecisionService : ICypherBDecisionService
     private static TradeAction GeVwapTradeAction(CypherBQuote quote) =>
         quote.WaveTrend.Vwap > 0 ? TradeAction.Buy : TradeAction.Sell;
 
-    public static Result<Minutes> GetMaxSignalAge(Granularity granularity) =>
-        granularity switch
-        {
-            Granularity.Daily => Result.Ok(Minutes.FromMinutes(5)),
-            Granularity.Hourly => Result.Ok(Minutes.FromHours(5)),
-            Granularity.FiveMins => Result.Ok(Minutes.FromDays(5)),
-            _ => Result.Fail<Minutes>(new ValidationError($"Granularity out of scope: {granularity}"))
-        };
-
-    public readonly record struct Minutes
+    private static TradeAction GeMfiTradeAction(CypherBQuote quote, WaveTrendSettings waveTrendSettings)
     {
-        public int Value { get; }
-
-        private Minutes(int value)
+        if (quote.Mfi.Mfi > waveTrendSettings.Overbought)
         {
-            Value = value;
+            return TradeAction.Sell;
         }
 
-        public static Minutes FromMinutes(int minutes) => new(minutes);
+        if (quote.Mfi.Mfi < waveTrendSettings.Oversold)
+        {
+            return TradeAction.Buy;
+        }
 
-        public static Minutes FromHours(int hours) => new(hours * 60);
-        public static Minutes FromDays(int days) => new(days * 60 * 24);
+        return TradeAction.Hold;
     }
+
 }

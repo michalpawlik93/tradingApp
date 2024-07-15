@@ -3,19 +3,23 @@ using MediatR;
 using TradingApp.Core.EventBus;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
+using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
 
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 
-public record EvaluateCipherBCommand(IEnumerable<CypherBQuote> Quotes, Granularity Granularity) : IRequest<IResultBase>;
+public record EvaluateCipherBCommand(
+    IEnumerable<CypherBQuote> Quotes,
+    Granularity Granularity,
+    WaveTrendSettings WaveTrendSettings
+) : IRequest<IResultBase>;
 
 public class EvaluateCipherBCommandHandler : IRequestHandler<EvaluateCipherBCommand, IResultBase>
 {
     private readonly IEventBus _eventBus;
     private readonly ICypherBDecisionService _decisionService;
     private readonly IEntityDataService<Decision> _decisionDataService;
-
 
     public EvaluateCipherBCommandHandler(
         IEventBus eventBus,
@@ -36,7 +40,9 @@ public class EvaluateCipherBCommandHandler : IRequestHandler<EvaluateCipherBComm
         CancellationToken cancellationToken
     )
     {
-        var decision = _decisionService.MakeDecision(request.Quotes, request.Granularity);
+        var decision = _decisionService.MakeDecision(
+            new CypherBDecisionRequest(request.Quotes, request.Granularity, request.WaveTrendSettings)
+        );
         if (decision.IsFailed)
         {
             return decision;

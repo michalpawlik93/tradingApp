@@ -23,11 +23,15 @@ export const useCombinedQuotes = (): useCombinedQuotesResponse => {
       }
       isDataFetched.current = true;
       await fetchData({
-        granularity: Granularity.FiveMins,
-        assetType: AssetType.Currencies,
-        assetName: AssetName.USDPLN,
-        startDate: new Date(2023, 5, 24).toISOString(),
-        endDate: new Date(2023, 5, 28).toISOString(),
+        asset: {
+          name: AssetName.USDPLN,
+          type: AssetType.Currencies,
+        },
+        timeFrame: {
+          granularity: Granularity.FiveMins,
+          startDate: new Date(2023, 5, 24).toISOString(),
+          endDate: new Date(2023, 5, 28).toISOString(),
+        },
         technicalIndicators: [TechnicalIndicators.Rsi],
       });
     }

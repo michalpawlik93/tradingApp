@@ -2,6 +2,7 @@
 using NSubstitute;
 using TradingApp.Core.Domain;
 using TradingApp.Core.EventBus;
+using TradingApp.Domain.Modules.Constants;
 using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
@@ -42,13 +43,13 @@ namespace TradingApp.Module.Quotes.Test.Application.Features.EvaluateCipherB
                     new MfiResult(1m)
                 )
             };
-            var command = new EvaluateCipherBCommand(quotes, Granularity.FiveMins);
+            var command = new EvaluateCipherBCommand(quotes, Granularity.FiveMins, WaveTrendSettingsConst.WaveTrendSettingsDefault);
             //Act
             var result = await _sut.Handle(command, CancellationToken.None);
 
             //Assert
             result.Errors.Should().BeEmpty();
-            _decisionService.Received().MakeDecision(Arg.Any<IEnumerable<CypherBQuote>>(), Granularity.FiveMins);
+            _decisionService.Received().MakeDecision(Arg.Any<CypherBDecisionRequest>());
             await _eventBus
                 .Received()
                 .Publish(Arg.Any<IAggregateRoot>(), Arg.Any<CancellationToken>());

@@ -44,7 +44,8 @@ public static class WaveTrendIndicator
         var wt1 = MovingAverage.CalculateEMA(settings.AverageLength, ci);
         var wt2 = MovingAverage.CalculateSMA(settings.MovingAverageLength, wt1);
 
-        if (!scaleResult) return CreateWaveTrendResults(wt1, wt2, resultDecimalPlace, settings);
+        if (!scaleResult)
+            return CreateWaveTrendResults(wt1, wt2, resultDecimalPlace, settings);
         var scaleFactor = Scale.ByMaxMin(wt1);
         wt1 = wt1.Select(x => x * scaleFactor).ToArray();
         wt2 = wt2.Select(x => x * scaleFactor).ToArray();
@@ -100,8 +101,8 @@ public static class WaveTrendIndicator
         && wt1[i - 1] < 0
         && wt1[i] > wt2[i]
         && wt1[i - 1] <= wt2[i - 1]
-        && decimal.ToDouble(wt1[i]) <= settings.OversoldLevel2
-        && decimal.ToDouble(wt1[i]) >= settings.Oversold
+        && wt1[i] <= settings.OversoldLevel2
+        && wt1[i] >= settings.Oversold
             ? true
             : null;
 
@@ -123,23 +124,8 @@ public static class WaveTrendIndicator
         && wt1[i - 1] > 0
         && wt1[i] < wt2[i]
         && wt1[i - 1] >= wt2[i - 1]
-        && decimal.ToDouble(wt1[i]) >= settings.OverboughtLevel2
-        && decimal.ToDouble(wt1[i]) <= settings.Overbought
+        && wt1[i] >= settings.OverboughtLevel2
+        && wt1[i] <= settings.Overbought
             ? true
             : null;
 }
-
-// When wt1 crosses down 0 line,  its bearish
-// when wt1 crosses up 0 line its bullish
-// when cross over and is above 0 line enter the trade
-// vwap when is big then momentum is big. If its under 0 sell, if above 0 buy , price is going up
-
-
-// nie mozna poelgac na ni  samym. Jak ogolne trend rosnie to wave trend to odzwierciedla
-// jak trend ogolny maleje to wt moze dawac false sygnały żeby kupowac
-
-// Buy streategy
-// wt crosses over, wt1 is between level lines
-// Check adx, adx line crosses above 20 line strong trend is happening
-
-// Ideal for 12h-1day, for low time frame too many signals can be genearated
