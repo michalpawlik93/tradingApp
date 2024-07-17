@@ -1,69 +1,62 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using TradingApp.Module.Quotes.Contract.Constants;
+﻿using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.Evaluator.Indicators;
 
-[ExcludeFromCodeCoverage]
 public static class StochInidcator
 {
     public static IEnumerable<StochResult> Calculate(
-    this IEnumerable<Quote> qdList,
-    int lookbackPeriods,
-    int signalPeriods,
-    int smoothPeriods,
-    decimal kFactor,
-    decimal dFactor,
-    MaType movingAverageType)
+        this IEnumerable<Quote> qdList,
+        int lookbackPeriods,
+        int signalPeriods,
+        int smoothPeriods,
+        decimal kFactor,
+        decimal dFactor,
+        MaType movingAverageType
+    )
     {
-        // check parameter arguments
-        ValidateStoch(
-            lookbackPeriods, signalPeriods, smoothPeriods,
-            kFactor, dFactor, movingAverageType);
-
-        // initialize
-        int length = qdList.Count();
+        var length = qdList.Count();
         List<StochResult> results = new(length);
 
-        // roll through quotes
-        for (int i = 0; i < length; i++)
+        for (var i = 0; i < length; i++)
         {
-            Quote q = qdList.ElementAt(i);
+            var q = qdList.ElementAt(i);
 
             StochResult r = new(q.Date);
             results.Add(r);
 
-            if (i + 1 >= lookbackPeriods)
+            if (i + 1 < lookbackPeriods)
+                continue;
+            var highHigh = decimal.MinValue;
+            var lowLow = decimal.MaxValue;
+
+            for (var p = i + 1 - lookbackPeriods; p <= i; p++)
             {
-                decimal highHigh = decimal.MinValue;
-                decimal lowLow = decimal.MaxValue;
+                var x = qdList.ElementAt(p);
 
-                for (int p = i + 1 - lookbackPeriods; p <= i; p++)
+                if (x.High > highHigh)
                 {
-                    Quote x = qdList.ElementAt(p);
-
-                    if (x.High > highHigh)
-                    {
-                        highHigh = x.High;
-                    }
-
-                    if (x.Low < lowLow)
-                    {
-                        lowLow = x.Low;
-                    }
+                    highHigh = x.High;
                 }
 
-                r.Oscillator = lowLow != highHigh
-                    ? 100 * (q.Close - lowLow) / (highHigh - lowLow)
-                    : 0;
+                if (x.Low < lowLow)
+                {
+                    lowLow = x.Low;
+                }
             }
+
+            r.Oscillator = lowLow != highHigh ? 100 * (q.Close - lowLow) / (highHigh - lowLow) : 0;
         }
 
-        // smooth the oscillator
         if (smoothPeriods > 1)
         {
             results = SmoothOscillator(
-                results, length, lookbackPeriods, smoothPeriods, movingAverageType);
+                results,
+                length,
+                lookbackPeriods,
+                smoothPeriods,
+                movingAverageType
+            );
         }
 
         // handle insufficient length
@@ -73,11 +66,11 @@ public static class StochInidcator
         }
 
         // signal (%D) and %J
-        int signalIndex = lookbackPeriods + smoothPeriods + signalPeriods - 2;
+        var signalIndex = lookbackPeriods + smoothPeriods + signalPeriods - 2;
 
-        for (int i = lookbackPeriods - 1; i < length; i++)
+        for (var i = lookbackPeriods - 1; i < length; i++)
         {
-            StochResult r = results[i];
+            var r = results[i];
 
             // add signal
 
@@ -85,7 +78,6 @@ public static class StochInidcator
             {
                 r.Signal = r.Oscillator;
             }
-
             // SMA case
             else if (i + 1 >= signalIndex && movingAverageType is MaType.SMA)
             {
@@ -111,19 +103,20 @@ public static class StochInidcator
         int length,
         int lookbackPeriods,
         int smoothPeriods,
-        MaType movingAverageType)
+        MaType movingAverageType
+    )
     {
         // temporarily store interim smoothed oscillator
-        decimal?[] smooth = new decimal?[length]; // smoothed value
+        var smooth = new decimal?[length]; // smoothed value
 
         if (movingAverageType is MaType.SMA)
         {
-            int smoothIndex = lookbackPeriods + smoothPeriods - 2;
+            var smoothIndex = lookbackPeriods + smoothPeriods - 2;
 
-            for (int i = smoothIndex; i < length; i++)
+            for (var i = smoothIndex; i < length; i++)
             {
                 decimal? sumOsc = 0;
-                for (int p = i + 1 - smoothPeriods; p <= i; p++)
+                for (var p = i + 1 - smoothPeriods; p <= i; p++)
                 {
                     sumOsc += results[p].Oscillator;
                 }
@@ -133,58 +126,11 @@ public static class StochInidcator
         }
 
         // replace oscillator
-        for (int i = 0; i < length; i++)
+        for (var i = 0; i < length; i++)
         {
             results[i].Oscillator = smooth[i];
         }
 
         return results;
-    }
-
-    // parameter validation
-    private static void ValidateStoch(
-        int lookbackPeriods,
-        int signalPeriods,
-        int smoothPeriods,
-        decimal kFactor,
-        decimal dFactor,
-        MaType movingAverageType)
-    {
-        // check parameter arguments
-        if (lookbackPeriods <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(lookbackPeriods), lookbackPeriods,
-                "Lookback periods must be greater than 0 for Stochastic.");
-        }
-
-        if (signalPeriods <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(signalPeriods), signalPeriods,
-                "Signal periods must be greater than 0 for Stochastic.");
-        }
-
-        if (smoothPeriods <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(smoothPeriods), smoothPeriods,
-                "Smooth periods must be greater than 0 for Stochastic.");
-        }
-
-        if (kFactor <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(kFactor), kFactor,
-                "kFactor must be greater than 0 for Stochastic.");
-        }
-
-        if (dFactor <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(dFactor), dFactor,
-                "dFactor must be greater than 0 for Stochastic.");
-        }
-
-        if (movingAverageType is not MaType.SMA)
-        {
-            throw new ArgumentOutOfRangeException(nameof(dFactor), dFactor,
-                "Stochastic only supports SMA moving average types.");
-        }
     }
 }

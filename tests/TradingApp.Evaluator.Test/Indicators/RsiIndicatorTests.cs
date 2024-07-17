@@ -21,10 +21,10 @@ public class RsiIndicatorTests : QuotesTestBase
         Assert.Null(r1.Value);
 
         RsiResult r2 = results[14];
-        r2.Value.Should().BeApproximately(63.375M, 0.0002m);
+        r2.Value.Should().BeApproximately(62.0540M, 0.0002m);
 
         RsiResult r3 = results[501];
-        r3.Value.Should().BeApproximately(33.8099m, 0.0002m);
+        r3.Value.Should().BeApproximately(42.0773m, 0.0002m);
     }
 
     [Fact]

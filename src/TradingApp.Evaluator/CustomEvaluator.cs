@@ -24,3 +24,6 @@ public class CustomEvaluator : IEvaluator
     public IEnumerable<RsiResult> GetRsi(IEnumerable<Quote> quotes, RsiSettings settings) =>
         RsiIndicator.Calculate(quotes, settings);
 }
+
+// separate signals from indices data, dont return crossOVers crossDowns. It can be enhancment in a future
+// crossDown , buy signals etc can be assesed in decision service

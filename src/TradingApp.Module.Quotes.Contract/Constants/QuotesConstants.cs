@@ -12,7 +12,7 @@ public enum AssetName
     BTC,
     CUREBTC,
     BTCUSD,
-    EURPLN
+    EURPLN,
 }
 
 public enum AssetType

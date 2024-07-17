@@ -7,6 +7,14 @@ namespace TradingApp.TestUtils.Fixtures;
 [ExcludeFromCodeCoverage]
 public static class QuotesFixture
 {
+    internal static IEnumerable<Quote> GetBad(int days = 502)
+        => File.ReadAllLines(GetDataTesFilePath("bad.csv"))
+            .Skip(1)
+            .Select(CsvImporter.QuoteFromCsv)
+            .OrderByDescending(x => x.Date)
+            .Take(days)
+            .ToList();
+
     public static IEnumerable<Quote> GetDefault(int days = 502)
     {
         return File.ReadAllLines(GetDataTesFilePath("default.csv"))

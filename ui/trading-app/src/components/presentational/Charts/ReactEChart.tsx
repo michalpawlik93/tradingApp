@@ -12,7 +12,7 @@ export function ReactEChart({ option }: ReactEChartProps): JSX.Element {
     let chart: ECharts | undefined;
     if (chartRef.current !== null) {
       chart = init(chartRef.current, null, {
-        height: 600,
+        height: 1000,
       });
     }
 

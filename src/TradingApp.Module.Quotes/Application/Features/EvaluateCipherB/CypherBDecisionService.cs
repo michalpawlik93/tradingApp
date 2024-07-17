@@ -102,6 +102,7 @@ public class CypherBDecisionService : ICypherBDecisionService
     private static TradeAction GeVwapTradeAction(CypherBQuote quote) =>
         quote.WaveTrend.Vwap > 0 ? TradeAction.Buy : TradeAction.Sell;
 
+    // Mfi has different scale
     private static TradeAction GeMfiTradeAction(CypherBQuote quote, WaveTrendSettings waveTrendSettings)
     {
         if (quote.Mfi.Mfi > waveTrendSettings.Overbought)

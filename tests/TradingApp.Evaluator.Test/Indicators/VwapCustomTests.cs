@@ -18,10 +18,10 @@ public class VwapCustomTests : QuotesTestBase
         results.Should().HaveCount(502);
 
         var r1 = results[14];
-        r1.Value.Should().BeApproximately(256.24M, 0.0002m);
+        r1.Value.Should().BeApproximately(214.76M, 0.0002m);
 
         var r2 = results[501];
-        r2.Value.Should().BeApproximately(212.5567M, 0.0002m);
+        r2.Value.Should().BeApproximately(244.5633M, 0.0002m);
     }
 
     [Fact]

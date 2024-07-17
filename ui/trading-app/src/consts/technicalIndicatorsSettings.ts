@@ -13,13 +13,13 @@ export const sRsiSettingsDefault: SRsiSettings = {
 };
 
 export const waveTrendSettingsDefault: WaveTrendSettings = {
-  channelLength: 9,
-  averageLength: 12,
+  channelLength: 10,
+  averageLength: 21,
   movingAverageLength: 3,
   oversold: -60,
-  overbought: 70,
-  overboughtLevel2: 20,
-  oversoldLevel2: -20,
+  overbought: 60,
+  overboughtLevel2: 50,
+  oversoldLevel2: -53,
 };
 
 export const rsiSettingsDefault: RsiSettings = {
