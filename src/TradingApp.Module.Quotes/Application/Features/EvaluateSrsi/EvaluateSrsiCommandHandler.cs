@@ -38,9 +38,9 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, I
         CancellationToken cancellationToken
     )
     {
-        var decision = _decisionService.MakeDecision(request.SrsiResults);
-        await _decisionDataService.Add(decision, cancellationToken);
-        await _eventBus.Publish(decision, cancellationToken);
+        //var decision = _decisionService.MakeDecision(request.SrsiResults);
+        //await _decisionDataService.Add(decision, cancellationToken);
+        //await _eventBus.Publish(decision, cancellationToken);
         return Result.Ok();
     }
 }

@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TingoProvider", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TingoProvider.Test", "tests\TradingApp.TingoProvider.Test\TradingApp.TingoProvider.Test.csproj", "{2B750479-04BA-41DE-9232-BC26638AF671}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingApp.TradingWebApi.Test", "tests\TradingApp.TradingWebApi.Test\TradingApp.TradingWebApi.Test.csproj", "{DF757D00-64B0-4784-BF47-AE356C966CF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingApp.TradingWebApi.Test", "tests\TradingApp.TradingWebApi.Test\TradingApp.TradingWebApi.Test.csproj", "{DF757D00-64B0-4784-BF47-AE356C966CF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuotesBenchmarks", "src\QuotesBenchmarks\QuotesBenchmarks.csproj", "{03DFB846-00EE-4FAB-A9FA-E9539D4714CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{DF757D00-64B0-4784-BF47-AE356C966CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF757D00-64B0-4784-BF47-AE356C966CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF757D00-64B0-4784-BF47-AE356C966CF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03DFB846-00EE-4FAB-A9FA-E9539D4714CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03DFB846-00EE-4FAB-A9FA-E9539D4714CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03DFB846-00EE-4FAB-A9FA-E9539D4714CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03DFB846-00EE-4FAB-A9FA-E9539D4714CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

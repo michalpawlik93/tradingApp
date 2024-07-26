@@ -1,4 +1,5 @@
-﻿using TradingApp.Module.Quotes.Contract.Constants;
+﻿using System.Buffers;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.Evaluator.Indicators;
@@ -17,7 +18,6 @@ public static class StochInidcator
     {
         var length = qdList.Count();
         List<StochResult> results = new(length);
-
         for (var i = 0; i < length; i++)
         {
             var q = qdList.ElementAt(i);
@@ -98,7 +98,58 @@ public static class StochInidcator
         return results;
     }
 
+    public static List<StochResult> SmoothOscillator(
+        List<StochResult> results,
+        int length,
+        int lookbackPeriods,
+        int smoothPeriods,
+        MaType movingAverageType,
+        int arrayPoolTreshold = 100000
+    )
+    {
+        if (length >= arrayPoolTreshold)
+        {
+            return SmoothOscillator(
+                new decimal?[length],
+                results,
+                length,
+                lookbackPeriods,
+                smoothPeriods,
+                movingAverageType
+            );
+        }
+        var auxiliaryList = ArrayPool<decimal?>.Shared.Rent(length);
+        if (Array.Exists(auxiliaryList, x => x.HasValue))
+        {
+            return SmoothOscillator(
+                new decimal?[length],
+                results,
+                length,
+                lookbackPeriods,
+                smoothPeriods,
+                movingAverageType
+            );
+        }
+        try
+        {
+            var osc = SmoothOscillator(
+                auxiliaryList,
+                results,
+                length,
+                lookbackPeriods,
+                smoothPeriods,
+                movingAverageType
+            );
+            return osc;
+        }
+        finally
+        {
+            ArrayPool<decimal?>.Shared.Return(auxiliaryList, true);
+        }
+    }
+
     private static List<StochResult> SmoothOscillator(
+        Span<decimal?> auxiliaryList,
         List<StochResult> results,
         int length,
         int lookbackPeriods,
@@ -106,9 +157,6 @@ public static class StochInidcator
         MaType movingAverageType
     )
     {
-        // temporarily store interim smoothed oscillator
-        var smooth = new decimal?[length]; // smoothed value
-
         if (movingAverageType is MaType.SMA)
         {
             var smoothIndex = lookbackPeriods + smoothPeriods - 2;
@@ -121,14 +169,14 @@ public static class StochInidcator
                     sumOsc += results[p].Oscillator;
                 }
 
-                smooth[i] = sumOsc / smoothPeriods;
+                auxiliaryList[i] = sumOsc / smoothPeriods;
             }
         }
 
         // replace oscillator
         for (var i = 0; i < length; i++)
         {
-            results[i].Oscillator = smooth[i];
+            results[i].Oscillator = auxiliaryList[i];
         }
 
         return results;

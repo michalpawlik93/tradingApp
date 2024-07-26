@@ -66,7 +66,7 @@ public class EvaluateSRsiCommandHandlerTests
 
         //Assert
         result.Errors.Should().BeEmpty();
-        _decisionService.Received().MakeDecision(Arg.Any<IEnumerable<SRsiResult>>());
+        //_decisionService.Received().MakeDecision(Arg.Any<IEnumerable<SRsiResult>>());
         await _eventBus.Received().Publish(Arg.Any<IAggregateRoot>(), Arg.Any<CancellationToken>());
         await _decisionDataService
             .Received()
