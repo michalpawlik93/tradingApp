@@ -14,8 +14,8 @@ public interface IEvaluator
         IEnumerable<Quote> quotes,
         WaveTrendSettings settings
     );
-    IEnumerable<SRsiResult> GetSrsi(
-        IEnumerable<Quote> quotes,
+    IReadOnlyList<SRsiResult> GetSrsi(
+        IReadOnlyList<Quote> quotes,
         SRsiSettings settings
     );
     IEnumerable<MfiResult> GetMfi(

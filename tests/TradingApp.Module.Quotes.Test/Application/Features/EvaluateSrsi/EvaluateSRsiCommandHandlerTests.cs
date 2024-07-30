@@ -1,12 +1,15 @@
-﻿using AutoFixture.Xunit2;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NSubstitute;
 using TradingApp.Core.Domain;
 using TradingApp.Core.EventBus;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
+using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
+using TradingApp.Module.Quotes.Domain.Constants;
+using TradingApp.Module.Quotes.Domain.Enums;
+using TradingApp.Module.Quotes.Domain.ValueObjects;
 using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Application.Features.EvaluateSrsi;
@@ -25,48 +28,43 @@ public class EvaluateSRsiCommandHandlerTests
         _sut = new EvaluateSRsiCommandHandler(_eventBus, _decisionService, _decisionDataService);
     }
 
-    //[Theory]
-    //[AutoData]
-    //public async Task Handle_GetRSIReturnsEmptyList_EarlyReturn(EvaluateSRsiCommand command)
-    //{
-    //    //Arrange
-    //    _evaluator
-    //        .GetSRSI(Arg.Any<List<Quote>>(), Arg.Any<SRsiSettings>())
-    //        .Returns(new List<SRsiResult>());
-
-    //    //Act
-    //    var result = await _sut.Handle(command, CancellationToken.None);
-
-    //    //Assert
-    //    result.Errors.Should().NotBeEmpty();
-
-    //    _decisionService.Received(0).MakeDecision(Arg.Any<IEnumerable<SRsiResult>>());
-    //    await _eventBus
-    //        .Received(0)
-    //        .Publish(Arg.Any<IAggregateRoot>(), Arg.Any<CancellationToken>());
-    //}
-
-    [Theory]
-    [AutoData]
-    public async Task Handle_GetRSIReturnsList_DecisionSavedInDb_AggregateSentToEB(
-        SRsiResult rsiResult
-    )
+    [Fact]
+    public async Task Handle_GetRSIReturnsList_DecisionSavedInDb_AggregateSentToEB()
     {
         //Arrange
-        var secondResult = rsiResult with
-        {
-            StochD = 0,
-            StochK = 2
-        };
+        _decisionService
+            .MakeDecision(
+                Arg.Any<IReadOnlyList<Quote>>(),
+                Arg.Any<SrsiDecisionSettings>(),
+                Arg.Any<SRsiSettings>()
+            )
+            .Returns(
+                Decision.CreateNew(
+                    new IndexOutcome("SRSI", 2.02356M),
+                    DateTime.Now,
+                    TradeAction.Buy,
+                    MarketDirection.Bullish
+                )
+            );
+        var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
 
-        var rsiResults = new List<SRsiResult>() { rsiResult, secondResult };
-        var command = new EvaluateSRsiCommand(rsiResults);
+        var command = new EvaluateSRsiCommand(
+            quotes,
+            new SrsiDecisionSettings(1, 2),
+            SRsiSettingsConst.SRsiSettingsDefault
+        );
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
         //Assert
         result.Errors.Should().BeEmpty();
-        //_decisionService.Received().MakeDecision(Arg.Any<IEnumerable<SRsiResult>>());
+        _decisionService
+            .Received()
+            .MakeDecision(
+                Arg.Any<IReadOnlyList<Quote>>(),
+                Arg.Any<SrsiDecisionSettings>(),
+                Arg.Any<SRsiSettings>()
+            );
         await _eventBus.Received().Publish(Arg.Any<IAggregateRoot>(), Arg.Any<CancellationToken>());
         await _decisionDataService
             .Received()

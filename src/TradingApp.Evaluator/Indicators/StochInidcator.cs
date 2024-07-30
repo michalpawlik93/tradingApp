@@ -6,8 +6,8 @@ namespace TradingApp.Evaluator.Indicators;
 
 public static class StochInidcator
 {
-    public static IEnumerable<StochResult> Calculate(
-        this IEnumerable<Quote> qdList,
+    public static IReadOnlyList<StochResult> Calculate(
+        this IReadOnlyList<Quote> qdList,
         int lookbackPeriods,
         int signalPeriods,
         int smoothPeriods,
@@ -16,11 +16,11 @@ public static class StochInidcator
         MaType movingAverageType
     )
     {
-        var length = qdList.Count();
+        var length = qdList.Count;
         List<StochResult> results = new(length);
         for (var i = 0; i < length; i++)
         {
-            var q = qdList.ElementAt(i);
+            var q = qdList[i];
 
             StochResult r = new(q.Date);
             results.Add(r);
@@ -32,7 +32,7 @@ public static class StochInidcator
 
             for (var p = i + 1 - lookbackPeriods; p <= i; p++)
             {
-                var x = qdList.ElementAt(p);
+                var x = qdList[p];
 
                 if (x.High > highHigh)
                 {
@@ -82,9 +82,9 @@ public static class StochInidcator
             else if (i + 1 >= signalIndex && movingAverageType is MaType.SMA)
             {
                 decimal? sumOsc = 0;
-                for (int p = i + 1 - signalPeriods; p <= i; p++)
+                for (var p = i + 1 - signalPeriods; p <= i; p++)
                 {
-                    StochResult x = results[p];
+                    var x = results[p];
                     sumOsc += x.Oscillator;
                 }
 

@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using MediatR;
 using TradingApp.Core.EventBus;
+using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
@@ -11,7 +12,11 @@ namespace TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 /// Evaluate decision for last date in quotes
 /// </summary>
 /// <param name="Quotes"></param>
-public record EvaluateSRsiCommand(IEnumerable<SRsiResult> SrsiResults) : IRequest<IResultBase>;
+public record EvaluateSRsiCommand(
+    IReadOnlyList<Quote> Quotes,
+    SrsiDecisionSettings SrsiDecisionSettings,
+    SRsiSettings SRsiSetting
+) : IRequest<IResultBase>;
 
 public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, IResultBase>
 {
@@ -38,9 +43,17 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, I
         CancellationToken cancellationToken
     )
     {
-        //var decision = _decisionService.MakeDecision(request.SrsiResults);
-        //await _decisionDataService.Add(decision, cancellationToken);
-        //await _eventBus.Publish(decision, cancellationToken);
+        var decisionResult = _decisionService.MakeDecision(
+            request.Quotes,
+            request.SrsiDecisionSettings,
+            request.SRsiSetting
+        );
+        if (decisionResult.IsFailed)
+        {
+            return decisionResult;
+        }
+        await _decisionDataService.Add(decisionResult.Value, cancellationToken);
+        await _eventBus.Publish(decisionResult.Value, cancellationToken);
         return Result.Ok();
     }
 }

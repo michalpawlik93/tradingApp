@@ -7,39 +7,55 @@ namespace TradingApp.Evaluator.Indicators;
 
 public static class SRsiIndicator
 {
-    public static IEnumerable<SRsiResult> Calculate(IEnumerable<Quote> domainQuotes, SRsiSettings settings)
+    public static IReadOnlyList<SRsiResult> Calculate(
+        IReadOnlyList<Quote> domainQuotes,
+        SRsiSettings settings
+    )
     {
         var rsiPeriods = settings.ChannelLength;
         var stochPeriods = settings.ChannelLength;
         var smoothPeriodsD = settings.StochDSmooth;
         var smoothPeriodsK = settings.StochKSmooth;
 
-        var length = domainQuotes.Count();
+        var length = domainQuotes.Count;
         var initPeriods = Math.Min(rsiPeriods + stochPeriods - 1, length);
         List<SRsiResult> results = new(length);
 
         for (var i = 0; i < initPeriods; i++)
         {
-            results.Add(new SRsiResult(domainQuotes.ElementAt(i).Date, null, null));
+            results.Add(new SRsiResult(domainQuotes[i].Date, null, null));
         }
-        var rsiResults = RsiIndicator.Calculate(domainQuotes, new RsiSettings(settings.Oversold, settings.Overbought, true, settings.ChannelLength))
-            .Remove(Math.Min(rsiPeriods, length)).
-            Select((x, index) => new Quote
-            {
-                Date = domainQuotes.ElementAt(index).Date,
-                High = x.Value ?? 0,
-                Low = x.Value ?? 0,
-                Close = x.Value ?? 0,
-            }).ToList();
-
-        var stoResults =
-            rsiResults
+        var rsiResults = RsiIndicator
             .Calculate(
-                stochPeriods,
-                smoothPeriodsD,
-                smoothPeriodsK, 3, 2, MaType.SMA)
+                domainQuotes,
+                new RsiSettings(
+                    settings.Oversold,
+                    settings.Overbought,
+                    true,
+                    settings.ChannelLength
+                )
+            )
+            .Remove(Math.Min(rsiPeriods, length))
+            .Select(
+                (x, index) =>
+                    new Quote
+                    {
+                        Date = domainQuotes[index].Date,
+                        High = x.Value ?? 0,
+                        Low = x.Value ?? 0,
+                        Close = x.Value ?? 0,
+                    }
+            )
             .ToList();
 
+        var stoResults = rsiResults.Calculate(
+            stochPeriods,
+            smoothPeriodsD,
+            smoothPeriodsK,
+            3,
+            2,
+            MaType.SMA
+        );
 
         for (var i = rsiPeriods + stochPeriods - 1; i < length; i++)
         {

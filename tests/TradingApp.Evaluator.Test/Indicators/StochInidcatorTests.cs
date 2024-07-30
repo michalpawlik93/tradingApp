@@ -18,7 +18,7 @@ public class StochInidcatorTests : QuotesTestBase
         decimal dFactor = 2;
 
         // Act
-        var results = quotes
+        var results = quotes.ToList()
             .Calculate(lookbackPeriods, signalPeriods, smoothPeriods, kFactor, dFactor, MaType.SMA)
             .ToList();
 
@@ -62,7 +62,7 @@ public class StochInidcatorTests : QuotesTestBase
         var smoothPeriods = 3;
 
         //Act
-        var results = quotes
+        var results = quotes.ToList()
             .Calculate(lookbackPeriods, signalPeriods, smoothPeriods, 3, 2, MaType.SMA)
             .ToList();
 
@@ -83,7 +83,7 @@ public class StochInidcatorTests : QuotesTestBase
         var smoothPeriods = 1;
 
         // Act
-        var results = quotes
+        var results = quotes.ToList()
             .Calculate(lookbackPeriods, signalPeriods, smoothPeriods, 3, 2, MaType.SMA)
             .ToList();
 
@@ -107,7 +107,7 @@ public class StochInidcatorTests : QuotesTestBase
         var smoothPeriods = 1;
 
         // Act
-        var results = quotes
+        var results = quotes.ToList()
             .Calculate(lookbackPeriods, signalPeriods, smoothPeriods, 3, 2, MaType.SMA)
             .ToList();
 
@@ -122,7 +122,7 @@ public class StochInidcatorTests : QuotesTestBase
     [Fact]
     public void BadData()
     {
-        var r = badQuotes.Calculate(15, 3, 3, 3, 2, MaType.SMA).ToList();
+        var r = badQuotes.ToList().Calculate(15, 3, 3, 3, 2, MaType.SMA).ToList();
         r.Should().HaveCount(502);
     }
 
@@ -135,14 +135,14 @@ public class StochInidcatorTests : QuotesTestBase
         var smoothPeriods = 1;
 
         // Act
-        var r0 = noquotes
+        var r0 = noquotes.ToList()
             .Calculate(lookbackPeriods, signalPeriods, smoothPeriods, 3, 2, MaType.SMA)
             .ToList();
 
         // Assert
         r0.Should().HaveCount(0);
 
-        var r1 = onequote
+        var r1 = onequote.ToList()
             .Calculate(lookbackPeriods, signalPeriods, smoothPeriods, 3, 2, MaType.SMA)
             .ToList();
 
@@ -156,7 +156,7 @@ public class StochInidcatorTests : QuotesTestBase
         var signalPeriods = 3;
         var smoothPeriods = 3;
 
-        var results = GetRandom(2500)
+        var results = GetRandom(2500).ToList()
             .Calculate(lookbackPeriods, signalPeriods, smoothPeriods, 3, 2, MaType.SMA)
             .ToList();
 
