@@ -4,10 +4,9 @@ using Quartz;
 using TradingApp.Domain.Modules.Constants;
 using TradingApp.EvaluationScheduler.Utils;
 using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
-using TradingApp.Module.Quotes.Application.Features.GetCypherB;
-using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
+using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Constants;
 
 namespace TradingApp.EvaluationScheduler.Jobs;
@@ -15,11 +14,14 @@ namespace TradingApp.EvaluationScheduler.Jobs;
 public class Evaluate5MinJCipherBJob : IJob
 {
     private readonly IMediator _mediator;
+    private readonly ITradingAdapter _adapter;
 
-    public Evaluate5MinJCipherBJob(IMediator mediator)
+    public Evaluate5MinJCipherBJob(IMediator mediator, ITradingAdapter adapter)
     {
         ArgumentNullException.ThrowIfNull(mediator);
+        ArgumentNullException.ThrowIfNull(adapter);
         _mediator = mediator;
+        _adapter = adapter;
     }
 
     public async Task Execute(IJobExecutionContext context)
@@ -33,29 +35,27 @@ public class Evaluate5MinJCipherBJob : IJob
         }
         var evaluateResponse = await _mediator.Send(
             new EvaluateCipherBCommand(
-                getQuotesResponse.Value.Quotes,
+                getQuotesResponse.Value.ToList(),
                 Granularity.FiveMins,
-                WaveTrendSettingsConst.WaveTrendSettingsDefault
+                WaveTrendSettingsConst.WaveTrendSettingsDefault,
+                MfiSettingsConst.MfiSettingsDefault
             )
         );
         await ConsoleUtils.WriteResultMessages(evaluateResponse);
         await Console.Out.WriteLineAsync($"{nameof(Evaluate5MinJCipherBJob)} finished.");
     }
 
-    private async Task<IResult<GetCypherBResponseDto>> GetQuotes()
+    private async Task<IResult<IEnumerable<Quote>>> GetQuotes()
     {
         var startDate = new DateTime(2023, 5, 20, 0, 0, 0, DateTimeKind.Utc);
         var timeFrame = new TimeFrame(Granularity.FiveMins, startDate, startDate.AddHours(5));
         var asset = new Asset(AssetName.BTC, AssetType.Cryptocurrency);
 
-        return await _mediator.Send(
-            new GetCypherBCommand(
-                timeFrame,
-                asset,
-                WaveTrendSettingsConst.WaveTrendSettingsDefault,
-                SRsiSettingsConst.SRsiSettingsDefault,
-                MfiSettingsConst.MfiSettingsDefault
-            )
+        return await _adapter.GetQuotes(
+            timeFrame,
+            asset,
+            new PostProcessing(true),
+            CancellationToken.None
         );
     }
 }

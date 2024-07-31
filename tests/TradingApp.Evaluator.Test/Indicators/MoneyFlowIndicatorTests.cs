@@ -15,7 +15,7 @@ namespace TradingApp.Module.Quotes.Evaluator.Test.Indicators
             var settings = new MfiSettings(20, MfiSettingsConst.ScaleFactor);
 
             // Act
-            var results = MoneyFlowIndicator.Calculate(quotes, settings, true, 4);
+            var results = MoneyFlowIndicator.Calculate(quotes.ToList(), settings, true, 4);
 
             // Assert
             Assert.NotNull(results);

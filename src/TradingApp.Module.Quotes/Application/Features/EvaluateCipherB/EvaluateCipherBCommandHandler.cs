@@ -1,7 +1,6 @@
 ﻿using FluentResults;
 using MediatR;
 using TradingApp.Core.EventBus;
-using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
@@ -10,9 +9,10 @@ using TradingApp.Module.Quotes.Domain.Aggregates;
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 
 public record EvaluateCipherBCommand(
-    IEnumerable<CypherBQuote> Quotes,
+    IReadOnlyList<Quote> Quotes,
     Granularity Granularity,
-    WaveTrendSettings WaveTrendSettings
+    WaveTrendSettings WaveTrendSettings,
+    MfiSettings MfiSettings
 ) : IRequest<IResultBase>;
 
 public class EvaluateCipherBCommandHandler : IRequestHandler<EvaluateCipherBCommand, IResultBase>
@@ -41,7 +41,12 @@ public class EvaluateCipherBCommandHandler : IRequestHandler<EvaluateCipherBComm
     )
     {
         var decision = _decisionService.MakeDecision(
-            new CypherBDecisionRequest(request.Quotes, request.Granularity, request.WaveTrendSettings)
+            request.Quotes,
+            new CypherBDecisionSettings(
+                request.Granularity,
+                request.WaveTrendSettings,
+                request.MfiSettings
+            )
         );
         if (decision.IsFailed)
         {

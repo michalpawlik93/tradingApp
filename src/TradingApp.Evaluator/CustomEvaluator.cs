@@ -12,18 +12,17 @@ public class CustomEvaluator : IEvaluator
 {
     private const int DecimalPlace = 4;
 
-    public IEnumerable<WaveTrendResult> GetWaveTrend(IEnumerable<Quote> quotes, WaveTrendSettings settings) =>
-        WaveTrendIndicator.Calculate(quotes, settings, true, DecimalPlace);
+    public IReadOnlyList<WaveTrendResult> GetWaveTrend(
+        IReadOnlyList<Quote> quotes,
+        WaveTrendSettings settings
+    ) => WaveTrendIndicator.Calculate(quotes, settings, true, DecimalPlace);
 
     public IReadOnlyList<SRsiResult> GetSrsi(IReadOnlyList<Quote> quotes, SRsiSettings settings) =>
         SRsiIndicator.Calculate(quotes, settings);
 
-    public IEnumerable<MfiResult> GetMfi(IEnumerable<Quote> quotes, MfiSettings settings) =>
+    public IReadOnlyList<MfiResult> GetMfi(IReadOnlyList<Quote> quotes, MfiSettings settings) =>
         MoneyFlowIndicator.Calculate(quotes, settings, true, DecimalPlace);
 
     public IEnumerable<RsiResult> GetRsi(IEnumerable<Quote> quotes, RsiSettings settings) =>
         RsiIndicator.Calculate(quotes, settings);
 }
-
-// separate signals from indices data, dont return crossOVers crossDowns. It can be enhancment in a future
-// crossDown , buy signals etc can be assesed in decision service

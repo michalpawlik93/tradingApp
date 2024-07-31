@@ -28,7 +28,7 @@ public class SrsiDecisionServiceTests
         var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
 
         //Act
-        var result = _sut.MakeDecisions(
+        var result = _sut.GetQuotesTradeActions(
             quotes,
             new SrsiDecisionSettings(1, 2),
             SRsiSettingsConst.SRsiSettingsDefault

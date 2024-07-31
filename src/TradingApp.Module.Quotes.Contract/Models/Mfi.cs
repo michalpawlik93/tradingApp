@@ -2,4 +2,4 @@
 
 public record MfiResult(decimal Mfi);
 
-public record MfiSettings(int ChannelLength, int ScaleFactor);
+public record struct MfiSettings(int ChannelLength, int ScaleFactor);

@@ -1,8 +1,10 @@
 ﻿using AutoFixture.Xunit2;
 using FluentAssertions;
 using FluentResults;
-using Moq;
+using NSubstitute;
+using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
+using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using Xunit;
@@ -11,13 +13,14 @@ namespace TradingApp.Module.Quotes.Test.Application.Features.GetCypherB;
 
 public class GetCypherBCommandHandlerTests
 {
-    private readonly Mock<ITradingAdapter> _adapter = new();
-    private readonly Mock<IEvaluator> _evaluator = new();
+    private readonly ITradingAdapter _adapter = Substitute.For<ITradingAdapter>();
+    private readonly ICypherBDecisionService _cypherBDecisionService =
+        Substitute.For<ICypherBDecisionService>();
     private readonly GetCypherBCommandHandler _sut;
 
     public GetCypherBCommandHandlerTests()
     {
-        _sut = new GetCypherBCommandHandler(_adapter.Object, _evaluator.Object);
+        _sut = new GetCypherBCommandHandler(_adapter, _cypherBDecisionService);
     }
 
     [Theory]
@@ -27,16 +30,13 @@ public class GetCypherBCommandHandlerTests
         //Arrange
         const string errorMessage = "errorMessage";
         _adapter
-            .Setup(
-                _ =>
-                    _.GetQuotes(
-                        command.TimeFrame,
-                        command.Asset,
-                        new PostProcessing(true),
-                        CancellationToken.None
-                    )
+            .GetQuotes(
+                command.TimeFrame,
+                command.Asset,
+                new PostProcessing(true),
+                CancellationToken.None
             )
-            .ReturnsAsync(Result.Fail<IEnumerable<Quote>>(errorMessage));
+            .Returns(Result.Fail<IEnumerable<Quote>>(errorMessage));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
@@ -48,35 +48,42 @@ public class GetCypherBCommandHandlerTests
     [AutoData]
     public async Task Handle_SuccessPath_ResponseReturned(
         GetCypherBCommand command,
-        IEnumerable<Quote> quotes,
-        WaveTrendResult waveTrend
+        List<Quote> quotes,
+        WaveTrendSignalsResult waveTrend
     )
     {
         //Arrange
         _adapter
-            .Setup(
-                _ =>
-                    _.GetQuotes(
-                        command.TimeFrame,
-                        command.Asset,
-                        new PostProcessing(true),
-                        CancellationToken.None
+            .GetQuotes(
+                command.TimeFrame,
+                command.Asset,
+                new PostProcessing(true),
+                CancellationToken.None
+            )
+            .Returns(Result.Ok((IEnumerable<Quote>)quotes));
+
+        var cypherBResults = Enumerable
+            .Range(0, quotes.Count)
+            .Select(
+                x =>
+                    new CypherBQuote(
+                        quotes[x],
+                        waveTrend,
+                        new MfiResult((decimal)new Random().NextDouble())
                     )
             )
-            .ReturnsAsync(Result.Ok(quotes));
-        var values = Enumerable
-            .Range(0, quotes.Count())
-            .Select(_ => new MfiResult((decimal)new Random().NextDouble()))
             .ToList();
-        var waveTrends = Enumerable.Range(0, quotes.Count()).Select(_ => waveTrend).ToList();
-        _evaluator.Setup(_ => _.GetMfi(It.IsAny<IEnumerable<Quote>>(), It.IsAny<MfiSettings>())).Returns(values);
-        _evaluator
-            .Setup(_ => _.GetWaveTrend(It.IsAny<IEnumerable<Quote>>(), It.IsAny<WaveTrendSettings>()))
-            .Returns(waveTrends);
+
+        _cypherBDecisionService
+            .GetQuotesTradeActions(
+                Arg.Any<IReadOnlyList<Quote>>(),
+                Arg.Any<CypherBDecisionSettings>()
+            )
+            .Returns(Result.Ok((IReadOnlyList<CypherBQuote>)cypherBResults));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
         //Assert
-        result.Value.Quotes.Should().HaveCount(quotes.Count());
+        result.Value.Quotes.Should().HaveCount(quotes.Count);
     }
 }

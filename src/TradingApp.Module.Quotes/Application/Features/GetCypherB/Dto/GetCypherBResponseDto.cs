@@ -3,5 +3,5 @@
 namespace TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 
 public record GetCypherBResponseDto(
-    IEnumerable<CypherBQuote> Quotes
+    IReadOnlyList<CypherBQuote> Quotes
 );

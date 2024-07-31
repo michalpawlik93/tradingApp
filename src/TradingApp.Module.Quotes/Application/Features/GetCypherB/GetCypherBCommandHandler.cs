@@ -1,7 +1,7 @@
 ﻿using FluentResults;
 using MediatR;
+using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
-using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 
@@ -11,14 +11,16 @@ public class GetCypherBCommandHandler
     : IRequestHandler<GetCypherBCommand, IResult<GetCypherBResponseDto>>
 {
     private readonly ITradingAdapter _provider;
-    private readonly IEvaluator _evaluator;
+    private readonly ICypherBDecisionService _cypherBDecisionService;
 
-    public GetCypherBCommandHandler(ITradingAdapter provider, IEvaluator evaluator)
+    public GetCypherBCommandHandler(
+        ITradingAdapter provider,
+        ICypherBDecisionService cypherBDecisionService
+    )
     {
         ArgumentNullException.ThrowIfNull(provider);
-        ArgumentNullException.ThrowIfNull(evaluator);
         _provider = provider;
-        _evaluator = evaluator;
+        _cypherBDecisionService = cypherBDecisionService;
     }
 
     public async Task<IResult<GetCypherBResponseDto>> Handle(
@@ -27,26 +29,28 @@ public class GetCypherBCommandHandler
     )
     {
         var getQuotesResponse = await _provider.GetQuotes(
-            request.TimeFrame, request.Asset, new PostProcessing(true), cancellationToken
+            request.TimeFrame,
+            request.Asset,
+            new PostProcessing(true),
+            cancellationToken
         );
         if (getQuotesResponse.IsFailed)
         {
             return getQuotesResponse.ToResult<GetCypherBResponseDto>();
         }
 
-        var waveTrend = _evaluator.GetWaveTrend(
-            getQuotesResponse.Value,
-            request.WaveTrendSettings
-        );
-        var mfi = _evaluator.GetMfi(
-            getQuotesResponse.Value,
-            request.MfiSettings
-        );
-        var combinedResults = getQuotesResponse.Value
-            .Select(
-                (q, i) => new CypherBQuote(q, waveTrend.ElementAt(i), mfi.ElementAt(i))
+        var results = _cypherBDecisionService.GetQuotesTradeActions(
+            getQuotesResponse.Value.ToList(),
+            new CypherBDecisionSettings(
+                request.TimeFrame.Granularity,
+                request.WaveTrendSettings,
+                request.MfiSettings
             )
-            .ToList();
-        return Result.Ok(new GetCypherBResponseDto(combinedResults));
+        );
+        if (results.IsFailed)
+        {
+            return getQuotesResponse.ToResult<GetCypherBResponseDto>();
+        }
+        return Result.Ok(new GetCypherBResponseDto(results.Value));
     }
 }

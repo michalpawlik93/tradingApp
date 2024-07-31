@@ -33,7 +33,7 @@ public interface ISrsiDecisionService
     /// <param name="srsiDecisionSettings"></param>
     /// <param name="sRsiSettings"></param>
     /// <returns></returns>
-    Result<IEnumerable<Decision>> MakeDecisions(
+    Result<IEnumerable<Decision>> GetQuotesTradeActions(
         IReadOnlyList<Quote> quotes,
         SrsiDecisionSettings srsiDecisionSettings,
         SRsiSettings sRsiSettings
@@ -77,10 +77,10 @@ public class SrsiDecisionService : ISrsiDecisionService
         return decision;
     }
 
-    public Result<IEnumerable<Decision>> MakeDecisions(
+    public Result<IEnumerable<Decision>> GetQuotesTradeActions(
         IReadOnlyList<Quote> quotes,
         SrsiDecisionSettings srsiDecisionSettings,
-        SRsiSettings sRsiSetting
+        SRsiSettings sRsiSettings
     )
     {
         return Result.Fail("Not Implemented");

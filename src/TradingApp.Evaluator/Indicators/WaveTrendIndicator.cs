@@ -27,8 +27,8 @@ public static class WaveTrendIndicator
     /// <returns></returns>
     ///
 
-    public static IEnumerable<WaveTrendResult> Calculate(
-        IEnumerable<Quote> domainQuotes,
+    public static IReadOnlyList<WaveTrendResult> Calculate(
+        IReadOnlyList<Quote> domainQuotes,
         WaveTrendSettings settings,
         bool scaleResult,
         int resultDecimalPlace
@@ -45,19 +45,18 @@ public static class WaveTrendIndicator
         var wt2 = MovingAverage.CalculateSMA(settings.MovingAverageLength, wt1);
 
         if (!scaleResult)
-            return CreateWaveTrendResults(wt1, wt2, resultDecimalPlace, settings);
+            return CreateResults(wt1, wt2, resultDecimalPlace);
         var scaleFactor = Scale.ByMaxMin(wt1);
         wt1 = wt1.Select(x => x * scaleFactor).ToArray();
         wt2 = wt2.Select(x => x * scaleFactor).ToArray();
 
-        return CreateWaveTrendResults(wt1, wt2, resultDecimalPlace, settings);
+        return CreateResults(wt1, wt2, resultDecimalPlace);
     }
 
-    private static List<WaveTrendResult> CreateWaveTrendResults(
+    public static List<WaveTrendResult> CreateResults(
         IReadOnlyList<decimal> wt1,
         IReadOnlyList<decimal> wt2,
-        int resultDecimalPlace,
-        WaveTrendSettings settings
+        int resultDecimalPlace
     )
     {
         var waveTrends = new List<WaveTrendResult>();
@@ -72,9 +71,7 @@ public static class WaveTrendIndicator
                     ? new WaveTrendResult(
                         Math.Round(currentWt1, resultDecimalPlace),
                         Math.Round(currentWt2, resultDecimalPlace),
-                        MathUtils.RoundValue(vwap, resultDecimalPlace),
-                        CrossesDownToUp(wt1, wt2, i, settings),
-                        CrossesUpToDown(wt1, wt2, i, settings)
+                        MathUtils.RoundValue(vwap, resultDecimalPlace)
                     )
                     : null
             );
@@ -82,50 +79,4 @@ public static class WaveTrendIndicator
 
         return waveTrends;
     }
-
-    /// <summary>
-    /// wt1 crosses wt2 from down to up, green buy signal
-    /// </summary>
-    /// <param name="wt1"></param>
-    /// <param name="wt2"></param>
-    /// <param name="i"></param>
-    /// <param name="settings"></param>
-    /// <returns></returns>
-    private static bool? CrossesDownToUp(
-        IReadOnlyList<decimal> wt1,
-        IReadOnlyList<decimal> wt2,
-        int i,
-        WaveTrendSettings settings
-    ) =>
-        wt1[i] < 0
-        && wt1[i - 1] < 0
-        && wt1[i] > wt2[i]
-        && wt1[i - 1] <= wt2[i - 1]
-        && wt1[i] <= settings.OversoldLevel2
-        && wt1[i] >= settings.Oversold
-            ? true
-            : null;
-
-    /// <summary>
-    /// wt1 crosses wt2 from up to down, red sell signal
-    /// </summary>
-    /// <param name="wt1"></param>
-    /// <param name="wt2"></param>
-    /// <param name="i"></param>
-    /// <param name="settings"></param>
-    /// <returns></returns>
-    private static bool? CrossesUpToDown(
-        IReadOnlyList<decimal> wt1,
-        IReadOnlyList<decimal> wt2,
-        int i,
-        WaveTrendSettings settings
-    ) =>
-        wt1[i] > 0
-        && wt1[i - 1] > 0
-        && wt1[i] < wt2[i]
-        && wt1[i - 1] >= wt2[i - 1]
-        && wt1[i] >= settings.OverboughtLevel2
-        && wt1[i] <= settings.Overbought
-            ? true
-            : null;
 }
