@@ -38,7 +38,8 @@ public class Evaluate5MinJCipherBJob : IJob
                 getQuotesResponse.Value.ToList(),
                 Granularity.FiveMins,
                 WaveTrendSettingsConst.WaveTrendSettingsDefault,
-                MfiSettingsConst.MfiSettingsDefault
+                MfiSettingsConst.MfiSettingsDefault,
+                SRsiSettingsConst.SRsiSettingsDefault
             )
         );
         await ConsoleUtils.WriteResultMessages(evaluateResponse);

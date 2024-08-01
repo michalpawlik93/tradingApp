@@ -21,17 +21,14 @@ public class SrsiDecisionServiceTests
     }
 
     [Fact]
-    public void MakeDecisions_ReturnFail()
+    public void GetQuotesTradeActions_ReturnFail()
     {
         //Arrange
-
         var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
-
         //Act
         var result = _sut.GetQuotesTradeActions(
             quotes,
-            new SrsiDecisionSettings(1, 2),
-            SRsiSettingsConst.SRsiSettingsDefault
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, 2)
         );
 
         //Assert
@@ -51,8 +48,7 @@ public class SrsiDecisionServiceTests
         //Act
         var result = _sut.MakeDecision(
             quotes,
-            new SrsiDecisionSettings(1, 2),
-            SRsiSettingsConst.SRsiSettingsDefault
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, 2)
         );
 
         //Assert
@@ -87,8 +83,7 @@ public class SrsiDecisionServiceTests
         //Act
         var result = _sut.MakeDecision(
             quotes,
-            new SrsiDecisionSettings(1, 2),
-            SRsiSettingsConst.SRsiSettingsDefault
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, 2)
         );
 
         //Assert

@@ -3,7 +3,6 @@ using NSubstitute;
 using TradingApp.Core.Domain;
 using TradingApp.Core.EventBus;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
-using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
@@ -35,8 +34,7 @@ public class EvaluateSRsiCommandHandlerTests
         _decisionService
             .MakeDecision(
                 Arg.Any<IReadOnlyList<Quote>>(),
-                Arg.Any<SrsiDecisionSettings>(),
-                Arg.Any<SRsiSettings>()
+                Arg.Any<SrsiDecisionSettings>()
             )
             .Returns(
                 Decision.CreateNew(
@@ -50,8 +48,7 @@ public class EvaluateSRsiCommandHandlerTests
 
         var command = new EvaluateSRsiCommand(
             quotes,
-            new SrsiDecisionSettings(1, 2),
-            SRsiSettingsConst.SRsiSettingsDefault
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, 2)
         );
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
@@ -62,8 +59,7 @@ public class EvaluateSRsiCommandHandlerTests
             .Received()
             .MakeDecision(
                 Arg.Any<IReadOnlyList<Quote>>(),
-                Arg.Any<SrsiDecisionSettings>(),
-                Arg.Any<SRsiSettings>()
+                Arg.Any<SrsiDecisionSettings>()
             );
         await _eventBus.Received().Publish(Arg.Any<IAggregateRoot>(), Arg.Any<CancellationToken>());
         await _decisionDataService

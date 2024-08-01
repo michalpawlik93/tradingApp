@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using System.Globalization;
 using TradingApp.Core.Models;
+using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 using TradingApp.Module.Quotes.Application.Features.TradeSignals;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
@@ -9,10 +10,11 @@ using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
 using TradingApp.Module.Quotes.Domain.Enums;
 using TradingApp.Module.Quotes.Domain.ValueObjects;
+using WaveTrendSignals = TradingApp.Module.Quotes.Application.Features.TradeSignals.WaveTrendSignals;
 
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 
-public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendSettings WaveTrendSettings, MfiSettings MfiSettings);
+public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendSettings WaveTrendSettings, MfiSettings MfiSettings, SRsiSettings SrsiSettings);
 
 public interface ICypherBDecisionService
 {
@@ -26,10 +28,13 @@ public interface ICypherBDecisionService
 public class CypherBDecisionService : ICypherBDecisionService
 {
     private readonly IEvaluator _evaluator;
-    public CypherBDecisionService(IEvaluator evaluator)
+    private readonly ISrsiDecisionService _srsiDecisionService;
+    public CypherBDecisionService(IEvaluator evaluator, ISrsiDecisionService srsiDecisionService)
     {
         ArgumentNullException.ThrowIfNull(evaluator);
+        ArgumentNullException.ThrowIfNull(srsiDecisionService);
         _evaluator = evaluator;
+        _srsiDecisionService = srsiDecisionService;
     }
     public Result<IReadOnlyList<CypherBQuote>> GetQuotesTradeActions(IReadOnlyList<Quote> quotes, CypherBDecisionSettings decisionSettings)
     {
@@ -39,11 +44,19 @@ public class CypherBDecisionService : ICypherBDecisionService
             quotes,
             decisionSettings.MfiSettings
         );
+        var srsiSignals = _srsiDecisionService.GetQuotesTradeActions(
+            quotes,
+            new SrsiDecisionSettings(decisionSettings.SrsiSettings, 50m, 100m)// change emas
+        );
+        if (srsiSignals.IsFailed)
+        {
+            return srsiSignals.ToResult();
+        }
         return quotes
             .Select((q, i) => new CypherBQuote(
                 q,
                 waveTrendSignals.ElementAtOrDefault(i),
-                mfi.ElementAtOrDefault(i))
+                mfi.ElementAtOrDefault(i), srsiSignals.Value.ElementAtOrDefault(i))
             )
             .ToList();
     }
@@ -79,7 +92,7 @@ public class CypherBDecisionService : ICypherBDecisionService
         return MarketDirection.Bullish;
     }
 
-    private static Dictionary<string, string> GetAdditionalParams(MfiResult mfiResult, WaveTrendSignalsResult waveTrendResult) => new()
+    private static Dictionary<string, string> GetAdditionalParams(MfiResult mfiResult, WaveTrendSignal waveTrendResult) => new()
     {
         {
             nameof(waveTrendResult.Wt1),
@@ -96,7 +109,7 @@ public class CypherBDecisionService : ICypherBDecisionService
         }
     };
 
-    private static TradeAction GetCumulativeTradeAction(IReadOnlyList<Quote> quotes, MfiResult mfiResult, WaveTrendSignalsResult waveTrendResult, Minutes maxSignalAge, WaveTrendSettings waveTrendSettings)
+    private static TradeAction GetCumulativeTradeAction(IReadOnlyList<Quote> quotes, MfiResult mfiResult, WaveTrendSignal waveTrendResult, Minutes maxSignalAge, WaveTrendSettings waveTrendSettings)
     {
         var vwapTradeAction = VwapSignals.GeVwapTradeAction(waveTrendResult);
         var wtTradeAction = WaveTrendSignals.GetWtSignalsTradeAction(quotes, waveTrendResult, maxSignalAge);

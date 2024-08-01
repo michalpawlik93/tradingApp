@@ -41,7 +41,8 @@ namespace TradingApp.Module.Quotes.Test.Application.Features.EvaluateCipherB
                 quotes,
                 Granularity.FiveMins,
                 WaveTrendSettingsConst.WaveTrendSettingsDefault,
-                MfiSettingsConst.MfiSettingsDefault
+                MfiSettingsConst.MfiSettingsDefault,
+                SRsiSettingsConst.SRsiSettingsDefault
             );
             //Act
             var result = await _sut.Handle(command, CancellationToken.None);

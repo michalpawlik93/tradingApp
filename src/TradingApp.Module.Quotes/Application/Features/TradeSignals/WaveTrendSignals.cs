@@ -12,7 +12,7 @@ public static class WaveTrendSignals
 
     public static TradeAction GetWtSignalsTradeAction(
         IReadOnlyList<Quote> quotes,
-        WaveTrendSignalsResult waveTrendResult,
+        WaveTrendSignal waveTrendResult,
         Minutes maxSignalAge
     )
     {
@@ -25,16 +25,16 @@ public static class WaveTrendSignals
             : TradeAction.Hold;
     }
 
-    public static IReadOnlyList<WaveTrendSignalsResult> CreateWaveTrendSignals(
+    public static IReadOnlyList<WaveTrendSignal> CreateWaveTrendSignals(
         IReadOnlyList<WaveTrendResult> waveTrendResults,
         WaveTrendSettings settings
     )
     {
         if (waveTrendResults.Count < 2)
         {
-            return new List<WaveTrendSignalsResult>(0);
+            return new List<WaveTrendSignal>(0);
         }
-        var waveTrends = new List<WaveTrendSignalsResult>(waveTrendResults.Count);
+        var waveTrends = new List<WaveTrendSignal>(waveTrendResults.Count);
         for (var i = 1; i < waveTrendResults.Count; i++)
         {
             var currentWt1 = waveTrendResults[i].Wt1;
@@ -43,7 +43,7 @@ public static class WaveTrendSignals
             var vwap = currentWt1 - currentWt2;
             waveTrends.Add(
                 waveTrendResults[i].Wt1 != 0 && waveTrendResults[i].Wt2 != 0
-                    ? new WaveTrendSignalsResult(
+                    ? new WaveTrendSignal(
                         Math.Round(currentWt1, DecimalPlace),
                         Math.Round(currentWt2, DecimalPlace),
                         MathUtils.RoundValue(vwap, DecimalPlace),
@@ -72,9 +72,9 @@ public static class WaveTrendSignals
         WaveTrendSettings settings
     ) =>
         waveTrendResults[i].Wt1 < 0
-        && waveTrendResults[^1].Wt1 < 0
+        && waveTrendResults[i - 1].Wt1 < 0
         && waveTrendResults[i].Wt1 > waveTrendResults[i].Wt2
-        && waveTrendResults[^1].Wt1 <= waveTrendResults[^1].Wt2
+        && waveTrendResults[i - 1].Wt1 <= waveTrendResults[i - 1].Wt2
         && waveTrendResults[i].Wt1 <= settings.OversoldLevel2
         && waveTrendResults[i].Wt1 >= settings.Oversold
             ? true
@@ -93,9 +93,9 @@ public static class WaveTrendSignals
         WaveTrendSettings settings
     ) =>
         waveTrendResults[i].Wt1 > 0
-        && waveTrendResults[^1].Wt1 > 0
+        && waveTrendResults[i - 1].Wt1 > 0
         && waveTrendResults[i].Wt1 < waveTrendResults[i].Wt2
-        && waveTrendResults[^1].Wt1 >= waveTrendResults[^1].Wt2
+        && waveTrendResults[i - 1].Wt1 >= waveTrendResults[i - 1].Wt2
         && waveTrendResults[i].Wt1 >= settings.OverboughtLevel2
         && waveTrendResults[i].Wt1 <= settings.Overbought
             ? true

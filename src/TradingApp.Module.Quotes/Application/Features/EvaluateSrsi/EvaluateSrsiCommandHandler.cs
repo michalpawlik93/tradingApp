@@ -1,7 +1,6 @@
 ﻿using FluentResults;
 using MediatR;
 using TradingApp.Core.EventBus;
-using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
@@ -14,8 +13,7 @@ namespace TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 /// <param name="Quotes"></param>
 public record EvaluateSRsiCommand(
     IReadOnlyList<Quote> Quotes,
-    SrsiDecisionSettings SrsiDecisionSettings,
-    SRsiSettings SRsiSetting
+    SrsiDecisionSettings SrsiDecisionSettings
 ) : IRequest<IResultBase>;
 
 public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, IResultBase>
@@ -45,8 +43,7 @@ public class EvaluateSRsiCommandHandler : IRequestHandler<EvaluateSRsiCommand, I
     {
         var decisionResult = _decisionService.MakeDecision(
             request.Quotes,
-            request.SrsiDecisionSettings,
-            request.SRsiSetting
+            request.SrsiDecisionSettings
         );
         if (decisionResult.IsFailed)
         {

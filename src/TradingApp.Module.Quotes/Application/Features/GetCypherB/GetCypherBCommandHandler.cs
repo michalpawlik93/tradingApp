@@ -44,13 +44,12 @@ public class GetCypherBCommandHandler
             new CypherBDecisionSettings(
                 request.TimeFrame.Granularity,
                 request.WaveTrendSettings,
-                request.MfiSettings
+                request.MfiSettings,
+                request.SRsiSettings
             )
         );
-        if (results.IsFailed)
-        {
-            return getQuotesResponse.ToResult<GetCypherBResponseDto>();
-        }
-        return Result.Ok(new GetCypherBResponseDto(results.Value));
+        return results.IsFailed
+            ? results.ToResult<GetCypherBResponseDto>()
+            : Result.Ok(new GetCypherBResponseDto(results.Value));
     }
 }

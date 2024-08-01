@@ -7,6 +7,7 @@ using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
+using TradingApp.Module.Quotes.Domain.Enums;
 using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Application.Features.GetCypherB;
@@ -46,10 +47,37 @@ public class GetCypherBCommandHandlerTests
 
     [Theory]
     [AutoData]
+    public async Task Handle_GetQuotesTradeActionsFailed_ResponseReturned(
+        GetCypherBCommand command,
+        List<Quote> quotes
+    )
+    {
+        //Arrange
+        _adapter
+            .GetQuotes(
+                command.TimeFrame,
+                command.Asset,
+                new PostProcessing(true),
+                CancellationToken.None
+            )
+            .Returns(Result.Ok((IEnumerable<Quote>)quotes));
+        const string errorMessage = "errorMessage";
+        _cypherBDecisionService
+            .GetQuotesTradeActions(Arg.Any<List<Quote>>(), Arg.Any<CypherBDecisionSettings>())
+            .Returns(Result.Fail<IReadOnlyList<CypherBQuote>>(errorMessage));
+        //Act
+        var result = await _sut.Handle(command, CancellationToken.None);
+
+        //Assert
+        result.Errors.Should().Contain(x => x.Message == errorMessage);
+    }
+
+    [Theory]
+    [AutoData]
     public async Task Handle_SuccessPath_ResponseReturned(
         GetCypherBCommand command,
         List<Quote> quotes,
-        WaveTrendSignalsResult waveTrend
+        WaveTrendSignal waveTrend
     )
     {
         //Arrange
@@ -69,7 +97,8 @@ public class GetCypherBCommandHandlerTests
                     new CypherBQuote(
                         quotes[x],
                         waveTrend,
-                        new MfiResult((decimal)new Random().NextDouble())
+                        new MfiResult((decimal)new Random().NextDouble()),
+                        new SrsiSignal(1m, 1m, 1m, TradeAction.Buy)
                     )
             )
             .ToList();

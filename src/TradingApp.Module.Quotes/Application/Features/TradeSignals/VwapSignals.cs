@@ -5,7 +5,7 @@ namespace TradingApp.Module.Quotes.Application.Features.TradeSignals;
 
 public static class VwapSignals
 {
-    public static TradeAction GeVwapTradeAction(WaveTrendSignalsResult waveTrendResult) =>
+    public static TradeAction GeVwapTradeAction(WaveTrendSignal waveTrendResult) =>
         waveTrendResult.Vwap > 0 ? TradeAction.Buy : TradeAction.Sell;
 }
 
