@@ -8,9 +8,11 @@ import { GetQuotesRequestDto } from "src/services/dtos/GetQuotesRequestDto";
 import { CombinedQuote } from "src/types/CombinedQuote";
 import { CypherBQuote } from "src/types/CypherBQuote";
 import { Quote } from "src/types/Quote";
-import { WaveTrend } from "../types/WaveTrend";
-import { Mfi } from "../types/Mfi";
+import { WaveTrendSignal } from "../types/WaveTrendSignal";
+import { MfiResult } from "../types/Mfi";
 import { mfiSettingsDefault, sRsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
+import { TradeAction } from "src/consts/tradeAction";
+import { SrsiSignal } from "src/types/SrsiSignal";
 
 export const GetCombinedQuotesResponseDtoMock = (): GetCombinedQuotesResponseDto => ({
   quotes: [CombinedQuoteMock()],
@@ -41,19 +43,25 @@ export const GetCypherBResponseDtoMock = (): GetCypherBResponseDto => ({
 
 export const CypherBQuoteMock = (): CypherBQuote => ({
   ohlc: QuoteMock(),
-  waveTrend: WaveTrendMock(),
-  mfi: MfiMock(),
+  waveTrendSignal: WaveTrendMock(),
+  mfiResult: MfiMock(),
+  srsiSignal: SrsiMock(),
 });
 
-export const WaveTrendMock = (): WaveTrend => ({
+export const SrsiMock = (): SrsiSignal => ({
+  stochD: 12.1314,
+  stochK: 13.1314,
+  tradeAction: TradeAction.Buy,
+});
+
+export const WaveTrendMock = (): WaveTrendSignal => ({
   wt1: 12.1314,
   wt2: 13.1314,
   vwap: 11.1314,
-  crossesOver: true,
-  crossesUnder: true,
+  tradeAction: TradeAction.Buy,
 });
 
-export const MfiMock = (): Mfi => ({
+export const MfiMock = (): MfiResult => ({
   mfi: 5.1314,
 });
 
@@ -65,6 +73,8 @@ export const GetQuotesRequestDtoMock = (): GetQuotesRequestDto => ({
   },
   timeFrame: {
     granularity: Granularity.Daily,
+    startDate: new Date(2023, 5, 24).toISOString(),
+    endDate: new Date(2023, 6, 24).toISOString(),
   },
 });
 
@@ -75,6 +85,8 @@ export const GetCypherBDtoMock = (): GetCypherBDto => ({
   },
   timeFrame: {
     granularity: Granularity.Daily,
+    startDate: new Date(2023, 5, 24).toISOString(),
+    endDate: new Date(2023, 6, 24).toISOString(),
   },
   waveTrendSettings: {
     channelLength: 8,

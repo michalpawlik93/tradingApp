@@ -1,9 +1,11 @@
-import { Mfi } from "./Mfi";
+import { MfiResult } from "./Mfi";
 import { Quote } from "./Quote";
-import { WaveTrend } from "./WaveTrend";
+import { SrsiSignal } from "./SrsiSignal";
+import { WaveTrendSignal } from "./WaveTrendSignal";
 
 export interface CypherBQuote {
   ohlc: Quote;
-  waveTrend: WaveTrend;
-  mfi: Mfi;
+  waveTrendSignal: WaveTrendSignal;
+  mfiResult: MfiResult;
+  srsiSignal: SrsiSignal;
 }

@@ -1,3 +1,4 @@
+import { TradeAction } from "src/consts/tradeAction";
 import { CypherBChartData } from "../types/ChartData";
 import { CypherBQuote } from "../types/CypherBQuote";
 
@@ -11,6 +12,10 @@ export function mapToCypherBChartData(quotes: CypherBQuote[]): CypherBChartData 
     mfiBuy: [],
     mfiSell: [],
     ohlc: [],
+    srsiStochD: [],
+    srsiStochK: [],
+    srsiBuy: [],
+    srsiSell: [],
   };
 
   quotes.forEach((quote) => {
@@ -19,27 +24,38 @@ export function mapToCypherBChartData(quotes: CypherBQuote[]): CypherBChartData 
       const x = new Date(quote.ohlc.date).getTime();
 
       result.ohlc.push([x, quote.ohlc.open, quote.ohlc.close, quote.ohlc.low, quote.ohlc.high]);
-      const { waveTrend, mfi } = quote;
+      const { waveTrendSignal, mfiResult, srsiSignal } = quote;
 
-      if (waveTrend !== null) {
-        result.waveTrendWt1.push([x, waveTrend.wt1]);
-        result.waveTrendWt2.push([x, waveTrend.wt2]);
-        if (waveTrend.vwap) {
-          result.waveTrendVwap.push([x, waveTrend.vwap]);
+      if (waveTrendSignal !== null) {
+        result.waveTrendWt1.push([x, waveTrendSignal.wt1]);
+        result.waveTrendWt2.push([x, waveTrendSignal.wt2]);
+        if (waveTrendSignal.vwap) {
+          result.waveTrendVwap.push([x, waveTrendSignal.vwap]);
         }
-        if (waveTrend.crossesOver) {
-          result.waveTrendBuy.push([x, waveTrend.wt1]);
+        if (waveTrendSignal.tradeAction === TradeAction.Buy) {
+          result.waveTrendBuy.push([x, waveTrendSignal.wt1]);
         }
-        if (waveTrend.crossesUnder) {
-          result.waveTrendSell.push([x, waveTrend.wt1]);
+        if (waveTrendSignal.tradeAction === TradeAction.Sell) {
+          result.waveTrendSell.push([x, waveTrendSignal.wt1]);
         }
       }
 
-      if (mfi !== null) {
-        if (mfi.mfi > 0) {
-          result.mfiBuy.push([x, mfi.mfi]);
+      if (srsiSignal !== null) {
+        result.srsiStochK.push([x, srsiSignal.stochK]);
+        result.srsiStochD.push([x, srsiSignal.stochD]);
+        if (srsiSignal.tradeAction === TradeAction.Buy) {
+          result.srsiBuy.push([x, srsiSignal.stochK]);
+        }
+        if (srsiSignal.tradeAction === TradeAction.Sell) {
+          result.srsiSell.push([x, srsiSignal.stochK]);
+        }
+      }
+
+      if (mfiResult !== null) {
+        if (mfiResult.mfi > 0) {
+          result.mfiBuy.push([x, mfiResult.mfi]);
         } else {
-          result.mfiSell.push([x, mfi.mfi]);
+          result.mfiSell.push([x, mfiResult.mfi]);
         }
       }
     }

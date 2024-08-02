@@ -85,7 +85,7 @@ public static class WaveTrendIndicator
                         Math.Round(currentWt2, resultDecimalPlace),
                         MathUtils.RoundValue(vwap, resultDecimalPlace)
                     )
-                    : null
+                    : new WaveTrendResult(0, 0, 0)
             );
         }
 

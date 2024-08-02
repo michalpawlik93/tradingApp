@@ -21,4 +21,15 @@ interface MfiChartData {
   mfiSell: (number | Date)[][];
 }
 
-export interface CypherBChartData extends MfiChartData, WaveTrendChartData, OhlcChartData {}
+interface SrsiChartData {
+  srsiStochK: (number | Date)[][];
+  srsiStochD: (number | Date)[][];
+  srsiSell: (number | Date)[][];
+  srsiBuy: (number | Date)[][];
+}
+
+export interface CypherBChartData
+  extends MfiChartData,
+    WaveTrendChartData,
+    OhlcChartData,
+    SrsiChartData {}

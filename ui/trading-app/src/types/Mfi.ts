@@ -1,3 +1,3 @@
-export interface Mfi {
+export interface MfiResult {
   mfi: number;
 }
