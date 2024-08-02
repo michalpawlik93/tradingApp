@@ -36,7 +36,7 @@ public static class MoneyFlowIndicator
         var prices = domainQuotes
             .Select(q => (q.Close - q.Open) / DivideByNullGuard((q.High - q.Low)))
             .ToArray();
-        var smaP = MovingAverage.CalculateSMA(settings.ChannelLength, prices);
+        var smaP = MovingAverage.CalculateSma(settings.ChannelLength, prices);
 
         return smaP;
     }

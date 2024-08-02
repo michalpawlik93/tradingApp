@@ -80,18 +80,18 @@ public class CypherBDecisionServiceTests
     }
 
     [Fact]
-    public void GetQuotesTradeActions_MergedQuotesReturned()
+    public void GetDecisionQuotes_MergedQuotesReturned()
     {
         //Arrange
         _evaluator.GetMfi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<MfiSettings>()).Returns(new List<MfiResult> { new(MfiBuy), new(MfiBuy) });
         _evaluator.GetWaveTrend(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<WaveTrendSettings>()).Returns(new List<WaveTrendResult> { new(1m, 2m, VwapSell), new(1m, 2m, VwapSell) });
-        _srsiDecisionService.GetQuotesTradeActions(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiDecisionSettings>()).Returns(new List<SrsiSignal> { new(1m, 2m, 3m, TradeAction.Hold), new(1m, 2m, 3m, TradeAction.Hold) });
+        _srsiDecisionService.GetDecisionQuotes(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiDecisionSettings>()).Returns(new List<SrsiSignal> { new(1m, 2m, TradeAction.Hold), new(1m, 2m, TradeAction.Hold) });
         var quotes = new List<Quote>
         {
             new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m)
         };
         //Act
-        var result = _sut.GetQuotesTradeActions(quotes, new CypherBDecisionSettings(Granularity.FiveMins, WaveTrendSettingsConst.WaveTrendSettingsDefault, MfiSettingsConst.MfiSettingsDefault, SRsiSettingsConst.SRsiSettingsDefault));
+        var result = _sut.GetDecisionQuotes(quotes, new CypherBDecisionSettings(Granularity.FiveMins, WaveTrendSettingsConst.WaveTrendSettingsDefault, MfiSettingsConst.MfiSettingsDefault, SRsiSettingsConst.SRsiSettingsDefault));
 
         //Assert
         result.Errors.Should().BeEmpty();

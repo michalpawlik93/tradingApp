@@ -35,22 +35,34 @@ public static class WaveTrendIndicator
     )
     {
         var hlc3 = domainQuotes.Select(quote => quote.Close + quote.Low + quote.High).ToArray();
-        var esa = MovingAverage.CalculateEMA(settings.ChannelLength, hlc3);
-        var d = MovingAverage.CalculateEMA(
+        var esa = MovingAverage.CalculateEma(settings.ChannelLength, hlc3);
+        if (esa.IsFailed)
+        {
+            return new List<WaveTrendResult>(0);
+        }
+        var d = MovingAverage.CalculateEma(
             settings.ChannelLength,
-            hlc3.Select((hlc, i) => Math.Abs(hlc - esa[i])).ToArray()
+            hlc3.Select((hlc, i) => Math.Abs(hlc - esa.Value[i])).ToArray()
         );
-        var ci = hlc3.Select((close, i) => d[i] != 0 ? (close - esa[i]) / (d[i]) : 0).ToArray();
-        var wt1 = MovingAverage.CalculateEMA(settings.AverageLength, ci);
-        var wt2 = MovingAverage.CalculateSMA(settings.MovingAverageLength, wt1);
+        if (d.IsFailed)
+        {
+            return new List<WaveTrendResult>(0);
+        }
+        var ci = hlc3.Select((close, i) => d.Value[i] != 0 ? (close - esa.Value[i]) / (d.Value[i]) : 0).ToArray();
+        var wt1 = MovingAverage.CalculateEma(settings.AverageLength, ci);
+        if (wt1.IsFailed)
+        {
+            return new List<WaveTrendResult>(0);
+        }
+        var wt2 = MovingAverage.CalculateSma(settings.MovingAverageLength, wt1.Value);
 
         if (!scaleResult)
-            return CreateResults(wt1, wt2, resultDecimalPlace);
-        var scaleFactor = Scale.ByMaxMin(wt1);
-        wt1 = wt1.Select(x => x * scaleFactor).ToArray();
+            return CreateResults(wt1.Value, wt2, resultDecimalPlace);
+        var scaleFactor = Scale.ByMaxMin(wt1.Value);
+        wt1 = wt1.Value.Select(x => x * scaleFactor).ToArray();
         wt2 = wt2.Select(x => x * scaleFactor).ToArray();
 
-        return CreateResults(wt1, wt2, resultDecimalPlace);
+        return CreateResults(wt1.Value, wt2, resultDecimalPlace);
     }
 
     public static List<WaveTrendResult> CreateResults(

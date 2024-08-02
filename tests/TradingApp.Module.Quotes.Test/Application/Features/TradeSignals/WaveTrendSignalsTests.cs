@@ -85,7 +85,8 @@ public class WaveTrendSignalsTests
         );
 
         // Assert
-        result.Should().ContainSingle(x => x == null);
+        result.Should().HaveCount(2);
+        result[1].TradeAction.Should().Be(TradeAction.Hold);
     }
 
     [Fact]
@@ -106,7 +107,8 @@ public class WaveTrendSignalsTests
         );
 
         // Assert
-        result.Should().ContainSingle(x => x.TradeAction == TradeAction.Buy);
+        result.Should().HaveCount(2);
+        result[1].TradeAction.Should().Be(TradeAction.Buy);
     }
 
     [Fact]
@@ -127,7 +129,8 @@ public class WaveTrendSignalsTests
         );
 
         // Assert
-        result.Should().ContainSingle(x => x.TradeAction == TradeAction.Sell);
+        result.Should().HaveCount(2);
+        result[1].TradeAction.Should().Be(TradeAction.Sell);
     }
 
     [Fact]
@@ -148,6 +151,7 @@ public class WaveTrendSignalsTests
         );
 
         // Assert
-        result.Should().ContainSingle(x => x.TradeAction == TradeAction.Hold);
+        result.Should().HaveCount(2);
+        result[0].TradeAction.Should().Be(TradeAction.Hold);
     }
 }

@@ -35,8 +35,13 @@ public static class WaveTrendSignals
             return new List<WaveTrendSignal>(0);
         }
         var waveTrends = new List<WaveTrendSignal>(waveTrendResults.Count);
-        for (var i = 1; i < waveTrendResults.Count; i++)
+        for (var i = 0; i < waveTrendResults.Count; i++)
         {
+            if (i == 0)
+            {
+                waveTrends.Add(new WaveTrendSignal(0, 0, null, TradeAction.Hold));
+                continue;
+            }
             var currentWt1 = waveTrendResults[i].Wt1;
             var currentWt2 = waveTrendResults[i].Wt2;
 
@@ -52,7 +57,7 @@ public static class WaveTrendSignals
                             CrossesUpToDown(waveTrendResults, i, settings)
                         )
                     )
-                    : null
+                    : new WaveTrendSignal(0, 0, null, TradeAction.Hold)
             );
         }
 

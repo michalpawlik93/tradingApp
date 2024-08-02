@@ -1,4 +1,5 @@
-﻿using TradingApp.Module.Quotes.Application.Models;
+﻿using FluentResults;
+using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 
 namespace TradingApp.Module.Quotes.Contract.Ports;
@@ -22,4 +23,6 @@ public interface IEvaluator
         IReadOnlyList<Quote> quotes,
         MfiSettings settings
     );
+
+    Result<decimal[]> GetEmea(decimal[] values, int length);
 }

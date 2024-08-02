@@ -1,33 +1,40 @@
-﻿namespace TradingApp.Evaluator.Utils;
+﻿using FluentResults;
+using TradingApp.Core.Models;
+
+namespace TradingApp.Evaluator.Utils;
 
 public static class MovingAverage
 {
-    public static decimal[] CalculateSMA(int period, decimal[] input)
+    public static decimal[] CalculateSma(int period, decimal[] values)
     {
-        var result = new decimal[input.Length];
-        if (input.Length < period)
+        var result = new decimal[values.Length];
+        if (values.Length < period)
             return result;
 
-        for (var i = period - 1; i < input.Length; i++)
+        for (var i = period - 1; i < values.Length; i++)
         {
-            result[i] = input.Skip(i - period + 1).Take(period).Average();
+            result[i] = values.Skip(i - period + 1).Take(period).Average();
         }
         return result;
     }
 
-    public static decimal[] CalculateEMA(int period, decimal[] input)
+    public static Result<decimal[]> CalculateEma(int length, decimal[] values)
     {
-        var result = new decimal[input.Length];
-        if (input.Length < period)
-            return result;
+        var result = new decimal[values.Length];
+        if (values.Length < length)
+            return Result.Fail(
+                new ValidationError(
+                    $"{CalculateEma} error. Values length must be bigger than ema length"
+                )
+            );
 
-        var multiplier = 2m / (period + 1);
-        result[period - 1] = input.Take(period).Average();
+        var multiplier = 2m / (length + 1);
+        result[length - 1] = values.Take(length).Average();
 
-        for (var i = period; i < input.Length; i++)
+        for (var i = length; i < values.Length; i++)
         {
-            result[i] = (input[i] - result[i - 1]) * multiplier + result[i - 1];
+            result[i] = (values[i] - result[i - 1]) * multiplier + result[i - 1];
         }
-        return result;
+        return Result.Ok(result);
     }
 }

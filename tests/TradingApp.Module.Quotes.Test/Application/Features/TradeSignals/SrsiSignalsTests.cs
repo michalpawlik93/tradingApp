@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 using TradingApp.Module.Quotes.Application.Features.TradeSignals;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
@@ -11,6 +10,25 @@ namespace TradingApp.Module.Quotes.Test.Application.Features.TradeSignals;
 
 public class SrsiSignalsTests
 {
+    [Fact]
+    public void CreateSriSignals_HoldExpected()
+    {
+        // Arrange
+        var tooOldSignal = new Quote(DateTime.Now, 1m, 2m, 3m, 4m, 5m);
+        var withingSignalAge = new Quote(DateTime.Now, 1m, 2m, 3m, 4m, 5m);
+        var quotes = new List<Quote> { tooOldSignal, withingSignalAge };
+        var srsiResults = new List<SRsiResult> { new(DateTime.Now, 1m, 2m), new(DateTime.Now, 1m, 2m) };
+        // Act
+        var result = SrsiSignals.CreateSriSignals(
+            quotes,
+            srsiResults,
+            SRsiSettingsConst.SRsiSettingsDefault, [1m, 1m], [2m, 2m]
+        );
+
+        // Assert
+        result.Should().HaveCount(2);
+    }
+
     [Fact]
     public void GetTradeAction_HoldExpected()
     {
@@ -24,7 +42,7 @@ public class SrsiSignalsTests
             latestClose,
             last,
             penult,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1m, 2m)
+            SRsiSettingsConst.SRsiSettingsDefault, 1m, 2m
         );
 
         // Assert
@@ -39,14 +57,13 @@ public class SrsiSignalsTests
         var penult = new SRsiResult(DateTime.Now, 85m, 75m);
         var latestClose = 40m;
         var srsiSettings = new SRsiSettings(true, 14, 3, 3, -60, 60);
-        var srsiDecisionSettings = new SrsiDecisionSettings(srsiSettings, 50m, 60m);
 
         // Act
         var result = SrsiSignals.GetTradeAction(
             latestClose,
             last,
             penult,
-            srsiDecisionSettings
+            srsiSettings, 50m, 60m
         );
 
         // Assert
@@ -61,14 +78,13 @@ public class SrsiSignalsTests
         var penult = new SRsiResult(DateTime.Now, -85m, -75m);
         var latestClose = 70m;
         var srsiSettings = new SRsiSettings(true, 14, 3, 3, -60, 60);
-        var srsiDecisionSettings = new SrsiDecisionSettings(srsiSettings, 60m, 50m);
 
         // Act
         var result = SrsiSignals.GetTradeAction(
             latestClose,
             last,
             penult,
-            srsiDecisionSettings
+            srsiSettings, 60m, 50m
         );
 
         // Assert

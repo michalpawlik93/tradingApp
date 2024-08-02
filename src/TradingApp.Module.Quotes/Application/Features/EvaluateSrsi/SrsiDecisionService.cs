@@ -10,7 +10,7 @@ using TradingApp.Module.Quotes.Domain.ValueObjects;
 
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 
-public record struct SrsiDecisionSettings(SRsiSettings SrsiSettings, decimal Ema, decimal Ema2X);
+public record struct SrsiDecisionSettings(SRsiSettings SrsiSettings, int EmaLength);
 
 public interface ISrsiDecisionService
 {
@@ -33,7 +33,7 @@ public interface ISrsiDecisionService
     /// <param name="srsiDecisionSettings"></param>
     /// <param name="sRsiSettings"></param>
     /// <returns></returns>
-    Result<IEnumerable<SrsiSignal>> GetQuotesTradeActions(
+    Result<IReadOnlyList<SrsiSignal>> GetDecisionQuotes(
         IReadOnlyList<Quote> quotes,
         SrsiDecisionSettings srsiDecisionSettings
     );
@@ -66,6 +66,17 @@ public class SrsiDecisionService : ISrsiDecisionService
             { nameof(last.StochK), last.StochK.ToString() },
             { nameof(last.StochD), last.StochD.ToString() }
         };
+        var closePrices = quotes.Select(x => x.Close).ToArray();
+        var ema = _evaluator.GetEmea(closePrices, srsiDecisionSettings.EmaLength);
+        if (ema.IsFailed)
+        {
+            return ema.ToResult();
+        }
+        var ema2X = _evaluator.GetEmea(closePrices, srsiDecisionSettings.EmaLength * 2);
+        if (ema2X.IsFailed)
+        {
+            return ema2X.ToResult();
+        }
         var decision = Decision.CreateNew(
             new IndexOutcome(IndexNames.Srsi, null, additionalParams),
             DateTime.UtcNow,
@@ -73,19 +84,40 @@ public class SrsiDecisionService : ISrsiDecisionService
                 quotes[^1].Close,
                 last,
                 penult,
-                srsiDecisionSettings
+                srsiDecisionSettings.SrsiSettings,
+                ema.Value[^1],
+                ema2X.Value[^1]
             ),
             MarketDirection.Bullish
         );
         return decision;
     }
 
-    public Result<IEnumerable<SrsiSignal>> GetQuotesTradeActions(
+    public Result<IReadOnlyList<SrsiSignal>> GetDecisionQuotes(
         IReadOnlyList<Quote> quotes,
         SrsiDecisionSettings srsiDecisionSettings
     )
     {
-        return Result.Fail("Not Implemented");
+        var results = _evaluator.GetSrsi(quotes, srsiDecisionSettings.SrsiSettings);
+        var closePrices = quotes.Select(x => x.Close).ToArray();
+        var ema = _evaluator.GetEmea(closePrices, srsiDecisionSettings.EmaLength);
+        if (ema.IsFailed)
+        {
+            return ema.ToResult();
+        }
+        var ema2X = _evaluator.GetEmea(closePrices, srsiDecisionSettings.EmaLength * 2);
+        if (ema2X.IsFailed)
+        {
+            return ema2X.ToResult();
+        }
+        var signals = SrsiSignals.CreateSriSignals(
+            quotes,
+            results,
+            srsiDecisionSettings.SrsiSettings,
+            ema.Value,
+            ema2X.Value
+        );
+        return Result.Ok(signals);
     }
 }
 

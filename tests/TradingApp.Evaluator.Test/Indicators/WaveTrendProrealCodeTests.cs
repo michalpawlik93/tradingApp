@@ -32,7 +32,7 @@ public class WaveTrendProrealCodeTests : QuotesTestBase
     }
 
     [Fact]
-    public void Calculate_NoQuotes_Success()
+    public void Calculate_NoQuotes_EmptyReturned()
     {
         // Arrange
         var scale = false;
@@ -47,6 +47,6 @@ public class WaveTrendProrealCodeTests : QuotesTestBase
             decimalPlace).ToList();
         // Assert
         r0.Should().BeEmpty();
-        r1.Should().HaveCount(1);
+        r1.Should().BeEmpty();
     }
 }

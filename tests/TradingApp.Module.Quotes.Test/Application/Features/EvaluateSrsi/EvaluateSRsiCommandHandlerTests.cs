@@ -48,7 +48,7 @@ public class EvaluateSRsiCommandHandlerTests
 
         var command = new EvaluateSRsiCommand(
             quotes,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, 2)
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1)
         );
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);

@@ -63,7 +63,7 @@ public class GetCypherBCommandHandlerTests
             .Returns(Result.Ok((IEnumerable<Quote>)quotes));
         const string errorMessage = "errorMessage";
         _cypherBDecisionService
-            .GetQuotesTradeActions(Arg.Any<List<Quote>>(), Arg.Any<CypherBDecisionSettings>())
+            .GetDecisionQuotes(Arg.Any<List<Quote>>(), Arg.Any<CypherBDecisionSettings>())
             .Returns(Result.Fail<IReadOnlyList<CypherBQuote>>(errorMessage));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
@@ -98,13 +98,13 @@ public class GetCypherBCommandHandlerTests
                         quotes[x],
                         waveTrend,
                         new MfiResult((decimal)new Random().NextDouble()),
-                        new SrsiSignal(1m, 1m, 1m, TradeAction.Buy)
+                        new SrsiSignal(1m, 1m, TradeAction.Buy)
                     )
             )
             .ToList();
 
         _cypherBDecisionService
-            .GetQuotesTradeActions(
+            .GetDecisionQuotes(
                 Arg.Any<IReadOnlyList<Quote>>(),
                 Arg.Any<CypherBDecisionSettings>()
             )

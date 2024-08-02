@@ -19,7 +19,7 @@ public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendS
 public interface ICypherBDecisionService
 {
     IResult<Decision> MakeDecision(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings);
-    Result<IReadOnlyList<CypherBQuote>> GetQuotesTradeActions(
+    Result<IReadOnlyList<CypherBQuote>> GetDecisionQuotes(
         IReadOnlyList<Quote> quotes,
         CypherBDecisionSettings decisionSettings
     );
@@ -29,6 +29,7 @@ public class CypherBDecisionService : ICypherBDecisionService
 {
     private readonly IEvaluator _evaluator;
     private readonly ISrsiDecisionService _srsiDecisionService;
+    private const int EmaLength = 50;
     public CypherBDecisionService(IEvaluator evaluator, ISrsiDecisionService srsiDecisionService)
     {
         ArgumentNullException.ThrowIfNull(evaluator);
@@ -36,7 +37,7 @@ public class CypherBDecisionService : ICypherBDecisionService
         _evaluator = evaluator;
         _srsiDecisionService = srsiDecisionService;
     }
-    public Result<IReadOnlyList<CypherBQuote>> GetQuotesTradeActions(IReadOnlyList<Quote> quotes, CypherBDecisionSettings decisionSettings)
+    public Result<IReadOnlyList<CypherBQuote>> GetDecisionQuotes(IReadOnlyList<Quote> quotes, CypherBDecisionSettings decisionSettings)
     {
         var waveTrendResults = _evaluator.GetWaveTrend(quotes, decisionSettings.WaveTrendSettings);
         var waveTrendSignals = WaveTrendSignals.CreateWaveTrendSignals(waveTrendResults, decisionSettings.WaveTrendSettings);
@@ -44,9 +45,9 @@ public class CypherBDecisionService : ICypherBDecisionService
             quotes,
             decisionSettings.MfiSettings
         );
-        var srsiSignals = _srsiDecisionService.GetQuotesTradeActions(
+        var srsiSignals = _srsiDecisionService.GetDecisionQuotes(
             quotes,
-            new SrsiDecisionSettings(decisionSettings.SrsiSettings, 50m, 100m)// change emas
+            new SrsiDecisionSettings(decisionSettings.SrsiSettings, EmaLength)
         );
         if (srsiSignals.IsFailed)
         {

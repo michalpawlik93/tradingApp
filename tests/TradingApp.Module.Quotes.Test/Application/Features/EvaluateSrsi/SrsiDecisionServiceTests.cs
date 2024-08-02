@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FluentResults;
 using NSubstitute;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 using TradingApp.Module.Quotes.Application.Models;
@@ -21,14 +22,17 @@ public class SrsiDecisionServiceTests
     }
 
     [Fact]
-    public void GetQuotesTradeActions_ReturnFail()
+    public void GetDecisionQuotes_EmeaFail_ReturnFail()
     {
         //Arrange
+        _evaluator
+            .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
+            .Returns(Result.Fail(""));
         var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
         //Act
-        var result = _sut.GetQuotesTradeActions(
+        var result = _sut.GetDecisionQuotes(
             quotes,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, 2)
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1)
         );
 
         //Assert
@@ -48,7 +52,7 @@ public class SrsiDecisionServiceTests
         //Act
         var result = _sut.MakeDecision(
             quotes,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, 2)
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1)
         );
 
         //Assert
@@ -75,6 +79,9 @@ public class SrsiDecisionServiceTests
             )
             .ToList();
         _evaluator
+            .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
+            .Returns(Result.Ok(new decimal[] { 1m, 2m }));
+        _evaluator
             .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SRsiSettings>())
             .Returns(results);
 
@@ -83,7 +90,7 @@ public class SrsiDecisionServiceTests
         //Act
         var result = _sut.MakeDecision(
             quotes,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, 2)
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1)
         );
 
         //Assert

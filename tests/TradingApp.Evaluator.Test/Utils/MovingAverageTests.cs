@@ -20,7 +20,7 @@ public class MovingAverageTests
         // Arrange
         var inputs = new decimal[] { first, second };
         // Act
-        var result = MovingAverage.CalculateSMA(period, inputs);
+        var result = MovingAverage.CalculateSma(period, inputs);
 
         // Assert
         result[0].Should().Be(expectedFirst);
@@ -33,7 +33,7 @@ public class MovingAverageTests
         // Arrange
         var inputs = new decimal[] { };
         // Act
-        var result = MovingAverage.CalculateSMA(2, inputs);
+        var result = MovingAverage.CalculateSma(2, inputs);
 
         // Assert
         result.Should().BeEmpty();
@@ -60,12 +60,12 @@ public class MovingAverageTests
         var inputs = new decimal[] { first, second, third };
 
         // Act
-        var result = MovingAverage.CalculateEMA(period, inputs);
+        var result = MovingAverage.CalculateEma(period, inputs);
 
         // Assert
         for (int i = period - 1; i < expected.Length; i++)
         {
-            result[i].Should().BeApproximately(expected[i - (period - 1)], 0.0001m);
+            result.Value[i].Should().BeApproximately(expected[i - (period - 1)], 0.0001m);
         }
     }
 
@@ -75,9 +75,9 @@ public class MovingAverageTests
         // Arrange
         var inputs = new decimal[] { };
         // Act
-        var result = MovingAverage.CalculateEMA(2, inputs);
+        var result = MovingAverage.CalculateEma(2, inputs);
 
         // Assert
-        result.Should().BeEmpty();
+        result.IsFailed.Should().BeTrue();
     }
 }

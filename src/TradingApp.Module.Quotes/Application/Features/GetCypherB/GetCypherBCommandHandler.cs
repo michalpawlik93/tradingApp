@@ -39,7 +39,7 @@ public class GetCypherBCommandHandler
             return getQuotesResponse.ToResult<GetCypherBResponseDto>();
         }
 
-        var results = _cypherBDecisionService.GetQuotesTradeActions(
+        var results = _cypherBDecisionService.GetDecisionQuotes(
             getQuotesResponse.Value.ToList(),
             new CypherBDecisionSettings(
                 request.TimeFrame.Granularity,
