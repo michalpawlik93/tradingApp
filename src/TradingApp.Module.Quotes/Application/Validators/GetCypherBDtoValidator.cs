@@ -43,7 +43,7 @@ public class SRsiSettingsValidator : AbstractValidator<SRsiSettingsDto>
         CommonValidationRules.RuleForChannelLength(this, x => x.StochKSmooth);
         CommonValidationRules.RuleForChannelLength(this, x => x.StochDSmooth);
         CommonValidationRules.RuleForOverbought(this, x => x.Overbought);
-        CommonValidationRules.RuleForOversold(this, x => x.Oversold);
+        CommonValidationRules.RuleForOverbought(this, x => x.Oversold);
     }
 }
 

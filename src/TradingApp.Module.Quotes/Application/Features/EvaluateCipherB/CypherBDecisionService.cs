@@ -1,8 +1,8 @@
 ﻿using FluentResults;
 using System.Globalization;
 using TradingApp.Core.Models;
-using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 using TradingApp.Module.Quotes.Application.Features.TradeSignals;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
@@ -18,7 +18,7 @@ public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendS
 
 public interface ICypherBDecisionService
 {
-    IResult<Decision> MakeDecision(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings);
+    Result<Decision> MakeDecision(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings);
     Result<IReadOnlyList<CypherBQuote>> GetDecisionQuotes(
         IReadOnlyList<Quote> quotes,
         CypherBDecisionSettings decisionSettings
@@ -28,52 +28,40 @@ public interface ICypherBDecisionService
 public class CypherBDecisionService : ICypherBDecisionService
 {
     private readonly IEvaluator _evaluator;
-    private readonly ISrsiDecisionService _srsiDecisionService;
-    private const int EmaLength = 50;
-    public CypherBDecisionService(IEvaluator evaluator, ISrsiDecisionService srsiDecisionService)
+    private readonly ISrsiStrategyFactory _srsiStrategyFactory;
+    public CypherBDecisionService(IEvaluator evaluator, ISrsiStrategyFactory srsiStrategyFactory)
     {
         ArgumentNullException.ThrowIfNull(evaluator);
-        ArgumentNullException.ThrowIfNull(srsiDecisionService);
+        ArgumentNullException.ThrowIfNull(srsiStrategyFactory);
         _evaluator = evaluator;
-        _srsiDecisionService = srsiDecisionService;
+        _srsiStrategyFactory = srsiStrategyFactory;
     }
-    public Result<IReadOnlyList<CypherBQuote>> GetDecisionQuotes(IReadOnlyList<Quote> quotes, CypherBDecisionSettings decisionSettings)
+    public Result<IReadOnlyList<CypherBQuote>> GetDecisionQuotes(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings)
     {
-        var waveTrendResults = _evaluator.GetWaveTrend(quotes, decisionSettings.WaveTrendSettings);
-        var waveTrendSignals = WaveTrendSignals.CreateWaveTrendSignals(waveTrendResults, decisionSettings.WaveTrendSettings);
-        var mfi = _evaluator.GetMfi(
-            quotes,
-            decisionSettings.MfiSettings
-        );
-        var srsiSignals = _srsiDecisionService.GetDecisionQuotes(
-            quotes,
-            new SrsiDecisionSettings(decisionSettings.SrsiSettings, EmaLength)
-        );
-        if (srsiSignals.IsFailed)
+        var result = EvaluateCipherB(quotes, settings);
+        if (result.IsFailed)
         {
-            return srsiSignals.ToResult();
+            return result.ToResult();
         }
+        var (mfiResults, waveTrendSignals, srsiSignals, _) = result.Value;
         return quotes
             .Select((q, i) => new CypherBQuote(
                 q,
                 waveTrendSignals.ElementAtOrDefault(i),
-                mfi.ElementAtOrDefault(i), srsiSignals.Value.ElementAtOrDefault(i))
+                mfiResults.ElementAtOrDefault(i), srsiSignals.ElementAtOrDefault(i))
             )
             .ToList();
     }
-    public IResult<Decision> MakeDecision(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings)
+    public Result<Decision> MakeDecision(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings)
     {
-        var maxSignalAgeResult = Minutes.GetMaxSignalAge(settings.Granularity);
-        if (maxSignalAgeResult.IsFailed)
+        var result = EvaluateCipherB(quotes, settings);
+        if (result.IsFailed)
         {
-            return maxSignalAgeResult.ToResult<Decision>();
+            return result.ToResult();
         }
-
-        var waveTrendResults = _evaluator.GetWaveTrend(quotes, settings.WaveTrendSettings);
-        var wtQuotes = WaveTrendSignals.CreateWaveTrendSignals(waveTrendResults, settings.WaveTrendSettings);
-        var mfiQuotes = _evaluator.GetMfi(quotes, settings.MfiSettings);
-        var latestWtQuote = wtQuotes.LastOrDefault();
-        var latestMfiQuote = mfiQuotes.LastOrDefault();
+        var (mfiResults, waveTrendSignals, _, maxSignalAgeResult) = result.Value;
+        var latestWtQuote = waveTrendSignals[^1];
+        var latestMfiQuote = mfiResults[^1];
         if (latestWtQuote == null || latestMfiQuote == null)
         {
             return Result.Fail<Decision>(new ValidationError("Quotes is empty"));
@@ -82,10 +70,43 @@ public class CypherBDecisionService : ICypherBDecisionService
         var decision = Decision.CreateNew(
             new IndexOutcome("CipherB", null, GetAdditionalParams(latestMfiQuote, latestWtQuote)),
             DateTime.UtcNow,
-            GetCumulativeTradeAction(quotes, latestMfiQuote, latestWtQuote, maxSignalAgeResult.Value, settings.WaveTrendSettings),
+            GetCumulativeTradeAction(quotes, latestMfiQuote, latestWtQuote, maxSignalAgeResult, settings.WaveTrendSettings),
             GetMarketDirection()
         );
         return Result.Ok(decision);
+    }
+
+    private Result<(
+        IReadOnlyList<MfiResult> mfiResults,
+        IReadOnlyList<WaveTrendSignal> waveTrendSignals,
+        IReadOnlyList<SrsiSignal> srsiSignals,
+        Minutes maxSignalAgeResult
+        )> EvaluateCipherB(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings)
+    {
+        var maxSignalAgeResult = Minutes.GetMaxSignalAge(settings.Granularity);
+        if (maxSignalAgeResult.IsFailed)
+        {
+            return maxSignalAgeResult.ToResult();
+        }
+
+        var waveTrendResults = _evaluator.GetWaveTrend(quotes, settings.WaveTrendSettings);
+        if (waveTrendResults.Count < 2)
+        {
+            return Result.Fail("Quotes can not be less than 2 elements");
+        }
+        var waveTrendSignals = WaveTrendSignals.CreateWaveTrendSignals(waveTrendResults, settings.WaveTrendSettings);
+        var mfiResults = _evaluator.GetMfi(quotes, settings.MfiSettings);
+        if (mfiResults.Count < 2)
+        {
+            return Result.Fail("Quotes can not be less than 2 elements");
+        }
+        var strategy = _srsiStrategyFactory.GetStrategy(TradingStrategy.EmaAndStoch);
+        var srsiSignals = strategy.EvaluateSignals(quotes);
+        if (srsiSignals.IsFailed)
+        {
+            return srsiSignals.ToResult();
+        }
+        return Result.Ok((mfiResults, waveTrendSignals, srsiSignals.Value, maxSignalAgeResult.Value));
     }
 
     private static MarketDirection GetMarketDirection()

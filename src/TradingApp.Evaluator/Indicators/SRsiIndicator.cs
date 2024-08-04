@@ -12,13 +12,8 @@ public static class SRsiIndicator
         SRsiSettings settings
     )
     {
-        var rsiPeriods = settings.ChannelLength;
-        var stochPeriods = settings.ChannelLength;
-        var smoothPeriodsD = settings.StochDSmooth;
-        var smoothPeriodsK = settings.StochKSmooth;
-
         var length = domainQuotes.Count;
-        var initPeriods = Math.Min(rsiPeriods + stochPeriods - 1, length);
+        var initPeriods = Math.Min(settings.ChannelLength + settings.ChannelLength - 1, length);
         List<SRsiResult> results = new(length);
 
         for (var i = 0; i < initPeriods; i++)
@@ -35,7 +30,7 @@ public static class SRsiIndicator
                     settings.ChannelLength
                 )
             )
-            .Remove(Math.Min(rsiPeriods, length))
+            .Remove(Math.Min(settings.ChannelLength, length))
             .Select(
                 (x, index) =>
                     new Quote
@@ -49,17 +44,17 @@ public static class SRsiIndicator
             .ToList();
 
         var stoResults = rsiResults.Calculate(
-            stochPeriods,
-            smoothPeriodsD,
-            smoothPeriodsK,
+            settings.ChannelLength,
+            settings.StochDSmooth,
+            settings.StochKSmooth,
             3,
             2,
             MaType.SMA
         );
 
-        for (var i = rsiPeriods + stochPeriods - 1; i < length; i++)
+        for (var i = settings.ChannelLength + settings.ChannelLength - 1; i < length; i++)
         {
-            var r = stoResults[i - rsiPeriods];
+            var r = stoResults[i - settings.ChannelLength];
             results.Add(new SRsiResult(r.Date, r.Oscillator, r.Signal));
         }
 

@@ -1,8 +1,8 @@
 ﻿using FluentResults;
-using TradingApp.Module.Quotes.Application.Features.TradeSignals;
+using System.Globalization;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
-using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
 using TradingApp.Module.Quotes.Domain.Constants;
 using TradingApp.Module.Quotes.Domain.Enums;
@@ -25,28 +25,16 @@ public interface ISrsiDecisionService
         IReadOnlyList<Quote> quotes,
         SrsiDecisionSettings srsiDecisionSettings
     );
-
-    /// <summary>
-    /// Get list of decisions in the past
-    /// </summary>
-    /// <param name="quotes"></param>
-    /// <param name="srsiDecisionSettings"></param>
-    /// <param name="sRsiSettings"></param>
-    /// <returns></returns>
-    Result<IReadOnlyList<SrsiSignal>> GetDecisionQuotes(
-        IReadOnlyList<Quote> quotes,
-        SrsiDecisionSettings srsiDecisionSettings
-    );
 }
 
 public class SrsiDecisionService : ISrsiDecisionService
 {
-    private readonly IEvaluator _evaluator;
+    private readonly ISrsiStrategyFactory _srsiStrategyFactory;
 
-    public SrsiDecisionService(IEvaluator evaluator)
+    public SrsiDecisionService(ISrsiStrategyFactory srsiStrategyFactory)
     {
-        ArgumentNullException.ThrowIfNull(evaluator);
-        _evaluator = evaluator;
+        ArgumentNullException.ThrowIfNull(srsiStrategyFactory);
+        _srsiStrategyFactory = srsiStrategyFactory;
     }
 
     public Result<Decision> MakeDecision(
@@ -54,70 +42,24 @@ public class SrsiDecisionService : ISrsiDecisionService
         SrsiDecisionSettings srsiDecisionSettings
     )
     {
-        var srsiResults = _evaluator.GetSrsi(quotes, srsiDecisionSettings.SrsiSettings);
-        if (srsiResults.Count < 2)
+        var strategy = _srsiStrategyFactory.GetStrategy(TradingStrategy.EmaAndStoch);
+        var signals = strategy.EvaluateSignals(quotes);
+        if (signals.IsFailed)
         {
-            return Result.Fail("Quotes can not be less than 2 elements");
+            return signals.ToResult();
         }
-        var last = srsiResults[^1];
-        var penult = srsiResults[^2];
+        var last = signals.Value[^1];
         var additionalParams = new Dictionary<string, string>
         {
-            { nameof(last.StochK), last.StochK.ToString() },
-            { nameof(last.StochD), last.StochD.ToString() }
+            { nameof(last.StochK), last.StochK.ToString(CultureInfo.InvariantCulture) },
+            { nameof(last.StochD), last.StochD.ToString(CultureInfo.InvariantCulture) }
         };
-        var closePrices = quotes.Select(x => x.Close).ToArray();
-        var ema = _evaluator.GetEmea(closePrices, srsiDecisionSettings.EmaLength);
-        if (ema.IsFailed)
-        {
-            return ema.ToResult();
-        }
-        var ema2X = _evaluator.GetEmea(closePrices, srsiDecisionSettings.EmaLength * 2);
-        if (ema2X.IsFailed)
-        {
-            return ema2X.ToResult();
-        }
-        var decision = Decision.CreateNew(
+        return Decision.CreateNew(
             new IndexOutcome(IndexNames.Srsi, null, additionalParams),
             DateTime.UtcNow,
-            SrsiSignals.GetTradeAction(
-                quotes[^1].Close,
-                last,
-                penult,
-                srsiDecisionSettings.SrsiSettings,
-                ema.Value[^1],
-                ema2X.Value[^1]
-            ),
+            signals.Value[^1].TradeAction,
             MarketDirection.Bullish
         );
-        return decision;
-    }
-
-    public Result<IReadOnlyList<SrsiSignal>> GetDecisionQuotes(
-        IReadOnlyList<Quote> quotes,
-        SrsiDecisionSettings srsiDecisionSettings
-    )
-    {
-        var results = _evaluator.GetSrsi(quotes, srsiDecisionSettings.SrsiSettings);
-        var closePrices = quotes.Select(x => x.Close).ToArray();
-        var ema = _evaluator.GetEmea(closePrices, srsiDecisionSettings.EmaLength);
-        if (ema.IsFailed)
-        {
-            return ema.ToResult();
-        }
-        var ema2X = _evaluator.GetEmea(closePrices, srsiDecisionSettings.EmaLength * 2);
-        if (ema2X.IsFailed)
-        {
-            return ema2X.ToResult();
-        }
-        var signals = SrsiSignals.CreateSriSignals(
-            quotes,
-            results,
-            srsiDecisionSettings.SrsiSettings,
-            ema.Value,
-            ema2X.Value
-        );
-        return Result.Ok(signals);
     }
 }
 

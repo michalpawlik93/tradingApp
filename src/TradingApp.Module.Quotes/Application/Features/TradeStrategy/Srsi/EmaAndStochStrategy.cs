@@ -1,14 +1,60 @@
-﻿using TradingApp.Module.Quotes.Application.Models;
+﻿using FluentResults;
+using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
+using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Enums;
 
-namespace TradingApp.Module.Quotes.Application.Features.TradeSignals;
+namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 
-public static class SrsiSignals
+public class EmaAndStochStrategy : ISrsiStrategy
 {
+    private readonly IEvaluator _evaluator;
+
+    private static SRsiSettings FastSettings => new(true, 3, 14, 3, 10, 90);
+    private const int Ema = 50;
+    private const int Ema2X = 100;
     private const int DecimalPlace = 4;
 
-    public static IReadOnlyList<SrsiSignal> CreateSriSignals(
+    public EmaAndStochStrategy(IEvaluator evaluator)
+    {
+        ArgumentNullException.ThrowIfNull(evaluator);
+        _evaluator = evaluator;
+    }
+
+    /// <summary>
+    /// Stoch with Ema
+    /// Long
+    ///  - %K crosses %D down to up
+    ///  - %K and %D are below oversold level
+    ///  Short
+    ///  - %K crosses %D up to down
+    ///  - %K and %D are above overbought level
+    /// </summary>
+    /// <returns></returns>
+    public Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes)
+    {
+        var srsiResults = _evaluator.GetSrsi(quotes, FastSettings);
+        if (srsiResults.Count < 2)
+        {
+            return Result.Fail("Quotes can not be less than 2 elements");
+        }
+        var closePrices = quotes.Select(x => x.Close).ToArray();
+        var ema = _evaluator.GetEmea(closePrices, Ema);
+        if (ema.IsFailed)
+        {
+            return ema.ToResult();
+        }
+        var ema2X = _evaluator.GetEmea(closePrices, Ema2X * 2);
+        if (ema2X.IsFailed)
+        {
+            return ema2X.ToResult();
+        }
+
+        var signals = CreateSriSignals(quotes, srsiResults, FastSettings, ema.Value, ema2X.Value);
+        return Result.Ok(signals);
+    }
+
+    private static IReadOnlyList<SrsiSignal> CreateSriSignals(
         IReadOnlyList<Quote> quotes,
         IReadOnlyList<SRsiResult> srsiResults,
         SRsiSettings sRsiSettings,
@@ -16,10 +62,6 @@ public static class SrsiSignals
         IReadOnlyList<decimal> ema2X
     )
     {
-        if (srsiResults.Count < 2)
-        {
-            return new List<SrsiSignal>(0);
-        }
         var results = new List<SrsiSignal>(srsiResults.Count);
         for (var i = 0; i < srsiResults.Count; i++)
         {
@@ -78,8 +120,8 @@ public static class SrsiSignals
         decimal ema,
         decimal ema2X
     ) =>
-        KSDellSignal(last, penult, sRsiSettings)
-        && !KDBuySignal(last, penult, sRsiSettings)
+        SrsiStrategyExtensions.KDSellSignal(last, penult, sRsiSettings)
+        && !SrsiStrategyExtensions.KDBuySignal(last, penult, sRsiSettings)
         && EmaSell(ema, ema2X)
         && ClosePriceSell(latestClose, ema);
 
@@ -91,30 +133,10 @@ public static class SrsiSignals
         decimal ema,
         decimal ema2X
     ) =>
-        KDBuySignal(last, penult, sRsiSettings)
-        && !KSDellSignal(last, penult, sRsiSettings)
+        SrsiStrategyExtensions.KDBuySignal(last, penult, sRsiSettings)
+        && !SrsiStrategyExtensions.KDSellSignal(last, penult, sRsiSettings)
         && EmaBuy(ema, ema2X)
         && ClosePriceBuy(latestClose, ema);
-
-    private static bool KSDellSignal(
-        SRsiResult last,
-        SRsiResult penult,
-        SRsiSettings sRsiSettings
-    ) =>
-        penult.StochK > sRsiSettings.Overbought
-        && last.StochK < sRsiSettings.Overbought
-        && penult.StochK > penult.StochD
-        && last.StochK < last.StochD;
-
-    private static bool KDBuySignal(
-        SRsiResult last,
-        SRsiResult penult,
-        SRsiSettings sRsiSettings
-    ) =>
-        penult.StochK < sRsiSettings.Oversold
-        && last.StochK > sRsiSettings.Oversold
-        && penult.StochK < penult.StochD
-        && last.StochK > last.StochD;
 
     private static bool EmaSell(decimal ema, decimal ema2X) => ema < ema2X;
 
