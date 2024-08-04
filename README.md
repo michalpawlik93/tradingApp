@@ -12,3 +12,5 @@
 
 ![image](https://github.com/michalpawlik93/tradingApp/assets/37804978/1de6bd00-7dd0-42eb-965f-8aa29b3049b3)
 
+Screens:
+![image](https://github.com/user-attachments/assets/9670a16e-b537-47af-ac5f-b4d1e9635dc7)
