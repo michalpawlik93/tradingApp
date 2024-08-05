@@ -39,13 +39,14 @@ public class GetCypherBCommandHandler
             return getQuotesResponse.ToResult<GetCypherBResponseDto>();
         }
 
-        var results = _cypherBDecisionService.GetDecisionQuotes(
+        var results = _cypherBDecisionService.EvaluateSignals(
             getQuotesResponse.Value.ToList(),
             new CypherBDecisionSettings(
                 request.TimeFrame.Granularity,
                 request.WaveTrendSettings,
                 request.MfiSettings,
-                request.SRsiSettings
+                request.SRsiSettings,
+                request.TradingStrategy
             )
         );
         return results.IsFailed

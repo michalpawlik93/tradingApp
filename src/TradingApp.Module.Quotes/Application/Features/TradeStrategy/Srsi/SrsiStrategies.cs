@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 
@@ -10,11 +11,11 @@ public interface ISrsiStrategy
     Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes);
 }
 
-
 public interface ISrsiStrategyFactory
 {
-    ISrsiStrategy GetStrategy(TradingStrategy strategy);
+    ISrsiStrategy GetStrategy(TradingStrategy strategy, Granularity granularity);
 }
+
 public class SrsiStrategyFactory : ISrsiStrategyFactory
 {
     private readonly IEvaluator _evaluator;
@@ -25,13 +26,15 @@ public class SrsiStrategyFactory : ISrsiStrategyFactory
         _evaluator = evaluator;
     }
 
-    public ISrsiStrategy GetStrategy(TradingStrategy strategy)
+    public ISrsiStrategy GetStrategy(TradingStrategy strategy, Granularity granularity)
     {
-        return strategy switch
+        return (strategy, granularity) switch
         {
-            TradingStrategy.EmaAndStoch => new EmaAndStochStrategy(_evaluator),
-            TradingStrategy.Scalping => new ScalpingStrategy(_evaluator),
-            TradingStrategy.DayTrading => new DailyTradingStrategy(_evaluator),
+            (TradingStrategy.EmaAndStoch, _) => new EmaAndStochStrategy(_evaluator),
+            (TradingStrategy.Scalping, _) => new ScalpingStrategy(_evaluator),
+            (TradingStrategy.DayTrading, _) => new DailyTradingStrategy(_evaluator),
+            (_, Granularity.FiveMins) => new ScalpingStrategy(_evaluator),
+            (_, Granularity.Hourly) => new DailyTradingStrategy(_evaluator),
             _ => new EmaAndStochStrategy(_evaluator),
         };
     }
@@ -54,11 +57,4 @@ public static class SrsiStrategyExtensions
         && last.StochK > sRsiSettings.Oversold
         && penult.StochK < penult.StochD
         && last.StochK > last.StochD;
-}
-
-public enum TradingStrategy
-{
-    Scalping,
-    DayTrading,
-    EmaAndStoch
 }

@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Enums;
@@ -10,7 +9,6 @@ namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 public class ScalpingStrategy : ISrsiStrategy
 {
     private readonly IEvaluator _evaluator;
-    private readonly Granularity TimeFrame = Granularity.FiveMins;
     private const int DecimalPlace = 4;
 
     private static SRsiSettings FastSettings => new(true, 3, 10, 7, 30, 70);

@@ -3,6 +3,8 @@ using NSubstitute;
 using TradingApp.Core.Domain;
 using TradingApp.Core.EventBus;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
@@ -48,7 +50,7 @@ public class EvaluateSRsiCommandHandlerTests
 
         var command = new EvaluateSRsiCommand(
             quotes,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1)
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, Granularity.Hourly, TradingStrategy.EmaAndStoch)
         );
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);

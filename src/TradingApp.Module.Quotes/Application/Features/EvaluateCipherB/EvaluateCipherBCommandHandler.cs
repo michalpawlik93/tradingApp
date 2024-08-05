@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using MediatR;
 using TradingApp.Core.EventBus;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
@@ -48,7 +49,8 @@ public class EvaluateCipherBCommandHandler : IRequestHandler<EvaluateCipherBComm
                 request.Granularity,
                 request.WaveTrendSettings,
                 request.MfiSettings,
-                request.SrsiSettings
+                request.SrsiSettings,
+                TradingStrategy.Scalping
             )
         );
         if (decision.IsFailed)

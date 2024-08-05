@@ -63,7 +63,7 @@ public class GetCypherBCommandHandlerTests
             .Returns(Result.Ok((IEnumerable<Quote>)quotes));
         const string errorMessage = "errorMessage";
         _cypherBDecisionService
-            .GetDecisionQuotes(Arg.Any<List<Quote>>(), Arg.Any<CypherBDecisionSettings>())
+            .EvaluateSignals(Arg.Any<List<Quote>>(), Arg.Any<CypherBDecisionSettings>())
             .Returns(Result.Fail<IReadOnlyList<CypherBQuote>>(errorMessage));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
@@ -104,7 +104,7 @@ public class GetCypherBCommandHandlerTests
             .ToList();
 
         _cypherBDecisionService
-            .GetDecisionQuotes(
+            .EvaluateSignals(
                 Arg.Any<IReadOnlyList<Quote>>(),
                 Arg.Any<CypherBDecisionSettings>()
             )

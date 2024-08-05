@@ -1,28 +1,42 @@
-﻿using TradingApp.Evaluator.Utils;
-using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
+﻿using FluentResults;
+using TradingApp.Core.Models;
+using TradingApp.Evaluator.Utils;
 using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
+using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Enums;
 
-namespace TradingApp.Module.Quotes.Application.Features.TradeSignals;
+namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.WaveTrend;
 
-public static class WaveTrendSignals
+public class ScalpingStrategy : IWaveTrendStrategy
 {
+    private readonly IEvaluator _evaluator;
     private const int DecimalPlace = 4;
 
-    public static TradeAction GetWtSignalsTradeAction(
+    public ScalpingStrategy(IEvaluator evaluator)
+    {
+        ArgumentNullException.ThrowIfNull(evaluator);
+        _evaluator = evaluator;
+    }
+
+    public Result<IReadOnlyList<WaveTrendSignal>> EvaluateSignals(
         IReadOnlyList<Quote> quotes,
-        WaveTrendSignal waveTrendResult,
-        Minutes maxSignalAge
+        WaveTrendSettings settings,
+        Granularity granularity
     )
     {
-        return quotes
-            .OrderByDescending(q => q.Date)
-            .Select(quote => (quotes[^1].Date - quote.Date).TotalMinutes)
-            .TakeWhile(signalAgeInMinutes => signalAgeInMinutes <= maxSignalAge.Value)
-            .Any()
-            ? waveTrendResult.TradeAction
-            : TradeAction.Hold;
+        if (granularity != Granularity.FiveMins)
+        {
+            return Result.Fail(
+                new ValidationError($"Scalping can not be called for granularity {granularity}")
+            );
+        }
+
+        var waveTrendResults = _evaluator.GetWaveTrend(quotes, settings);
+        return waveTrendResults.Count < 2
+            ? Result.Fail("Quotes can not be less than 2 elements")
+            : Result.Ok(CreateWaveTrendSignals(waveTrendResults, settings));
     }
 
     public static IReadOnlyList<WaveTrendSignal> CreateWaveTrendSignals(

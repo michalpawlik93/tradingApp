@@ -2,8 +2,10 @@
 using FluentResults;
 using NSubstitute;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Domain.Constants;
 using TradingApp.Module.Quotes.Domain.Enums;
@@ -27,7 +29,7 @@ public class SrsiDecisionServiceTests
     public void MakeDecision_EvaluateSignalsFails_ReturnFail()
     {
         //Arrange
-        _srsiStrategyFactory.GetStrategy(Arg.Any<TradingStrategy>()).Returns(_srsiStrategy);
+        _srsiStrategyFactory.GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>()).Returns(_srsiStrategy);
         _srsiStrategy.EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>()).Returns(Result.Fail(""));
 
         var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
@@ -35,7 +37,7 @@ public class SrsiDecisionServiceTests
         //Act
         var result = _sut.MakeDecision(
             quotes,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1)
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, Granularity.FiveMins, TradingStrategy.EmaAndStoch)
         );
 
         //Assert
@@ -62,7 +64,7 @@ public class SrsiDecisionServiceTests
             .ToList();
 
         var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
-        _srsiStrategyFactory.GetStrategy(Arg.Any<TradingStrategy>()).Returns(_srsiStrategy);
+        _srsiStrategyFactory.GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>()).Returns(_srsiStrategy);
         _srsiStrategy
             .EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>())
             .Returns(Result.Ok((IReadOnlyList<SrsiSignal>)results));
@@ -70,7 +72,7 @@ public class SrsiDecisionServiceTests
         //Act
         var result = _sut.MakeDecision(
             quotes,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1)
+            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, Granularity.FiveMins, TradingStrategy.EmaAndStoch)
         );
 
         //Assert

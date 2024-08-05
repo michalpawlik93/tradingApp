@@ -1,7 +1,9 @@
 ﻿using FluentResults;
 using System.Globalization;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 using TradingApp.Module.Quotes.Application.Models;
+using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Domain.Aggregates;
 using TradingApp.Module.Quotes.Domain.Constants;
@@ -10,7 +12,12 @@ using TradingApp.Module.Quotes.Domain.ValueObjects;
 
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 
-public record struct SrsiDecisionSettings(SRsiSettings SrsiSettings, int EmaLength);
+public record struct SrsiDecisionSettings(
+    SRsiSettings SrsiSettings,
+    int EmaLength,
+    Granularity Granularity,
+    TradingStrategy TradingStrategy
+);
 
 public interface ISrsiDecisionService
 {
@@ -42,7 +49,10 @@ public class SrsiDecisionService : ISrsiDecisionService
         SrsiDecisionSettings srsiDecisionSettings
     )
     {
-        var strategy = _srsiStrategyFactory.GetStrategy(TradingStrategy.EmaAndStoch);
+        var strategy = _srsiStrategyFactory.GetStrategy(
+            srsiDecisionSettings.TradingStrategy,
+            srsiDecisionSettings.Granularity
+        );
         var signals = strategy.EvaluateSignals(quotes);
         if (signals.IsFailed)
         {

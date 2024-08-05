@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using TradingApp.Module.Quotes.Application.Models;
-using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Enums;
@@ -10,7 +9,6 @@ namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 public class DailyTradingStrategy : ISrsiStrategy
 {
     private readonly IEvaluator _evaluator;
-    private readonly Granularity TimeFrame = Granularity.Hourly;
 
     private static SRsiSettings FastSettings => new(true, 3, 5, 3, 20, 80);
     private static SRsiSettings SlowSettings => new(true, 7, 21, 7, 20, 80);
