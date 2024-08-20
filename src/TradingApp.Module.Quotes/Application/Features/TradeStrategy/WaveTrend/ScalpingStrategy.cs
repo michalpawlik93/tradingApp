@@ -1,5 +1,4 @@
 ﻿using FluentResults;
-using TradingApp.Core.Models;
 using TradingApp.Evaluator.Utils;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
@@ -26,12 +25,12 @@ public class ScalpingStrategy : IWaveTrendStrategy
         Granularity granularity
     )
     {
-        if (granularity != Granularity.FiveMins)
-        {
-            return Result.Fail(
-                new ValidationError($"Scalping can not be called for granularity {granularity}")
-            );
-        }
+        //if (granularity != Granularity.FiveMins)
+        //{
+        //    return Result.Fail(
+        //        new ValidationError($"Scalping can not be called for granularity {granularity}")
+        //    );
+        //}
 
         var waveTrendResults = _evaluator.GetWaveTrend(quotes, settings);
         return waveTrendResults.Count < 2

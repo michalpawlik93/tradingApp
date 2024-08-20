@@ -13,6 +13,7 @@ using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 using TradingApp.Module.Quotes.Application.Features.TickerMetadata;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy.CipherB;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.WaveTrend;
 using TradingApp.Module.Quotes.Application.Services;
@@ -66,5 +67,6 @@ public static class QuotesConfigExtension
 
         services.AddTransient<ISrsiStrategyFactory, SrsiStrategyFactory>();
         services.AddTransient<IWaveTrendStrategyFactory, WaveTrendStrategyFactory>();
+        services.AddTransient<ICipherBStrategy, CipherBStrategy>();
     }
 }

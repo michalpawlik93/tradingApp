@@ -14,6 +14,7 @@ import {
   sRsiSettingsDefault,
   waveTrendSettingsDefault,
 } from "../../consts/technicalIndicatorsSettings";
+import { TradingStrategy } from "src/consts/tradingStrategy";
 
 export interface IChartSettingsPanelForm {
   startDate: Date;
@@ -21,14 +22,16 @@ export interface IChartSettingsPanelForm {
   granularity: string;
   assetName: string;
   assetType: string;
+  tradingStrategy: string;
 }
 
-export const defaultValues: IChartSettingsPanelForm = {
+export const cypherBDefaultValues: IChartSettingsPanelForm = {
   startDate: new Date(2023, 5, 24),
   endDate: new Date(2023, 5, 28),
-  granularity: Granularity.Hourly,
+  granularity: Granularity.FiveMins,
   assetName: AssetName.USDPLN,
   assetType: AssetType.Currencies,
+  tradingStrategy: TradingStrategy.Scalping,
 };
 
 const chartSettingsPanelCss = {
@@ -67,7 +70,7 @@ export interface ChartSettingsPanelFormProps {
 export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelFormProps) => {
   const fetchData = useQuotesStore((state) => state.fetchCypherBQuotes);
   const { handleSubmit, reset, control } = useForm<IChartSettingsPanelForm>({
-    defaultValues: defaultValues,
+    defaultValues: cypherBDefaultValues,
   });
 
   const onSubmit = async (data: IChartSettingsPanelForm) => {
@@ -85,6 +88,7 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelF
       waveTrendSettings: waveTrendSettingsDefault,
       sRsiSettings: sRsiSettingsDefault,
       mfiSettings: mfiSettingsDefault,
+      tradingStrategy: TradingStrategy.DayTrading,
     });
   };
 
@@ -111,6 +115,12 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelF
           control={control}
           label="Asset Type"
           options={Object.values(AssetType).map((x): Option => [x, x])}
+        />
+        <FormDropdown
+          name="tradingStrategy"
+          control={control}
+          label="Trading Strategy"
+          options={Object.values(TradingStrategy).map((x): Option => [x, x])}
         />
         <FormDateTimePicker
           name="startDate"

@@ -8,7 +8,7 @@ export const sRsiSettingsDefault: SRsiSettings = {
   channelLength: 10,
   stochKSmooth: 1,
   stochDSmooth: 1,
-  oversold: -60,
+  oversold: 20,
   overbought: 60,
 };
 

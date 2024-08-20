@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using MongoDB.Driver;
 using Serilog;
+using System.Reflection;
 using TradingApp.Core.Attributes;
 using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Persistance.Mappers;
@@ -8,7 +9,9 @@ using TradingApp.Module.Quotes.Persistance.Models;
 
 namespace TradingApp.Module.Quotes.Persistance.Services;
 
-public class MongoDataService<TDomain, TDao> : IEntityDataService<TDomain> where TDomain : class where TDao : BaseDao, new()
+public class MongoDataService<TDomain, TDao> : IEntityDataService<TDomain>
+    where TDomain : class
+    where TDao : BaseDao, new()
 {
     private readonly IMongoCollection<TDao> _collection;
     private readonly IMongoDbMapper<TDomain, TDao> _mapper;
@@ -43,7 +46,9 @@ public class MongoDataService<TDomain, TDao> : IEntityDataService<TDomain> where
     {
         try
         {
-            var dao = await _collection.Find(d => d.Id == id).FirstOrDefaultAsync();
+            var dao = await _collection
+                .Find(d => d.Id == id)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
             if (dao == null)
             {
                 return Result.Fail($"{nameof(TDomain)} not found in database");
@@ -61,20 +66,9 @@ public class MongoDataService<TDomain, TDao> : IEntityDataService<TDomain> where
         }
     }
 
-    private static protected string GetCollectionName(Type documentType)
+    private static string GetCollectionName(ICustomAttributeProvider documentType)
     {
-        var attr = documentType.GetCustomAttributes(
-                typeof(DataCollectionAttribute),
-                true);
-        if (attr != null)
-        {
-            var a = attr.FirstOrDefault();
-            return ((DataCollectionAttribute)a).CollectionName;
-        }
-
-        return ((DataCollectionAttribute)documentType.GetCustomAttributes(
-                typeof(DataCollectionAttribute),
-                true)
-            .FirstOrDefault()).CollectionName;
+        var attr = documentType.GetCustomAttributes(typeof(DataCollectionAttribute), true);
+        return (attr.FirstOrDefault() as DataCollectionAttribute)?.CollectionName;
     }
 }

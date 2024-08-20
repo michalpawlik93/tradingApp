@@ -10,4 +10,5 @@ export interface GetCypherBDto {
   waveTrendSettings: WaveTrendSettings;
   sRsiSettings: SRsiSettings;
   mfiSettings: MfiSettings;
+  tradingStrategy: string;
 }

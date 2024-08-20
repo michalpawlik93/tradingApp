@@ -22,7 +22,7 @@ public sealed class StooqProvider : IStooqProvider
     public async Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
         => await _fileService.ReadHistoryQuotaFile(timeFrame, asset);
 
-    public Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(Asset ticker, CancellationToken cancellationToken)
+    public Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(Asset asset, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

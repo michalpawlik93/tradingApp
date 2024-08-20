@@ -3,12 +3,10 @@ using System.Globalization;
 using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Application.Features.TradeSignals;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy.WaveTrend;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy.CipherB;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
-using TradingApp.Module.Quotes.Contract.Ports;
 using TradingApp.Module.Quotes.Domain.Aggregates;
 using TradingApp.Module.Quotes.Domain.Enums;
 using TradingApp.Module.Quotes.Domain.ValueObjects;
@@ -20,42 +18,20 @@ public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendS
 public interface ICypherBDecisionService
 {
     Result<Decision> MakeDecision(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings);
-    Result<IReadOnlyList<CypherBQuote>> EvaluateSignals(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings);
 }
 
 public class CypherBDecisionService : ICypherBDecisionService
 {
-    private readonly IEvaluator _evaluator;
-    private readonly ISrsiStrategyFactory _srsiStrategyFactory;
-    private readonly IWaveTrendStrategyFactory _waveTrendStrategyFactory;
-    public CypherBDecisionService(IEvaluator evaluator, ISrsiStrategyFactory srsiStrategyFactory, IWaveTrendStrategyFactory waveTrendStrategyFactory)
+    private readonly ICipherBStrategy _cipherBStrategy;
+    public CypherBDecisionService(ICipherBStrategy cipherBStrategy)
     {
-        ArgumentNullException.ThrowIfNull(evaluator);
-        ArgumentNullException.ThrowIfNull(srsiStrategyFactory);
-        ArgumentNullException.ThrowIfNull(waveTrendStrategyFactory);
-        _evaluator = evaluator;
-        _srsiStrategyFactory = srsiStrategyFactory;
-        _waveTrendStrategyFactory = waveTrendStrategyFactory;
+        ArgumentNullException.ThrowIfNull(cipherBStrategy);
+        _cipherBStrategy = cipherBStrategy;
     }
-    public Result<IReadOnlyList<CypherBQuote>> EvaluateSignals(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings)
-    {
-        var result = EvaluateCipherB(quotes, settings);
-        if (result.IsFailed)
-        {
-            return result.ToResult();
-        }
-        var (mfiResults, waveTrendSignals, srsiSignals) = result.Value;
-        return quotes
-            .Select((q, i) => new CypherBQuote(
-                q,
-                waveTrendSignals.ElementAtOrDefault(i),
-                mfiResults.ElementAtOrDefault(i), srsiSignals.ElementAtOrDefault(i))
-            )
-            .ToList();
-    }
+
     public Result<Decision> MakeDecision(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings)
     {
-        var result = EvaluateCipherB(quotes, settings);
+        var result = _cipherBStrategy.EvaluateSignals(quotes, settings);
         if (result.IsFailed)
         {
             return result.ToResult();
@@ -75,32 +51,6 @@ public class CypherBDecisionService : ICypherBDecisionService
             MarketDirection.Bullish
         );
         return Result.Ok(decision);
-    }
-
-    private Result<(
-        IReadOnlyList<MfiResult> mfiResults,
-        IReadOnlyList<WaveTrendSignal> waveTrendSignals,
-        IReadOnlyList<SrsiSignal> srsiSignals
-        )> EvaluateCipherB(IReadOnlyList<Quote> quotes, CypherBDecisionSettings settings)
-    {
-        var wtStrategy = _waveTrendStrategyFactory.GetStrategy(settings.TradingStrategy);
-        var wtSignals = wtStrategy.EvaluateSignals(quotes, settings.WaveTrendSettings, settings.Granularity);
-        if (wtSignals.IsFailed)
-        {
-            return wtSignals.ToResult();
-        }
-        var mfiResults = _evaluator.GetMfi(quotes, settings.MfiSettings);
-        if (mfiResults.Count < 2)
-        {
-            return Result.Fail("Quotes can not be less than 2 elements");
-        }
-        var strategy = _srsiStrategyFactory.GetStrategy(settings.TradingStrategy, settings.Granularity);
-        var srsiSignals = strategy.EvaluateSignals(quotes);
-        if (srsiSignals.IsFailed)
-        {
-            return srsiSignals.ToResult();
-        }
-        return Result.Ok((mfiResults, wtSignals.Value, srsiSignals.Value));
     }
 
     private static Dictionary<string, string> GetAdditionalParams(MfiResult mfiResult, WaveTrendSignal waveTrendResult) => new()

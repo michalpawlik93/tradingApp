@@ -9,6 +9,8 @@ import {
   sRsiSettingsDefault,
   waveTrendSettingsDefault,
 } from "../consts/technicalIndicatorsSettings";
+import { TradingStrategy } from "src/consts/tradingStrategy";
+import { cypherBDefaultValues } from "src/components/forms/ChartSettingsPanelForm";
 
 export interface useCypherBQuotesResponse {
   cypherBQuotes: CypherBQuote[];
@@ -28,17 +30,18 @@ export const useCypherBQuotes = (): useCypherBQuotesResponse => {
       isDataFetched.current = true;
       await fetchData({
         asset: {
-          name: AssetName.BTC,
-          type: AssetType.Cryptocurrency,
+          name: cypherBDefaultValues.assetName,
+          type: cypherBDefaultValues.assetType,
         },
         timeFrame: {
-          granularity: Granularity.Hourly,
-          startDate: new Date(2023, 5, 24).toISOString(),
-          endDate: new Date(2023, 8, 28).toISOString(),
+          granularity: cypherBDefaultValues.granularity,
+          startDate: cypherBDefaultValues.startDate.toISOString(),
+          endDate: cypherBDefaultValues.endDate.toISOString(),
         },
         waveTrendSettings: waveTrendSettingsDefault,
         sRsiSettings: sRsiSettingsDefault,
         mfiSettings: mfiSettingsDefault,
+        tradingStrategy: cypherBDefaultValues.tradingStrategy,
       });
     }
     fetch();

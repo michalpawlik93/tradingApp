@@ -13,6 +13,7 @@ import { MfiResult } from "../types/Mfi";
 import { mfiSettingsDefault, sRsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
 import { TradeAction } from "src/consts/tradeAction";
 import { SrsiSignal } from "src/types/SrsiSignal";
+import { TradingStrategy } from "../consts/tradingStrategy";
 
 export const GetCombinedQuotesResponseDtoMock = (): GetCombinedQuotesResponseDto => ({
   quotes: [CombinedQuoteMock()],
@@ -99,4 +100,5 @@ export const GetCypherBDtoMock = (): GetCypherBDto => ({
   },
   sRsiSettings: sRsiSettingsDefault,
   mfiSettings: mfiSettingsDefault,
+  tradingStrategy: TradingStrategy.DayTrading,
 });

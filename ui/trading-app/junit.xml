@@ -1,217 +1,134 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="42" failures="1" errors="0" time="12.791">
-    <testsuite name="src/hooks/__tests__/useCombinedQuotes.test.tsx" timestamp="2024-08-02T13:23:23.300Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.112">
-        <testcase classname="src/hooks/__tests__/useCombinedQuotes.test.tsx" name="useCombinedQuotes tests &gt; useCombinedQuotes - should fetch combined quotes" time="0.11">
+<testsuites name="vitest tests" tests="42" failures="0" errors="0" time="9.937">
+    <testsuite name="src/hooks/__tests__/useCombinedQuotes.test.tsx" timestamp="2024-08-20T13:51:53.077Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.117">
+        <testcase classname="src/hooks/__tests__/useCombinedQuotes.test.tsx" name="useCombinedQuotes tests &gt; useCombinedQuotes - should fetch combined quotes" time="0.116">
         </testcase>
     </testsuite>
-    <testsuite name="src/hooks/__tests__/useCypherBQuotes.test.tsx" timestamp="2024-08-02T13:23:23.304Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.115">
-        <testcase classname="src/hooks/__tests__/useCypherBQuotes.test.tsx" name="useCypherBQuotes tests &gt; useCypherBQuotes - should fetch cypherb quotes" time="0.113">
+    <testsuite name="src/hooks/__tests__/useCypherBQuotes.test.tsx" timestamp="2024-08-20T13:51:53.078Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.107">
+        <testcase classname="src/hooks/__tests__/useCypherBQuotes.test.tsx" name="useCypherBQuotes tests &gt; useCypherBQuotes - should fetch cypherb quotes" time="0.106">
         </testcase>
     </testsuite>
-    <testsuite name="src/hooks/__tests__/useTimeFrameHook.test.tsx" timestamp="2024-08-02T13:23:23.304Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.06">
-        <testcase classname="src/hooks/__tests__/useTimeFrameHook.test.tsx" name="useTimeFrameHook tests &gt; useTimeFrameHook - should fetch cypherb quotes" time="0.058">
+    <testsuite name="src/hooks/__tests__/useTimeFrameHook.test.tsx" timestamp="2024-08-20T13:51:53.079Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.048">
+        <testcase classname="src/hooks/__tests__/useTimeFrameHook.test.tsx" name="useTimeFrameHook tests &gt; useTimeFrameHook - should fetch cypherb quotes" time="0.046">
         </testcase>
     </testsuite>
-    <testsuite name="src/mappers/__tests__/CypherBChartDataMapper.test.ts" timestamp="2024-08-02T13:23:23.305Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="1" errors="0" skipped="0" time="0.016">
-        <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should map quotes to wave trend chart data" time="0.014">
-            <failure message="expected { waveTrendWt1: [ [ …(2) ] ], …(11) } to deeply equal { waveTrendWt1: [ [ …(2) ] ], …(11) }" type="AssertionError">
-AssertionError: expected { waveTrendWt1: [ [ …(2) ] ], …(11) } to deeply equal { waveTrendWt1: [ [ …(2) ] ], …(11) }
-
-- Expected
-+ Received
-
-  Object {
-    &quot;mfiBuy&quot;: Array [
-      Array [
-        1714609200000,
-        5.1314,
-      ],
-    ],
-    &quot;mfiSell&quot;: Array [],
-    &quot;ohlc&quot;: Array [
-      Array [
-        1714609200000,
-        58299.680022649416,
-        58109.13588176606,
-        58092.10338574051,
-        58299.83445841243,
-      ],
-    ],
-    &quot;srsiBuy&quot;: Array [
-      Array [
-        1714609200000,
--       12.1314,
-+       13.1314,
-      ],
-    ],
--   &quot;srsiSell&quot;: Array [
--     Array [
--       1714609200000,
--       12.1314,
--     ],
--   ],
-+   &quot;srsiSell&quot;: Array [],
-    &quot;srsiStochD&quot;: Array [
-      Array [
-        1714609200000,
-        12.1314,
-      ],
-    ],
-    &quot;srsiStochK&quot;: Array [
-      Array [
-        1714609200000,
-        13.1314,
-      ],
-    ],
-    &quot;waveTrendBuy&quot;: Array [
-      Array [
-        1714609200000,
-        12.1314,
-      ],
-    ],
--   &quot;waveTrendSell&quot;: Array [
--     Array [
--       1714609200000,
--       12.1314,
--     ],
--   ],
-+   &quot;waveTrendSell&quot;: Array [],
-    &quot;waveTrendVwap&quot;: Array [
-      Array [
-        1714609200000,
-        11.1314,
-      ],
-    ],
-    &quot;waveTrendWt1&quot;: Array [
-      Array [
-        1714609200000,
-        12.1314,
-      ],
-    ],
-    &quot;waveTrendWt2&quot;: Array [
-      Array [
-        1714609200000,
-        13.1314,
-      ],
-    ],
-  }
-
- ❯ src/mappers/__tests__/CypherBChartDataMapper.test.ts:34:20
-            </failure>
+    <testsuite name="src/mappers/__tests__/CypherBChartDataMapper.test.ts" timestamp="2024-08-20T13:51:53.080Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.005">
+        <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should map quotes to wave trend chart data" time="0.002">
         </testcase>
         <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should handle empty quotes array" time="0.001">
         </testcase>
         <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should ignore invalid dates" time="0">
         </testcase>
     </testsuite>
-    <testsuite name="src/mappers/__tests__/OhlcChartDataMapper.test.ts" timestamp="2024-08-02T13:23:23.307Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.006">
+    <testsuite name="src/mappers/__tests__/OhlcChartDataMapper.test.ts" timestamp="2024-08-20T13:51:53.081Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.006">
         <testcase classname="src/mappers/__tests__/OhlcChartDataMapper.test.ts" name="OhlcChartDataMapper &gt; should map to rsi chart data" time="0.004">
         </testcase>
     </testsuite>
-    <testsuite name="src/mappers/__tests__/RsiChartMapper.test.ts" timestamp="2024-08-02T13:23:23.308Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.007">
-        <testcase classname="src/mappers/__tests__/RsiChartMapper.test.ts" name="mapToApexRsiChartData &gt; should return empty array" time="0.004">
+    <testsuite name="src/mappers/__tests__/RsiChartMapper.test.ts" timestamp="2024-08-20T13:51:53.081Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.004">
+        <testcase classname="src/mappers/__tests__/RsiChartMapper.test.ts" name="mapToApexRsiChartData &gt; should return empty array" time="0.003">
         </testcase>
         <testcase classname="src/mappers/__tests__/RsiChartMapper.test.ts" name="mapToApexRsiChartData &gt; should map to rsi chart data" time="0.001">
         </testcase>
     </testsuite>
-    <testsuite name="src/services/__tests__/QuotesDataService.test.ts" timestamp="2024-08-02T13:23:23.309Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.009">
-        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCombinedQuotes" time="0.005">
+    <testsuite name="src/services/__tests__/QuotesDataService.test.ts" timestamp="2024-08-20T13:51:53.082Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.009">
+        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCombinedQuotes" time="0.006">
         </testcase>
-        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCypherB" time="0.002">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/stores/__tests__/quotesStore.test.tsx" timestamp="2024-08-02T13:23:23.309Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.193">
-        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; default state - intial values are set correctly" time="0.032">
-        </testcase>
-        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCombinedQuotes - request - combinedQuotes fetched" time="0.082">
-        </testcase>
-        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCypherBQuotes - request - cypherBQuotes fetched" time="0.077">
+        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCypherB" time="0.001">
         </testcase>
     </testsuite>
-    <testsuite name="src/views/__tests__/AdvancedChartsView.test.tsx" timestamp="2024-08-02T13:23:23.310Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.525">
-        <testcase classname="src/views/__tests__/AdvancedChartsView.test.tsx" name="AdvancedChartsView tests &gt; Charts are rendered" time="0.523">
+    <testsuite name="src/stores/__tests__/quotesStore.test.tsx" timestamp="2024-08-20T13:51:53.083Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.189">
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; default state - intial values are set correctly" time="0.027">
+        </testcase>
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCombinedQuotes - request - combinedQuotes fetched" time="0.076">
+        </testcase>
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCypherBQuotes - request - cypherBQuotes fetched" time="0.083">
         </testcase>
     </testsuite>
-    <testsuite name="src/views/__tests__/SimpleChartsView.test.tsx" timestamp="2024-08-02T13:23:23.310Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.078">
-        <testcase classname="src/views/__tests__/SimpleChartsView.test.tsx" name="SimpleChartsView tests &gt; Charts are rendered" time="0.077">
+    <testsuite name="src/views/__tests__/AdvancedChartsView.test.tsx" timestamp="2024-08-20T13:51:53.084Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.508">
+        <testcase classname="src/views/__tests__/AdvancedChartsView.test.tsx" name="AdvancedChartsView tests &gt; Charts are rendered" time="0.507">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/containers/__tests__/CypherBChartContiner.test.tsx" timestamp="2024-08-02T13:23:23.311Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.457">
-        <testcase classname="src/components/containers/__tests__/CypherBChartContiner.test.tsx" name="CypherBChartContiner tests &gt; Charts are rendered" time="0.454">
+    <testsuite name="src/views/__tests__/SimpleChartsView.test.tsx" timestamp="2024-08-20T13:51:53.084Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.065">
+        <testcase classname="src/views/__tests__/SimpleChartsView.test.tsx" name="SimpleChartsView tests &gt; Charts are rendered" time="0.064">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/containers/__tests__/RsiChartContiner.test.tsx" timestamp="2024-08-02T13:23:23.311Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.031">
-        <testcase classname="src/components/containers/__tests__/RsiChartContiner.test.tsx" name="RsiChartContiner tests &gt; RsiChart is rendered" time="0.03">
+    <testsuite name="src/components/containers/__tests__/CypherBChartContiner.test.tsx" timestamp="2024-08-20T13:51:53.085Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.491">
+        <testcase classname="src/components/containers/__tests__/CypherBChartContiner.test.tsx" name="CypherBChartContiner tests &gt; Charts are rendered" time="0.489">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" timestamp="2024-08-02T13:23:23.312Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.038">
-        <testcase classname="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" name="SimpleChartsContainer tests &gt; Charts are rendered" time="0.037">
+    <testsuite name="src/components/containers/__tests__/RsiChartContiner.test.tsx" timestamp="2024-08-20T13:51:53.085Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.027">
+        <testcase classname="src/components/containers/__tests__/RsiChartContiner.test.tsx" name="RsiChartContiner tests &gt; RsiChart is rendered" time="0.026">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" timestamp="2024-08-02T13:23:23.312Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.731">
-        <testcase classname="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" name="ChartSettingsPanelForm tests &gt; click submit button - fetch is called with form values" time="0.73">
+    <testsuite name="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" timestamp="2024-08-20T13:51:53.086Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.04">
+        <testcase classname="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" name="SimpleChartsContainer tests &gt; Charts are rendered" time="0.039">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" timestamp="2024-08-20T13:51:53.086Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.725">
+        <testcase classname="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" name="ChartSettingsPanelForm tests &gt; click submit button - fetch is called with form values" time="0.723">
             <system-out>
 {
   startDate: [35m2023-06-23T22:00:00.000Z[39m,
   endDate: [35m2023-06-27T22:00:00.000Z[39m,
-  granularity: [32m&apos;Hourly&apos;[39m,
+  granularity: [32m&apos;FiveMins&apos;[39m,
   assetName: [32m&apos;USDPLN&apos;[39m,
-  assetType: [32m&apos;Currencies&apos;[39m
+  assetType: [32m&apos;Currencies&apos;[39m,
+  tradingStrategy: [32m&apos;Scalping&apos;[39m
 }
 
             </system-out>
         </testcase>
     </testsuite>
-    <testsuite name="src/components/navigation/__tests__/Breadcrumbs.test.tsx" timestamp="2024-08-02T13:23:23.313Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.045">
-        <testcase classname="src/components/navigation/__tests__/Breadcrumbs.test.tsx" name="Breadcrumbs tests &gt; renders breadcrumbs based on route matches" time="0.043">
+    <testsuite name="src/components/navigation/__tests__/Breadcrumbs.test.tsx" timestamp="2024-08-20T13:51:53.087Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.043">
+        <testcase classname="src/components/navigation/__tests__/Breadcrumbs.test.tsx" name="Breadcrumbs tests &gt; renders breadcrumbs based on route matches" time="0.042">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/navigation/__tests__/Layout.test.tsx" timestamp="2024-08-02T13:23:23.313Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.124">
-        <testcase classname="src/components/navigation/__tests__/Layout.test.tsx" name="Layout component tests &gt; renders Layout component" time="0.121">
+    <testsuite name="src/components/navigation/__tests__/Layout.test.tsx" timestamp="2024-08-20T13:51:53.087Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.114">
+        <testcase classname="src/components/navigation/__tests__/Layout.test.tsx" name="Layout component tests &gt; renders Layout component" time="0.113">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/navigation/__tests__/TopBar.test.tsx" timestamp="2024-08-02T13:23:23.314Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.42">
-        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; renders TopBar component" time="0.294">
+    <testsuite name="src/components/navigation/__tests__/TopBar.test.tsx" timestamp="2024-08-20T13:51:53.087Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.369">
+        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; renders TopBar component" time="0.253">
         </testcase>
-        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; opens menu and shows menu items on icon click" time="0.125">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/components/presentational/__tests__/Button.test.tsx" timestamp="2024-08-02T13:23:23.315Z" hostname="LAPTOP-BEK9E24L" tests="6" failures="0" errors="0" skipped="0" time="0.157">
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with given text" time="0.101">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a disabled button when disabled prop is true" time="0.008">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; calls onClick handler when button is clicked" time="0.015">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a secondary button when secondary prop is true" time="0.015">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with startIcon when startIcon prop is provided" time="0.009">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with specified type" time="0.006">
+        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; opens menu and shows menu items on icon click" time="0.112">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/ButtonBar.test.tsx" timestamp="2024-08-02T13:23:23.317Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.099">
-        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with children" time="0.077">
+    <testsuite name="src/components/presentational/__tests__/Button.test.tsx" timestamp="2024-08-20T13:51:53.088Z" hostname="LAPTOP-BEK9E24L" tests="6" failures="0" errors="0" skipped="0" time="0.176">
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with given text" time="0.115">
         </testcase>
-        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with multiple children" time="0.01">
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a disabled button when disabled prop is true" time="0.007">
         </testcase>
-        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with outlined variant" time="0.008">
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; calls onClick handler when button is clicked" time="0.017">
         </testcase>
-    </testsuite>
-    <testsuite name="src/components/presentational/__tests__/CypherBChart.test.tsx" timestamp="2024-08-02T13:23:23.318Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.038">
-        <testcase classname="src/components/presentational/__tests__/CypherBChart.test.tsx" name="CypherBChart &gt; should render the CypherBChart component" time="0.036">
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a secondary button when secondary prop is true" time="0.018">
         </testcase>
-    </testsuite>
-    <testsuite name="src/components/presentational/__tests__/Dropdown.test.tsx" timestamp="2024-08-02T13:23:23.318Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.201">
-        <testcase classname="src/components/presentational/__tests__/Dropdown.test.tsx" name="Dropdown component tests &gt; Should render disabled input" time="0.198">
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with startIcon when startIcon prop is provided" time="0.01">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with specified type" time="0.007">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" timestamp="2024-08-02T13:23:23.319Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.193">
-        <testcase classname="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" name="FormDateTimePicker component tests &gt; should render the DateTimePicker with the correct label" time="0.191">
+    <testsuite name="src/components/presentational/__tests__/ButtonBar.test.tsx" timestamp="2024-08-20T13:51:53.089Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.064">
+        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with children" time="0.049">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with multiple children" time="0.006">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with outlined variant" time="0.006">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/FormDropdown.test.tsx" timestamp="2024-08-02T13:23:23.319Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.362">
-        <testcase classname="src/components/presentational/__tests__/FormDropdown.test.tsx" name="FormDropdown tests &gt; renders correctly with given options" time="0.359">
+    <testsuite name="src/components/presentational/__tests__/CypherBChart.test.tsx" timestamp="2024-08-20T13:51:53.090Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.031">
+        <testcase classname="src/components/presentational/__tests__/CypherBChart.test.tsx" name="CypherBChart &gt; should render the CypherBChart component" time="0.029">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/Dropdown.test.tsx" timestamp="2024-08-20T13:51:53.090Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.176">
+        <testcase classname="src/components/presentational/__tests__/Dropdown.test.tsx" name="Dropdown component tests &gt; Should render disabled input" time="0.174">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" timestamp="2024-08-20T13:51:53.090Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.19">
+        <testcase classname="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" name="FormDateTimePicker component tests &gt; should render the DateTimePicker with the correct label" time="0.188">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/FormDropdown.test.tsx" timestamp="2024-08-20T13:51:53.091Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.372">
+        <testcase classname="src/components/presentational/__tests__/FormDropdown.test.tsx" name="FormDropdown tests &gt; renders correctly with given options" time="0.369">
             <system-err>
 MUI: You have provided an out-of-range value `undefined` for the select component.
 Consider providing a value that matches one of the available options or &apos;&apos;.
@@ -226,22 +143,22 @@ The available values are `Daily`, `Hourly`, `FiveMins`.
             </system-err>
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/OhlcChart.test.tsx" timestamp="2024-08-02T13:23:23.319Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.029">
-        <testcase classname="src/components/presentational/__tests__/OhlcChart.test.tsx" name="OhlcChart &gt; should render the OhlcChart component" time="0.028">
+    <testsuite name="src/components/presentational/__tests__/OhlcChart.test.tsx" timestamp="2024-08-20T13:51:53.091Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.026">
+        <testcase classname="src/components/presentational/__tests__/OhlcChart.test.tsx" name="OhlcChart &gt; should render the OhlcChart component" time="0.024">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/root/__tests__/ErrorFallback.test.tsx" timestamp="2024-08-02T13:23:23.320Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.031">
-        <testcase classname="src/components/root/__tests__/ErrorFallback.test.tsx" name="Root component tests &gt; Error Boundary - catches error thrown by child component" time="0.029">
+    <testsuite name="src/components/root/__tests__/ErrorFallback.test.tsx" timestamp="2024-08-20T13:51:53.091Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.026">
+        <testcase classname="src/components/root/__tests__/ErrorFallback.test.tsx" name="Root component tests &gt; Error Boundary - catches error thrown by child component" time="0.025">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/root/__tests__/root.component.test.tsx" timestamp="2024-08-02T13:23:23.320Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.023">
-        <testcase classname="src/components/root/__tests__/root.component.test.tsx" name="Root component tests &gt; Root - renders" time="0.022">
+    <testsuite name="src/components/root/__tests__/root.component.test.tsx" timestamp="2024-08-20T13:51:53.092Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.021">
+        <testcase classname="src/components/root/__tests__/root.component.test.tsx" name="Root component tests &gt; Root - renders" time="0.02">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/root/__tests__/routerConfig.test.tsx" timestamp="2024-08-02T13:23:23.321Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.274">
-        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - SimpleCharts path - returns simpleChartsContainer" time="0.216">
+    <testsuite name="src/components/root/__tests__/routerConfig.test.tsx" timestamp="2024-08-20T13:51:53.092Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.285">
+        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - SimpleCharts path - returns simpleChartsContainer" time="0.217">
         </testcase>
-        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - AdvancedCharts path - returns AdvancedChartsView" time="0.056">
+        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - AdvancedCharts path - returns AdvancedChartsView" time="0.066">
         </testcase>
     </testsuite>
 </testsuites>

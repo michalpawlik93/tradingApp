@@ -35,9 +35,10 @@ public static class HttpUtilities
 
     private static async Task<Result<T>> GetHttpContentAsync<T>(this HttpResponseMessage response)
     {
-        var content2 = await response.Content.ReadAsStringAsync();
         var content = await response.Content.ReadFromJsonAsync<T>();
-        return content != null ? Result.Ok(content) : Result.Fail($"Can not deserialize content to {typeof(T).Name}");
+        return content != null
+            ? Result.Ok(content)
+            : Result.Fail($"Can not deserialize content to {typeof(T).Name}");
     }
 
     private static Dictionary<string, string> ObjectToDictionary(object obj)

@@ -4,6 +4,7 @@ using FluentResults;
 using NSubstitute;
 using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy.CipherB;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
@@ -15,13 +16,13 @@ namespace TradingApp.Module.Quotes.Test.Application.Features.GetCypherB;
 public class GetCypherBCommandHandlerTests
 {
     private readonly ITradingAdapter _adapter = Substitute.For<ITradingAdapter>();
-    private readonly ICypherBDecisionService _cypherBDecisionService =
-        Substitute.For<ICypherBDecisionService>();
+    private readonly ICipherBStrategy _cipherBStrategy =
+        Substitute.For<ICipherBStrategy>();
     private readonly GetCypherBCommandHandler _sut;
 
     public GetCypherBCommandHandlerTests()
     {
-        _sut = new GetCypherBCommandHandler(_adapter, _cypherBDecisionService);
+        _sut = new GetCypherBCommandHandler(_adapter, _cipherBStrategy);
     }
 
     [Theory]
@@ -52,7 +53,7 @@ public class GetCypherBCommandHandlerTests
         List<Quote> quotes
     )
     {
-        //Arrange
+        // Arrange
         _adapter
             .GetQuotes(
                 command.TimeFrame,
@@ -61,14 +62,18 @@ public class GetCypherBCommandHandlerTests
                 CancellationToken.None
             )
             .Returns(Result.Ok((IEnumerable<Quote>)quotes));
+
         const string errorMessage = "errorMessage";
-        _cypherBDecisionService
-            .EvaluateSignals(Arg.Any<List<Quote>>(), Arg.Any<CypherBDecisionSettings>())
-            .Returns(Result.Fail<IReadOnlyList<CypherBQuote>>(errorMessage));
-        //Act
+        _cipherBStrategy
+            .EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<CypherBDecisionSettings>())
+            .Returns(Result.Fail<(IReadOnlyList<MfiResult> mfiResults,
+                IReadOnlyList<WaveTrendSignal> waveTrendSignals,
+                IReadOnlyList<SrsiSignal> srsiSignals)>(errorMessage));
+
+        // Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
-        //Assert
+        // Assert
         result.Errors.Should().Contain(x => x.Message == errorMessage);
     }
 
@@ -80,7 +85,7 @@ public class GetCypherBCommandHandlerTests
         WaveTrendSignal waveTrend
     )
     {
-        //Arrange
+        // Arrange
         _adapter
             .GetQuotes(
                 command.TimeFrame,
@@ -90,29 +95,23 @@ public class GetCypherBCommandHandlerTests
             )
             .Returns(Result.Ok((IEnumerable<Quote>)quotes));
 
-        var cypherBResults = Enumerable
-            .Range(0, quotes.Count)
-            .Select(
-                x =>
-                    new CypherBQuote(
-                        quotes[x],
-                        waveTrend,
-                        new MfiResult((decimal)new Random().NextDouble()),
-                        new SrsiSignal(1m, 1m, TradeAction.Buy)
-                    )
-            )
-            .ToList();
+        var mfiResults = (IReadOnlyList<MfiResult>)quotes.Select(_ => new MfiResult((decimal)new Random().NextDouble())).ToList().AsReadOnly();
+        var waveTrendSignals = (IReadOnlyList<WaveTrendSignal>)quotes.Select(_ => waveTrend).ToList().AsReadOnly();
+        var srsiSignals = (IReadOnlyList<SrsiSignal>)quotes.Select(_ => new SrsiSignal(1m, 1m, TradeAction.Buy)).ToList().AsReadOnly();
 
-        _cypherBDecisionService
+        _cipherBStrategy
             .EvaluateSignals(
                 Arg.Any<IReadOnlyList<Quote>>(),
                 Arg.Any<CypherBDecisionSettings>()
             )
-            .Returns(Result.Ok((IReadOnlyList<CypherBQuote>)cypherBResults));
-        //Act
+            .Returns(Result.Ok((mfiResults, waveTrendSignals, srsiSignals)));
+
+        // Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
-        //Assert
+        // Assert
         result.Value.Quotes.Should().HaveCount(quotes.Count);
+        // You might also want to assert specific contents in `result.Value.Quotes` 
+        // based on the values in `mfiResults`, `waveTrendSignals`, and `srsiSignals`.
     }
 }
