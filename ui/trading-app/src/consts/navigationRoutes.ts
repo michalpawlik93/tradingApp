@@ -1,4 +1,4 @@
 export const navigationRoutes = {
-    SimpleCharts:"simplecharts",
-    AdvancedCharts:"advancedcharts"
-}
+  SimpleCharts: "simplecharts",
+  AdvancedCharts: "advancedcharts",
+};

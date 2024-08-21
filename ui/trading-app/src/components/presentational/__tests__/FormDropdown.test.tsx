@@ -1,14 +1,14 @@
 import React from "react";
 import { fireEvent, render, renderHook, screen } from "@testing-library/react";
-import { useForm, Control } from "react-hook-form";
-import { FormDropdown } from "../FormDropdown";
+import { Control, useForm } from "react-hook-form";
+import { Granularity } from "../../../consts/granularity";
 import { IChartSettingsPanelForm } from "../../forms/ChartSettingsPanelForm";
 import { Option } from "../Dropdown";
-import { Granularity } from "../../../consts/granularity";
+import { FormDropdown } from "../FormDropdown";
 
 const options: Option[] = Object.values(Granularity).map((x): Option => [x, x]);
 
-const TestComponent: React.FC<{ control: Control<IChartSettingsPanelForm> }> = ({ control }) => (
+const TestComponent = ({ control }: { control: Control<IChartSettingsPanelForm> }) => (
   <FormDropdown options={options} label="Test Dropdown" control={control} name={"granularity"} />
 );
 

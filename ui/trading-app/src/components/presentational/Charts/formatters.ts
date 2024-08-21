@@ -13,17 +13,17 @@ export const cypherBFormatter = (params: any): string => {
 
   return `
     ${buildDateForrmater(params)}
-    ${wt1 !== undefined ? `<strong>WT1</strong> ${wt1}<br>` : ""}
-    ${wt2 !== undefined ? `<strong>WT2</strong> ${wt2}<br>` : ""}
-    ${vwap !== undefined ? `<strong>Vwap</strong> ${vwap}<br>` : ""}
-    ${srsiK !== undefined ? `<strong>Srsi %K</strong> ${srsiK}<br>` : ""}
-    ${srsiD !== undefined ? `<strong>Srsi %D</strong> ${srsiD}<br>` : ""}
-    ${mfiBuy !== undefined ? `<strong>Money Flow Index Buy</strong> ${mfiBuy}<br>` : ""}
-    ${mfiSell !== undefined ? `<strong>Money Flow Index Sell</strong> ${mfiSell}<br>` : ""}
-    ${sell !== undefined ? `<strong>Sell signal appeared</strong><br>` : ""}
-    ${buy !== undefined ? `<strong>Buy signal appeared</strong>` : ""}
-    ${srsiSell !== undefined ? `<strong>Srsi sell signal appeared</strong><br>` : ""}
-    ${srsiBuy !== undefined ? `<strong>Srsi buy signal appeared</strong>` : ""}
+    ${wt1 === undefined ? "" : `<strong>WT1</strong> ${wt1}<br>`}
+    ${wt2 === undefined ? "" : `<strong>WT2</strong> ${wt2}<br>`}
+    ${vwap === undefined ? "" : `<strong>Vwap</strong> ${vwap}<br>`}
+    ${srsiK === undefined ? "" : `<strong>Srsi %K</strong> ${srsiK}<br>`}
+    ${srsiD === undefined ? "" : `<strong>Srsi %D</strong> ${srsiD}<br>`}
+    ${mfiBuy === undefined ? "" : `<strong>Money Flow Index Buy</strong> ${mfiBuy}<br>`}
+    ${mfiSell === undefined ? "" : `<strong>Money Flow Index Sell</strong> ${mfiSell}<br>`}
+    ${sell === undefined ? "" : `<strong>Sell signal appeared</strong><br>`}
+    ${buy === undefined ? "" : `<strong>Buy signal appeared</strong>`}
+    ${srsiSell === undefined ? "" : `<strong>Srsi sell signal appeared</strong><br>`}
+    ${srsiBuy === undefined ? "" : `<strong>Srsi buy signal appeared</strong>`}
     ${buildOhlcForrmater(params)}
   `;
 };
@@ -42,9 +42,9 @@ const buildOhlcForrmater = (params: any): string => {
   const low = params.find((x: any) => x.seriesName === "Ohlc")?.value[3];
   const high = params.find((x: any) => x.seriesName === "Ohlc")?.value[4];
   return `
-    ${open !== undefined ? `<strong>Open</strong> ${open}<br>` : ""}
-    ${close !== undefined ? `<strong>Close</strong> ${close}<br>` : ""}
-    ${low !== undefined ? `<strong>Low</strong> ${low}<br>` : ""}
-    ${high !== undefined ? `<strong>High</strong> ${high}<br>` : ""}
+    ${open === undefined ? "" : `<strong>Open</strong> ${open}<br>`}
+    ${close === undefined ? "" : `<strong>Close</strong> ${close}<br>`}
+    ${low === undefined ? "" : `<strong>Low</strong> ${low}<br>`}
+    ${high === undefined ? "" : `<strong>High</strong> ${high}<br>`}
   `;
 };

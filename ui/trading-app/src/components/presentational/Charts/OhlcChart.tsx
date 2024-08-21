@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { ReactEChart } from "./ReactEChart";
 import { EChartsOption } from "echarts";
-import { Quote } from "../../../types/Quote";
 import { mapToOhlcChartData } from "../../../mappers/OhlcChartDataMapper";
 import { OhlcChartData } from "../../../types/ChartData";
+import { Quote } from "../../../types/Quote";
 import { zoomOptions } from "./CommonChartOptions";
 import { ohlcFormatter } from "./formatters";
+import { ReactEChart } from "./ReactEChart";
 
 const upColor = "#ec0000";
 const upBorderColor = "#8A0000";

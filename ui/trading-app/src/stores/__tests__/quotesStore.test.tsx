@@ -1,9 +1,9 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { useQuotesStore } from "../quotesStore";
-import { rsiSettingsDefault } from "src/consts/technicalIndicatorsSettings";
-import { createQuotesDataServiceMock } from "src/__fixtures__/QuotesDataServiceMock";
+import { GetCypherBDtoMock, GetQuotesRequestDtoMock } from "../../__fixtures__/quotes";
+import { createQuotesDataServiceMock } from "../../__fixtures__/QuotesDataServiceMock";
+import { rsiSettingsDefault } from "../../consts/technicalIndicatorsSettings";
 import { QuotesDataService } from "../../services/QuotesDataService";
-import { GetCypherBDtoMock, GetQuotesRequestDtoMock } from "src/__fixtures__/quotes";
+import { useQuotesStore } from "../quotesStore";
 
 describe("useQuotesStore", () => {
   test("default state - intial values are set correctly", () => {

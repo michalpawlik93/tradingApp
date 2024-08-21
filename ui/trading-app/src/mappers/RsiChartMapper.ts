@@ -13,11 +13,11 @@ export function mapToRsiChartData(
   };
   result.overbought = rsiSettings.overbought;
   result.oversold = rsiSettings.oversold;
-  for (let i = 0; i < combinedQuotes.length; i++) {
-    const timestamp = Date.parse(combinedQuotes[i].ohlc.date);
-    if (!isNaN(timestamp)) {
-      const x = new Date(combinedQuotes[i].ohlc.date).getTime();
-      result.rsi.push([x, combinedQuotes[i].rsi]);
+  for (const combinedQuote of combinedQuotes) {
+    const timestamp = Date.parse(combinedQuote.ohlc.date);
+    if (!Number.isNaN(timestamp)) {
+      const x = new Date(combinedQuote.ohlc.date).getTime();
+      result.rsi.push([x, combinedQuote.rsi]);
     }
   }
   return result;

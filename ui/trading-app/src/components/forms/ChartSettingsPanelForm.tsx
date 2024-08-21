@@ -1,20 +1,20 @@
-import { Option } from "../presentational/Dropdown";
-import { Granularity } from "../../consts/granularity";
+import { css } from "@emotion/react";
+import { Box, Paper, Typography } from "@mui/material";
+import { useForm } from "react-hook-form";
 import { AssetName } from "../../consts/assetName";
 import { AssetType } from "../../consts/assetType";
-import { Box, Typography, Paper } from "@mui/material";
-import { css } from "@emotion/react";
-import { useForm } from "react-hook-form";
-import { CommonButton } from "../presentational/Button";
-import { FormDropdown } from "../presentational/FormDropdown";
-import { FormDateTimePicker } from "../presentational/FormDateTimePicker";
-import { useQuotesStore } from "../../stores/quotesStore";
+import { Granularity } from "../../consts/granularity";
 import {
   mfiSettingsDefault,
   sRsiSettingsDefault,
   waveTrendSettingsDefault,
 } from "../../consts/technicalIndicatorsSettings";
-import { TradingStrategy } from "src/consts/tradingStrategy";
+import { TradingStrategy } from "../../consts/tradingStrategy";
+import { useQuotesStore } from "../../stores/quotesStore";
+import { CommonButton } from "../presentational/Button";
+import { Option } from "../presentational/Dropdown";
+import { FormDateTimePicker } from "../presentational/FormDateTimePicker";
+import { FormDropdown } from "../presentational/FormDropdown";
 
 export interface IChartSettingsPanelForm {
   startDate: Date;
@@ -74,7 +74,6 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelF
   });
 
   const onSubmit = async (data: IChartSettingsPanelForm) => {
-    console.log(data);
     await fetchData({
       asset: {
         name: data.assetName,

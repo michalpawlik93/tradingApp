@@ -1,9 +1,9 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { FormDateTimePicker, FormDateTimePickerProps } from "../FormDateTimePicker";
+import { render, screen } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 import { TestingProvider } from "../../../__fixtures__/TestingProvider";
 import { IChartSettingsPanelForm } from "../../forms/ChartSettingsPanelForm";
+import { FormDateTimePicker, FormDateTimePickerProps } from "../FormDateTimePicker";
 
 describe("FormDateTimePicker component tests", () => {
   const renderFormDateTimePicker = (props: Partial<FormDateTimePickerProps> = {}) => {
@@ -17,7 +17,7 @@ describe("FormDateTimePicker component tests", () => {
 
     const mergedProps = { ...defaultProps, ...props };
 
-    const TestForm: React.FC = () => {
+    const TestForm = () => {
       const { control } = useForm<IChartSettingsPanelForm>({
         defaultValues: {
           startDate: new Date("2021-01-01"),

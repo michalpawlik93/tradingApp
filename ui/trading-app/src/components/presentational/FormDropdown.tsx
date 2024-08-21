@@ -1,7 +1,7 @@
-import { Controller, Control } from "react-hook-form";
+import { FormControl, InputLabel } from "@mui/material";
+import { Control, Controller } from "react-hook-form";
 import { IChartSettingsPanelForm } from "../forms/ChartSettingsPanelForm";
 import { Dropdown, Option } from "./Dropdown";
-import { FormControl, InputLabel } from "@mui/material";
 
 export interface FormDropdownProps {
   options: Option[];
@@ -10,22 +10,20 @@ export interface FormDropdownProps {
   control: Control<IChartSettingsPanelForm>;
 }
 
-export const FormDropdown: React.FC<FormDropdownProps> = ({ options, name, label, control }) => {
-  return (
-    <FormControl size="small">
-      <InputLabel>{label}</InputLabel>
-      <Controller
-        render={({ field }) => (
-          <Dropdown
-            options={options}
-            label={label}
-            onChange={field.onChange}
-            value={field.value as string}
-          />
-        )}
-        control={control}
-        name={name}
-      />
-    </FormControl>
-  );
-};
+export const FormDropdown = ({ options, name, label, control }: FormDropdownProps) => (
+  <FormControl size="small">
+    <InputLabel>{label}</InputLabel>
+    <Controller
+      render={({ field }) => (
+        <Dropdown
+          options={options}
+          label={label}
+          onChange={field.onChange}
+          value={field.value as string}
+        />
+      )}
+      control={control}
+      name={name}
+    />
+  </FormControl>
+);

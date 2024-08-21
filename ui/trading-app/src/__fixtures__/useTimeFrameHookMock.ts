@@ -1,7 +1,7 @@
 import { useTimeFrameHook, UseTimeFrameHookResponse } from "../hooks/useTimeFrameHook";
 import { mockOf } from "./mockOf";
 
-export const useTimeFrameHookMock = (
+export const UseTimeFrameHookMock = (
   override: Partial<UseTimeFrameHookResponse> | null = {},
 ): UseTimeFrameHookResponse => {
   if (override === null) {
@@ -14,7 +14,7 @@ export const useTimeFrameHookMock = (
 };
 
 export const mockUseTimeFrameHook = (override: Partial<UseTimeFrameHookResponse> | null = {}) => {
-  const mockedData = useTimeFrameHookMock(override);
+  const mockedData = UseTimeFrameHookMock(override);
   mockOf(useTimeFrameHook).mockReturnValue(mockedData);
   return mockedData;
 };

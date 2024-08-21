@@ -1,4 +1,3 @@
-import { FC } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
@@ -12,13 +11,7 @@ export interface DropdownProps {
 
 export type Option = [number | string, string];
 
-export const Dropdown: FC<DropdownProps> = ({
-  options,
-  value,
-  label,
-  onChange,
-  disabled = false,
-}) => {
+export const Dropdown = ({ options, value, label, onChange, disabled = false }: DropdownProps) => {
   const handleChange = (event: SelectChangeEvent<string>) => {
     onChange(event.target.value);
   };

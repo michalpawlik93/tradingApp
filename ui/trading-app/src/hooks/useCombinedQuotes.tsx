@@ -1,10 +1,10 @@
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { AssetName } from "../consts/assetName";
+import { AssetType } from "../consts/assetType";
+import { Granularity } from "../consts/granularity";
+import { TechnicalIndicators } from "../consts/technicalIndicators";
 import { useQuotesStore } from "../stores/quotesStore";
 import { CombinedQuote } from "../types/CombinedQuote";
-import { Granularity } from "../consts/granularity";
-import { AssetType } from "../consts/assetType";
-import { AssetName } from "../consts/assetName";
-import { TechnicalIndicators } from "../consts/technicalIndicators";
 
 export interface useCombinedQuotesResponse {
   combinedQuotes: CombinedQuote[];

@@ -1,9 +1,8 @@
-import { renderHook } from "@testing-library/react";
-import { useCombinedQuotes } from "../useCombinedQuotes";
-import { TestingProvider } from "../../__fixtures__/TestingProvider";
-import { waitFor } from "@testing-library/react";
-import { QuotesDataService } from "../../services/QuotesDataService";
+import { renderHook, waitFor } from "@testing-library/react";
 import { createQuotesDataServiceMock } from "../../__fixtures__/QuotesDataServiceMock";
+import { TestingProvider } from "../../__fixtures__/TestingProvider";
+import { QuotesDataService } from "../../services/QuotesDataService";
+import { useCombinedQuotes } from "../useCombinedQuotes";
 
 vi.unmock("../useCombinedQuotes");
 

@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material";
-import { RouteObject, RouterProvider, createMemoryRouter } from "react-router-dom";
-import { createTheme } from "../assets/themes/createTheme";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { createMemoryRouter, RouteObject, RouterProvider } from "react-router-dom";
+import { createTheme } from "../assets/themes/createTheme";
 
 interface TestingProviderProps {
   children?: ReactNode;

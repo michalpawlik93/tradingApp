@@ -1,7 +1,7 @@
 {
-    "arrowParens": "always",
-    "proseWrap": "always",
-    "printWidth": 100,
-    "endOfLine": "auto"
-  }
-  
+  "endOfLine": "auto",
+  "singleQuote": false,
+  "arrowParens": "always",
+  "proseWrap": "always",
+  "printWidth": 100
+}

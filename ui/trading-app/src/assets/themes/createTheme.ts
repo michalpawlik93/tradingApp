@@ -1,25 +1,26 @@
 import {
-  Theme as MuiTheme,
-  createTheme as createMuiTheme,
+  accordionSummaryClasses,
+  alertClasses,
+  autocompleteClasses,
   buttonClasses,
+  chipClasses,
+  createTheme as createMuiTheme,
+  darken,
+  formHelperTextClasses,
+  iconButtonClasses,
+  inputBaseClasses,
   inputLabelClasses,
   linkClasses,
+  listItemButtonClasses,
+  menuItemClasses,
   stepConnectorClasses,
   stepLabelClasses,
-  inputBaseClasses,
-  chipClasses,
-  formHelperTextClasses,
-  autocompleteClasses,
-  tabsClasses,
-  accordionSummaryClasses,
-  listItemButtonClasses,
-  iconButtonClasses,
-  darken,
-  alertClasses,
-  menuItemClasses,
   switchClasses,
+  tabsClasses,
+  Theme as MuiTheme,
 } from "@mui/material";
 import { createStandardPalette } from "./standardPallete";
+
 import "@emotion/react";
 
 declare module "@emotion/react" {
@@ -31,7 +32,7 @@ export const createTheme = (): MuiTheme => {
   const palette = createStandardPalette();
 
   return createMuiTheme({
-    palette: palette,
+    palette,
     typography: {
       fontFamily: "OpenSans, sans-serif",
       h1: {

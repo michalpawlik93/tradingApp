@@ -1,7 +1,8 @@
-import { Controller, Control } from "react-hook-form";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { IChartSettingsPanelForm } from "../../components/forms/ChartSettingsPanelForm";
 import { FormControl } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { Control, Controller } from "react-hook-form";
+import { IChartSettingsPanelForm } from "../../components/forms/ChartSettingsPanelForm";
+
 export interface FormDateTimePickerProps {
   name: keyof IChartSettingsPanelForm;
   label: string;
@@ -10,26 +11,24 @@ export interface FormDateTimePickerProps {
   maxDate: Date;
 }
 
-export const FormDateTimePicker = ({ name, control, label }: FormDateTimePickerProps) => {
-  return (
-    <FormControl size="small">
-      <Controller
-        name={name}
-        control={control}
-        render={({ field }) => {
-          const handleDatePickerChange = (date: Date | null) => {
-            field.onChange(date as any);
-          };
+export const FormDateTimePicker = ({ name, control, label }: FormDateTimePickerProps) => (
+  <FormControl size="small">
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => {
+        const handleDatePickerChange = (date: Date | null) => {
+          field.onChange(date as any);
+        };
 
-          return (
-            <DateTimePicker
-              label={label}
-              value={field.value as Date}
-              onChange={handleDatePickerChange}
-            />
-          );
-        }}
-      />
-    </FormControl>
-  );
-};
+        return (
+          <DateTimePicker
+            label={label}
+            value={field.value as Date}
+            onChange={handleDatePickerChange}
+          />
+        );
+      }}
+    />
+  </FormControl>
+);

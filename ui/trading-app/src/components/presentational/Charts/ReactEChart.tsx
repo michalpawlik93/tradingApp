@@ -29,7 +29,9 @@ export function ReactEChart({ option }: ReactEChartProps): JSX.Element {
   useEffect(() => {
     if (chartRef.current !== null) {
       const chart = getInstanceByDom(chartRef.current);
-      if (chart) chart.setOption(option);
+      if (chart) {
+        chart.setOption(option);
+      }
     }
   }, [option]);
 

@@ -2,13 +2,11 @@ import { SimpleChartsContainer } from "../components/containers/SimpleChartsCont
 import { Page } from "../components/presentational/Page";
 
 export const SimpleChartsView = () => (
-  <>
-    <Page
-      headerProps={{
-        title: "Simple Charts",
-      }}
-    >
-      <SimpleChartsContainer />
-    </Page>
-  </>
+  <Page
+    headerProps={{
+      title: "Simple Charts",
+    }}
+  >
+    <SimpleChartsContainer />
+  </Page>
 );

@@ -1,12 +1,12 @@
 import { useMemo } from "react";
-import { ReactEChart } from "./ReactEChart";
-import { CypherBQuote } from "../../../types/CypherBQuote";
-import { CypherBChartData } from "../../../types/ChartData";
-import { mapToCypherBChartData } from "../../../mappers/CypherBChartDataMapper";
 import { EChartsOption } from "echarts";
-import { zoomOptions } from "./CommonChartOptions";
 import { waveTrendSettingsDefault } from "../../../consts/technicalIndicatorsSettings";
+import { mapToCypherBChartData } from "../../../mappers/CypherBChartDataMapper";
+import { CypherBChartData } from "../../../types/ChartData";
+import { CypherBQuote } from "../../../types/CypherBQuote";
+import { zoomOptions } from "./CommonChartOptions";
 import { cypherBFormatter } from "./formatters";
+import { ReactEChart } from "./ReactEChart";
 
 const upColor = "#ec0000";
 const upBorderColor = "#8A0000";

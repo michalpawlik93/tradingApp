@@ -1,17 +1,17 @@
+import { useState } from "react";
+import { css } from "@emotion/react";
+import BarChartIcon from "@mui/icons-material/BarChart";
 import {
   AppBar,
   IconButton,
-  Slide,
-  useScrollTrigger,
-  Theme,
   Menu,
   MenuItem,
+  Slide,
+  Theme,
   Toolbar,
+  useScrollTrigger,
   useTheme,
 } from "@mui/material";
-import { css } from "@emotion/react";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { navigationRoutes } from "../../consts/navigationRoutes";
 import { Breadcrumbs } from "./Breadcrumb";
@@ -72,7 +72,7 @@ export const TopBar = () => {
       <AppBar elevation={0} css={topBarCss.appBar(theme)}>
         <Breadcrumbs css={topBarCss.breadCrumbsStyle(theme)} />
         <Toolbar css={topBarCss.toolBar(theme)}>
-          <IconButton css={topBarCss.iconStyle(theme)}></IconButton>
+          <IconButton css={topBarCss.iconStyle(theme)} />
           <IconButton
             size="large"
             aria-label="charts"

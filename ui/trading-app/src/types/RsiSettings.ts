@@ -1,4 +1,4 @@
-export interface RsiSettings{
-    oversold: number;
-    overbought: number;
-  }
+export interface RsiSettings {
+  oversold: number;
+  overbought: number;
+}

@@ -1,8 +1,8 @@
-import { expect, describe } from "vitest";
-import { mapToRsiChartData } from "../RsiChartMapper";
-import { rsiSettingsDefault } from "../../consts/technicalIndicatorsSettings";
+import { describe, expect } from "vitest";
 import { CombinedQuoteMock } from "../../__fixtures__/quotes";
+import { rsiSettingsDefault } from "../../consts/technicalIndicatorsSettings";
 import { RsiChartData } from "../../types/ChartData";
+import { mapToRsiChartData } from "../RsiChartMapper";
 
 describe("mapToApexRsiChartData", () => {
   test("should return empty array", () => {

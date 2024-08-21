@@ -1,11 +1,9 @@
-import { TopBar } from './TopBar'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from "react-router-dom";
+import { TopBar } from "./TopBar";
 
-export const Layout = () => {
-  return (
-    <>
-      <TopBar />
-      <Outlet />
-    </>
-  )
-}
+export const Layout = () => (
+  <>
+    <TopBar />
+    <Outlet />
+  </>
+);

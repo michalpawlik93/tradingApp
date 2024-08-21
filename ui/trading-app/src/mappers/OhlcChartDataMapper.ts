@@ -8,7 +8,7 @@ export function mapToOhlcChartData(quotes: Quote[]): OhlcChartData {
 
   quotes.forEach((quote) => {
     const timestamp = Date.parse(quote.date);
-    if (!isNaN(timestamp)) {
+    if (!Number.isNaN(timestamp)) {
       const x = new Date(quote.date).getTime();
       result.ohlc.push([x, quote.open, quote.close, quote.low, quote.high]);
     }

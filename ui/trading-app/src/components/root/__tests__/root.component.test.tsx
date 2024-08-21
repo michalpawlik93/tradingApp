@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Root from "../root.component";
 import { vi } from "vitest";
+import Root from "../root.component";
 
 const REOOT_TEST_ID = "RootTestId";
 vi.mock("../../navigation/TopBar", () => ({

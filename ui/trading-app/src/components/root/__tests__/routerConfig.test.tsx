@@ -1,7 +1,7 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { routerConfig } from "../routerConfig";
-import { navigationRoutes } from "../../../consts/navigationRoutes";
+import { render, screen } from "@testing-library/react";
 import { RouterProps, TestingProvider } from "../../../__fixtures__/TestingProvider";
+import { navigationRoutes } from "../../../consts/navigationRoutes";
+import { routerConfig } from "../routerConfig";
 
 vi.mock("../../../views/SimpleChartsView", () => ({
   SimpleChartsView: () => <div data-testid={"SimpleChartsViewTestId"} />,
@@ -21,7 +21,7 @@ describe("router config tests", () => {
     render(<TestingProvider overrideRouter={router} />);
 
     // Assert
-    await waitFor(() => screen.getByTestId("SimpleChartsViewTestId"));
+    await screen.findByTestId("SimpleChartsViewTestId");
     expect(screen.getByTestId("SimpleChartsViewTestId")).toBeInTheDocument();
   });
 
@@ -35,7 +35,7 @@ describe("router config tests", () => {
     render(<TestingProvider overrideRouter={router} />);
 
     // Assert
-    await waitFor(() => screen.getByTestId("AdvancedChartsViewTestId"));
+    await screen.findByTestId("AdvancedChartsViewTestId");
     expect(screen.getByTestId("AdvancedChartsViewTestId")).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import { IQuotesDataService } from "src/services/IQuotesDataService";
+import { IQuotesDataService } from "../services/IQuotesDataService";
 import { GetCombinedQuotesResponseDtoMock, GetCypherBResponseDtoMock } from "./quotes";
 
 export const createQuotesDataServiceMock = (): IQuotesDataService => ({

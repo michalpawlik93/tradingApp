@@ -1,19 +1,19 @@
-import { AssetName } from "src/consts/assetName";
-import { AssetType } from "src/consts/assetType";
-import { Granularity } from "src/consts/granularity";
-import { GetCombinedQuotesResponseDto } from "src/services/dtos/GetCombinedQuotesResponseDto";
-import { GetCypherBDto } from "src/services/dtos/GetCypherBDto";
-import { GetCypherBResponseDto } from "src/services/dtos/GetCypherBResponseDto";
-import { GetQuotesRequestDto } from "src/services/dtos/GetQuotesRequestDto";
-import { CombinedQuote } from "src/types/CombinedQuote";
-import { CypherBQuote } from "src/types/CypherBQuote";
-import { Quote } from "src/types/Quote";
-import { WaveTrendSignal } from "../types/WaveTrendSignal";
-import { MfiResult } from "../types/Mfi";
+import { AssetName } from "../consts/assetName";
+import { AssetType } from "../consts/assetType";
+import { Granularity } from "../consts/granularity";
 import { mfiSettingsDefault, sRsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
-import { TradeAction } from "src/consts/tradeAction";
-import { SrsiSignal } from "src/types/SrsiSignal";
+import { TradeAction } from "../consts/tradeAction";
 import { TradingStrategy } from "../consts/tradingStrategy";
+import { GetCombinedQuotesResponseDto } from "../services/dtos/GetCombinedQuotesResponseDto";
+import { GetCypherBDto } from "../services/dtos/GetCypherBDto";
+import { GetCypherBResponseDto } from "../services/dtos/GetCypherBResponseDto";
+import { GetQuotesRequestDto } from "../services/dtos/GetQuotesRequestDto";
+import { CombinedQuote } from "../types/CombinedQuote";
+import { CypherBQuote } from "../types/CypherBQuote";
+import { MfiResult } from "../types/Mfi";
+import { Quote } from "../types/Quote";
+import { SrsiSignal } from "../types/SrsiSignal";
+import { WaveTrendSignal } from "../types/WaveTrendSignal";
 
 export const GetCombinedQuotesResponseDtoMock = (): GetCombinedQuotesResponseDto => ({
   quotes: [CombinedQuoteMock()],
@@ -25,28 +25,29 @@ export const GetCombinedQuotesResponseDtoMock = (): GetCombinedQuotesResponseDto
 
 export const CombinedQuoteMock = (): CombinedQuote => ({
   ohlc: QuoteMock(),
-  rsi: 58022.10327374051,
-  sma: 58072.10338574051,
+  rsi: 58_022.103_273_740_51,
+  sma: 58_072.103_385_740_51,
 });
 
 export const QuoteMock = (): Quote => ({
   date: "2024-05-02T00:20:00+00:00",
-  open: 58299.680022649416,
-  high: 58299.83445841243,
-  low: 58092.10338574051,
-  close: 58109.13588176606,
-  volume: 45.50906658999999,
+  open: 58_299.680_022_649_416,
+  high: 58_299.834_458_412_43,
+  low: 58_092.103_385_740_51,
+  close: 58_109.135_881_766_06,
+  volume: 45.509_066_589_999_99,
 });
 
 export const GetCypherBResponseDtoMock = (): GetCypherBResponseDto => ({
   quotes: [CypherBQuoteMock()],
 });
 
-export const CypherBQuoteMock = (): CypherBQuote => ({
+export const CypherBQuoteMock = (override: Partial<CypherBQuote> = {}): CypherBQuote => ({
   ohlc: QuoteMock(),
   waveTrendSignal: WaveTrendMock(),
   mfiResult: MfiMock(),
   srsiSignal: SrsiMock(),
+  ...override,
 });
 
 export const SrsiMock = (): SrsiSignal => ({

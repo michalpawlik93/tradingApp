@@ -1,9 +1,9 @@
-import { SimpleChartsView } from "../../views/SimpleChartsView";
-import { AdvancedChartsView } from "../../views/AdvancedChartsView";
-import { Layout } from "../navigation/Layout";
-import { navigationRoutes } from "../../consts/navigationRoutes";
 import { Typography } from "@mui/material";
 import { RouteObject } from "react-router-dom";
+import { navigationRoutes } from "../../consts/navigationRoutes";
+import { AdvancedChartsView } from "../../views/AdvancedChartsView";
+import { SimpleChartsView } from "../../views/SimpleChartsView";
+import { Layout } from "../navigation/Layout";
 
 export const routerConfig: RouteObject[] = [
   {

@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { TestingProvider } from "../../__fixtures__/TestingProvider";
-import { AdvancedChartsView } from "../AdvancedChartsView";
 import { mockUseCypherBQuotes } from "../../__fixtures__/useCypherBQuotesMock";
 import { mockUseTimeFrameHook } from "../../__fixtures__/useTimeFrameHookMock";
+import { AdvancedChartsView } from "../AdvancedChartsView";
 
 vi.mock("react-apexcharts", () => ({ __esModule: true, default: () => <div>Chart</div> }));
 describe("AdvancedChartsView tests", () => {
-  test("Charts are rendered", async () => {
+  test("Charts are rendered", () => {
     // Arrange
     mockUseCypherBQuotes();
     mockUseTimeFrameHook();

@@ -1,4 +1,4 @@
-import { expect, describe } from "vitest";
+import { describe, expect } from "vitest";
 import { QuoteMock } from "../../__fixtures__/quotes";
 import { OhlcChartData } from "../../types/ChartData";
 import { mapToOhlcChartData } from "../OhlcChartDataMapper";

@@ -1,6 +1,6 @@
-import { OhlcChart } from "../presentational/Charts/OhlcChart";
-import { useCombinedQuotes } from "../../hooks/useCombinedQuotes";
 import { PageItemsWrapper } from "../../components/presentational/PageItemWrapper";
+import { useCombinedQuotes } from "../../hooks/useCombinedQuotes";
+import { OhlcChart } from "../presentational/Charts/OhlcChart";
 import { RsiChartContiner } from "./RsiChartContiner";
 
 export const SimpleChartsContainer = () => {

@@ -1,16 +1,12 @@
-import { useRef, useEffect } from "react";
-import { useQuotesStore } from "../stores/quotesStore";
-import { CypherBQuote } from "../types/CypherBQuote";
-import { Granularity } from "../consts/granularity";
-import { AssetType } from "../consts/assetType";
-import { AssetName } from "../consts/assetName";
+import { useEffect, useRef } from "react";
+import { cypherBDefaultValues } from "../components/forms/ChartSettingsPanelForm";
 import {
   mfiSettingsDefault,
   sRsiSettingsDefault,
   waveTrendSettingsDefault,
 } from "../consts/technicalIndicatorsSettings";
-import { TradingStrategy } from "src/consts/tradingStrategy";
-import { cypherBDefaultValues } from "src/components/forms/ChartSettingsPanelForm";
+import { useQuotesStore } from "../stores/quotesStore";
+import { CypherBQuote } from "../types/CypherBQuote";
 
 export interface useCypherBQuotesResponse {
   cypherBQuotes: CypherBQuote[];

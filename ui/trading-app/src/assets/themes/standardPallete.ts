@@ -1,5 +1,5 @@
-import { GeneralPaletteOptions } from "./themeTypes";
 import { calculateContrastColor } from "./colorUtilities";
+import { GeneralPaletteOptions } from "./themeTypes";
 
 declare module "@mui/material/styles/createPalette" {
   interface CommonColors {
@@ -54,7 +54,7 @@ export const createStandardPalette = (): GeneralPaletteOptions => {
   const headerIcon = calculateContrastColor(
     headerColor,
     uxStandardColors.backgroundWhite,
-    uxStandardColors.backgroundGrey
+    uxStandardColors.backgroundGrey,
   );
 
   return {

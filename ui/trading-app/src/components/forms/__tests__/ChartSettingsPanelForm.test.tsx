@@ -1,9 +1,8 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { ChartSettingsPanelForm } from "../ChartSettingsPanelForm";
-import { QuotesDataService } from "../../../services/QuotesDataService";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { createQuotesDataServiceMock } from "../../../__fixtures__/QuotesDataServiceMock";
 import { TestingProvider } from "../../../__fixtures__/TestingProvider";
-import { GetCypherBDtoMock } from "../../../__fixtures__/quotes";
+import { QuotesDataService } from "../../../services/QuotesDataService";
+import { ChartSettingsPanelForm } from "../ChartSettingsPanelForm";
 
 describe("ChartSettingsPanelForm tests", () => {
   test("click submit button - fetch is called with form values", async () => {
@@ -19,7 +18,7 @@ describe("ChartSettingsPanelForm tests", () => {
     );
 
     // Assert
-    const submitButton = screen.getByRole("button", { name: /Submit/i });
+    const submitButton = screen.getByRole("button", { name: /submit/i });
     fireEvent.click(submitButton);
     await waitFor(() => {
       expect(QuotesDataService.getCypherB).toHaveBeenCalled();

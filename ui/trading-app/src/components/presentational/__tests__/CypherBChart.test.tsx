@@ -1,7 +1,7 @@
-import { CypherBChart } from "../Charts/CypherBChart";
-import { CypherBQuoteMock } from "../../../__fixtures__/quotes";
 import { render, screen } from "@testing-library/react";
 import { getInstanceByDom } from "echarts";
+import { CypherBQuoteMock } from "../../../__fixtures__/quotes";
+import { CypherBChart } from "../Charts/CypherBChart";
 
 describe("CypherBChart", () => {
   test("should render the CypherBChart component", () => {

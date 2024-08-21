@@ -1,14 +1,14 @@
+import { Mock } from "vitest";
 import {
   GetCombinedQuotesResponseDtoMock,
   GetCypherBDtoMock,
   GetCypherBResponseDtoMock,
   GetQuotesRequestDtoMock,
-} from "src/__fixtures__/quotes";
-import { QuotesDataService } from "../QuotesDataService";
+} from "../../__fixtures__/quotes";
 import { GetCombinedQuotesResponseDto } from "../dtos/GetCombinedQuotesResponseDto";
 import { GetCypherBResponseDto } from "../dtos/GetCypherBResponseDto";
+import { QuotesDataService } from "../QuotesDataService";
 import { StooqUrls } from "../urls/stooqUrl";
-import { Mock } from "vitest";
 
 vi.unmock("../QuotesDataService");
 describe("QuotesDataService", () => {

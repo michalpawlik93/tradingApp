@@ -2,7 +2,7 @@ import { useCypherBQuotes, useCypherBQuotesResponse } from "../hooks/useCypherBQ
 import { mockOf } from "./mockOf";
 import { CypherBQuoteMock } from "./quotes";
 
-export const useCypherBQuotesMock = (
+export const UseCypherBQuotesMock = (
   override: Partial<useCypherBQuotesResponse> | null = {},
 ): useCypherBQuotesResponse => {
   if (override === null) {
@@ -17,7 +17,7 @@ export const useCypherBQuotesMock = (
 };
 
 export const mockUseCypherBQuotes = (override: Partial<useCypherBQuotesResponse> | null = {}) => {
-  const mockedData = useCypherBQuotesMock(override);
+  const mockedData = UseCypherBQuotesMock(override);
   mockOf(useCypherBQuotes).mockReturnValue(mockedData);
   return mockedData;
 };

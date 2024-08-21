@@ -1,3 +1,3 @@
-import { CircularProgress } from '@mui/material'
+import { CircularProgress } from "@mui/material";
 
-export const RouterFallbackSpinner = (): JSX.Element => <CircularProgress />
+export const RouterFallbackSpinner = (): JSX.Element => <CircularProgress />;

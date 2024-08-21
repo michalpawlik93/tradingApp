@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { ReactEChart } from "./ReactEChart";
-import { RsiChartData } from "../../../types/ChartData";
 import { EChartsOption } from "echarts";
 import { mapToRsiChartData } from "../../../mappers/RsiChartMapper";
+import { RsiChartData } from "../../../types/ChartData";
 import { CombinedQuote } from "../../../types/CombinedQuote";
 import { RsiSettings } from "../../../types/RsiSettings";
 import { zoomOptions } from "./CommonChartOptions";
+import { ReactEChart } from "./ReactEChart";
 
 const formatter = (params: any) => {
   const date = new Date(params[0].value[0]).toLocaleString();

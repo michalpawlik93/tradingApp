@@ -7,7 +7,7 @@ describe("Root component tests", () => {
     const error = new Error("Test error");
 
     // Act
-    render(<ErrorFallback resetErrorBoundary={() => null} error={error}></ErrorFallback>);
+    render(<ErrorFallback resetErrorBoundary={() => null} error={error} />);
 
     // Assert
     expect(screen.getByText("Something went wrong:")).toBeInTheDocument();

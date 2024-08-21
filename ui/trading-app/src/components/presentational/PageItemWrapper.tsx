@@ -1,7 +1,6 @@
 import React from "react";
-import { Box } from "@mui/material";
 import styled from "@emotion/styled";
-import { useTheme, Theme } from "@mui/material";
+import { Box, Theme, useTheme } from "@mui/material";
 
 interface PageItemsWrapperProps {
   children: React.ReactNode;

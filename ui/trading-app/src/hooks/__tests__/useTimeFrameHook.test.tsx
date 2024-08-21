@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { useTimeFrameHook } from "../useTimeFrameHook";
 import { TestingProvider } from "../../__fixtures__/TestingProvider";
+import { useTimeFrameHook } from "../useTimeFrameHook";
 
 vi.unmock("../useTimeFrameHook");
 describe("useTimeFrameHook tests", () => {

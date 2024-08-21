@@ -1,6 +1,5 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, vi } from "vitest";
 import { Dropdown, Option } from "../Dropdown";
 
 describe("Dropdown component tests", () => {
@@ -14,9 +13,7 @@ describe("Dropdown component tests", () => {
     const value = "1";
 
     // Act
-    render(
-      <Dropdown options={options} label="test" value={value} onChange={onChange} disabled={true} />,
-    );
+    render(<Dropdown options={options} label="test" value={value} onChange={onChange} disabled />);
 
     // Assert
     const selectElement = screen.getByRole("combobox");

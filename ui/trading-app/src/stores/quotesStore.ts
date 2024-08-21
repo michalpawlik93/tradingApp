@@ -1,10 +1,10 @@
 import { create } from "zustand";
+import { rsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
+import { GetCypherBDto } from "../services/dtos/GetCypherBDto";
+import { GetQuotesRequestDto } from "../services/dtos/GetQuotesRequestDto";
 import { QuotesDataService } from "../services/QuotesDataService";
 import { CombinedQuote } from "../types/CombinedQuote";
 import { CypherBQuote } from "../types/CypherBQuote";
-import { GetQuotesRequestDto } from "../services/dtos/GetQuotesRequestDto";
-import { GetCypherBDto } from "../services/dtos/GetCypherBDto";
-import { rsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
 import { RsiSettings } from "../types/RsiSettings";
 
 interface QuotesState {
