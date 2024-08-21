@@ -6,7 +6,7 @@ namespace TradingApp.TingoProvider.Mappers;
 
 public static class TingoQuoteMapper
 {
-    public static IEnumerable<Quote> MapToQuotes(this TingoQuote[] tingoQuotes)
+    public static IReadOnlyList<Quote> MapToQuotes(this TingoQuote[] tingoQuotes)
     {
         var firstTicker = tingoQuotes.FirstOrDefault();
 
@@ -22,7 +22,7 @@ public static class TingoQuoteMapper
                         Volume = q.Volume,
                         Date = DateTimeUtils.ConvertUtcIso8601_2DateStringToDateTime(q.Date)
                     }
-            )
-            : Enumerable.Empty<Quote>();
+            ).ToList()
+            : [];
     }
 }

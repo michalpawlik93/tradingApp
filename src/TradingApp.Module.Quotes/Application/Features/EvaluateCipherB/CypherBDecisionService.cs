@@ -13,7 +13,7 @@ using TradingApp.Module.Quotes.Domain.ValueObjects;
 
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 
-public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendSettings WaveTrendSettings, MfiSettings MfiSettings, SRsiSettings SrsiSettings, TradingStrategy TradingStrategy);
+public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendSettings WaveTrendSettings, MfiSettings MfiSettings, SRsiSettings? SrsiSettings, TradingStrategy TradingStrategy);
 
 public interface ICypherBDecisionService
 {

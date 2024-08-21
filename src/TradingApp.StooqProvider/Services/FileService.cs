@@ -10,27 +10,38 @@ namespace TradingApp.StooqProvider.Services;
 
 public interface IFileService
 {
-    Task<Result<IEnumerable<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset);
+    Task<Result<IReadOnlyList<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset);
 }
 
 [ExcludeFromCodeCoverage]
 public class FileService : IFileService
 {
     private readonly IZipArchiveProvider _zipArchiveProvider;
+
     public FileService(IZipArchiveProvider zipArchiveProvider)
     {
         ArgumentNullException.ThrowIfNull(zipArchiveProvider);
         _zipArchiveProvider = zipArchiveProvider;
     }
 
-    public async Task<Result<IEnumerable<Quote>>> ReadHistoryQuotaFile(TimeFrame timeFrame, Asset asset)
+    public async Task<Result<IReadOnlyList<Quote>>> ReadHistoryQuotaFile(
+        TimeFrame timeFrame,
+        Asset asset
+    )
     {
         using var zipArchive = _zipArchiveProvider.OpenRead(timeFrame.Granularity);
-        var zipEntry = _zipArchiveProvider.GetEntry(zipArchive, timeFrame.Granularity, asset.Type, asset.Name);
+        var zipEntry = _zipArchiveProvider.GetEntry(
+            zipArchive,
+            timeFrame.Granularity,
+            asset.Type,
+            asset.Name
+        );
 
         if (zipEntry == null)
         {
-            return Result.Fail<IEnumerable<Quote>>(new ValidationError($"Can not find file. Path: {FileServiceUtils.AncvFilePath}"));
+            return Result.Fail<IReadOnlyList<Quote>>(
+                new ValidationError($"Can not find file. Path: {FileServiceUtils.AncvFilePath}")
+            );
         }
 
         await using var entryStream = zipEntry.Open();
@@ -54,10 +65,19 @@ public class FileService : IFileService
                 var dateTimeValue = DateTimeUtils.ParseDateTime(dateValue, timeValue);
                 if (dateTimeValue != DateTime.MinValue)
                 {
-                    quotes.Add(new Quote(dateTimeValue, openValue, highValue, lowValue, closeValue, volumeValue));
+                    quotes.Add(
+                        new Quote(
+                            dateTimeValue,
+                            openValue,
+                            highValue,
+                            lowValue,
+                            closeValue,
+                            volumeValue
+                        )
+                    );
                 }
             }
         }
-        return Result.Ok<IEnumerable<Quote>>(quotes);
+        return Result.Ok<IReadOnlyList<Quote>>(quotes);
     }
 }

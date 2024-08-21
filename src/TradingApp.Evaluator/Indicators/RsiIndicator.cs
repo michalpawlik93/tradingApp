@@ -6,7 +6,7 @@ namespace TradingApp.Evaluator.Indicators;
 [ExcludeFromCodeCoverage]
 public static class RsiIndicator
 {
-    public static IEnumerable<RsiResult> Calculate(IEnumerable<Quote> tpList, RsiSettings settings)
+    public static IReadOnlyList<RsiResult> Calculate(IEnumerable<Quote> tpList, RsiSettings settings)
     {
         ValidateRsi(settings.ChannelLength);
 

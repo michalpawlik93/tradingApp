@@ -13,7 +13,7 @@ public record GetCypherBCommand(
     TimeFrame TimeFrame,
     Asset Asset,
     WaveTrendSettings WaveTrendSettings,
-    SRsiSettings SRsiSettings,
+    SRsiSettings? SRsiSettings,
     MfiSettings MfiSettings,
     TradingStrategy TradingStrategy
 ) : IRequest<IResult<GetCypherBResponseDto>>;

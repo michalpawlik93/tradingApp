@@ -27,7 +27,7 @@ public class TradingAdapter : ITradingAdapter
         }
     }
 
-    public async Task<Result<IEnumerable<Quote>>> GetQuotes(
+    public async Task<Result<IReadOnlyList<Quote>>> GetQuotes(
         TimeFrame timeFrame,
         Asset asset,
         PostProcessing postProcessing,
@@ -39,7 +39,7 @@ public class TradingAdapter : ITradingAdapter
         {
             return result.Value.FilterByTimeFrame(timeFrame).ToResult();
         }
-        return result.ToResult<IEnumerable<Quote>>();
+        return result.ToResult<IReadOnlyList<Quote>>();
     }
 
     public Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(

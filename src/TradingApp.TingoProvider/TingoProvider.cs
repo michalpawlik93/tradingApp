@@ -22,7 +22,7 @@ public class TingoProvider : ITingoProvider
         _tingoClient = tingoClient;
     }
 
-    public async Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
+    public async Task<Result<IReadOnlyList<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
     {
         if (!asset.IsValid(out var validationResult))
         {
@@ -30,7 +30,7 @@ public class TingoProvider : ITingoProvider
         }
         var response = await _tingoClient.Client.GetAsync(UrlMapper.GetCryptoQuotesUri(asset, timeFrame), cancellationToken);
         var result = await response.GetResultAsync<TingoQuote[]>();
-        return result.IsSuccess ? result.ToResult(TingoQuoteMapper.MapToQuotes) : result.ToResult<IEnumerable<Quote>>();
+        return result.IsSuccess ? result.ToResult(TingoQuoteMapper.MapToQuotes) : result.ToResult<IReadOnlyList<Quote>>();
     }
 
     public async Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(Asset asset, CancellationToken cancellationToken)

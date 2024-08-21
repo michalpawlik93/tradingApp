@@ -38,7 +38,7 @@ public class GetCypherBCommandHandlerTests
                 new PostProcessing(true),
                 CancellationToken.None
             )
-            .Returns(Result.Fail<IEnumerable<Quote>>(errorMessage));
+            .Returns(Result.Fail<IReadOnlyList<Quote>>(errorMessage));
         //Act
         var result = await _sut.Handle(command, CancellationToken.None);
 
@@ -61,7 +61,7 @@ public class GetCypherBCommandHandlerTests
                 new PostProcessing(true),
                 CancellationToken.None
             )
-            .Returns(Result.Ok((IEnumerable<Quote>)quotes));
+            .Returns(Result.Ok((IReadOnlyList<Quote>)quotes));
 
         const string errorMessage = "errorMessage";
         _cipherBStrategy
@@ -93,7 +93,7 @@ public class GetCypherBCommandHandlerTests
                 new PostProcessing(true),
                 CancellationToken.None
             )
-            .Returns(Result.Ok((IEnumerable<Quote>)quotes));
+            .Returns(Result.Ok((IReadOnlyList<Quote>)quotes));
 
         var mfiResults = (IReadOnlyList<MfiResult>)quotes.Select(_ => new MfiResult((decimal)new Random().NextDouble())).ToList().AsReadOnly();
         var waveTrendSignals = (IReadOnlyList<WaveTrendSignal>)quotes.Select(_ => waveTrend).ToList().AsReadOnly();

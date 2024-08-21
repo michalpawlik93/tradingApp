@@ -19,11 +19,11 @@ public class SRsiSettingsDtoMapperUniteTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Enable.Should().Be(dto.Enable);
-        result.ChannelLength.Should().Be(dto.ChannelLength);
-        result.Overbought.Should().Be(dto.Overbought);
-        result.Oversold.Should().Be(dto.Oversold);
-        result.StochDSmooth.Should().Be(dto.StochDSmooth);
-        result.StochKSmooth.Should().Be(dto.StochKSmooth);
+        result.Value.Enable.Should().Be(dto.Enable);
+        result.Value.ChannelLength.Should().Be(dto.ChannelLength);
+        result.Value.Overbought.Should().Be(dto.Overbought);
+        result.Value.Oversold.Should().Be(dto.Oversold);
+        result.Value.StochDSmooth.Should().Be(dto.StochDSmooth);
+        result.Value.StochKSmooth.Should().Be(dto.StochKSmooth);
     }
 }

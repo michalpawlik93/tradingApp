@@ -35,7 +35,7 @@ public class Evaluate5MinJCipherBJobTests
                 Arg.Any<PostProcessing>(),
                 Arg.Any<CancellationToken>()
             )
-            .Returns(Result.Ok((IEnumerable<Quote>)[new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m)]));
+            .Returns(Result.Ok((IReadOnlyList<Quote>)[new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m)]));
         //Act
         await _sut.Execute(_jobExecutionContext);
         //Assert

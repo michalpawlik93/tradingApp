@@ -7,8 +7,8 @@ namespace TradingApp.Module.Quotes.Contract.Ports;
 
 public interface IEvaluator
 {
-    IEnumerable<RsiResult> GetRsi(
-        IEnumerable<Quote> quotes,
+    IReadOnlyList<RsiResult> GetRsi(
+        IReadOnlyList<Quote> quotes,
         RsiSettings settings
     );
     IReadOnlyList<WaveTrendResult> GetWaveTrend(

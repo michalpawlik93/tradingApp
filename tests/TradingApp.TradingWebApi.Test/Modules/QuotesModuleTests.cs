@@ -11,10 +11,7 @@ using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
-using TradingApp.Module.Quotes.Application.Features.Srsi;
-using TradingApp.Module.Quotes.Application.Features.Srsi.Dto;
 using TradingApp.Module.Quotes.Application.Features.TickerMetadata;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Domain.Constants;
@@ -62,7 +59,7 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
         // Arrange
         Mediator
             .Send(Arg.Any<GetCombinedQuotesCommand>())
-            .Returns(Result.Ok(new GetCombinedQuotesResponseDto([], null)));
+            .Returns(Result.Ok(new GetCombinedQuotesResponseDto([])));
         var request = new GetQuotesDtoRequest
         {
             Asset = MockAsset(),
@@ -84,26 +81,6 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
             .Returns(Result.Ok(Array.Empty<CryptocurrencyMetadata>()));
         // Act
         var result = await Client.GetAsync("/quotes/tingo/tickermetadata?AssetType=Cryptocurrency&AssetName=BTCUSD");
-        // Assert
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
-    }
-
-    [Fact]
-    public async Task GetSrsi_ReturnsOk()
-    {
-        // Arrange
-        Mediator
-            .Send(Arg.Any<GetSrsiCommand>())
-            .Returns(Result.Ok(new GetSrsiResponseDto([])));
-        var request = new GetSrsiRequestDto
-        {
-            Asset = MockAsset(),
-            TimeFrame = MockTimeFrame(),
-            TradingStrategy = TradingStrategy.DayTrading.ToString(),
-            SRsiSettings = MockSrsiSettings()
-        };
-        // Act
-        var result = await Client.PostAsJsonAsync("/quotes/srsi", request);
         // Assert
         result.StatusCode.Should().Be(HttpStatusCode.OK);
     }

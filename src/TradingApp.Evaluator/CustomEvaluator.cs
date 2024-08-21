@@ -27,7 +27,7 @@ public class CustomEvaluator : IEvaluator
     public IReadOnlyList<MfiResult> GetMfi(IReadOnlyList<Quote> quotes, MfiSettings settings) =>
         MoneyFlowIndicator.Calculate(quotes, settings, true, DecimalPlace);
 
-    public IEnumerable<RsiResult> GetRsi(IEnumerable<Quote> quotes, RsiSettings settings) =>
+    public IReadOnlyList<RsiResult> GetRsi(IReadOnlyList<Quote> quotes, RsiSettings settings) =>
         RsiIndicator.Calculate(quotes, settings);
 
     public Result<decimal[]> GetEmea(decimal[] values, int length) =>

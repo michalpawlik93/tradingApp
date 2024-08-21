@@ -19,7 +19,7 @@ public sealed class StooqProvider : IStooqProvider
         _fileService = fileService;
     }
 
-    public async Task<Result<IEnumerable<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
+    public async Task<Result<IReadOnlyList<Quote>>> GetQuotes(TimeFrame timeFrame, Asset asset, CancellationToken cancellationToken)
         => await _fileService.ReadHistoryQuotaFile(timeFrame, asset);
 
     public Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(Asset asset, CancellationToken cancellationToken)

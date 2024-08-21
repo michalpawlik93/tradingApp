@@ -12,8 +12,6 @@ using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
-using TradingApp.Module.Quotes.Application.Features.Srsi;
-using TradingApp.Module.Quotes.Application.Features.Srsi.Dto;
 using TradingApp.Module.Quotes.Application.Features.TickerMetadata;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.CipherB;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
@@ -56,13 +54,6 @@ public static class QuotesConfigExtension
         services.AddScoped<
             IRequestHandler<GetTickerMetadataQuery, IResult<CryptocurrencyMetadata[]>>,
             GetTickerMetadataQueryHandler
-        >();
-        services.AddScoped<
-            IRequestHandler<
-                GetSrsiCommand,
-                IResult<GetSrsiResponseDto>
-            >,
-            GetSrsiCommandHandler
         >();
 
         services.AddTransient<IEvaluator, CustomEvaluator>();
