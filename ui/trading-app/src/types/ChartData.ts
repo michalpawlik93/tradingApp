@@ -21,7 +21,7 @@ interface MfiChartData {
   mfiSell: (number | Date)[][];
 }
 
-interface SrsiChartData {
+export interface SrsiChartData {
   srsiStochK: (number | Date)[][];
   srsiStochD: (number | Date)[][];
   srsiSell: (number | Date)[][];

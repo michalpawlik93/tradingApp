@@ -19,7 +19,16 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
   },
   ...zoomOptions,
   legend: {
-    data: ["WaveTrend WT1", "WaveTrend WT2", "WaveTrend Vwap", "Mfi Buy", "Mfi Sell", "Ohlc"],
+    data: [
+      "WaveTrend WT1",
+      "WaveTrend WT2",
+      "WaveTrend Vwap",
+      "Mfi Buy",
+      "Mfi Sell",
+      "Ohlc",
+      "Srsi %K",
+      "Srsi %D",
+    ],
     orient: "horizontal",
     left: 300,
   },

@@ -11,7 +11,10 @@ using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes.Dto;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
+using TradingApp.Module.Quotes.Application.Features.Srsi;
+using TradingApp.Module.Quotes.Application.Features.Srsi.Dto;
 using TradingApp.Module.Quotes.Application.Features.TickerMetadata;
+using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Domain.Constants;
@@ -30,27 +33,10 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
             .Returns(Result.Ok(new GetCypherBResponseDto([])));
         var request = new GetCypherBDto
         {
-            Asset = new AssetDto
-            {
-                Name = nameof(AssetName.BTCUSD),
-                Type = nameof(AssetType.Cryptocurrency)
-            },
+            Asset = MockAsset(),
             MfiSettings = new MfiSettingsDto { ChannelLength = MfiSettingsConst.ChannelLength },
-            SRsiSettings = new SRsiSettingsDto
-            {
-                StochDSmooth = SRsiSettingsConst.StochDSmooth,
-                StochKSmooth = SRsiSettingsConst.StochKSmooth,
-                ChannelLength = SRsiSettingsConst.ChannelLength,
-                Enable = true,
-                Overbought = SRsiSettingsConst.Overbought,
-                Oversold = SRsiSettingsConst.Oversold
-            },
-            TimeFrame = new TimeFrameDto
-            {
-                StartDate = "2023-07-09T10:30:00.000Z",
-                EndDate = "2023-08-09T10:30:00.000Z",
-                Granularity = nameof(Granularity.Daily)
-            },
+            SRsiSettings = MockSrsiSettings(),
+            TimeFrame = MockTimeFrame(),
             WaveTrendSettings = new WaveTrendSettingsDto
             {
                 Overbought = WaveTrendSettingsConst.Overbought,
@@ -79,17 +65,8 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
             .Returns(Result.Ok(new GetCombinedQuotesResponseDto([], null)));
         var request = new GetQuotesDtoRequest
         {
-            Asset = new AssetDto
-            {
-                Name = nameof(AssetName.BTCUSD),
-                Type = nameof(AssetType.Cryptocurrency)
-            },
-            TimeFrame = new TimeFrameDto
-            {
-                StartDate = "2023-07-09T10:30:00.000Z",
-                EndDate = "2023-08-09T10:30:00.000Z",
-                Granularity = nameof(Granularity.Daily)
-            },
+            Asset = MockAsset(),
+            TimeFrame = MockTimeFrame(),
             TechnicalIndicators = []
         };
         // Act
@@ -110,4 +87,50 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
         // Assert
         result.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+
+    [Fact]
+    public async Task GetSrsi_ReturnsOk()
+    {
+        // Arrange
+        Mediator
+            .Send(Arg.Any<GetSrsiCommand>())
+            .Returns(Result.Ok(new GetSrsiResponseDto([])));
+        var request = new GetSrsiRequestDto
+        {
+            Asset = MockAsset(),
+            TimeFrame = MockTimeFrame(),
+            TradingStrategy = TradingStrategy.DayTrading.ToString(),
+            SRsiSettings = MockSrsiSettings()
+        };
+        // Act
+        var result = await Client.PostAsJsonAsync("/quotes/srsi", request);
+        // Assert
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    private static AssetDto MockAsset() =>
+        new()
+        {
+            Name = nameof(AssetName.BTCUSD),
+            Type = nameof(AssetType.Cryptocurrency)
+        };
+
+    private static TimeFrameDto MockTimeFrame() =>
+        new()
+        {
+            StartDate = "2023-07-09T10:30:00.000Z",
+            EndDate = "2023-08-09T10:30:00.000Z",
+            Granularity = nameof(Granularity.Daily)
+        };
+
+    private static SRsiSettingsDto MockSrsiSettings() =>
+        new()
+        {
+            StochDSmooth = SRsiSettingsConst.StochDSmooth,
+            StochKSmooth = SRsiSettingsConst.StochKSmooth,
+            ChannelLength = SRsiSettingsConst.ChannelLength,
+            Enable = true,
+            Overbought = SRsiSettingsConst.Overbought,
+            Oversold = SRsiSettingsConst.Oversold
+        };
 }

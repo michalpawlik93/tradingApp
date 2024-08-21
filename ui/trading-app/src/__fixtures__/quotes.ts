@@ -12,6 +12,7 @@ import { CombinedQuote } from "../types/CombinedQuote";
 import { CypherBQuote } from "../types/CypherBQuote";
 import { MfiResult } from "../types/Mfi";
 import { Quote } from "../types/Quote";
+import { SrsiQuote } from "../types/SrsiQuote";
 import { SrsiSignal } from "../types/SrsiSignal";
 import { WaveTrendSignal } from "../types/WaveTrendSignal";
 
@@ -47,6 +48,12 @@ export const CypherBQuoteMock = (override: Partial<CypherBQuote> = {}): CypherBQ
   waveTrendSignal: WaveTrendMock(),
   mfiResult: MfiMock(),
   srsiSignal: SrsiMock(),
+  ...override,
+});
+
+export const SrsiQuoteMock = (override: Partial<SrsiQuote> = {}): SrsiQuote => ({
+  ohlc: QuoteMock(),
+  srsi: SrsiMock(),
   ...override,
 });
 

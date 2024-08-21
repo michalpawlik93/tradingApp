@@ -27,8 +27,6 @@ public static class GetCypherBCommandExtensions
             WaveTrendSettingsDtoMapper.ToDomainModel(request.WaveTrendSettings),
             SRsiSettingsDtoMapper.ToDomainModel(request.SRsiSettings),
             new MfiSettings(request.MfiSettings.ChannelLength, MfiSettingsConst.ScaleFactor),
-            Enum.TryParse<TradingStrategy>(request.TradingStrategy, out var strategy)
-                ? strategy
-                : TradingStrategy.Scalping
+            TradingStrategyMapper.Map(request.TradingStrategy)
         );
 }

@@ -5,6 +5,8 @@ using TradingApp.Module.Quotes.Application.Dtos;
 using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
+using TradingApp.Module.Quotes.Application.Features.Srsi;
+using TradingApp.Module.Quotes.Application.Features.Srsi.Dto;
 using TradingApp.Module.Quotes.Application.Features.TickerMetadata;
 using TradingApp.Module.Quotes.Application.Validators;
 using TradingApp.TradingWebApi.ExtensionMethods;
@@ -32,11 +34,7 @@ public static class QuotesModule
                 "/quotes/combinedquotes",
                 [AllowAnonymous]
         async ([FromBody] GetQuotesDtoRequest request, IMediator mediator) =>
-                    HttpResultMapper.MapToResult(
-                        await mediator.Send(
-                            request.CreateCommand()
-                        )
-                    )
+                    HttpResultMapper.MapToResult(await mediator.Send(request.CreateCommand()))
             )
             .AddEndpointFilter<ValidatorFilter<GetQuotesDtoRequest>>()
             .WithName("Get combined quotes")
@@ -53,6 +51,16 @@ public static class QuotesModule
             )
             .AddEndpointFilter<ValidatorFilter<GetCypherBDto>>()
             .WithName("Get cypherb technical indicator for quotes in time range")
+            .WithOpenApi();
+
+        app.MapPost(
+                "/quotes/srsi",
+                [AllowAnonymous]
+        async ([FromBody] GetSrsiRequestDto request, IMediator mediator) =>
+                    HttpResultMapper.MapToResult(await mediator.Send(request.CreateCommand()))
+            )
+            .AddEndpointFilter<ValidatorFilter<GetSrsiRequestDto>>()
+            .WithName("Get Srsi technical indicator for quotes in time range")
             .WithOpenApi();
     }
 }
