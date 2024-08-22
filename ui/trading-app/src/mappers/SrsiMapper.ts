@@ -20,13 +20,15 @@ export function mapToSrsiChartData(quotes: SrsiQuote[]): SrsiStandaloneChartData
     const scaledClose = scaleClose(quote.ohlc.open);
     close.push([date, scaledClose]);
 
-    srsiStochK.push([date, quote.srsiSignal.stochK]);
-    srsiStochD.push([date, quote.srsiSignal.stochD]);
+    if (quote.srsiSignal) {
+      srsiStochK.push([date, quote.srsiSignal.stochK]);
+      srsiStochD.push([date, quote.srsiSignal.stochD]);
 
-    if (quote.srsiSignal.tradeAction === TradeAction.Buy) {
-      srsiBuy.push([date, quote.srsiSignal.stochK]);
-    } else if (quote.srsiSignal.tradeAction === TradeAction.Sell) {
-      srsiSell.push([date, quote.srsiSignal.stochK]);
+      if (quote.srsiSignal.tradeAction === TradeAction.Buy) {
+        srsiBuy.push([date, quote.srsiSignal.stochK]);
+      } else if (quote.srsiSignal.tradeAction === TradeAction.Sell) {
+        srsiSell.push([date, quote.srsiSignal.stochK]);
+      }
     }
   });
 

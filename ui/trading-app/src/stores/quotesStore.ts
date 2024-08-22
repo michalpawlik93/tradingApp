@@ -22,7 +22,11 @@ export const useQuotesStore = create<QuotesState>((set) => ({
   rsiSettings: rsiSettingsDefault,
   fetchCombinedQuotes: async (request: GetCombinedQuotesRequestDto) => {
     try {
-      const response = await QuotesDataService.getCombinedQuotes(request);
+      let serviceRequest = request;
+      if (!request?.srsiSettings?.enabled) {
+        serviceRequest = { ...request, srsiSettings: undefined };
+      }
+      const response = await QuotesDataService.getCombinedQuotes(serviceRequest);
       set({
         combinedQuotes: response.quotes,
         rsiSettings: response.rsiSettings ?? rsiSettingsDefault,
