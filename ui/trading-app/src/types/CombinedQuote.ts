@@ -1,7 +1,8 @@
 import { Quote } from "./Quote";
+import { SrsiSignal } from "./SrsiSignal";
 
 export interface CombinedQuote {
   ohlc: Quote;
   rsi: number;
-  sma: number;
+  srsi: SrsiSignal;
 }

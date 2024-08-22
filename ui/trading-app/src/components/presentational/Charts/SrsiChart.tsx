@@ -3,14 +3,13 @@ import { EChartsOption } from "echarts";
 import { mapToSrsiChartData } from "../../../mappers/SrsiMapper";
 import { SrsiChartData } from "../../../types/ChartData";
 import { SrsiQuote } from "../../../types/SrsiQuote";
-import { SRsiSettings } from "../../../types/SRsiSettings";
 import { zoomOptions } from "./CommonChartOptions";
 import { srsiFormatter } from "./formatters";
 import { ReactEChart } from "./ReactEChart";
 
 export const getOptions = (chartData: SrsiChartData): EChartsOption => ({
   title: {
-    text: "Cypher B",
+    text: "Srsi",
     left: 0,
   },
   ...zoomOptions,
@@ -151,5 +150,4 @@ export const SrsiChart = ({ quotes }: SrsiChartProps): JSX.Element => {
 
 interface SrsiChartProps {
   quotes: SrsiQuote[];
-  srsiSettings: SRsiSettings;
 }

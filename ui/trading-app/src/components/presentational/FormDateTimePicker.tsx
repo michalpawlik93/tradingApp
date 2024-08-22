@@ -1,31 +1,37 @@
 import { FormControl } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { Control, Controller } from "react-hook-form";
-import { IChartSettingsPanelForm } from "../../components/forms/ChartSettingsPanelForm";
+import { Control, Controller, FieldPath, FieldValues } from "react-hook-form";
+import { MaxMinDate } from "../../types/MaxMinDate";
 
-export interface FormDateTimePickerProps {
-  name: keyof IChartSettingsPanelForm;
+export interface FormDateTimePickerProps<T extends FieldValues> extends MaxMinDate {
+  name: string;
   label: string;
-  control: Control<IChartSettingsPanelForm>;
-  minDate: Date;
-  maxDate: Date;
+  control: Control<T>;
 }
 
-export const FormDateTimePicker = ({ name, control, label }: FormDateTimePickerProps) => (
+export const FormDateTimePicker = <T extends FieldValues>({
+  name,
+  control,
+  label,
+  minDate,
+  maxDate,
+}: FormDateTimePickerProps<T>) => (
   <FormControl size="small">
     <Controller
-      name={name}
+      name={name as FieldPath<T>}
       control={control}
       render={({ field }) => {
         const handleDatePickerChange = (date: Date | null) => {
-          field.onChange(date as any);
+          field.onChange(date);
         };
 
         return (
           <DateTimePicker
             label={label}
-            value={field.value as Date}
+            value={field.value as Date | null}
             onChange={handleDatePickerChange}
+            minDate={minDate}
+            maxDate={maxDate}
           />
         );
       }}

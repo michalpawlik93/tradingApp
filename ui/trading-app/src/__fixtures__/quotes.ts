@@ -4,10 +4,10 @@ import { Granularity } from "../consts/granularity";
 import { mfiSettingsDefault, sRsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
 import { TradeAction } from "../consts/tradeAction";
 import { TradingStrategy } from "../consts/tradingStrategy";
+import { GetCombinedQuotesRequestDto } from "../services/dtos/GetCombinedQuotesRequestDto";
 import { GetCombinedQuotesResponseDto } from "../services/dtos/GetCombinedQuotesResponseDto";
 import { GetCypherBDto } from "../services/dtos/GetCypherBDto";
 import { GetCypherBResponseDto } from "../services/dtos/GetCypherBResponseDto";
-import { GetQuotesRequestDto } from "../services/dtos/GetQuotesRequestDto";
 import { CombinedQuote } from "../types/CombinedQuote";
 import { CypherBQuote } from "../types/CypherBQuote";
 import { MfiResult } from "../types/Mfi";
@@ -27,7 +27,11 @@ export const GetCombinedQuotesResponseDtoMock = (): GetCombinedQuotesResponseDto
 export const CombinedQuoteMock = (): CombinedQuote => ({
   ohlc: QuoteMock(),
   rsi: 58_022.103_273_740_51,
-  sma: 58_072.103_385_740_51,
+  srsi: {
+    stochK: 60_022.103_273_740_51,
+    stochD: 61_022.103_273_740_51,
+    tradeAction: 1,
+  },
 });
 
 export const QuoteMock = (): Quote => ({
@@ -74,7 +78,7 @@ export const MfiMock = (): MfiResult => ({
   mfi: 5.1314,
 });
 
-export const GetQuotesRequestDtoMock = (): GetQuotesRequestDto => ({
+export const GetCombinedQuotesRequestDtoMock = (): GetCombinedQuotesRequestDto => ({
   technicalIndicators: [],
   asset: {
     name: AssetName.ANC,

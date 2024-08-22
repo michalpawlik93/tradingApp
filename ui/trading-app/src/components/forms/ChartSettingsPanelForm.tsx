@@ -11,19 +11,19 @@ import {
 } from "../../consts/technicalIndicatorsSettings";
 import { TradingStrategy } from "../../consts/tradingStrategy";
 import { useQuotesStore } from "../../stores/quotesStore";
+import { MaxMinDate } from "../../types/MaxMinDate";
 import { CommonButton } from "../presentational/Button";
-import { Option } from "../presentational/Dropdown";
-import { FormDateTimePicker } from "../presentational/FormDateTimePicker";
-import { FormDropdown } from "../presentational/FormDropdown";
+import { AssetFormElements, IAssetFormValues } from "./AssetFormElements";
+import { ITimeFrameFormValues, TimeFrameFormElements } from "./TimeFrameFormElements";
+import {
+  ITradingStreategyValues,
+  TradingStreategyFormElement,
+} from "./TradingStreategyFormElement";
 
-export interface IChartSettingsPanelForm {
-  startDate: Date;
-  endDate: Date;
-  granularity: string;
-  assetName: string;
-  assetType: string;
-  tradingStrategy: string;
-}
+export interface IChartSettingsPanelForm
+  extends ITimeFrameFormValues,
+    IAssetFormValues,
+    ITradingStreategyValues {}
 
 export const cypherBDefaultValues: IChartSettingsPanelForm = {
   startDate: new Date(2023, 5, 24),
@@ -62,17 +62,11 @@ const chartSettingsPanelCss = {
     }),
 };
 
-export interface ChartSettingsPanelFormProps {
-  minDate: Date;
-  maxDate: Date;
-}
-
-export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelFormProps) => {
+export const ChartSettingsPanelForm = ({ minDate, maxDate }: MaxMinDate) => {
   const fetchData = useQuotesStore((state) => state.fetchCypherBQuotes);
   const { handleSubmit, reset, control } = useForm<IChartSettingsPanelForm>({
     defaultValues: cypherBDefaultValues,
   });
-
   const onSubmit = async (data: IChartSettingsPanelForm) => {
     await fetchData({
       asset: {
@@ -97,43 +91,12 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: ChartSettingsPanelF
         Chart Settings
       </Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} css={chartSettingsPanelCss.form}>
-        <FormDropdown
-          name="granularity"
+        <AssetFormElements<IChartSettingsPanelForm> control={control} />
+        <TradingStreategyFormElement<IChartSettingsPanelForm> control={control} />
+        <TimeFrameFormElements<IChartSettingsPanelForm>
           control={control}
-          label="Granularity"
-          options={Object.values(Granularity).map((x): Option => [x, x])}
-        />
-        <FormDropdown
-          name="assetName"
-          control={control}
-          label="Asset Name"
-          options={Object.values(AssetName).map((x): Option => [x, x])}
-        />
-        <FormDropdown
-          name="assetType"
-          control={control}
-          label="Asset Type"
-          options={Object.values(AssetType).map((x): Option => [x, x])}
-        />
-        <FormDropdown
-          name="tradingStrategy"
-          control={control}
-          label="Trading Strategy"
-          options={Object.values(TradingStrategy).map((x): Option => [x, x])}
-        />
-        <FormDateTimePicker
-          name="startDate"
-          control={control}
-          label="Start Date"
-          minDate={minDate ?? undefined}
-          maxDate={maxDate ?? undefined}
-        />
-        <FormDateTimePicker
-          name="endDate"
-          control={control}
-          label="End Date"
-          minDate={minDate ?? undefined}
-          maxDate={maxDate ?? undefined}
+          minDate={minDate}
+          maxDate={maxDate}
         />
         <Box css={chartSettingsPanelCss.buttonBar}>
           <CommonButton text="Submit" type="submit" size="small" />

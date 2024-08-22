@@ -1,9 +1,9 @@
 import { Mock } from "vitest";
 import {
+  GetCombinedQuotesRequestDtoMock,
   GetCombinedQuotesResponseDtoMock,
   GetCypherBDtoMock,
   GetCypherBResponseDtoMock,
-  GetQuotesRequestDtoMock,
 } from "../../__fixtures__/quotes";
 import { GetCombinedQuotesResponseDto } from "../dtos/GetCombinedQuotesResponseDto";
 import { GetCypherBResponseDto } from "../dtos/GetCypherBResponseDto";
@@ -14,7 +14,7 @@ vi.unmock("../QuotesDataService");
 describe("QuotesDataService", () => {
   test("getCombinedQuotes", async () => {
     // Arrange
-    const request = GetQuotesRequestDtoMock();
+    const request = GetCombinedQuotesRequestDtoMock();
     const expectedResponse: GetCombinedQuotesResponseDto = GetCombinedQuotesResponseDtoMock();
     const mockedImplementation = () =>
       Promise.resolve({
@@ -25,7 +25,7 @@ describe("QuotesDataService", () => {
     global.fetch = vi.fn(mockedImplementation) as Mock;
 
     // Act
-    const response = await QuotesDataService.getCombinedQuotes(GetQuotesRequestDtoMock());
+    const response = await QuotesDataService.getCombinedQuotes(GetCombinedQuotesRequestDtoMock());
 
     // Assert
     expect(fetch).toHaveBeenCalledTimes(1);

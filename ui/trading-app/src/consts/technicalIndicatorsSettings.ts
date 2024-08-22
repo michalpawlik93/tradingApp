@@ -1,9 +1,9 @@
 import { MfiSettings } from "../types/MfiSettings";
 import { RsiSettings } from "../types/RsiSettings";
-import { SRsiSettings } from "../types/SRsiSettings";
+import { SrsiSettings } from "../types/SrsiSettings";
 import { WaveTrendSettings } from "../types/WaveTrendSettings";
 
-export const sRsiSettingsDefault: SRsiSettings = {
+export const sRsiSettingsDefault: SrsiSettings = {
   enable: false,
   channelLength: 10,
   stochKSmooth: 1,

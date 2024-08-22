@@ -1,9 +1,8 @@
-import { useTimeFrameHook, UseTimeFrameHookResponse } from "../hooks/useTimeFrameHook";
+import { useTimeFrameHook } from "../hooks/useTimeFrameHook";
+import { MaxMinDate } from "../types/MaxMinDate";
 import { mockOf } from "./mockOf";
 
-export const UseTimeFrameHookMock = (
-  override: Partial<UseTimeFrameHookResponse> | null = {},
-): UseTimeFrameHookResponse => {
+export const UseTimeFrameHookMock = (override: Partial<MaxMinDate> | null = {}): MaxMinDate => {
   if (override === null) {
     return datesMock;
   }
@@ -13,7 +12,7 @@ export const UseTimeFrameHookMock = (
   };
 };
 
-export const mockUseTimeFrameHook = (override: Partial<UseTimeFrameHookResponse> | null = {}) => {
+export const mockUseTimeFrameHook = (override: Partial<MaxMinDate> | null = {}) => {
   const mockedData = UseTimeFrameHookMock(override);
   mockOf(useTimeFrameHook).mockReturnValue(mockedData);
   return mockedData;

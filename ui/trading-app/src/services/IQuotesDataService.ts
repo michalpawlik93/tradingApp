@@ -1,9 +1,11 @@
+import { GetCombinedQuotesRequestDto } from "./dtos/GetCombinedQuotesRequestDto";
 import { GetCombinedQuotesResponseDto } from "./dtos/GetCombinedQuotesResponseDto";
 import { GetCypherBDto } from "./dtos/GetCypherBDto";
 import { GetCypherBResponseDto } from "./dtos/GetCypherBResponseDto";
-import { GetQuotesRequestDto } from "./dtos/GetQuotesRequestDto";
 
 export interface IQuotesDataService {
-  getCombinedQuotes: (request: GetQuotesRequestDto) => Promise<GetCombinedQuotesResponseDto>;
+  getCombinedQuotes: (
+    request: GetCombinedQuotesRequestDto,
+  ) => Promise<GetCombinedQuotesResponseDto>;
   getCypherB: (request: GetCypherBDto) => Promise<GetCypherBResponseDto>;
 }

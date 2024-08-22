@@ -1,13 +1,17 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 import { TestingProvider } from "../../../__fixtures__/TestingProvider";
 import { IChartSettingsPanelForm } from "../../forms/ChartSettingsPanelForm";
 import { FormDateTimePicker, FormDateTimePickerProps } from "../FormDateTimePicker";
 
+export interface ITimeFrameFormValuesMock {
+  startDate: Date;
+}
 describe("FormDateTimePicker component tests", () => {
-  const renderFormDateTimePicker = (props: Partial<FormDateTimePickerProps> = {}) => {
-    const defaultProps: FormDateTimePickerProps = {
+  const renderFormDateTimePicker = (
+    props: Partial<FormDateTimePickerProps<ITimeFrameFormValuesMock>> = {},
+  ) => {
+    const defaultProps: FormDateTimePickerProps<ITimeFrameFormValuesMock> = {
       name: "startDate",
       label: "Start Date",
       control: {} as any,
@@ -38,10 +42,4 @@ describe("FormDateTimePicker component tests", () => {
     renderFormDateTimePicker();
     expect(screen.getByText("Start Date")).toBeInTheDocument();
   });
-
-  // test("should display the default date value", () => {
-  //   renderFormDateTimePicker();
-  //   const inputElement = screen.getByRole("textbox");
-  //   expect(inputElement).toHaveValue(new Date("2021-01-01").toLocaleString());
-  // });
 });

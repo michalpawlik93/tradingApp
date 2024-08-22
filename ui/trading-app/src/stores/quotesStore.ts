@@ -1,7 +1,8 @@
 import { create } from "zustand";
+import { TechnicalIndicators } from "../consts/technicalIndicators";
 import { rsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
+import { GetCombinedQuotesRequestDto } from "../services/dtos/GetCombinedQuotesRequestDto";
 import { GetCypherBDto } from "../services/dtos/GetCypherBDto";
-import { GetQuotesRequestDto } from "../services/dtos/GetQuotesRequestDto";
 import { QuotesDataService } from "../services/QuotesDataService";
 import { CombinedQuote } from "../types/CombinedQuote";
 import { CypherBQuote } from "../types/CypherBQuote";
@@ -11,15 +12,16 @@ interface QuotesState {
   combinedQuotes: CombinedQuote[];
   cypherBQuotes: CypherBQuote[];
   rsiSettings: RsiSettings;
-  fetchCombinedQuotes: (request: GetQuotesRequestDto) => Promise<void>;
+  fetchCombinedQuotes: (request: GetCombinedQuotesRequestDto) => Promise<void>;
   fetchCypherBQuotes: (request: GetCypherBDto) => Promise<void>;
 }
 
 export const useQuotesStore = create<QuotesState>((set) => ({
   combinedQuotes: [],
+  srsiQuotes: [],
   cypherBQuotes: [],
   rsiSettings: rsiSettingsDefault,
-  fetchCombinedQuotes: async (request: GetQuotesRequestDto) => {
+  fetchCombinedQuotes: async (request: GetCombinedQuotesRequestDto) => {
     try {
       const response = await QuotesDataService.getCombinedQuotes(request);
       set({

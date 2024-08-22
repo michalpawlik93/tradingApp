@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { GetCypherBDtoMock, GetQuotesRequestDtoMock } from "../../__fixtures__/quotes";
+import { GetCombinedQuotesRequestDtoMock, GetCypherBDtoMock } from "../../__fixtures__/quotes";
 import { createQuotesDataServiceMock } from "../../__fixtures__/QuotesDataServiceMock";
 import { rsiSettingsDefault } from "../../consts/technicalIndicatorsSettings";
 import { QuotesDataService } from "../../services/QuotesDataService";
@@ -23,10 +23,11 @@ describe("useQuotesStore", () => {
     );
     //Act
     const { result } = renderHook(() => useQuotesStore());
-    result.current.fetchCombinedQuotes(GetQuotesRequestDtoMock());
+    result.current.fetchCombinedQuotes(GetCombinedQuotesRequestDtoMock());
     //Assert
     await waitFor(() => {
       expect(result.current.combinedQuotes).toHaveLength(1);
+      expect(result.current.rsiSettings).not.toBeNull();
     });
   });
 

@@ -1,16 +1,20 @@
 import { FormControl, InputLabel } from "@mui/material";
-import { Control, Controller } from "react-hook-form";
-import { IChartSettingsPanelForm } from "../forms/ChartSettingsPanelForm";
+import { Control, Controller, FieldPath, FieldValues } from "react-hook-form";
 import { Dropdown, Option } from "./Dropdown";
 
-export interface FormDropdownProps {
+export interface FormDropdownProps<T extends FieldValues> {
   options: Option[];
-  name: keyof IChartSettingsPanelForm;
+  name: string;
   label: string;
-  control: Control<IChartSettingsPanelForm>;
+  control: Control<T>;
 }
 
-export const FormDropdown = ({ options, name, label, control }: FormDropdownProps) => (
+export const FormDropdown = <T extends FieldValues>({
+  options,
+  name,
+  label,
+  control,
+}: FormDropdownProps<T>) => (
   <FormControl size="small">
     <InputLabel>{label}</InputLabel>
     <Controller
@@ -23,7 +27,7 @@ export const FormDropdown = ({ options, name, label, control }: FormDropdownProp
         />
       )}
       control={control}
-      name={name}
+      name={name as FieldPath<T>}
     />
   </FormControl>
 );

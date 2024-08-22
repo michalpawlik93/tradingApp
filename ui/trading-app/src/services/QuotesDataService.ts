@@ -1,13 +1,13 @@
+import { GetCombinedQuotesRequestDto } from "./dtos/GetCombinedQuotesRequestDto";
 import { GetCombinedQuotesResponseDto } from "./dtos/GetCombinedQuotesResponseDto";
 import { GetCypherBDto } from "./dtos/GetCypherBDto";
 import { GetCypherBResponseDto } from "./dtos/GetCypherBResponseDto";
-import { GetQuotesRequestDto } from "./dtos/GetQuotesRequestDto";
 import { IQuotesDataService } from "./IQuotesDataService";
 import { StooqUrls } from "./urls/stooqUrl";
 
 export const QuotesDataService: IQuotesDataService = {
   getCombinedQuotes: async (
-    request: GetQuotesRequestDto,
+    request: GetCombinedQuotesRequestDto,
   ): Promise<GetCombinedQuotesResponseDto> => {
     const url = `${StooqUrls.combinedQuote.getAll}`;
     return await fetchData(url, "POST", request);

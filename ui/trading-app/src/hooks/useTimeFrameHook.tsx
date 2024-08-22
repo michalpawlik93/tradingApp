@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { MaxMinDate } from "../types/MaxMinDate";
 
-export interface UseTimeFrameHookResponse {
-  minDate: Date;
-  maxDate: Date;
-}
-
-export const useTimeFrameHook = (inputDates: Date[]): UseTimeFrameHookResponse => {
+export const useTimeFrameHook = (inputDates: Date[]): MaxMinDate => {
   const [minDate, setMinDate] = useState(new Date());
   const [maxDate, setMaxDate] = useState(new Date());
   const hasRunEffect = useRef(false);
