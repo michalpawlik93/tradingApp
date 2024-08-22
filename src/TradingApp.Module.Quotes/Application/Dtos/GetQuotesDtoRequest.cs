@@ -32,5 +32,5 @@ public class GetQuotesDtoRequest
     /// <summary>
     /// Gets or sets the settings for the SRSI calculation.
     /// </summary>
-    public SRsiSettingsDto SRsiSettings { get; set; }
+    public SrsiSettingsDto SrsiSettings { get; set; }
 }

@@ -10,7 +10,7 @@ public class EmaAndStochStrategy : ISrsiStrategy
 {
     private readonly IEvaluator _evaluator;
 
-    private static SRsiSettings FastSettings => new(true, 3, 14, 3, 10, 90);
+    private static SrsiSettings FastSettings => new(true, 3, 14, 3, 10, 90);
     private const int Ema = 50;
     private const int Ema2X = 100;
     private const int DecimalPlace = 4;
@@ -31,9 +31,16 @@ public class EmaAndStochStrategy : ISrsiStrategy
     ///  - %K and %D are above overbought level
     /// </summary>
     /// <returns></returns>
-    public Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes)
+    public Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(
+        IReadOnlyList<Quote> quotes,
+        SrsiSettings? customSettings = null
+    )
     {
-        var srsiResults = _evaluator.GetSrsi(quotes, FastSettings);
+        if (customSettings is { Enabled: false })
+        {
+            return Result.Ok((IReadOnlyList<SrsiSignal>)[]);
+        }
+        var srsiResults = _evaluator.GetSrsi(quotes, customSettings ?? FastSettings);
         if (srsiResults.Count < 2)
         {
             return Result.Fail("Quotes can not be less than 2 elements");
@@ -50,14 +57,20 @@ public class EmaAndStochStrategy : ISrsiStrategy
             return ema2X.ToResult();
         }
 
-        var signals = CreateSriSignals(quotes, srsiResults, FastSettings, ema.Value, ema2X.Value);
+        var signals = CreateSriSignals(
+            quotes,
+            srsiResults,
+            customSettings ?? FastSettings,
+            ema.Value,
+            ema2X.Value
+        );
         return Result.Ok(signals);
     }
 
     private static IReadOnlyList<SrsiSignal> CreateSriSignals(
         IReadOnlyList<Quote> quotes,
         IReadOnlyList<SRsiResult> srsiResults,
-        SRsiSettings sRsiSettings,
+        SrsiSettings sRsiSettings,
         IReadOnlyList<decimal> ema,
         IReadOnlyList<decimal> ema2X
     )
@@ -98,7 +111,7 @@ public class EmaAndStochStrategy : ISrsiStrategy
         decimal latestClose,
         SRsiResult last,
         SRsiResult penult,
-        SRsiSettings sRsiSettings,
+        SrsiSettings sRsiSettings,
         decimal ema,
         decimal ema2X
     )
@@ -116,7 +129,7 @@ public class EmaAndStochStrategy : ISrsiStrategy
         decimal latestClose,
         SRsiResult last,
         SRsiResult penult,
-        SRsiSettings sRsiSettings,
+        SrsiSettings sRsiSettings,
         decimal ema,
         decimal ema2X
     ) =>
@@ -129,7 +142,7 @@ public class EmaAndStochStrategy : ISrsiStrategy
         decimal latestClose,
         SRsiResult last,
         SRsiResult penult,
-        SRsiSettings sRsiSettings,
+        SrsiSettings sRsiSettings,
         decimal ema,
         decimal ema2X
     ) =>

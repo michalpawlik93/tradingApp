@@ -17,7 +17,7 @@ public interface IEvaluator
     );
     IReadOnlyList<SRsiResult> GetSrsi(
         IReadOnlyList<Quote> quotes,
-        SRsiSettings settings
+        SrsiSettings settings
     );
     IReadOnlyList<MfiResult> GetMfi(
         IReadOnlyList<Quote> quotes,

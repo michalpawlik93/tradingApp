@@ -10,8 +10,8 @@ public class DailyTradingStrategy : ISrsiStrategy
 {
     private readonly IEvaluator _evaluator;
 
-    private static SRsiSettings FastSettings => new(true, 3, 5, 3, 20, 80);
-    private static SRsiSettings SlowSettings => new(true, 7, 21, 7, 20, 80);
+    private static SrsiSettings FastSettings => new(true, 3, 5, 3, 20, 80);
+    private static SrsiSettings SlowSettings => new(true, 7, 21, 7, 20, 80);
     private const int DecimalPlace = 4;
 
     public DailyTradingStrategy(IEvaluator evaluator)
@@ -33,8 +33,13 @@ public class DailyTradingStrategy : ISrsiStrategy
     ///  - %K and %D for fast Stoch are above overbought level
     /// </summary>
     /// <returns></returns>
-    public Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes)
+    public Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes, SrsiSettings? customSettings = null)
     {
+        if (customSettings != null)
+        {
+            return Result.Fail($"Can not call {nameof(DailyTradingStrategy)} with custom settings.");
+        }
+
         var srsiFastResults = _evaluator.GetSrsi(quotes, FastSettings);
         if (srsiFastResults.Count < 2)
         {
@@ -53,7 +58,7 @@ public class DailyTradingStrategy : ISrsiStrategy
     private static IReadOnlyList<SrsiSignal> CreateSriSignals(
         IReadOnlyList<SRsiResult> srsiFastResults,
         IReadOnlyList<SRsiResult> srsiSlowResults,
-        SRsiSettings sRsiSettings
+        SrsiSettings srsiSettings
     )
     {
         var results = new List<SrsiSignal>(srsiFastResults.Count);
@@ -77,7 +82,7 @@ public class DailyTradingStrategy : ISrsiStrategy
                             srsiFastResults[i - 1],
                             srsiSlowResults[i],
                             srsiSlowResults[i - 1],
-                            sRsiSettings
+                            srsiSettings
                         )
                     )
                     : new SrsiSignal(0, 0, TradeAction.Hold)
@@ -92,14 +97,14 @@ public class DailyTradingStrategy : ISrsiStrategy
         SRsiResult penultFast,
         SRsiResult lastSlow,
         SRsiResult penultSlow,
-        SRsiSettings sRsiSettings
+        SrsiSettings srsiSettings
     )
     {
-        if (SellSignal(lastFast, penultFast, lastSlow, penultSlow, sRsiSettings))
+        if (SellSignal(lastFast, penultFast, lastSlow, penultSlow, srsiSettings))
         {
             return TradeAction.Sell;
         }
-        return BuySignal(lastFast, penultFast, lastSlow, penultSlow, sRsiSettings)
+        return BuySignal(lastFast, penultFast, lastSlow, penultSlow, srsiSettings)
             ? TradeAction.Buy
             : TradeAction.Hold;
     }
@@ -109,10 +114,10 @@ public class DailyTradingStrategy : ISrsiStrategy
         SRsiResult penultFast,
         SRsiResult lastSlow,
         SRsiResult penultSlow,
-        SRsiSettings sRsiSettings
+        SrsiSettings srsiSettings
     ) =>
-        SrsiStrategyExtensions.KDSellSignal(lastFast, penultFast, sRsiSettings)
-        && !SrsiStrategyExtensions.KDBuySignal(lastFast, penultFast, sRsiSettings)
+        SrsiStrategyExtensions.KDSellSignal(lastFast, penultFast, srsiSettings)
+        && !SrsiStrategyExtensions.KDBuySignal(lastFast, penultFast, srsiSettings)
         && BearishTrend(lastSlow, penultSlow);
 
     private static bool BuySignal(
@@ -120,10 +125,10 @@ public class DailyTradingStrategy : ISrsiStrategy
         SRsiResult penultFast,
         SRsiResult lastSlow,
         SRsiResult penultSlow,
-        SRsiSettings sRsiSettings
+        SrsiSettings srsiSettings
     ) =>
-        SrsiStrategyExtensions.KDBuySignal(lastFast, penultFast, sRsiSettings)
-        && !SrsiStrategyExtensions.KDSellSignal(lastFast, penultFast, sRsiSettings)
+        SrsiStrategyExtensions.KDBuySignal(lastFast, penultFast, srsiSettings)
+        && !SrsiStrategyExtensions.KDSellSignal(lastFast, penultFast, srsiSettings)
         && BullishTrend(lastSlow, penultSlow);
 
     private static bool BullishTrend(SRsiResult lastSlow, SRsiResult penultSlow) =>

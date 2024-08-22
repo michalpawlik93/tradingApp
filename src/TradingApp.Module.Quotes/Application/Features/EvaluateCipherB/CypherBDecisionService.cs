@@ -13,7 +13,7 @@ using TradingApp.Module.Quotes.Domain.ValueObjects;
 
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 
-public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendSettings WaveTrendSettings, MfiSettings MfiSettings, SRsiSettings? SrsiSettings, TradingStrategy TradingStrategy);
+public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendSettings WaveTrendSettings, MfiSettings MfiSettings, SrsiSettings? SrsiSettings, TradingStrategy TradingStrategy);
 
 public interface ICypherBDecisionService
 {
@@ -37,8 +37,8 @@ public class CypherBDecisionService : ICypherBDecisionService
             return result.ToResult();
         }
         var (mfiResults, waveTrendSignals, _) = result.Value;
-        var latestWtQuote = waveTrendSignals[^1];
-        var latestMfiQuote = mfiResults[^1];
+        var latestWtQuote = waveTrendSignals.ElementAtOrDefault(^1);
+        var latestMfiQuote = mfiResults.ElementAtOrDefault(^1);
         if (latestWtQuote == null || latestMfiQuote == null)
         {
             return Result.Fail<Decision>(new ValidationError("Quotes is empty"));

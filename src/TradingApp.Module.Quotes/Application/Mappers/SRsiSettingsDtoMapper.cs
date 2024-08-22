@@ -5,10 +5,10 @@ namespace TradingApp.Module.Quotes.Application.Mappers;
 
 public static class SRsiSettingsDtoMapper
 {
-    public static SRsiSettings? ToDomainModel(SRsiSettingsDto dto) =>
+    public static SrsiSettings? ToDomainModel(SrsiSettingsDto dto) =>
         dto != null
-            ? new SRsiSettings(
-                dto.Enable,
+            ? new SrsiSettings(
+                dto.Enabled,
                 dto.ChannelLength,
                 dto.StochKSmooth,
                 dto.StochDSmooth,

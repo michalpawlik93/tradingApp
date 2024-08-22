@@ -15,7 +15,7 @@ public record EvaluateCipherBCommand(
     Granularity Granularity,
     WaveTrendSettings WaveTrendSettings,
     MfiSettings MfiSettings,
-    SRsiSettings SrsiSettings
+    SrsiSettings SrsiSettings
 ) : IRequest<IResultBase>;
 
 public class EvaluateCipherBCommandHandler : IRequestHandler<EvaluateCipherBCommand, IResultBase>

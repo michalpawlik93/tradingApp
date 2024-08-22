@@ -29,7 +29,9 @@ public class SrsiDecisionServiceTests
     public void MakeDecision_EvaluateSignalsFails_ReturnFail()
     {
         //Arrange
-        _srsiStrategyFactory.GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>()).Returns(_srsiStrategy);
+        _srsiStrategyFactory
+            .GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>())
+            .Returns(_srsiStrategy);
         _srsiStrategy.EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>()).Returns(Result.Fail(""));
 
         var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
@@ -37,7 +39,40 @@ public class SrsiDecisionServiceTests
         //Act
         var result = _sut.MakeDecision(
             quotes,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, Granularity.FiveMins, TradingStrategy.EmaAndStoch)
+            new SrsiDecisionSettings(
+                SRsiSettingsConst.SRsiSettingsDefault,
+                1,
+                Granularity.FiveMins,
+                TradingStrategy.EmaAndStoch
+            )
+        );
+
+        //Assert
+        result.IsFailed.Should().BeTrue();
+    }
+
+    [Fact]
+    public void MakeDecision_LastElementEmpty_ReturnFail()
+    {
+        //Arrange
+        _srsiStrategyFactory
+            .GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>())
+            .Returns(_srsiStrategy);
+        _srsiStrategy
+            .EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>())
+            .Returns(Result.Ok((IReadOnlyList<SrsiSignal>)[]));
+
+        var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
+
+        //Act
+        var result = _sut.MakeDecision(
+            quotes,
+            new SrsiDecisionSettings(
+                SRsiSettingsConst.SRsiSettingsDefault,
+                1,
+                Granularity.FiveMins,
+                TradingStrategy.EmaAndStoch
+            )
         );
 
         //Assert
@@ -64,7 +99,9 @@ public class SrsiDecisionServiceTests
             .ToList();
 
         var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
-        _srsiStrategyFactory.GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>()).Returns(_srsiStrategy);
+        _srsiStrategyFactory
+            .GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>())
+            .Returns(_srsiStrategy);
         _srsiStrategy
             .EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>())
             .Returns(Result.Ok((IReadOnlyList<SrsiSignal>)results));
@@ -72,7 +109,12 @@ public class SrsiDecisionServiceTests
         //Act
         var result = _sut.MakeDecision(
             quotes,
-            new SrsiDecisionSettings(SRsiSettingsConst.SRsiSettingsDefault, 1, Granularity.FiveMins, TradingStrategy.EmaAndStoch)
+            new SrsiDecisionSettings(
+                SRsiSettingsConst.SRsiSettingsDefault,
+                1,
+                Granularity.FiveMins,
+                TradingStrategy.EmaAndStoch
+            )
         );
 
         //Assert

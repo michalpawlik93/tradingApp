@@ -23,12 +23,12 @@ public class GetCypherBDtoValidatorTests
                 Type = nameof(AssetType.Cryptocurrency)
             },
             MfiSettings = new MfiSettingsDto { ChannelLength = MfiSettingsConst.ChannelLength },
-            SRsiSettings = new SRsiSettingsDto
+            SrsiSettings = new SrsiSettingsDto
             {
                 StochDSmooth = SRsiSettingsConst.StochDSmooth,
                 StochKSmooth = SRsiSettingsConst.StochKSmooth,
                 ChannelLength = SRsiSettingsConst.ChannelLength,
-                Enable = true,
+                Enabled = true,
                 Overbought = SRsiSettingsConst.Overbought,
                 Oversold = SRsiSettingsConst.Oversold
             },
@@ -69,7 +69,7 @@ public class GetCypherBDtoValidatorTests
         {
             Asset = null,
             MfiSettings = null,
-            SRsiSettings = null,
+            SrsiSettings = null,
             TimeFrame = null,
             WaveTrendSettings = null
         };

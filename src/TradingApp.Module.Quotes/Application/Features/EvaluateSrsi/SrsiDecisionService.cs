@@ -13,7 +13,7 @@ using TradingApp.Module.Quotes.Domain.ValueObjects;
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
 
 public record struct SrsiDecisionSettings(
-    SRsiSettings SrsiSettings,
+    SrsiSettings SrsiSettings,
     int EmaLength,
     Granularity Granularity,
     TradingStrategy TradingStrategy
@@ -58,7 +58,11 @@ public class SrsiDecisionService : ISrsiDecisionService
         {
             return signals.ToResult();
         }
-        var last = signals.Value[^1];
+        var last = signals.Value.ElementAtOrDefault(^1);
+        if (last is null)
+        {
+            return Result.Fail("Last element can not be found");
+        }
         var additionalParams = new Dictionary<string, string>
         {
             { nameof(last.StochK), last.StochK.ToString(CultureInfo.InvariantCulture) },

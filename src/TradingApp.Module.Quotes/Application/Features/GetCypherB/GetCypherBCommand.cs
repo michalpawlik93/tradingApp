@@ -13,7 +13,7 @@ public record GetCypherBCommand(
     TimeFrame TimeFrame,
     Asset Asset,
     WaveTrendSettings WaveTrendSettings,
-    SRsiSettings? SRsiSettings,
+    SrsiSettings? SrsiSettings,
     MfiSettings MfiSettings,
     TradingStrategy TradingStrategy
 ) : IRequest<IResult<GetCypherBResponseDto>>;
@@ -25,7 +25,7 @@ public static class GetCypherBCommandExtensions
             TimeFrameDtoMapper.ToDomainModel(request.TimeFrame),
             AssetDtoMapper.ToDomainModel(request.Asset),
             WaveTrendSettingsDtoMapper.ToDomainModel(request.WaveTrendSettings),
-            SRsiSettingsDtoMapper.ToDomainModel(request.SRsiSettings),
+            SRsiSettingsDtoMapper.ToDomainModel(request.SrsiSettings),
             new MfiSettings(request.MfiSettings.ChannelLength, MfiSettingsConst.ScaleFactor),
             TradingStrategyMapper.Map(request.TradingStrategy)
         );

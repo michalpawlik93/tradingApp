@@ -11,7 +11,7 @@ public class ScalpingStrategy : ISrsiStrategy
     private readonly IEvaluator _evaluator;
     private const int DecimalPlace = 4;
 
-    private static SRsiSettings FastSettings => new(true, 3, 10, 7, 30, 70);
+    private static SrsiSettings FastSettings => new(true, 3, 10, 7, 30, 70);
 
     public ScalpingStrategy(IEvaluator evaluator)
     {
@@ -30,20 +30,24 @@ public class ScalpingStrategy : ISrsiStrategy
     ///  - %K and %D are above overbought level
     /// </summary>
     /// <returns></returns>
-    public Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes)
+    public Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes, SrsiSettings? customSettings = null)
     {
-        var srsiResults = _evaluator.GetSrsi(quotes, FastSettings);
+        if (customSettings is { Enabled: false })
+        {
+            return Result.Ok((IReadOnlyList<SrsiSignal>)[]);
+        }
+        var srsiResults = _evaluator.GetSrsi(quotes, customSettings ?? FastSettings);
         if (srsiResults.Count < 2)
         {
             return Result.Fail("Quotes can not be less than 2 elements");
         }
-        var signals = CreateSriSignals(srsiResults, FastSettings);
+        var signals = CreateSriSignals(srsiResults, customSettings ?? FastSettings);
         return Result.Ok(signals);
     }
 
     private static IReadOnlyList<SrsiSignal> CreateSriSignals(
         IReadOnlyList<SRsiResult> srsiResults,
-        SRsiSettings sRsiSettings
+        SrsiSettings sRsiSettings
     )
     {
         var results = new List<SrsiSignal>(srsiResults.Count);
@@ -74,7 +78,7 @@ public class ScalpingStrategy : ISrsiStrategy
     public static TradeAction GetTradeAction(
         SRsiResult last,
         SRsiResult penult,
-        SRsiSettings sRsiSettings
+        SrsiSettings sRsiSettings
     )
     {
         if (SellSignal(last, penult, sRsiSettings))
@@ -84,11 +88,11 @@ public class ScalpingStrategy : ISrsiStrategy
         return BuySignal(last, penult, sRsiSettings) ? TradeAction.Buy : TradeAction.Hold;
     }
 
-    private static bool SellSignal(SRsiResult last, SRsiResult penult, SRsiSettings sRsiSettings) =>
+    private static bool SellSignal(SRsiResult last, SRsiResult penult, SrsiSettings sRsiSettings) =>
         SrsiStrategyExtensions.KDSellSignal(last, penult, sRsiSettings)
         && !SrsiStrategyExtensions.KDBuySignal(last, penult, sRsiSettings);
 
-    private static bool BuySignal(SRsiResult last, SRsiResult penult, SRsiSettings sRsiSettings) =>
+    private static bool BuySignal(SRsiResult last, SRsiResult penult, SrsiSettings sRsiSettings) =>
         SrsiStrategyExtensions.KDBuySignal(last, penult, sRsiSettings)
         && !SrsiStrategyExtensions.KDSellSignal(last, penult, sRsiSettings);
 }

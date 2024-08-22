@@ -46,7 +46,7 @@ public class GetCypherBCommandHandler
                 request.TimeFrame.Granularity,
                 request.WaveTrendSettings,
                 request.MfiSettings,
-                request.SRsiSettings,
+                request.SrsiSettings,
                 request.TradingStrategy
             )
         );

@@ -6,13 +6,13 @@ namespace TradingApp.Module.Quotes.Application.Dtos;
 /// <summary>
 /// Data transfer object for configuring SRSI indicator parameters.
 /// </summary>
-public class SRsiSettingsDto : OscillationSettings
+public class SrsiSettingsDto : OscillationSettings
 {
     /// <summary>
     /// Show SRSI
     /// </summary>
     [DefaultValue(true)]
-    public bool Enable { get; set; }
+    public bool Enabled { get; set; }
 
     /// <summary>
     /// Gets or sets the number of periods used to calculate the SRSI width.

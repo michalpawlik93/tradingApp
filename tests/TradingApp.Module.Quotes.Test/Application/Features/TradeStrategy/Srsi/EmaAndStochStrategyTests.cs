@@ -19,7 +19,7 @@ public class EmaAndStochStrategyTests
     {
         // Arrange
         _evaluator
-            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SRsiSettings>())
+            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(new List<SRsiResult>(0));
         // Act
         var result = new EmaAndStochStrategy(_evaluator).EvaluateSignals(new List<Quote>());
@@ -38,7 +38,7 @@ public class EmaAndStochStrategyTests
             new(DateTime.Now, 1m, 2m)
         };
         _evaluator
-            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SRsiSettings>())
+            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(srsiResults);
         _evaluator
             .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
@@ -63,7 +63,7 @@ public class EmaAndStochStrategyTests
             new(DateTime.Now, 1m, 2m)
         };
         _evaluator
-            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SRsiSettings>())
+            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(srsiResults);
         _evaluator
             .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
@@ -90,7 +90,7 @@ public class EmaAndStochStrategyTests
         var penult = new SRsiResult(DateTime.Now, 1m, 2m);
         var srsiResults = new List<SRsiResult> { penult, last };
         _evaluator
-            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SRsiSettings>())
+            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(srsiResults);
         _evaluator
             .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
@@ -119,7 +119,7 @@ public class EmaAndStochStrategyTests
         var penult = new SRsiResult(DateTime.Now, 95m, 75m);
         var srsiResults = new List<SRsiResult> { penult, last };
         _evaluator
-            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SRsiSettings>())
+            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(srsiResults);
         _evaluator
             .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
@@ -148,7 +148,7 @@ public class EmaAndStochStrategyTests
         var penult = new SRsiResult(DateTime.Now, 8m, 10m);
         var srsiResults = new List<SRsiResult> { penult, last };
         _evaluator
-            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SRsiSettings>())
+            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(srsiResults);
         _evaluator
             .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())

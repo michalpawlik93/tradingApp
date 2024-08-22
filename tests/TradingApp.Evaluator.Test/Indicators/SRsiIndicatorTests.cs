@@ -15,7 +15,7 @@ public class StochRsiTests : QuotesTestBase
         var dSmoot = 3;
         var kSmooth = 1;
         //Act
-        var results = SRsiIndicator.Calculate(quotes.ToList(), new SRsiSettings(true, stochPeriods, kSmooth, dSmoot, -60, 60)).ToList();
+        var results = SRsiIndicator.Calculate(quotes.ToList(), new SrsiSettings(true, stochPeriods, kSmooth, dSmoot, -60, 60)).ToList();
 
         //Assert
         results.Should().HaveCount(502);
@@ -48,7 +48,7 @@ public class StochRsiTests : QuotesTestBase
         var kSmooth = 3;
 
         // Act
-        var results = SRsiIndicator.Calculate(quotes.ToList(), new SRsiSettings(true, stochPeriods, kSmooth, dSmoot, -60, 60)).ToList();
+        var results = SRsiIndicator.Calculate(quotes.ToList(), new SrsiSettings(true, stochPeriods, kSmooth, dSmoot, -60, 60)).ToList();
 
         // Assert
         results.Should().HaveCount(502);
@@ -77,8 +77,8 @@ public class StochRsiTests : QuotesTestBase
     [Fact]
     public void NoQuotes()
     {
-        var r0 = SRsiIndicator.Calculate(noquotes.ToList(), new SRsiSettings(true, 12, 3, 3, -60, 60)).ToList();
-        var r1 = SRsiIndicator.Calculate(onequote.ToList(), new SRsiSettings(true, 12, 3, 3, -60, 60)).ToList();
+        var r0 = SRsiIndicator.Calculate(noquotes.ToList(), new SrsiSettings(true, 12, 3, 3, -60, 60)).ToList();
+        var r1 = SRsiIndicator.Calculate(onequote.ToList(), new SrsiSettings(true, 12, 3, 3, -60, 60)).ToList();
 
         r0.Should().BeEmpty();
         r1.Should().HaveCount(1);

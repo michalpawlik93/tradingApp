@@ -11,7 +11,7 @@ public class SRsiSettingsDtoMapperUniteTests
 
     [Theory]
     [AutoData]
-    public void ToDomainModel_Should_Return_CorrectResult(SRsiSettingsDto dto)
+    public void ToDomainModel_Should_Return_CorrectResult(SrsiSettingsDto dto)
     {
         // Arrange
         // Act
@@ -19,7 +19,7 @@ public class SRsiSettingsDtoMapperUniteTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Value.Enable.Should().Be(dto.Enable);
+        result.Value.Enabled.Should().Be(dto.Enabled);
         result.Value.ChannelLength.Should().Be(dto.ChannelLength);
         result.Value.Overbought.Should().Be(dto.Overbought);
         result.Value.Oversold.Should().Be(dto.Oversold);

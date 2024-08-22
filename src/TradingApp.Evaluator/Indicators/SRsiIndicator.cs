@@ -9,7 +9,7 @@ public static class SRsiIndicator
 {
     public static IReadOnlyList<SRsiResult> Calculate(
         IReadOnlyList<Quote> domainQuotes,
-        SRsiSettings settings
+        SrsiSettings settings
     )
     {
         var length = domainQuotes.Count;

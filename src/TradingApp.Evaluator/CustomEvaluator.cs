@@ -21,7 +21,7 @@ public class CustomEvaluator : IEvaluator
         WaveTrendSettings settings
     ) => WaveTrendIndicator.Calculate(quotes, settings, true, DecimalPlace);
 
-    public IReadOnlyList<SRsiResult> GetSrsi(IReadOnlyList<Quote> quotes, SRsiSettings settings) =>
+    public IReadOnlyList<SRsiResult> GetSrsi(IReadOnlyList<Quote> quotes, SrsiSettings settings) =>
         SRsiIndicator.Calculate(quotes, settings);
 
     public IReadOnlyList<MfiResult> GetMfi(IReadOnlyList<Quote> quotes, MfiSettings settings) =>

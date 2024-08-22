@@ -32,7 +32,7 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
         {
             Asset = MockAsset(),
             MfiSettings = new MfiSettingsDto { ChannelLength = MfiSettingsConst.ChannelLength },
-            SRsiSettings = MockSrsiSettings(),
+            SrsiSettings = MockSrsiSettings(),
             TimeFrame = MockTimeFrame(),
             WaveTrendSettings = new WaveTrendSettingsDto
             {
@@ -100,13 +100,13 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
             Granularity = nameof(Granularity.Daily)
         };
 
-    private static SRsiSettingsDto MockSrsiSettings() =>
+    private static SrsiSettingsDto MockSrsiSettings() =>
         new()
         {
             StochDSmooth = SRsiSettingsConst.StochDSmooth,
             StochKSmooth = SRsiSettingsConst.StochKSmooth,
             ChannelLength = SRsiSettingsConst.ChannelLength,
-            Enable = true,
+            Enabled = true,
             Overbought = SRsiSettingsConst.Overbought,
             Oversold = SRsiSettingsConst.Oversold
         };

@@ -16,7 +16,7 @@ public record GetCombinedQuotesCommand(
     TimeFrame TimeFrame,
     Asset Asset,
     TradingStrategy TradingStrategy,
-    SRsiSettings? SRsiSettings = null
+    SrsiSettings? SrsiSettings = null
 ) : IRequest<IResult<GetCombinedQuotesResponseDto>>;
 
 public static class GetCombinedQuotesCommandExtensions
@@ -27,6 +27,6 @@ public static class GetCombinedQuotesCommandExtensions
             TimeFrameDtoMapper.ToDomainModel(request.TimeFrame),
             AssetDtoMapper.ToDomainModel(request.Asset),
             TradingStrategyMapper.Map(request.TradingStrategy),
-            SRsiSettingsDtoMapper.ToDomainModel(request.SRsiSettings)
+            SRsiSettingsDtoMapper.ToDomainModel(request.SrsiSettings)
         );
 }

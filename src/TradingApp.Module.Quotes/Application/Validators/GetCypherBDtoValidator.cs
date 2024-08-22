@@ -12,7 +12,7 @@ public class GetCypherBDtoValidator : AbstractValidator<GetCypherBDto>
     {
         CommonValidationRules.RuleForNullable(this, request => request.Asset, new AssetValidator());
         CommonValidationRules.RuleForNullable(this, request => request.MfiSettings, new MfiSettingsValidator());
-        CommonValidationRules.RuleForNullable(this, request => request.SRsiSettings, new SRsiSettingsValidator());
+        CommonValidationRules.RuleForNullable(this, request => request.SrsiSettings, new SRsiSettingsValidator());
         CommonValidationRules.RuleForNullable(this, request => request.TimeFrame, new TimeFrameValidator());
         CommonValidationRules.RuleForNullable(this, request => request.WaveTrendSettings, new WaveTrendSettingsValidator());
     }
@@ -35,7 +35,7 @@ public class MfiSettingsValidator : AbstractValidator<MfiSettingsDto>
     }
 }
 
-public class SRsiSettingsValidator : AbstractValidator<SRsiSettingsDto>
+public class SRsiSettingsValidator : AbstractValidator<SrsiSettingsDto>
 {
     public SRsiSettingsValidator()
     {

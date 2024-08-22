@@ -88,6 +88,6 @@ public class GetCombinedQuotesCommandHandler
         ? _srsiStrategyFactory.GetStrategy(
             request.TradingStrategy,
             request.TimeFrame.Granularity
-        ).EvaluateSignals(quotes)
+        ).EvaluateSignals(quotes, request.SrsiSettings)
         : null;
 }

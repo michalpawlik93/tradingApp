@@ -8,7 +8,7 @@ namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 
 public interface ISrsiStrategy
 {
-    Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes);
+    Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes, SrsiSettings? customSettings = null);
 }
 
 public interface ISrsiStrategyFactory
@@ -45,14 +45,14 @@ public static class SrsiStrategyExtensions
     public static bool KDSellSignal(
         SRsiResult last,
         SRsiResult penult,
-        SRsiSettings sRsiSettings
+        SrsiSettings sRsiSettings
     ) =>
         penult.StochK > sRsiSettings.Overbought
         && last.StochK < sRsiSettings.Overbought
         && penult.StochK > penult.StochD
         && last.StochK < last.StochD;
 
-    public static bool KDBuySignal(SRsiResult last, SRsiResult penult, SRsiSettings sRsiSettings) =>
+    public static bool KDBuySignal(SRsiResult last, SRsiResult penult, SrsiSettings sRsiSettings) =>
         penult.StochK < sRsiSettings.Oversold
         && last.StochK > sRsiSettings.Oversold
         && penult.StochK < penult.StochD
