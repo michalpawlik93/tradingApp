@@ -18,13 +18,17 @@ const formatter = (params: any) => {
 };
 
 export const getOptions = (chartData: RsiChartData): EChartsOption => ({
-  title: {},
+  title: {
+    text: "Rsi",
+    left: 0,
+  },
   ...zoomOptions,
   legend: {
     data: ["RSI"],
     orient: "horizontal",
     left: 0,
   },
+  grid: [{ top: "10%", left: "5%", right: "5%" }],
   xAxis: {
     nameLocation: "middle",
     name: "Date",

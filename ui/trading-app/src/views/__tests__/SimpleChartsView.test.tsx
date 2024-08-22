@@ -1,13 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { TestingProvider } from "../../__fixtures__/TestingProvider";
 import { mockUseCombinedQuotes } from "../../__fixtures__/useCombinedQuotesMock";
+import { mockUseTimeFrameHook } from "../../__fixtures__/useTimeFrameHookMock";
 import { SimpleChartsView } from "../SimpleChartsView";
 
-vi.mock("react-apexcharts", () => ({ __esModule: true, default: () => <div>Chart</div> }));
 describe("SimpleChartsView tests", () => {
   test("Charts are rendered", () => {
     // Arrange
     mockUseCombinedQuotes();
+    mockUseTimeFrameHook();
     // Act
     render(
       <TestingProvider>

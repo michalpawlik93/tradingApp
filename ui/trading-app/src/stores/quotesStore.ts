@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { TechnicalIndicators } from "../consts/technicalIndicators";
 import { rsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
 import { GetCombinedQuotesRequestDto } from "../services/dtos/GetCombinedQuotesRequestDto";
 import { GetCypherBDto } from "../services/dtos/GetCypherBDto";

@@ -7,6 +7,7 @@ import { CypherBQuote } from "../../../types/CypherBQuote";
 import { zoomOptions } from "./CommonChartOptions";
 import { cypherBFormatter } from "./formatters";
 import { ReactEChart } from "./ReactEChart";
+import { SrsiBuySerie, SrsiDSerie, SrsiKSerie, SrsiSellSerie } from "./SrsiChartSeries";
 
 const upColor = "#ec0000";
 const upBorderColor = "#8A0000";
@@ -239,60 +240,10 @@ export const getOptions = (chartData: CypherBChartData): EChartsOption => ({
       xAxisIndex: 0,
       yAxisIndex: 0,
     },
-    {
-      type: "line",
-      name: "Srsi %K",
-      showSymbol: false,
-      color: "rgb(209,114,31)",
-      emphasis: {
-        focus: "series",
-      },
-      symbol: "circle",
-      symbolSize: 5,
-      data: chartData.srsiStochK,
-      xAxisIndex: 0,
-      yAxisIndex: 0,
-    },
-    {
-      type: "line",
-      name: "Srsi %D",
-      showSymbol: false,
-      color: "rgb(31,93,209)",
-      emphasis: {
-        focus: "series",
-      },
-      symbol: "circle",
-      symbolSize: 5,
-      data: chartData.srsiStochD,
-      xAxisIndex: 0,
-      yAxisIndex: 0,
-    },
-    {
-      type: "scatter",
-      name: "Srsi Sell",
-      color: "rgb(222, 42, 42)",
-      emphasis: {
-        focus: "series",
-      },
-      symbol: "circle",
-      symbolSize: 20,
-      data: chartData.srsiSell,
-      xAxisIndex: 0,
-      yAxisIndex: 0,
-    },
-    {
-      type: "scatter",
-      name: "Srsi Buy",
-      color: "rgb(31,93,209)",
-      emphasis: {
-        focus: "series",
-      },
-      symbol: "circle",
-      symbolSize: 20,
-      data: chartData.srsiBuy,
-      xAxisIndex: 0,
-      yAxisIndex: 0,
-    },
+    SrsiKSerie(chartData),
+    SrsiDSerie(chartData),
+    SrsiSellSerie(chartData),
+    SrsiBuySerie(chartData),
     {
       name: "Ohlc",
       type: "candlestick",

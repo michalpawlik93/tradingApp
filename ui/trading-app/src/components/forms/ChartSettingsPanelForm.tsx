@@ -1,9 +1,6 @@
 import { css } from "@emotion/react";
 import { Box, Paper, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { AssetName } from "../../consts/assetName";
-import { AssetType } from "../../consts/assetType";
-import { Granularity } from "../../consts/granularity";
 import {
   mfiSettingsDefault,
   sRsiSettingsDefault,
@@ -13,10 +10,15 @@ import { TradingStrategy } from "../../consts/tradingStrategy";
 import { useQuotesStore } from "../../stores/quotesStore";
 import { MaxMinDate } from "../../types/MaxMinDate";
 import { CommonButton } from "../presentational/Button";
-import { AssetFormElements, IAssetFormValues } from "./AssetFormElements";
-import { ITimeFrameFormValues, TimeFrameFormElements } from "./TimeFrameFormElements";
+import { assetFormDefaultValues, AssetFormElements, IAssetFormValues } from "./AssetFormElements";
+import {
+  ITimeFrameFormValues,
+  timeFrameFormDefaultValues,
+  TimeFrameFormElements,
+} from "./TimeFrameFormElements";
 import {
   ITradingStreategyValues,
+  tradingStreategyDefaultValues,
   TradingStreategyFormElement,
 } from "./TradingStreategyFormElement";
 
@@ -26,12 +28,9 @@ export interface IChartSettingsPanelForm
     ITradingStreategyValues {}
 
 export const cypherBDefaultValues: IChartSettingsPanelForm = {
-  startDate: new Date(2023, 5, 24),
-  endDate: new Date(2023, 5, 28),
-  granularity: Granularity.FiveMins,
-  assetName: AssetName.USDPLN,
-  assetType: AssetType.Currencies,
-  tradingStrategy: TradingStrategy.Scalping,
+  ...timeFrameFormDefaultValues(),
+  ...assetFormDefaultValues(),
+  ...tradingStreategyDefaultValues(),
 };
 
 const chartSettingsPanelCss = {
@@ -79,7 +78,7 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: MaxMinDate) => {
         endDate: data.endDate.toISOString(),
       },
       waveTrendSettings: waveTrendSettingsDefault,
-      sRsiSettings: sRsiSettingsDefault,
+      sRsiSettings: sRsiSettingsDefault(),
       mfiSettings: mfiSettingsDefault,
       tradingStrategy: TradingStrategy.DayTrading,
     });

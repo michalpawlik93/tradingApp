@@ -1,5 +1,5 @@
 export interface SrsiSettings {
-  enable: boolean;
+  enabled: boolean;
   channelLength: number;
   stochKSmooth: number;
   stochDSmooth: number;

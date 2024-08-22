@@ -28,6 +28,10 @@ export interface SrsiChartData {
   srsiBuy: (number | Date)[][];
 }
 
+export interface SrsiStandaloneChartData extends SrsiChartData {
+  close: (number | Date)[][];
+}
+
 export interface CypherBChartData
   extends MfiChartData,
     WaveTrendChartData,

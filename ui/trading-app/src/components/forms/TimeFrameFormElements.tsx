@@ -11,9 +11,11 @@ export interface ITimeFrameFormValues {
   endDate: Date;
 }
 
-interface TimeFrameFormElementsProps<T extends ITimeFrameFormValues> extends MaxMinDate {
-  control: Control<T>;
-}
+export const timeFrameFormDefaultValues = (): ITimeFrameFormValues => ({
+  startDate: new Date(2023, 5, 26),
+  endDate: new Date(2023, 5, 28),
+  granularity: Granularity.FiveMins,
+});
 
 export const TimeFrameFormElements = <T extends ITimeFrameFormValues>({
   control,
@@ -43,3 +45,7 @@ export const TimeFrameFormElements = <T extends ITimeFrameFormValues>({
     />
   </>
 );
+
+interface TimeFrameFormElementsProps<T extends ITimeFrameFormValues> extends MaxMinDate {
+  control: Control<T>;
+}

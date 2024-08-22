@@ -3,14 +3,14 @@ import { RsiSettings } from "../types/RsiSettings";
 import { SrsiSettings } from "../types/SrsiSettings";
 import { WaveTrendSettings } from "../types/WaveTrendSettings";
 
-export const sRsiSettingsDefault: SrsiSettings = {
-  enable: false,
+export const sRsiSettingsDefault = (): SrsiSettings => ({
+  enabled: false,
   channelLength: 10,
   stochKSmooth: 1,
   stochDSmooth: 1,
   oversold: 20,
   overbought: 60,
-};
+});
 
 export const waveTrendSettingsDefault: WaveTrendSettings = {
   channelLength: 10,

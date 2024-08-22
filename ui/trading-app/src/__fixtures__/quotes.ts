@@ -27,7 +27,7 @@ export const GetCombinedQuotesResponseDtoMock = (): GetCombinedQuotesResponseDto
 export const CombinedQuoteMock = (): CombinedQuote => ({
   ohlc: QuoteMock(),
   rsi: 58_022.103_273_740_51,
-  srsi: {
+  srsiSignal: {
     stochK: 60_022.103_273_740_51,
     stochD: 61_022.103_273_740_51,
     tradeAction: 1,
@@ -57,7 +57,7 @@ export const CypherBQuoteMock = (override: Partial<CypherBQuote> = {}): CypherBQ
 
 export const SrsiQuoteMock = (override: Partial<SrsiQuote> = {}): SrsiQuote => ({
   ohlc: QuoteMock(),
-  srsi: SrsiMock(),
+  srsiSignal: SrsiMock(),
   ...override,
 });
 
@@ -110,7 +110,7 @@ export const GetCypherBDtoMock = (): GetCypherBDto => ({
     overboughtLevel2: 60,
     oversoldLevel2: -60,
   },
-  sRsiSettings: sRsiSettingsDefault,
+  sRsiSettings: sRsiSettingsDefault(),
   mfiSettings: mfiSettingsDefault,
   tradingStrategy: TradingStrategy.DayTrading,
 });

@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, TextField } from "@mui/material";
+import { FormControl, TextField } from "@mui/material";
 import { Control, Controller, FieldPath, FieldValues } from "react-hook-form";
 
 export interface FormInputProps<T extends FieldValues> {
@@ -15,7 +15,6 @@ export const FormInput = <T extends FieldValues>({
   type = "text",
 }: FormInputProps<T>) => (
   <FormControl size="small">
-    <InputLabel htmlFor={name as string}>{label}</InputLabel>
     <Controller
       name={name as FieldPath<T>}
       control={control}
@@ -28,6 +27,7 @@ export const FormInput = <T extends FieldValues>({
           onChange={(e) => field.onChange(e.target.value)}
           value={field.value || ""}
           InputProps={{ inputMode: type === "number" ? "numeric" : "text" }}
+          InputLabelProps={{ shrink: true }}
         />
       )}
     />

@@ -4,5 +4,5 @@ import { SrsiSignal } from "./SrsiSignal";
 export interface CombinedQuote {
   ohlc: Quote;
   rsi: number;
-  srsi: SrsiSignal;
+  srsiSignal: SrsiSignal;
 }

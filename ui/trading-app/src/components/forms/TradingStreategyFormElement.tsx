@@ -7,9 +7,9 @@ export interface ITradingStreategyValues {
   tradingStrategy: string;
 }
 
-interface TradingStreategyFormElementsProps<T extends ITradingStreategyValues> {
-  control: Control<T>;
-}
+export const tradingStreategyDefaultValues = (): ITradingStreategyValues => ({
+  tradingStrategy: TradingStrategy.Scalping,
+});
 
 export const TradingStreategyFormElement = <T extends ITradingStreategyValues>({
   control,
@@ -21,3 +21,7 @@ export const TradingStreategyFormElement = <T extends ITradingStreategyValues>({
     options={Object.values(TradingStrategy).map((x): Option => [x, x])}
   />
 );
+
+interface TradingStreategyFormElementsProps<T extends ITradingStreategyValues> {
+  control: Control<T>;
+}

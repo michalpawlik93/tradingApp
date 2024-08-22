@@ -1,6 +1,8 @@
 import { PageItemsWrapper } from "../../components/presentational/PageItemWrapper";
 import { GetCombinedQuotesRequestDtoDefault } from "../../consts/defaultRequests";
 import { useCombinedQuotes } from "../../hooks/useCombinedQuotes";
+import { useTimeFrameHook } from "../../hooks/useTimeFrameHook";
+import { SrsiChartForm } from "../forms/SrsiChartForm";
 import { OhlcChart } from "../presentational/Charts/OhlcChart";
 import { SrsiChart } from "../presentational/Charts/SrsiChart";
 import { RsiChartContiner } from "./RsiChartContiner";
@@ -8,6 +10,8 @@ import { RsiChartContiner } from "./RsiChartContiner";
 export const SimpleChartsContainer = () => {
   const { combinedQuotes } = useCombinedQuotes(GetCombinedQuotesRequestDtoDefault());
   const quotes = combinedQuotes.map((x) => x.ohlc);
+  const quoteDates = quotes.map((quote) => new Date(quote.date));
+  const { minDate, maxDate } = useTimeFrameHook(quoteDates);
   return (
     <>
       <PageItemsWrapper>
@@ -18,6 +22,9 @@ export const SimpleChartsContainer = () => {
       </PageItemsWrapper>
       <PageItemsWrapper>
         <SrsiChart quotes={combinedQuotes} />
+      </PageItemsWrapper>
+      <PageItemsWrapper>
+        <SrsiChartForm minDate={minDate} maxDate={maxDate} />
       </PageItemsWrapper>
     </>
   );

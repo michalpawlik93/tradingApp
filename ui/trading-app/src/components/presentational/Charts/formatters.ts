@@ -21,11 +21,16 @@ export const cypherBFormatter = (params: any): string => {
   `;
 };
 
-export const srsiFormatter = (params: any): string => `
+export const srsiFormatter = (params: any): string => {
+  const closeValue = params.find((x: any) => x.seriesName === "Close")?.value[1];
+
+  return `
     ${buildDateForrmater(params)}
     ${buildSrsiForrmater(params)}
     ${buildOhlcForrmater(params)}
+    ${closeValue === undefined ? "" : `<strong>Close</strong> ${closeValue}<br>`}
   `;
+};
 
 export const ohlcFormatter = (params: any): string => `
     ${buildDateForrmater(params)}

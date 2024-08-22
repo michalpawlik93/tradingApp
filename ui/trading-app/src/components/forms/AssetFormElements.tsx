@@ -9,6 +9,11 @@ export interface IAssetFormValues {
   assetType: string;
 }
 
+export const assetFormDefaultValues = (): IAssetFormValues => ({
+  assetName: AssetName.USDPLN,
+  assetType: AssetType.Currencies,
+});
+
 interface AssetFormElementsProps<T extends IAssetFormValues> {
   control: Control<T>;
 }

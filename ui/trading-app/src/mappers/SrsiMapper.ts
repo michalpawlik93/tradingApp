@@ -1,23 +1,32 @@
 import { TradeAction } from "../consts/tradeAction";
-import { SrsiChartData } from "../types/ChartData";
+import { SrsiStandaloneChartData } from "../types/ChartData";
 import { SrsiQuote } from "../types/SrsiQuote";
 
-export function mapToSrsiChartData(quotes: SrsiQuote[]): SrsiChartData {
+export function mapToSrsiChartData(quotes: SrsiQuote[]): SrsiStandaloneChartData {
   const srsiStochK: (number | Date)[][] = [];
   const srsiStochD: (number | Date)[][] = [];
   const srsiSell: (number | Date)[][] = [];
   const srsiBuy: (number | Date)[][] = [];
+  const close: (number | Date)[][] = [];
+
+  const closeValues = quotes.map((quote) => quote.ohlc.open);
+  const minClose = Math.min(...closeValues);
+  const maxClose = Math.max(...closeValues);
+
+  const scaleClose = (value: number) => ((value - minClose) / (maxClose - minClose)) * 100;
 
   quotes.forEach((quote) => {
     const date = new Date(quote.ohlc.date);
+    const scaledClose = scaleClose(quote.ohlc.open);
+    close.push([date, scaledClose]);
 
-    srsiStochK.push([date, quote.srsi.stochK]);
-    srsiStochD.push([date, quote.srsi.stochD]);
+    srsiStochK.push([date, quote.srsiSignal.stochK]);
+    srsiStochD.push([date, quote.srsiSignal.stochD]);
 
-    if (quote.srsi.tradeAction === TradeAction.Buy) {
-      srsiBuy.push([date, quote.srsi.stochK]);
-    } else if (quote.srsi.tradeAction === TradeAction.Sell) {
-      srsiSell.push([date, quote.srsi.stochK]);
+    if (quote.srsiSignal.tradeAction === TradeAction.Buy) {
+      srsiBuy.push([date, quote.srsiSignal.stochK]);
+    } else if (quote.srsiSignal.tradeAction === TradeAction.Sell) {
+      srsiSell.push([date, quote.srsiSignal.stochK]);
     }
   });
 
@@ -26,5 +35,6 @@ export function mapToSrsiChartData(quotes: SrsiQuote[]): SrsiChartData {
     srsiStochD,
     srsiSell,
     srsiBuy,
+    close,
   };
 }
