@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
@@ -33,11 +34,18 @@ public class DailyTradingStrategy : ISrsiStrategy
     ///  - %K and %D for fast Stoch are above overbought level
     /// </summary>
     /// <returns></returns>
-    public Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes, SrsiSettings? customSettings = null)
+    public Result<IReadOnlyList<SrsiSignal>> EvaluateSignals(
+        IReadOnlyList<Quote> quotes,
+        SrsiSettings? customSettings = null
+    )
     {
         if (customSettings != null)
         {
-            return Result.Fail($"Can not call {nameof(DailyTradingStrategy)} with custom settings.");
+            return Result.Fail(
+                new ValidationError(
+                    $"Can not call {nameof(DailyTradingStrategy)} with custom settings."
+                )
+            );
         }
 
         var srsiFastResults = _evaluator.GetSrsi(quotes, FastSettings);
