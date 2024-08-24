@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using TradingApp.Core.Models;
 using TradingApp.Core.Utilities;
 using TradingApp.Module.Quotes.Contract.Models;
@@ -57,11 +58,11 @@ public class FileService : IFileService
             {
                 var dateValue = fields[2];
                 var timeValue = fields[3];
-                decimal.TryParse(fields[4], out var openValue);
-                decimal.TryParse(fields[5], out var highValue);
-                decimal.TryParse(fields[6], out var lowValue);
-                decimal.TryParse(fields[7], out var closeValue);
-                decimal.TryParse(fields[8], out var volumeValue);
+                decimal.TryParse(fields[4], CultureInfo.InvariantCulture, out var openValue);
+                decimal.TryParse(fields[5], CultureInfo.InvariantCulture, out var highValue);
+                decimal.TryParse(fields[6], CultureInfo.InvariantCulture, out var lowValue);
+                decimal.TryParse(fields[7], CultureInfo.InvariantCulture, out var closeValue);
+                decimal.TryParse(fields[8], CultureInfo.InvariantCulture, out var volumeValue);
                 var dateTimeValue = DateTimeUtils.ParseDateTime(dateValue, timeValue);
                 if (dateTimeValue != DateTime.MinValue)
                 {
