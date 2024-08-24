@@ -1,16 +1,19 @@
 import { useEffect, useRef } from "react";
 import { GetCombinedQuotesRequestDto } from "../services/dtos/GetCombinedQuotesRequestDto";
 import { useQuotesStore } from "../stores/quotesStore";
-import { CombinedQuote } from "../types/CombinedQuote";
+import { RsiQuote } from "../types/RsiQuote";
+import { SrsiQuote } from "../types/SrsiQuote";
 
 export interface useCombinedQuotesResponse {
-  combinedQuotes: CombinedQuote[];
+  srsiQuotes: SrsiQuote[];
+  rsiQuotes: RsiQuote[];
 }
 
 export const useCombinedQuotes = (
   request: GetCombinedQuotesRequestDto,
 ): useCombinedQuotesResponse => {
-  const combinedQuotes = useQuotesStore((state) => state.combinedQuotes);
+  const srsiQuotes = useQuotesStore((state) => state.srsiQuotes);
+  const rsiQuotes = useQuotesStore((state) => state.rsiQuotes);
   const isDataFetched = useRef(false);
   const fetchData = useQuotesStore((state) => state.fetchCombinedQuotes);
 
@@ -26,5 +29,5 @@ export const useCombinedQuotes = (
     fetch();
   }, [fetchData, request]);
 
-  return { combinedQuotes };
+  return { srsiQuotes, rsiQuotes };
 };

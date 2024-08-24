@@ -1,14 +1,17 @@
 import { create } from "zustand";
+import { TechnicalIndicators } from "../consts/technicalIndicators";
 import { rsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
 import { GetCombinedQuotesRequestDto } from "../services/dtos/GetCombinedQuotesRequestDto";
 import { GetCypherBDto } from "../services/dtos/GetCypherBDto";
 import { QuotesDataService } from "../services/QuotesDataService";
-import { CombinedQuote } from "../types/CombinedQuote";
 import { CypherBQuote } from "../types/CypherBQuote";
+import { RsiQuote } from "../types/RsiQuote";
 import { RsiSettings } from "../types/RsiSettings";
+import { SrsiQuote } from "../types/SrsiQuote";
 
 interface QuotesState {
-  combinedQuotes: CombinedQuote[];
+  srsiQuotes: SrsiQuote[];
+  rsiQuotes: RsiQuote[];
   cypherBQuotes: CypherBQuote[];
   rsiSettings: RsiSettings;
   fetchCombinedQuotes: (request: GetCombinedQuotesRequestDto) => Promise<void>;
@@ -16,8 +19,8 @@ interface QuotesState {
 }
 
 export const useQuotesStore = create<QuotesState>((set) => ({
-  combinedQuotes: [],
   srsiQuotes: [],
+  rsiQuotes: [],
   cypherBQuotes: [],
   rsiSettings: rsiSettingsDefault,
   fetchCombinedQuotes: async (request: GetCombinedQuotesRequestDto) => {
@@ -27,10 +30,17 @@ export const useQuotesStore = create<QuotesState>((set) => ({
         serviceRequest = { ...request, srsiSettings: undefined };
       }
       const response = await QuotesDataService.getCombinedQuotes(serviceRequest);
-      set({
-        combinedQuotes: response.quotes,
-        rsiSettings: response.rsiSettings ?? rsiSettingsDefault,
-      });
+      if (request.technicalIndicators.includes(TechnicalIndicators.Rsi)) {
+        set({
+          rsiQuotes: response.quotes,
+          rsiSettings: response.rsiSettings ?? rsiSettingsDefault,
+        });
+      }
+      if (request.technicalIndicators.includes(TechnicalIndicators.Srsi)) {
+        set({
+          srsiQuotes: response.quotes,
+        });
+      }
     } catch (error) {
       console.error("Error fetching combined quotes:", error);
     }

@@ -9,21 +9,20 @@ import { SrsiChart } from "../presentational/Charts/SrsiChart";
 import { RsiChartContiner } from "./RsiChartContiner";
 
 export const SimpleChartsContainer = () => {
-  const { combinedQuotes } = useCombinedQuotes(GetCombinedQuotesRequestDtoDefault());
-  const quotes = combinedQuotes.map((x) => x.ohlc);
+  const { srsiQuotes, rsiQuotes } = useCombinedQuotes(GetCombinedQuotesRequestDtoDefault());
+  const quotes = rsiQuotes.map((x) => x.ohlc);
   const quoteDates = quotes.map((quote) => new Date(quote.date));
   const { minDate, maxDate } = useTimeFrameHook(quoteDates);
-
   return (
     <>
       <PageItemsWrapper>
         <OhlcChart quotes={quotes} />
       </PageItemsWrapper>
       <PageItemsWrapper>
-        <RsiChartContiner combinedQuotes={combinedQuotes} />
+        <RsiChartContiner rsiQuotes={rsiQuotes} />
       </PageItemsWrapper>
       <PageItemsWrapper>
-        <SrsiChart quotes={combinedQuotes} />
+        <SrsiChart quotes={srsiQuotes} />
       </PageItemsWrapper>
 
       <PageItemsWrapper>
@@ -40,4 +39,3 @@ export const SimpleChartsContainer = () => {
     </>
   );
 };
-//TO-DO: Add modal button

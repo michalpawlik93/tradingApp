@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { EChartsOption } from "echarts";
 import { mapToRsiChartData } from "../../../mappers/RsiChartMapper";
 import { RsiChartData } from "../../../types/ChartData";
-import { CombinedQuote } from "../../../types/CombinedQuote";
+import { RsiQuote } from "../../../types/RsiQuote";
 import { RsiSettings } from "../../../types/RsiSettings";
 import { zoomOptions } from "./CommonChartOptions";
 import { ReactEChart } from "./ReactEChart";
@@ -101,15 +101,15 @@ export const getOptions = (chartData: RsiChartData): EChartsOption => ({
   ],
 });
 
-export const RsiChart = ({ combinedQuotes, rsiSettings }: RsiChartProps): JSX.Element => {
+export const RsiChart = ({ rsiQuotes, rsiSettings }: RsiChartProps): JSX.Element => {
   const options = useMemo(() => {
-    const chartData = mapToRsiChartData(combinedQuotes, rsiSettings);
+    const chartData = mapToRsiChartData(rsiQuotes, rsiSettings);
     return getOptions(chartData);
-  }, [combinedQuotes, rsiSettings]);
+  }, [rsiQuotes, rsiSettings]);
   return <ReactEChart option={options} />;
 };
 
 interface RsiChartProps {
-  combinedQuotes: CombinedQuote[];
+  rsiQuotes: RsiQuote[];
   rsiSettings: RsiSettings;
 }

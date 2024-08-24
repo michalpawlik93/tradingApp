@@ -1,12 +1,12 @@
 import { useQuotesStore } from "../../stores/quotesStore";
-import { CombinedQuote } from "../../types/CombinedQuote";
+import { RsiQuote } from "../../types/RsiQuote";
 import { RsiChart } from "../presentational/Charts/RsiChart";
 
 interface RSIChartContainerProps {
-  combinedQuotes: CombinedQuote[];
+  rsiQuotes: RsiQuote[];
 }
-export const RsiChartContiner = ({ combinedQuotes }: RSIChartContainerProps) => {
+export const RsiChartContiner = ({ rsiQuotes }: RSIChartContainerProps) => {
   const rsiSettings = useQuotesStore((state) => state.rsiSettings);
 
-  return <RsiChart rsiSettings={rsiSettings} combinedQuotes={combinedQuotes} />;
+  return <RsiChart rsiSettings={rsiSettings} rsiQuotes={rsiQuotes} />;
 };

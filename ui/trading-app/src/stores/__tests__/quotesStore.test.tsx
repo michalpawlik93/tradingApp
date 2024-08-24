@@ -11,12 +11,12 @@ describe("useQuotesStore", () => {
     //Act
     const { result } = renderHook(() => useQuotesStore());
     //Assert
-    expect(result.current.combinedQuotes).toHaveLength(0);
-    expect(result.current.cypherBQuotes).toHaveLength(0);
+    expect(result.current.rsiQuotes).toHaveLength(0);
+    expect(result.current.srsiQuotes).toHaveLength(0);
     expect(result.current.rsiSettings).toEqual(rsiSettingsDefault);
   });
 
-  test("fetchCombinedQuotes - request - combinedQuotes fetched", async () => {
+  test("fetchCombinedQuotes - request - all combinedQuotes fetched", async () => {
     //Arrange
     vi.mocked(QuotesDataService.getCombinedQuotes).mockImplementation(
       createQuotesDataServiceMock().getCombinedQuotes,
@@ -26,7 +26,8 @@ describe("useQuotesStore", () => {
     result.current.fetchCombinedQuotes(GetCombinedQuotesRequestDtoMock());
     //Assert
     await waitFor(() => {
-      expect(result.current.combinedQuotes).toHaveLength(1);
+      expect(result.current.rsiQuotes).toHaveLength(1);
+      expect(result.current.srsiQuotes).toHaveLength(1);
       expect(result.current.rsiSettings).not.toBeNull();
     });
   });

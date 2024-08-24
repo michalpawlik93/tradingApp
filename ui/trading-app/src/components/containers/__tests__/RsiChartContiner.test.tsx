@@ -8,7 +8,7 @@ describe("RsiChartContiner tests", () => {
     // Act
     render(
       <TestingProvider>
-        <RsiChartContiner combinedQuotes={[]} />
+        <RsiChartContiner rsiQuotes={[]} />
       </TestingProvider>,
     );
 

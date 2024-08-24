@@ -1,6 +1,7 @@
 import { AssetName } from "../consts/assetName";
 import { AssetType } from "../consts/assetType";
 import { Granularity } from "../consts/granularity";
+import { TechnicalIndicators } from "../consts/technicalIndicators";
 import { mfiSettingsDefault, sRsiSettingsDefault } from "../consts/technicalIndicatorsSettings";
 import { TradeAction } from "../consts/tradeAction";
 import { TradingStrategy } from "../consts/tradingStrategy";
@@ -79,7 +80,7 @@ export const MfiMock = (): MfiResult => ({
 });
 
 export const GetCombinedQuotesRequestDtoMock = (): GetCombinedQuotesRequestDto => ({
-  technicalIndicators: [],
+  technicalIndicators: [TechnicalIndicators.Rsi, TechnicalIndicators.Srsi],
   asset: {
     name: AssetName.ANC,
     type: AssetType.Cryptocurrency,

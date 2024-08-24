@@ -7,11 +7,13 @@ export const createUseCombinedQuotesMock = (
 ): useCombinedQuotesResponse => {
   if (override === null) {
     return {
-      combinedQuotes: [],
+      rsiQuotes: [],
+      srsiQuotes: [],
     };
   }
   return {
-    combinedQuotes: [CombinedQuoteMock()],
+    rsiQuotes: [CombinedQuoteMock()],
+    srsiQuotes: [CombinedQuoteMock()],
     ...override,
   };
 };

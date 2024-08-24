@@ -1,129 +1,286 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="50" failures="0" errors="0" time="16.249">
-    <testsuite name="src/hooks/__tests__/useCombinedQuotes.test.tsx" timestamp="2024-08-23T13:06:34.486Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.116">
-        <testcase classname="src/hooks/__tests__/useCombinedQuotes.test.tsx" name="useCombinedQuotes tests &gt; useCombinedQuotes - should fetch combined quotes" time="0.114">
+<testsuites name="vitest tests" tests="57" failures="0" errors="0" time="16.174">
+    <testsuite name="src/hooks/__tests__/useCombinedQuotes.test.tsx" timestamp="2024-08-24T12:11:58.429Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.174">
+        <testcase classname="src/hooks/__tests__/useCombinedQuotes.test.tsx" name="useCombinedQuotes tests &gt; useCombinedQuotes - should fetch combined quotes" time="0.172">
         </testcase>
     </testsuite>
-    <testsuite name="src/hooks/__tests__/useCypherBQuotes.test.tsx" timestamp="2024-08-23T13:06:34.490Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.116">
-        <testcase classname="src/hooks/__tests__/useCypherBQuotes.test.tsx" name="useCypherBQuotes tests &gt; useCypherBQuotes - should fetch cypherb quotes" time="0.114">
+    <testsuite name="src/hooks/__tests__/useCypherBQuotes.test.tsx" timestamp="2024-08-24T12:11:58.433Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.211">
+        <testcase classname="src/hooks/__tests__/useCypherBQuotes.test.tsx" name="useCypherBQuotes tests &gt; useCypherBQuotes - should fetch cypherb quotes" time="0.209">
         </testcase>
     </testsuite>
-    <testsuite name="src/hooks/__tests__/useTimeFrameHook.test.tsx" timestamp="2024-08-23T13:06:34.491Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.046">
-        <testcase classname="src/hooks/__tests__/useTimeFrameHook.test.tsx" name="useTimeFrameHook tests &gt; useTimeFrameHook - should fetch cypherb quotes" time="0.044">
+    <testsuite name="src/hooks/__tests__/useTimeFrameHook.test.tsx" timestamp="2024-08-24T12:11:58.434Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.05">
+        <testcase classname="src/hooks/__tests__/useTimeFrameHook.test.tsx" name="useTimeFrameHook tests &gt; useTimeFrameHook - should fetch cypherb quotes" time="0.048">
         </testcase>
     </testsuite>
-    <testsuite name="src/mappers/__tests__/CypherBChartDataMapper.test.ts" timestamp="2024-08-23T13:06:34.491Z" hostname="DESKTOP-MSMMV6A" tests="4" failures="0" errors="0" skipped="0" time="0.007">
-        <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should map quotes to wave trend chart data for Buy trade action" time="0.004">
+    <testsuite name="src/mappers/__tests__/CypherBChartDataMapper.test.ts" timestamp="2024-08-24T12:11:58.435Z" hostname="LAPTOP-BEK9E24L" tests="4" failures="0" errors="0" skipped="0" time="0.006">
+        <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should map quotes to wave trend chart data for Buy trade action" time="0.003">
         </testcase>
-        <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should map quotes to wave trend chart data for Sell trade action" time="0">
+        <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should map quotes to wave trend chart data for Sell trade action" time="0.001">
         </testcase>
         <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should handle empty quotes array" time="0.001">
         </testcase>
         <testcase classname="src/mappers/__tests__/CypherBChartDataMapper.test.ts" name="mapToCypherBChartData &gt; should ignore invalid dates" time="0">
         </testcase>
     </testsuite>
-    <testsuite name="src/mappers/__tests__/OhlcChartDataMapper.test.ts" timestamp="2024-08-23T13:06:34.492Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.005">
+    <testsuite name="src/mappers/__tests__/OhlcChartDataMapper.test.ts" timestamp="2024-08-24T12:11:58.436Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.006">
         <testcase classname="src/mappers/__tests__/OhlcChartDataMapper.test.ts" name="OhlcChartDataMapper &gt; should map to rsi chart data" time="0.004">
         </testcase>
     </testsuite>
-    <testsuite name="src/mappers/__tests__/RsiChartMapper.test.ts" timestamp="2024-08-23T13:06:34.493Z" hostname="DESKTOP-MSMMV6A" tests="2" failures="0" errors="0" skipped="0" time="0.007">
-        <testcase classname="src/mappers/__tests__/RsiChartMapper.test.ts" name="mapToApexRsiChartData &gt; should return empty array" time="0.004">
+    <testsuite name="src/mappers/__tests__/RsiChartMapper.test.ts" timestamp="2024-08-24T12:11:58.436Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.016">
+        <testcase classname="src/mappers/__tests__/RsiChartMapper.test.ts" name="mapToApexRsiChartData &gt; should return empty array" time="0.007">
         </testcase>
-        <testcase classname="src/mappers/__tests__/RsiChartMapper.test.ts" name="mapToApexRsiChartData &gt; should map to rsi chart data" time="0.002">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/services/__tests__/QuotesDataService.test.ts" timestamp="2024-08-23T13:06:34.493Z" hostname="DESKTOP-MSMMV6A" tests="2" failures="0" errors="0" skipped="0" time="0.007">
-        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCombinedQuotes" time="0.004">
-        </testcase>
-        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCypherB" time="0.002">
+        <testcase classname="src/mappers/__tests__/RsiChartMapper.test.ts" name="mapToApexRsiChartData &gt; should map to rsi chart data" time="0.004">
         </testcase>
     </testsuite>
-    <testsuite name="src/stores/__tests__/quotesStore.test.tsx" timestamp="2024-08-23T13:06:34.494Z" hostname="DESKTOP-MSMMV6A" tests="3" failures="0" errors="0" skipped="0" time="0.185">
-        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; default state - intial values are set correctly" time="0.023">
+    <testsuite name="src/stores/__tests__/quotesStore.test.tsx" timestamp="2024-08-24T12:11:58.437Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.182">
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; default state - intial values are set correctly" time="0.021">
         </testcase>
-        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCombinedQuotes - request - combinedQuotes fetched" time="0.083">
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCombinedQuotes - request - all combinedQuotes fetched" time="0.08">
         </testcase>
-        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCypherBQuotes - request - cypherBQuotes fetched" time="0.076">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/views/__tests__/AdvancedChartsView.test.tsx" timestamp="2024-08-23T13:06:34.495Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.387">
-        <testcase classname="src/views/__tests__/AdvancedChartsView.test.tsx" name="AdvancedChartsView tests &gt; Charts are rendered" time="0.386">
+        <testcase classname="src/stores/__tests__/quotesStore.test.tsx" name="useQuotesStore &gt; fetchCypherBQuotes - request - cypherBQuotes fetched" time="0.079">
         </testcase>
     </testsuite>
-    <testsuite name="src/views/__tests__/SimpleChartsView.test.tsx" timestamp="2024-08-23T13:06:34.496Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.11">
-        <testcase classname="src/views/__tests__/SimpleChartsView.test.tsx" name="SimpleChartsView tests &gt; Charts are rendered" time="0.108">
+    <testsuite name="src/services/__tests__/QuotesDataService.test.ts" timestamp="2024-08-24T12:11:58.438Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.006">
+        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCombinedQuotes" time="0.005">
+        </testcase>
+        <testcase classname="src/services/__tests__/QuotesDataService.test.ts" name="QuotesDataService &gt; getCypherB" time="0.001">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/containers/__tests__/CypherBChartContiner.test.tsx" timestamp="2024-08-23T13:06:34.496Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.404">
-        <testcase classname="src/components/containers/__tests__/CypherBChartContiner.test.tsx" name="CypherBChartContiner tests &gt; Charts are rendered" time="0.402">
+    <testsuite name="src/views/__tests__/AdvancedChartsView.test.tsx" timestamp="2024-08-24T12:11:58.438Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.86">
+        <testcase classname="src/views/__tests__/AdvancedChartsView.test.tsx" name="AdvancedChartsView tests &gt; Charts are rendered" time="0.858">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/containers/__tests__/RsiChartContiner.test.tsx" timestamp="2024-08-23T13:06:34.497Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.034">
-        <testcase classname="src/components/containers/__tests__/RsiChartContiner.test.tsx" name="RsiChartContiner tests &gt; RsiChart is rendered" time="0.032">
+    <testsuite name="src/views/__tests__/SimpleChartsView.test.tsx" timestamp="2024-08-24T12:11:58.439Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.396">
+        <testcase classname="src/views/__tests__/SimpleChartsView.test.tsx" name="SimpleChartsView tests &gt; Charts are rendered" time="0.394">
+            <system-err>
+Warning: Failed prop type: MUI: You are providing an onClick event listener to a child of a button element.
+Prefer applying it to the IconButton directly.
+This guarantees that the whole &lt;button&gt; will be responsive to click events.
+    at IconButton (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\IconButton\IconButton.js:113:44)
+    at BaseDialog (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialog.tsx:10:3)
+    at BaseDialogOpener (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialogOpener.tsx:10:3)
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Box (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\system\createBox.js:31:41)
+    at PageItemsWrapper (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\PageItemWrapper.tsx:22:29)
+    at SimpleChartsContainer
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Box (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\system\createBox.js:31:41)
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-c16c303e.esm.js:46:39
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Paper (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Paper\Paper.js:70:44)
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-c16c303e.esm.js:46:39
+    at Page (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\Page.tsx:12:11)
+    at SimpleChartsView
+    at RenderedRoute (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router\dist\umd\react-router.development.js:539:7)
+    at RenderedRoute (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router\dist\umd\react-router.development.js:539:7)
+    at RenderErrorBoundary (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router\dist\umd\react-router.development.js:486:7)
+    at DataRoutes (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router-dom\dist\umd\react-router-dom.development.js:664:7)
+    at Router (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router\dist\umd\react-router.development.js:1163:17)
+    at RouterProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router-dom\dist\umd\react-router-dom.development.js:440:7)
+    at RtlProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\system\RtlProvider\index.js:19:7)
+    at ThemeProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\private-theming\node\ThemeProvider\ThemeProvider.js:39:5)
+    at ThemeProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\system\ThemeProvider\ThemeProvider.js:51:5)
+    at ThemeProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\styles\ThemeProvider.js:21:14)
+    at StyledEngineProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\styled-engine\node\StyledEngineProvider\StyledEngineProvider.js:27:5)
+    at LocalizationProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\x-date-pickers\node\LocalizationProvider\LocalizationProvider.js:35:19)
+    at TestingProvider (E:\Nauka\tradingApp\ui\trading-app\src\__fixtures__\TestingProvider.tsx:13:28)
+
+            </system-err>
         </testcase>
     </testsuite>
-    <testsuite name="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" timestamp="2024-08-23T13:06:34.497Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.124">
-        <testcase classname="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" name="SimpleChartsContainer tests &gt; Charts are rendered" time="0.123">
+    <testsuite name="src/components/containers/__tests__/CypherBChartContiner.test.tsx" timestamp="2024-08-24T12:11:58.439Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.807">
+        <testcase classname="src/components/containers/__tests__/CypherBChartContiner.test.tsx" name="CypherBChartContiner tests &gt; Charts are rendered" time="0.806">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" timestamp="2024-08-23T13:06:34.498Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.625">
-        <testcase classname="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" name="ChartSettingsPanelForm tests &gt; click submit button - fetch is called with form values" time="0.623">
+    <testsuite name="src/components/containers/__tests__/RsiChartContiner.test.tsx" timestamp="2024-08-24T12:11:58.440Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.043">
+        <testcase classname="src/components/containers/__tests__/RsiChartContiner.test.tsx" name="RsiChartContiner tests &gt; RsiChart is rendered" time="0.041">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/forms/__tests__/SrsiChartForm.test.tsx" timestamp="2024-08-23T13:06:34.498Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.744">
-        <testcase classname="src/components/forms/__tests__/SrsiChartForm.test.tsx" name="SrsiChartForm tests &gt; click submit button - fetch is called with form values" time="0.743">
+    <testsuite name="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" timestamp="2024-08-24T12:11:58.440Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.274">
+        <testcase classname="src/components/containers/__tests__/SimpleChartsContainer.test.tsx" name="SimpleChartsContainer tests &gt; Charts are rendered" time="0.273">
+            <system-err>
+Warning: Failed prop type: MUI: You are providing an onClick event listener to a child of a button element.
+Prefer applying it to the IconButton directly.
+This guarantees that the whole &lt;button&gt; will be responsive to click events.
+    at IconButton (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\IconButton\IconButton.js:113:44)
+    at BaseDialog (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialog.tsx:10:3)
+    at BaseDialogOpener (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialogOpener.tsx:10:3)
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Box (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\system\createBox.js:31:41)
+    at PageItemsWrapper (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\PageItemWrapper.tsx:22:29)
+    at SimpleChartsContainer
+    at RenderedRoute (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router\dist\umd\react-router.development.js:539:7)
+    at RenderedRoute (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router\dist\umd\react-router.development.js:539:7)
+    at RenderErrorBoundary (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router\dist\umd\react-router.development.js:486:7)
+    at DataRoutes (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router-dom\dist\umd\react-router-dom.development.js:664:7)
+    at Router (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router\dist\umd\react-router.development.js:1163:17)
+    at RouterProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-router-dom\dist\umd\react-router-dom.development.js:440:7)
+    at RtlProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\system\RtlProvider\index.js:19:7)
+    at ThemeProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\private-theming\node\ThemeProvider\ThemeProvider.js:39:5)
+    at ThemeProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\system\ThemeProvider\ThemeProvider.js:51:5)
+    at ThemeProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\styles\ThemeProvider.js:21:14)
+    at StyledEngineProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\styled-engine\node\StyledEngineProvider\StyledEngineProvider.js:27:5)
+    at LocalizationProvider (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\x-date-pickers\node\LocalizationProvider\LocalizationProvider.js:35:19)
+    at TestingProvider (E:\Nauka\tradingApp\ui\trading-app\src\__fixtures__\TestingProvider.tsx:13:28)
+
+            </system-err>
         </testcase>
     </testsuite>
-    <testsuite name="src/components/navigation/__tests__/Breadcrumbs.test.tsx" timestamp="2024-08-23T13:06:34.499Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.046">
-        <testcase classname="src/components/navigation/__tests__/Breadcrumbs.test.tsx" name="Breadcrumbs tests &gt; renders breadcrumbs based on route matches" time="0.045">
+    <testsuite name="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" timestamp="2024-08-24T12:11:58.440Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="1.034">
+        <testcase classname="src/components/forms/__tests__/ChartSettingsPanelForm.test.tsx" name="ChartSettingsPanelForm tests &gt; click submit button - fetch is called with form values" time="1.032">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/navigation/__tests__/Layout.test.tsx" timestamp="2024-08-23T13:06:34.499Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.152">
-        <testcase classname="src/components/navigation/__tests__/Layout.test.tsx" name="Layout component tests &gt; renders Layout component" time="0.15">
+    <testsuite name="src/components/forms/__tests__/SrsiChartForm.test.tsx" timestamp="2024-08-24T12:11:58.441Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="1.433">
+        <testcase classname="src/components/forms/__tests__/SrsiChartForm.test.tsx" name="SrsiChartForm tests &gt; click submit button - fetch is called with form values" time="1.431">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/navigation/__tests__/TopBar.test.tsx" timestamp="2024-08-23T13:06:34.500Z" hostname="DESKTOP-MSMMV6A" tests="2" failures="0" errors="0" skipped="0" time="0.403">
-        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; renders TopBar component" time="0.291">
-        </testcase>
-        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; opens menu and shows menu items on icon click" time="0.11">
+    <testsuite name="src/components/navigation/__tests__/Breadcrumbs.test.tsx" timestamp="2024-08-24T12:11:58.441Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.074">
+        <testcase classname="src/components/navigation/__tests__/Breadcrumbs.test.tsx" name="Breadcrumbs tests &gt; renders breadcrumbs based on route matches" time="0.073">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/Button.test.tsx" timestamp="2024-08-23T13:06:34.501Z" hostname="DESKTOP-MSMMV6A" tests="6" failures="0" errors="0" skipped="0" time="0.175">
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with given text" time="0.122">
+    <testsuite name="src/components/navigation/__tests__/Layout.test.tsx" timestamp="2024-08-24T12:11:58.442Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.257">
+        <testcase classname="src/components/navigation/__tests__/Layout.test.tsx" name="Layout component tests &gt; renders Layout component" time="0.255">
         </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a disabled button when disabled prop is true" time="0.007">
+    </testsuite>
+    <testsuite name="src/components/navigation/__tests__/TopBar.test.tsx" timestamp="2024-08-24T12:11:58.442Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.582">
+        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; renders TopBar component" time="0.402">
         </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; calls onClick handler when button is clicked" time="0.013">
+        <testcase classname="src/components/navigation/__tests__/TopBar.test.tsx" name="TopBar component tests &gt; opens menu and shows menu items on icon click" time="0.178">
         </testcase>
-        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a secondary button when secondary prop is true" time="0.016">
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/BaseDialog.test.tsx" timestamp="2024-08-24T12:11:58.443Z" hostname="LAPTOP-BEK9E24L" tests="4" failures="0" errors="0" skipped="0" time="0.319">
+        <testcase classname="src/components/presentational/__tests__/BaseDialog.test.tsx" name="BaseDialog Component &gt; Should render correctly" time="0.199">
+            <system-err>
+Warning: validateDOMNesting(...): &lt;h2&gt; cannot appear as a child of &lt;h2&gt;.
+    at h2
+    at h2
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Typography (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Typography\Typography.js:92:49)
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at DialogTitle (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\DialogTitle\DialogTitle.js:42:44)
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-c16c303e.esm.js:46:39
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Paper (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Paper\Paper.js:70:44)
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Transition (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-transition-group\cjs\Transition.js:135:30)
+    at Fade (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Fade\Fade.js:36:39)
+    at FocusTrap (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\base\node\FocusTrap\FocusTrap.js:94:5)
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Portal (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\base\node\Portal\Portal.js:34:5)
+    at Modal (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Modal\Modal.js:88:44)
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Dialog (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Dialog\Dialog.js:161:44)
+    at BaseDialog (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialog.tsx:10:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/BaseDialog.test.tsx" name="BaseDialog Component &gt; Should render with close button" time="0.058">
+            <system-err>
+Warning: Failed prop type: MUI: You are providing an onClick event listener to a child of a button element.
+Prefer applying it to the IconButton directly.
+This guarantees that the whole &lt;button&gt; will be responsive to click events.
+    at IconButton (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\IconButton\IconButton.js:113:44)
+    at BaseDialog (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialog.tsx:10:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/BaseDialog.test.tsx" name="BaseDialog Component &gt; Should close dialog when close icon is clicked" time="0.038">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/BaseDialog.test.tsx" name="BaseDialog Component &gt; Should render with message without close button" time="0.022">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/BaseDialogOpener.test.tsx" timestamp="2024-08-24T12:11:58.445Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.341">
+        <testcase classname="src/components/presentational/__tests__/BaseDialogOpener.test.tsx" name="BaseDialogOpener Component &gt; Sholud render button" time="0.104">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/BaseDialogOpener.test.tsx" name="BaseDialogOpener Component &gt; Sholud render button with text and modal with children, message and title" time="0.16">
+            <system-err>
+Warning: validateDOMNesting(...): &lt;h2&gt; cannot appear as a child of &lt;h2&gt;.
+    at h2
+    at h2
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Typography (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Typography\Typography.js:92:49)
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at DialogTitle (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\DialogTitle\DialogTitle.js:42:44)
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-c16c303e.esm.js:46:39
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Paper (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Paper\Paper.js:70:44)
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Transition (E:\Nauka\tradingApp\ui\trading-app\node_modules\react-transition-group\cjs\Transition.js:135:30)
+    at Fade (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Fade\Fade.js:36:39)
+    at FocusTrap (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\base\node\FocusTrap\FocusTrap.js:94:5)
+    at div
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Portal (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\base\node\Portal\Portal.js:34:5)
+    at Modal (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Modal\Modal.js:88:44)
+    at E:\Nauka\tradingApp\ui\trading-app\node_modules\@emotion\react\dist\emotion-element-f93e57b0.cjs.dev.js:62:23
+    at Dialog (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\Dialog\Dialog.js:161:44)
+    at BaseDialog (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialog.tsx:10:3)
+    at BaseDialogOpener (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialogOpener.tsx:10:3)
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/BaseDialogOpener.test.tsx" name="BaseDialogOpener Component &gt; Sholud render button with text and modal with close button" time="0.074">
+            <system-err>
+Warning: Failed prop type: MUI: You are providing an onClick event listener to a child of a button element.
+Prefer applying it to the IconButton directly.
+This guarantees that the whole &lt;button&gt; will be responsive to click events.
+    at IconButton (E:\Nauka\tradingApp\ui\trading-app\node_modules\@mui\material\node\IconButton\IconButton.js:113:44)
+    at BaseDialog (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialog.tsx:10:3)
+    at BaseDialogOpener (E:\Nauka\tradingApp\ui\trading-app\src\components\presentational\BaseDialogOpener.tsx:10:3)
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/Button.test.tsx" timestamp="2024-08-24T12:11:58.446Z" hostname="LAPTOP-BEK9E24L" tests="6" failures="0" errors="0" skipped="0" time="0.155">
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with given text" time="0.098">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a disabled button when disabled prop is true" time="0.008">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; calls onClick handler when button is clicked" time="0.014">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a secondary button when secondary prop is true" time="0.017">
         </testcase>
         <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with startIcon when startIcon prop is provided" time="0.009">
         </testcase>
         <testcase classname="src/components/presentational/__tests__/Button.test.tsx" name="CommonButton component tests &gt; renders a button with specified type" time="0.006">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/ButtonBar.test.tsx" timestamp="2024-08-23T13:06:34.502Z" hostname="DESKTOP-MSMMV6A" tests="3" failures="0" errors="0" skipped="0" time="0.063">
-        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with children" time="0.05">
+    <testsuite name="src/components/presentational/__tests__/ButtonBar.test.tsx" timestamp="2024-08-24T12:11:58.448Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.084">
+        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with children" time="0.064">
         </testcase>
-        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with multiple children" time="0.006">
+        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with multiple children" time="0.01">
         </testcase>
-        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with outlined variant" time="0.006">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/components/presentational/__tests__/CypherBChart.test.tsx" timestamp="2024-08-23T13:06:34.503Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.033">
-        <testcase classname="src/components/presentational/__tests__/CypherBChart.test.tsx" name="CypherBChart &gt; should render the CypherBChart component" time="0.031">
+        <testcase classname="src/components/presentational/__tests__/ButtonBar.test.tsx" name="ButtonBar component tests &gt; renders a button group with outlined variant" time="0.009">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/Dropdown.test.tsx" timestamp="2024-08-23T13:06:34.503Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.169">
-        <testcase classname="src/components/presentational/__tests__/Dropdown.test.tsx" name="Dropdown component tests &gt; Should render disabled input" time="0.167">
+    <testsuite name="src/components/presentational/__tests__/CypherBChart.test.tsx" timestamp="2024-08-24T12:11:58.448Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.042">
+        <testcase classname="src/components/presentational/__tests__/CypherBChart.test.tsx" name="CypherBChart &gt; should render the CypherBChart component" time="0.04">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" timestamp="2024-08-23T13:06:34.503Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.207">
-        <testcase classname="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" name="FormDateTimePicker component tests &gt; should render the DateTimePicker with the correct label" time="0.205">
+    <testsuite name="src/components/presentational/__tests__/Dropdown.test.tsx" timestamp="2024-08-24T12:11:58.449Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.409">
+        <testcase classname="src/components/presentational/__tests__/Dropdown.test.tsx" name="Dropdown component tests &gt; Should render disabled input" time="0.406">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/FormDropdown.test.tsx" timestamp="2024-08-23T13:06:34.504Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.315">
-        <testcase classname="src/components/presentational/__tests__/FormDropdown.test.tsx" name="FormDropdown tests &gt; renders correctly with given options" time="0.314">
+    <testsuite name="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" timestamp="2024-08-24T12:11:58.449Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.332">
+        <testcase classname="src/components/presentational/__tests__/FormDateTimePicker.test.tsx" name="FormDateTimePicker component tests &gt; should render the DateTimePicker with the correct label" time="0.329">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/presentational/__tests__/FormDropdown.test.tsx" timestamp="2024-08-24T12:11:58.450Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.407">
+        <testcase classname="src/components/presentational/__tests__/FormDropdown.test.tsx" name="FormDropdown tests &gt; renders correctly with given options" time="0.401">
             <system-err>
 MUI: You have provided an out-of-range value `undefined` for the select component.
 Consider providing a value that matches one of the available options or &apos;&apos;.
@@ -138,40 +295,40 @@ The available values are `Daily`, `Hourly`, `FiveMins`.
             </system-err>
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/FormInput.test.tsx" timestamp="2024-08-23T13:06:34.504Z" hostname="DESKTOP-MSMMV6A" tests="2" failures="0" errors="0" skipped="0" time="0.187">
-        <testcase classname="src/components/presentational/__tests__/FormInput.test.tsx" name="renders FormInput component with text type" time="0.153">
+    <testsuite name="src/components/presentational/__tests__/FormInput.test.tsx" timestamp="2024-08-24T12:11:58.451Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.22">
+        <testcase classname="src/components/presentational/__tests__/FormInput.test.tsx" name="renders FormInput component with text type" time="0.173">
         </testcase>
-        <testcase classname="src/components/presentational/__tests__/FormInput.test.tsx" name="renders FormInput component with number type" time="0.033">
-        </testcase>
-    </testsuite>
-    <testsuite name="src/components/presentational/__tests__/FormToggle.test.tsx" timestamp="2024-08-23T13:06:34.505Z" hostname="DESKTOP-MSMMV6A" tests="3" failures="0" errors="0" skipped="0" time="0.24">
-        <testcase classname="src/components/presentational/__tests__/FormToggle.test.tsx" name="FormToggle &gt; renders correctly with the initial value" time="0.18">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/FormToggle.test.tsx" name="FormToggle &gt; toggles the value on click" time="0.042">
-        </testcase>
-        <testcase classname="src/components/presentational/__tests__/FormToggle.test.tsx" name="FormToggle &gt; respects the initial value from defaultValues" time="0.017">
+        <testcase classname="src/components/presentational/__tests__/FormInput.test.tsx" name="renders FormInput component with number type" time="0.046">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/OhlcChart.test.tsx" timestamp="2024-08-23T13:06:34.506Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.029">
-        <testcase classname="src/components/presentational/__tests__/OhlcChart.test.tsx" name="OhlcChart &gt; should render the OhlcChart component" time="0.028">
+    <testsuite name="src/components/presentational/__tests__/FormToggle.test.tsx" timestamp="2024-08-24T12:11:58.451Z" hostname="LAPTOP-BEK9E24L" tests="3" failures="0" errors="0" skipped="0" time="0.304">
+        <testcase classname="src/components/presentational/__tests__/FormToggle.test.tsx" name="FormToggle &gt; renders correctly with the initial value" time="0.227">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/FormToggle.test.tsx" name="FormToggle &gt; toggles the value on click" time="0.05">
+        </testcase>
+        <testcase classname="src/components/presentational/__tests__/FormToggle.test.tsx" name="FormToggle &gt; respects the initial value from defaultValues" time="0.026">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/presentational/__tests__/SrsiChart.test.tsx" timestamp="2024-08-23T13:06:34.506Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.034">
-        <testcase classname="src/components/presentational/__tests__/SrsiChart.test.tsx" name="SrsiChart &gt; should render the SrsiChart component" time="0.031">
+    <testsuite name="src/components/presentational/__tests__/OhlcChart.test.tsx" timestamp="2024-08-24T12:11:58.452Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.035">
+        <testcase classname="src/components/presentational/__tests__/OhlcChart.test.tsx" name="OhlcChart &gt; should render the OhlcChart component" time="0.032">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/root/__tests__/ErrorFallback.test.tsx" timestamp="2024-08-23T13:06:34.506Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.032">
+    <testsuite name="src/components/presentational/__tests__/SrsiChart.test.tsx" timestamp="2024-08-24T12:11:58.452Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.038">
+        <testcase classname="src/components/presentational/__tests__/SrsiChart.test.tsx" name="SrsiChart &gt; should render the SrsiChart component" time="0.035">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/root/__tests__/ErrorFallback.test.tsx" timestamp="2024-08-24T12:11:58.453Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.033">
         <testcase classname="src/components/root/__tests__/ErrorFallback.test.tsx" name="Root component tests &gt; Error Boundary - catches error thrown by child component" time="0.03">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/root/__tests__/root.component.test.tsx" timestamp="2024-08-23T13:06:34.507Z" hostname="DESKTOP-MSMMV6A" tests="1" failures="0" errors="0" skipped="0" time="0.027">
-        <testcase classname="src/components/root/__tests__/root.component.test.tsx" name="Root component tests &gt; Root - renders" time="0.026">
+    <testsuite name="src/components/root/__tests__/root.component.test.tsx" timestamp="2024-08-24T12:11:58.453Z" hostname="LAPTOP-BEK9E24L" tests="1" failures="0" errors="0" skipped="0" time="0.039">
+        <testcase classname="src/components/root/__tests__/root.component.test.tsx" name="Root component tests &gt; Root - renders" time="0.037">
         </testcase>
     </testsuite>
-    <testsuite name="src/components/root/__tests__/routerConfig.test.tsx" timestamp="2024-08-23T13:06:34.507Z" hostname="DESKTOP-MSMMV6A" tests="2" failures="0" errors="0" skipped="0" time="0.283">
-        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - SimpleCharts path - returns simpleChartsContainer" time="0.236">
+    <testsuite name="src/components/root/__tests__/routerConfig.test.tsx" timestamp="2024-08-24T12:11:58.454Z" hostname="LAPTOP-BEK9E24L" tests="2" failures="0" errors="0" skipped="0" time="0.433">
+        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - SimpleCharts path - returns simpleChartsContainer" time="0.348">
         </testcase>
-        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - AdvancedCharts path - returns AdvancedChartsView" time="0.045">
+        <testcase classname="src/components/root/__tests__/routerConfig.test.tsx" name="router config tests &gt; render router - AdvancedCharts path - returns AdvancedChartsView" time="0.083">
         </testcase>
     </testsuite>
 </testsuites>
