@@ -12,8 +12,10 @@ public class GetTokenCommandHandler : IRequestHandler<GetTokenCommand, ServiceRe
 
     public GetTokenCommandHandler(IJwtProvider jwtProvider, ILogger<GetTokenCommandHandler> logger)
     {
-        _jwtProvider = jwtProvider ?? throw new ArgumentNullException(nameof(jwtProvider));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        ArgumentNullException.ThrowIfNull(jwtProvider);
+        ArgumentNullException.ThrowIfNull(logger);
+        _jwtProvider = jwtProvider;
+        _logger = logger;
     }
 
     public Task<ServiceResponse<string>> Handle(

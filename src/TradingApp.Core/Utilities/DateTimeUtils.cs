@@ -1,19 +1,29 @@
-﻿using System.Globalization;
+﻿using FluentResults;
+using System.Globalization;
+using TradingApp.Core.Models;
 
 namespace TradingApp.Core.Utilities;
 
 public static class DateTimeUtils
 {
-    private const string ISO8601_1 = "yyyy-MM-ddTHH:mm:ss.fffZ";
-    private const string ISO8601_2 = "yyyy-MM-ddTHH:mm:sszzz";
+    private const string Iso86011 = "yyyy-MM-ddTHH:mm:ss.fffZ";
+    private const string Iso86012 = "yyyy-MM-ddTHH:mm:sszzz";
+
     /// <summary>
     /// Parse local date time string to UTC DateTime
     /// </summary>
     /// <param name="dateString"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public static DateTime ConvertIso8601_1DateStringToDateTime(string dateString) =>
-        DateTime.SpecifyKind(ParseIso8601(dateString, ISO8601_1), DateTimeKind.Utc);
+    public static Result<DateTime> ConvertIso8601_1DateStringToDateTime(string dateString)
+    {
+        var parseResult = ParseIso8601(dateString, Iso86011);
+
+        if (!parseResult.IsSuccess)
+            return parseResult;
+        var specifiedDate = DateTime.SpecifyKind(parseResult.Value, DateTimeKind.Utc);
+        return Result.Ok(specifiedDate);
+    }
 
     /// <summary>
     /// Parse UTC date time string to UTC DateTime
@@ -22,12 +32,13 @@ public static class DateTimeUtils
     /// <returns></returns>
     /// example: 1997-07-16T19:20:30+01:00
     /// <exception cref="ArgumentException"></exception>
-    public static DateTime ConvertUtcIso8601_2DateStringToDateTime(string dateString) => ParseIso8601(dateString, ISO8601_2);
+    public static Result<DateTime> ConvertUtcIso8601_2DateStringToDateTime(string dateString) =>
+        ParseIso8601(dateString, Iso86012);
 
     public static string ConvertDateTimeToIso8601_2String(DateTime dateTime) =>
-        dateTime.ToString(ISO8601_2);
+        dateTime.ToString(Iso86012);
 
-    private static DateTime ParseIso8601(string dateString, string format) =>
+    private static Result<DateTime> ParseIso8601(string dateString, string format) =>
         DateTime.TryParseExact(
             dateString,
             format,
@@ -35,8 +46,8 @@ public static class DateTimeUtils
             DateTimeStyles.AdjustToUniversal,
             out var parsedDate
         )
-            ? parsedDate
-            : throw new ArgumentException("Invalid ISO 8601 date string.", nameof(dateString));
+            ? Result.Ok(parsedDate)
+            : Result.Fail(new ValidationError("Invalid ISO 8601 date string."));
 
     public static DateTime ParseDateTime(string dateInput, string timeInput)
     {
@@ -54,21 +65,14 @@ public static class DateTimeUtils
             DateTimeStyles.None,
             out var parsedTime
         );
-        if (dateParsed && timeParsed)
+        switch (dateParsed)
         {
-            return parsedDate.Date + parsedTime.TimeOfDay;
+            case true when timeParsed:
+                return parsedDate.Date + parsedTime.TimeOfDay;
+            case true:
+                return parsedDate.Date;
         }
 
-        if (dateParsed)
-        {
-            return parsedDate.Date;
-        }
-
-        if (timeParsed)
-        {
-            return parsedTime;
-        }
-
-        return DateTime.MinValue;
+        return timeParsed ? parsedTime : DateTime.MinValue;
     }
 }

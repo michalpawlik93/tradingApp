@@ -33,15 +33,15 @@ public class TingoQuoteMapperTests
             )
         };
         // Act
-        var quotes = tingoQuotes.MapToQuotes();
+        var quotes = tingoQuotes.MapToQuotes().Value;
 
         // Assert
         quotes.Should().HaveCount(1);
-        quotes.First().Open.Should().Be(3914.7494m);
-        quotes.First().High.Should().Be(3914.7494m);
-        quotes.First().Low.Should().Be(3914.7494m);
-        quotes.First().Close.Should().Be(3914.7494m);
-        quotes.First().Volume.Should().Be(3914.7494m);
+        quotes[0].Open.Should().Be(3914.7494m);
+        quotes[0].High.Should().Be(3914.7494m);
+        quotes[0].Low.Should().Be(3914.7494m);
+        quotes[0].Close.Should().Be(3914.7494m);
+        quotes[0].Volume.Should().Be(3914.7494m);
     }
 
     [Fact]
@@ -53,6 +53,6 @@ public class TingoQuoteMapperTests
         var quotes = tingoQuotes.MapToQuotes();
 
         // Assert
-        quotes.Should().HaveCount(0);
+        quotes.Value.Should().HaveCount(0);
     }
 }

@@ -24,9 +24,9 @@ public class TimeFrameDtoMapperTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Granularity.Should().Be(Granularity.Daily);
-        result.StartDate.Should().NotBeNull();
-        result.EndDate.Should().NotBeNull();
+        result.Value.Granularity.Should().Be(Granularity.Daily);
+        result.Value.StartDate.Should().NotBeNull();
+        result.Value.EndDate.Should().NotBeNull();
     }
 
     //[Fact]

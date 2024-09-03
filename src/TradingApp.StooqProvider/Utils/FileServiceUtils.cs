@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using FluentResults;
+using System.Diagnostics.CodeAnalysis;
+using TradingApp.Core.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.StooqProvider.Constants;
 
@@ -7,7 +9,7 @@ namespace TradingApp.StooqProvider.Utils;
 [ExcludeFromCodeCoverage]
 public static class FileServiceUtils
 {
-    public static string GetZipFilePath(this Granularity granularity) =>
+    public static Result<string> GetZipFilePath(this Granularity granularity) =>
         granularity switch
         {
             Granularity.Daily
@@ -25,27 +27,30 @@ public static class FileServiceUtils
                     StooqFoldersConsts.SubdirectoryPath,
                     Granularity.FiveMins + StooqFoldersConsts.Extension
                 ),
-            _ => throw new ArgumentException("Invalid type", nameof(granularity)),
+            _ => Result.Fail(new ValidationError($"Invalid type, {nameof(granularity)}")),
         };
 
-    public static string GetGranularityPath(this Granularity granularity) =>
+    public static Result<string> GetGranularityPath(this Granularity granularity) =>
         granularity switch
         {
             Granularity.Daily => "daily/",
             Granularity.Hourly => "hourly/",
             Granularity.FiveMins => "5 min/",
-            _ => throw new ArgumentException($"No exisiting {nameof(granularity)}: {granularity}"),
+            _
+                => Result.Fail(
+                    new ValidationError($"No existing {nameof(granularity)}: {granularity}")
+                ),
         };
 
-    public static string GetAssetTypePath(this AssetType assetType) =>
+    public static Result<string> GetAssetTypePath(this AssetType assetType) =>
         assetType switch
         {
             AssetType.Cryptocurrency => "cryptocurrencies/",
             AssetType.Currencies => "currencies/major/",
-            _ => throw new ArgumentException($"No exisiting {nameof(assetType)}: {assetType}"),
+            _ => Result.Fail(new ValidationError($"No existing {nameof(assetType)}: {assetType}")),
         };
 
-    public static string GetAssetFileName(this AssetName assetName) =>
+    public static Result<string> GetAssetFileName(this AssetName assetName) =>
         assetName switch
         {
             AssetName.ANC => "anc.v.txt",
@@ -53,27 +58,50 @@ public static class FileServiceUtils
             AssetName.BTCUSD => "btc.v.txt",
             AssetName.USDPLN => "usdpln.txt",
             AssetName.EURPLN => "eurpln.txt",
-            _ => throw new ArgumentException($"No exisiting {nameof(assetName)}: {assetName}"),
+            _ => Result.Fail(new ValidationError($"No existing {nameof(assetName)}: {assetName}")),
         };
 
-    public static string AncvFilePath(
+    public static Result<string> AncvFilePath(
         Granularity granularity,
         AssetType assetType,
         AssetName assetName
-    ) =>
-        Path.Join(
+    )
+    {
+        // Get the path components, ensuring each returns a Result<string>
+        var granularityPathResult = granularity.GetGranularityPath();
+        if (granularityPathResult.IsFailed)
+        {
+            return granularityPathResult.ToResult();
+        }
+
+        var assetTypePathResult = assetType.GetAssetTypePath();
+        if (assetTypePathResult.IsFailed)
+        {
+            return assetTypePathResult.ToResult();
+        }
+
+        var assetFileNameResult = assetName.GetAssetFileName();
+        if (assetFileNameResult.IsFailed)
+        {
+            return assetFileNameResult.ToResult();
+        }
+
+        var filePath = Path.Join(
             "data/",
-            granularity.GetGranularityPath(),
+            granularityPathResult.Value,
             "world/",
-            assetType.GetAssetTypePath(),
-            assetName.GetAssetFileName()
+            assetTypePathResult.Value,
+            assetFileNameResult.Value
         );
 
-    public static string FileLocation(Granularity granularity) =>
+        return Result.Ok(filePath);
+    }
+
+    public static Result<string> FileLocation(Granularity granularity) =>
         granularity switch
         {
             Granularity.Daily => "db/d/?b=d_world_txt",
             Granularity.Hourly => "db/d/?b=h_world_txt",
-            _ => throw new ArgumentException("Invalid type", nameof(granularity)),
+            _ => Result.Fail(new ValidationError($"Invalid type, nameof(granularity)")),
         };
 }

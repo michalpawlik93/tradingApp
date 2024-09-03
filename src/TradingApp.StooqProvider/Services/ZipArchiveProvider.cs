@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using FluentResults;
+using System.Diagnostics.CodeAnalysis;
 using System.IO.Compression;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.StooqProvider.Abstraction;
@@ -9,13 +10,28 @@ namespace TradingApp.StooqProvider.Services;
 [ExcludeFromCodeCoverage]
 internal class ZipArchiveProvider : IZipArchiveProvider
 {
-    public ZipArchiveEntry GetEntry(ZipArchive zipArchive, Granularity granularity, AssetType type, AssetName name)
+    public Result<ZipArchiveEntry> GetEntry(
+        ZipArchive zipArchive,
+        Granularity granularity,
+        AssetType type,
+        AssetName name
+    )
     {
-        return zipArchive.GetEntry(FileServiceUtils.AncvFilePath(granularity, type, name));
+        var path = FileServiceUtils.AncvFilePath(granularity, type, name);
+        if (path.IsFailed)
+        {
+            path.ToResult();
+        }
+        return zipArchive.GetEntry(path.Value);
     }
 
-    public ZipArchive OpenRead(Granularity granularity)
+    public Result<ZipArchive> OpenRead(Granularity granularity)
     {
-        return ZipFile.OpenRead(granularity.GetZipFilePath());
+        var path = granularity.GetZipFilePath();
+        if (path.IsFailed)
+        {
+            path.ToResult();
+        }
+        return ZipFile.OpenRead(path.Value);
     }
 }

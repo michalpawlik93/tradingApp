@@ -30,7 +30,8 @@ public class TingoProvider : ITingoProvider
         }
         var response = await _tingoClient.Client.GetAsync(UrlMapper.GetCryptoQuotesUri(asset, timeFrame), cancellationToken);
         var result = await response.GetResultAsync<TingoQuote[]>();
-        return result.IsSuccess ? result.ToResult(TingoQuoteMapper.MapToQuotes) : result.ToResult<IReadOnlyList<Quote>>();
+
+        return result.IsSuccess ? result.Value.MapToQuotes() : result.ToResult<IReadOnlyList<Quote>>();
     }
 
     public async Task<Result<CryptocurrencyMetadata[]>> GetTickerMetadata(Asset asset, CancellationToken cancellationToken)

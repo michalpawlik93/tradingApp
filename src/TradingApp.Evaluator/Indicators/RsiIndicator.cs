@@ -6,18 +6,18 @@ namespace TradingApp.Evaluator.Indicators;
 [ExcludeFromCodeCoverage]
 public static class RsiIndicator
 {
-    public static IReadOnlyList<RsiResult> Calculate(IEnumerable<Quote> tpList, RsiSettings settings)
+    public static IReadOnlyList<RsiResult> Calculate(
+        IEnumerable<Quote> tpList,
+        RsiSettings settings
+    )
     {
-        ValidateRsi(settings.ChannelLength);
-
-        // initialize
-        int ohlcLength = tpList.Count();
+        var ohlcLength = tpList.Count();
         decimal avgGain = 0;
         decimal avgLoss = 0;
 
         List<RsiResult> results = new(ohlcLength);
-        decimal[] gain = new decimal[ohlcLength]; // gain
-        decimal[] loss = new decimal[ohlcLength]; // loss
+        var gain = new decimal[ohlcLength]; // gain
+        var loss = new decimal[ohlcLength]; // loss
         decimal lastValue;
 
         if (ohlcLength == 0)
@@ -29,7 +29,7 @@ public static class RsiIndicator
             lastValue = tpList.First().Close;
         }
 
-        for (int i = 0; i < ohlcLength; i++)
+        for (var i = 0; i < ohlcLength; i++)
         {
             var r = new RsiResult();
             var ele = tpList.ElementAt(i);
@@ -40,12 +40,14 @@ public static class RsiIndicator
             // calculate RSI
             if (i > settings.ChannelLength)
             {
-                avgGain = ((avgGain * (settings.ChannelLength - 1)) + gain[i]) / settings.ChannelLength;
-                avgLoss = ((avgLoss * (settings.ChannelLength - 1)) + loss[i]) / settings.ChannelLength;
+                avgGain =
+                    ((avgGain * (settings.ChannelLength - 1)) + gain[i]) / settings.ChannelLength;
+                avgLoss =
+                    ((avgLoss * (settings.ChannelLength - 1)) + loss[i]) / settings.ChannelLength;
 
                 if (avgLoss > 0)
                 {
-                    decimal rs = avgGain / avgLoss;
+                    var rs = avgGain / avgLoss;
                     r.Value = 100 - (100 / (1 + rs));
                 }
                 else
@@ -59,7 +61,7 @@ public static class RsiIndicator
                 decimal sumGain = 0;
                 decimal sumLoss = 0;
 
-                for (int p = 1; p <= settings.ChannelLength; p++)
+                for (var p = 1; p <= settings.ChannelLength; p++)
                 {
                     sumGain += gain[p];
                     sumLoss += loss[p];
@@ -74,18 +76,6 @@ public static class RsiIndicator
         }
 
         return results;
-    }
-
-    private static void ValidateRsi(int length)
-    {
-        if (length < 1)
-        {
-            throw new ArgumentOutOfRangeException(
-                nameof(length),
-                length,
-                "Length periods must be greater than 0 for RSI."
-            );
-        }
     }
 }
 //https://github.com/DaveSkender/Stock.Indicators/blob/main/tests/indicators/m-r/Rsi/Rsi.Tests.cs

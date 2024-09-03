@@ -10,7 +10,6 @@ using TradingApp.Module.Quotes.Authentication.Configuration;
 using TradingApp.Module.Quotes.Authentication.Errors;
 using TradingApp.Module.Quotes.Authentication.Models;
 
-
 namespace TradingApp.Module.Quotes.Authentication.Services;
 
 public class JwtProvider : IJwtProvider
@@ -20,8 +19,10 @@ public class JwtProvider : IJwtProvider
 
     public JwtProvider(ILogger<JwtProvider> logger, IOptions<JwtOptions> jwtOptions)
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _jwtOptions = jwtOptions ?? throw new ArgumentNullException(nameof(jwtOptions));
+        ArgumentNullException.ThrowIfNull(logger);
+        ArgumentNullException.ThrowIfNull(jwtOptions);
+        _logger = logger;
+        _jwtOptions = jwtOptions;
     }
 
     public Result<string> Generate(User user)
@@ -57,8 +58,8 @@ public class JwtProvider : IJwtProvider
             Subject = new ClaimsIdentity(
                 new[]
                 {
-                new Claim(JwtRegisteredClaimNames.Sub, _jwtOptions.Value.Issuer),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Sub, _jwtOptions.Value.Issuer),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }
             ),
             Expires = DateTime.UtcNow.AddHours(1),

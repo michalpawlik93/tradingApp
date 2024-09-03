@@ -20,13 +20,32 @@ public record GetCypherBCommand(
 
 public static class GetCypherBCommandExtensions
 {
-    public static GetCypherBCommand CreateCommand(this GetCypherBDto request) =>
-        new(
-            TimeFrameDtoMapper.ToDomainModel(request.TimeFrame),
-            AssetDtoMapper.ToDomainModel(request.Asset),
-            WaveTrendSettingsDtoMapper.ToDomainModel(request.WaveTrendSettings),
-            SRsiSettingsDtoMapper.ToDomainModel(request.SrsiSettings),
-            new MfiSettings(request.MfiSettings.ChannelLength, MfiSettingsConst.ScaleFactor),
-            TradingStrategyMapper.Map(request.TradingStrategy)
+    public static Result<GetCypherBCommand> CreateCommand(this GetCypherBDto request)
+    {
+        var timeFrameResult = TimeFrameDtoMapper.ToDomainModel(request.TimeFrame);
+        if (timeFrameResult.IsFailed)
+        {
+            return timeFrameResult.ToResult();
+        }
+
+        var asset = AssetDtoMapper.ToDomainModel(request.Asset);
+        var waveTrendSettings = WaveTrendSettingsDtoMapper.ToDomainModel(request.WaveTrendSettings);
+        var srsiSettings = SRsiSettingsDtoMapper.ToDomainModel(request.SrsiSettings);
+        var mfiSettings = new MfiSettings(
+            request.MfiSettings.ChannelLength,
+            MfiSettingsConst.ScaleFactor
         );
+        var tradingStrategy = TradingStrategyMapper.Map(request.TradingStrategy);
+
+        var command = new GetCypherBCommand(
+            timeFrameResult.Value,
+            asset,
+            waveTrendSettings,
+            srsiSettings,
+            mfiSettings,
+            tradingStrategy
+        );
+
+        return Result.Ok(command);
+    }
 }

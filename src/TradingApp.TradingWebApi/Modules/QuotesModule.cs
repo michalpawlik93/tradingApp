@@ -32,12 +32,18 @@ public static class QuotesModule
                 "/quotes/combinedquotes",
                 [AllowAnonymous]
         async ([FromBody] GetQuotesDtoRequest request, IMediator mediator) =>
-                    HttpResultMapper.MapToResult(await mediator.Send(request.CreateCommand()))
+                {
+                    var commandResult = request.CreateCommand();
+
+                    return commandResult.IsFailed
+                        ? HttpResultMapper.MapToResult(commandResult)
+                        : HttpResultMapper.MapToResult(await mediator.Send(commandResult.Value));
+                }
             )
             .AddEndpointFilter<ValidatorFilter<GetQuotesDtoRequest>>()
             .WithName("Get combined quotes")
             .WithDescription(
-                "Get quotes after evaluation. Specify time frame and type of technical indicies"
+                "Get quotes after evaluation. Specify time frame and type of technical indices"
             )
             .WithOpenApi();
 
@@ -45,7 +51,12 @@ public static class QuotesModule
                 "/quotes/cypherb",
                 [AllowAnonymous]
         async ([FromBody] GetCypherBDto request, IMediator mediator) =>
-                    HttpResultMapper.MapToResult(await mediator.Send(request.CreateCommand()))
+                {
+                    var commandResult = request.CreateCommand();
+                    return commandResult.IsFailed
+                        ? HttpResultMapper.MapToResult(commandResult)
+                        : HttpResultMapper.MapToResult(await mediator.Send(commandResult.Value));
+                }
             )
             .AddEndpointFilter<ValidatorFilter<GetCypherBDto>>()
             .WithName("Get cypherb technical indicator for quotes in time range")

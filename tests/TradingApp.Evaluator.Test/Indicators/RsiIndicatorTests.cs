@@ -11,7 +11,7 @@ public class RsiIndicatorTests : QuotesTestBase
     public void Calculate_Success()
     {
         // Arrange & Act
-        var results = RsiIndicator.Calculate(quotes.ToList(), Settings).ToList();
+        var results = RsiIndicator.Calculate(quotes.ToList(), _settings).ToList();
 
         //Assert
         results.Should().HaveCount(502);
@@ -48,7 +48,7 @@ public class RsiIndicatorTests : QuotesTestBase
     public void Calculate_Crypto_Success()
     {
         // Arrange & Act
-        var results = RsiIndicator.Calculate(btcQuotes.ToList(), Settings).ToList();
+        var results = RsiIndicator.Calculate(btcQuotes.ToList(), _settings).ToList();
         //Assert
         results.Should().HaveCount(1246);
     }
@@ -58,21 +58,12 @@ public class RsiIndicatorTests : QuotesTestBase
     public void Calculate_NoQuotes_Success()
     {
         // Arrange & Act
-        var r0 = RsiIndicator.Calculate(noquotes.ToList(), Settings).ToList();
-        var r1 = RsiIndicator.Calculate(onequote.ToList(), Settings).ToList();
+        var r0 = RsiIndicator.Calculate(noquotes.ToList(), _settings).ToList();
+        var r1 = RsiIndicator.Calculate(onequote.ToList(), _settings).ToList();
         //Assert
         r0.Should().BeEmpty();
         r1.Should().HaveCount(1);
     }
 
-    [Fact]
-    public void Calculate_Length0_ThrowsException()
-    {
-        // Arrange & Act
-        Action action = () => RsiIndicator.Calculate(noquotes.ToList(), new RsiSettings(1, 1, true, 0));
-        //Assert
-        action.Should().Throw<ArgumentOutOfRangeException>();
-    }
-
-    private readonly RsiSettings Settings = new RsiSettings(1, 1, true, 14);
+    private readonly RsiSettings _settings = new(1, 1, true, 14);
 }

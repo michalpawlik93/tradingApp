@@ -29,7 +29,11 @@ public class MongoDataService<TDomain, TDao> : IEntityDataService<TDomain>
         try
         {
             var dao = _mapper.ToDao(entity);
-            await _collection.InsertOneAsync(dao, new InsertOneOptions(), cancellationToken);
+            if (dao.IsFailed)
+            {
+                return dao.ToResult();
+            }
+            await _collection.InsertOneAsync(dao.Value, new InsertOneOptions(), cancellationToken);
             return Result.Ok();
         }
         catch (Exception)
@@ -54,7 +58,7 @@ public class MongoDataService<TDomain, TDao> : IEntityDataService<TDomain>
                 return Result.Fail($"{nameof(TDomain)} not found in database");
             }
             var domain = _mapper.ToDomain(dao);
-            return Result.Ok(domain);
+            return domain.IsFailed ? domain.ToResult() : Result.Ok(domain.Value);
         }
         catch (Exception)
         {

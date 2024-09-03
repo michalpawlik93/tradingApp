@@ -21,12 +21,29 @@ public record GetCombinedQuotesCommand(
 
 public static class GetCombinedQuotesCommandExtensions
 {
-    public static GetCombinedQuotesCommand CreateCommand(this GetQuotesDtoRequest request) =>
-        new(
-            TechnicalIndicatorMapper.ToDomainModel(request.TechnicalIndicators),
-            TimeFrameDtoMapper.ToDomainModel(request.TimeFrame),
-            AssetDtoMapper.ToDomainModel(request.Asset),
-            TradingStrategyMapper.Map(request.TradingStrategy),
-            SRsiSettingsDtoMapper.ToDomainModel(request.SrsiSettings)
+    public static Result<GetCombinedQuotesCommand> CreateCommand(this GetQuotesDtoRequest request)
+    {
+        var timeFrameResult = TimeFrameDtoMapper.ToDomainModel(request.TimeFrame);
+        if (timeFrameResult.IsFailed)
+        {
+            return timeFrameResult.ToResult();
+        }
+
+        var technicalIndicators = TechnicalIndicatorMapper.ToDomainModel(
+            request.TechnicalIndicators
         );
+        var asset = AssetDtoMapper.ToDomainModel(request.Asset);
+        var tradingStrategy = TradingStrategyMapper.Map(request.TradingStrategy);
+        var srsiSettings = SRsiSettingsDtoMapper.ToDomainModel(request.SrsiSettings);
+
+        var command = new GetCombinedQuotesCommand(
+            technicalIndicators,
+            timeFrameResult.Value,
+            asset,
+            tradingStrategy,
+            srsiSettings
+        );
+
+        return Result.Ok(command);
+    }
 }

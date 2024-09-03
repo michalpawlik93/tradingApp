@@ -1,4 +1,6 @@
-﻿using TradingApp.Core.Utilities;
+﻿using FluentAssertions;
+using TradingApp.Core.Models;
+using TradingApp.Core.Utilities;
 
 namespace TradingApp.Core.Tests.Utilities;
 
@@ -15,19 +17,20 @@ public class DateTimeUtilsTests
         var result = DateTimeUtils.ConvertUtcIso8601_2DateStringToDateTime(dateString);
 
         // Assert
-        Assert.Equal(expectedDateTime, result);
+        result.Value.Should().Be(expectedDateTime);
     }
 
     [Fact]
-    public void ConvertIso8601_1DateStringToDateTime_InvalidDateString_ThrowsArgumentException()
+    public void ConvertIso8601_1DateStringToDateTime_InvalidDateString_ReturnsValidationError()
     {
         // Arrange
         var dateString = "invalid-date";
 
-        // Act & Assert
-        Assert.Throws<ArgumentException>(
-            () => DateTimeUtils.ConvertIso8601_1DateStringToDateTime(dateString)
-        );
+        // Act
+        var result = DateTimeUtils.ConvertIso8601_1DateStringToDateTime(dateString);
+        // Assert
+        result.IsFailed.Should().BeTrue();
+        result.HasError<ValidationError>();
     }
 
     [Fact]
@@ -41,7 +44,7 @@ public class DateTimeUtilsTests
         var result = DateTimeUtils.ConvertIso8601_1DateStringToDateTime(dateString);
 
         // Assert
-        Assert.Equal(expectedDateTime, result);
+        result.Value.Should().Be(expectedDateTime);
     }
 
     [Fact]

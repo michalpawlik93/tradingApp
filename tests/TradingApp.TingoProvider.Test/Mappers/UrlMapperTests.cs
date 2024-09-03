@@ -32,8 +32,8 @@ public class UrlMapperTests
         var endDate = "2020-01-02T00:00:00+00:00";
         var timeFrame = new TimeFrame(
             Granularity.FiveMins,
-            DateTimeUtils.ConvertUtcIso8601_2DateStringToDateTime(startDate),
-            DateTimeUtils.ConvertUtcIso8601_2DateStringToDateTime(endDate)
+            DateTimeUtils.ConvertUtcIso8601_2DateStringToDateTime(startDate).Value,
+            DateTimeUtils.ConvertUtcIso8601_2DateStringToDateTime(endDate).Value
         );
         var asset = new Asset(AssetName.CUREBTC, AssetType.Cryptocurrency);
         // Act

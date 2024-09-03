@@ -22,13 +22,16 @@ public class FileServiceUtilsTests
     [InlineData(Granularity.Daily, "daily/")]
     [InlineData(Granularity.Hourly, "hourly/")]
     [InlineData(Granularity.FiveMins, "5 min/")]
-    public void GetGranularityPath_ShouldReturnCorrectPath(Granularity granularity, string expectedPath)
+    public void GetGranularityPath_ShouldReturnCorrectPath(
+        Granularity granularity,
+        string expectedPath
+    )
     {
         // Act
         var result = granularity.GetGranularityPath();
 
         // Assert
-        Assert.Equal(expectedPath, result);
+        Assert.Equal(expectedPath, result.Value);
     }
 
     [Theory]
@@ -40,57 +43,83 @@ public class FileServiceUtilsTests
         var result = assetType.GetAssetTypePath();
 
         // Assert
-        Assert.Equal(expectedPath, result);
+        Assert.Equal(expectedPath, result.Value);
     }
 
     [Theory]
     [InlineData(AssetName.ANC, "anc.v.txt")]
     [InlineData(AssetName.BTC, "btc.v.txt")]
     [InlineData(AssetName.USDPLN, "usdpln.txt")]
-    public void GetAssetFileName_ShouldReturnCorrectFileName(AssetName assetName, string expectedFileName)
+    public void GetAssetFileName_ShouldReturnCorrectFileName(
+        AssetName assetName,
+        string expectedFileName
+    )
     {
         // Act
         var result = assetName.GetAssetFileName();
 
         // Assert
-        Assert.Equal(expectedFileName, result);
+        Assert.Equal(expectedFileName, result.Value);
     }
 
     [Theory]
-    [InlineData(Granularity.Daily, AssetType.Currencies, AssetName.USDPLN, "data/daily/world/currencies/major/usdpln.txt")]
-    [InlineData(Granularity.Hourly, AssetType.Cryptocurrency, AssetName.BTC, "data/hourly/world/cryptocurrencies/btc.v.txt")]
-    [InlineData(Granularity.FiveMins, AssetType.Currencies, AssetName.ANC, "data/5 min/world/currencies/major/anc.v.txt")]
-    public void AncvFilePath_ShouldReturnCorrectFilePath(Granularity granularity, AssetType assetType, AssetName assetName, string expectedFilePath)
+    [InlineData(
+        Granularity.Daily,
+        AssetType.Currencies,
+        AssetName.USDPLN,
+        "data/daily/world/currencies/major/usdpln.txt"
+    )]
+    [InlineData(
+        Granularity.Hourly,
+        AssetType.Cryptocurrency,
+        AssetName.BTC,
+        "data/hourly/world/cryptocurrencies/btc.v.txt"
+    )]
+    [InlineData(
+        Granularity.FiveMins,
+        AssetType.Currencies,
+        AssetName.ANC,
+        "data/5 min/world/currencies/major/anc.v.txt"
+    )]
+    public void AncvFilePath_ShouldReturnCorrectFilePath(
+        Granularity granularity,
+        AssetType assetType,
+        AssetName assetName,
+        string expectedFilePath
+    )
     {
         // Act
         var result = FileServiceUtils.AncvFilePath(granularity, assetType, assetName);
 
         // Assert
-        Assert.Equal(expectedFilePath, result);
+        Assert.Equal(expectedFilePath, result.Value);
     }
 
     [Theory]
     [InlineData(Granularity.Daily, "db/d/?b=d_world_txt")]
     [InlineData(Granularity.Hourly, "db/d/?b=h_world_txt")]
-    public void FileLocation_ShouldReturnCorrectLocation(Granularity granularity, string expectedLocation)
+    public void FileLocation_ShouldReturnCorrectLocation(
+        Granularity granularity,
+        string expectedLocation
+    )
     {
         // Act
         var result = FileServiceUtils.FileLocation(granularity);
 
         // Assert
-        Assert.Equal(expectedLocation, result);
+        Assert.Equal(expectedLocation, result.Value);
     }
 
     [Fact]
-    public void FileLocation_ShouldThrowArgumentExceptionForInvalidGranularity()
+    public void FileLocation_ShouldReturnError()
     {
         // Arrange
         var invalidGranularity = (Granularity)999;
 
         // Act
-        Action act = () => FileServiceUtils.FileLocation(invalidGranularity);
+        var result = FileServiceUtils.FileLocation(invalidGranularity);
 
         // Assert
-        Assert.Throws<ArgumentException>(act);
+        Assert.True(result.IsFailed);
     }
 }
