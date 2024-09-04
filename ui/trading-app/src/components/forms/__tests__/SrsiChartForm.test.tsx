@@ -13,7 +13,7 @@ describe("SrsiChartForm tests", () => {
     // Act
     render(
       <TestingProvider>
-        <SrsiChartForm minDate={new Date()} maxDate={new Date()} />
+        <SrsiChartForm minMaxDate={{ minDate: new Date(), maxDate: new Date() }} />
       </TestingProvider>,
     );
 

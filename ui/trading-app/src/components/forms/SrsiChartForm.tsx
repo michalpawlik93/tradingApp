@@ -2,23 +2,15 @@ import { css } from "@emotion/react";
 import { Box, Paper, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { TechnicalIndicators } from "../../consts/technicalIndicators";
+import { useQuotesFormStore } from "../../stores/quotesFormStore";
 import { useQuotesStore } from "../../stores/quotesStore";
 import { MaxMinDate } from "../../types/MaxMinDate";
 import { CommonButton } from "../presentational/Button";
-import { assetFormDefaultValues, AssetFormElements, IAssetFormValues } from "./AssetFormElements";
-import {
-  ISrsiSettingsFormValues,
-  srsiSettingsFormDefaultValues,
-  SrsiSettingsFormElements,
-} from "./SrsiSettingsFormElements";
-import {
-  ITimeFrameFormValues,
-  timeFrameFormDefaultValues,
-  TimeFrameFormElements,
-} from "./TimeFrameFormElements";
+import { AssetFormElements, IAssetFormValues } from "./AssetFormElements";
+import { ISrsiSettingsFormValues, SrsiSettingsFormElements } from "./SrsiSettingsFormElements";
+import { ITimeFrameFormValues, TimeFrameFormElements } from "./TimeFrameFormElements";
 import {
   ITradingStreategyValues,
-  tradingStreategyDefaultValues,
   TradingStreategyFormElement,
 } from "./TradingStreategyFormElement";
 
@@ -28,20 +20,17 @@ export interface ISrsiChartForm
     ITradingStreategyValues,
     ISrsiSettingsFormValues {}
 
-export const defaultValues: ISrsiChartForm = {
-  ...timeFrameFormDefaultValues(),
-  ...assetFormDefaultValues(),
-  ...tradingStreategyDefaultValues(),
-  ...srsiSettingsFormDefaultValues(),
-};
-
-export const SrsiChartForm = ({ minDate, maxDate }: MaxMinDate) => {
+export const SrsiChartForm = ({ minMaxDate }: { minMaxDate: MaxMinDate }) => {
   const fetchData = useQuotesStore((state) => state.fetchCombinedQuotes);
+  const formData = useQuotesFormStore((state) => state.srsiForm);
+  const setFormData = useQuotesFormStore((state) => state.setSrsisForm);
+
   const { handleSubmit, reset, control } = useForm<ISrsiChartForm>({
-    defaultValues,
+    defaultValues: formData,
   });
 
   const onSubmit = async (data: ISrsiChartForm) => {
+    setFormData(data);
     await fetchData({
       asset: {
         name: data.assetName,
@@ -106,8 +95,8 @@ export const SrsiChartForm = ({ minDate, maxDate }: MaxMinDate) => {
             <TradingStreategyFormElement<ISrsiChartForm> control={control} />
             <TimeFrameFormElements<ISrsiChartForm>
               control={control}
-              minDate={minDate}
-              maxDate={maxDate}
+              minDate={minMaxDate.minDate}
+              maxDate={minMaxDate.maxDate}
             />
           </Box>
         </Box>

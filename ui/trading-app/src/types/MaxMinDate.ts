@@ -1,4 +1,4 @@
 export interface MaxMinDate {
-  minDate: Date;
-  maxDate: Date;
+  minDate: Date | undefined;
+  maxDate: Date | undefined;
 }

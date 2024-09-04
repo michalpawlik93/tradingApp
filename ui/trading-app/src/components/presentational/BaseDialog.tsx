@@ -56,16 +56,14 @@ export const BaseDialog = ({
     >
       <div css={baseDialogCss.closeBtn}>
         {closeButton && (
-          <IconButton size="small" data-testid="close-icon-button">
-            <CloseIcon onClick={onClose} data-testid="close-icon" />
+          <IconButton onClick={onClose} size="small" data-testid="close-icon-button">
+            <CloseIcon data-testid="close-icon" />
           </IconButton>
         )}
       </div>
       {title && (
         <div css={baseDialogCss.dialogHeader}>
-          <DialogTitle>
-            <h2 style={{ textAlign: "center" }}>{title}</h2>
-          </DialogTitle>
+          <DialogTitle textAlign={"center"}>{title}</DialogTitle>
         </div>
       )}
       <DialogContent css={baseDialogCss.dialogContent}>

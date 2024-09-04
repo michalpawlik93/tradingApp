@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import { cypherBDefaultValues } from "../components/forms/ChartSettingsPanelForm";
 import {
   mfiSettingsDefault,
   sRsiSettingsDefault,
   waveTrendSettingsDefault,
 } from "../consts/technicalIndicatorsSettings";
+import { cypherBDefaultValues } from "../stores/quotesFormStore";
 import { useQuotesStore } from "../stores/quotesStore";
 import { CypherBQuote } from "../types/CypherBQuote";
 

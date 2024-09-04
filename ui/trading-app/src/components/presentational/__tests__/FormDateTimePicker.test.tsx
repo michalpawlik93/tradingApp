@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 import { TestingProvider } from "../../../__fixtures__/TestingProvider";
-import { IChartSettingsPanelForm } from "../../forms/ChartSettingsPanelForm";
+import { ICypherBChartForm } from "../../forms/CypherBChartForm";
 import { FormDateTimePicker, FormDateTimePickerProps } from "../FormDateTimePicker";
 
 export interface ITimeFrameFormValuesMock {
@@ -22,7 +22,7 @@ describe("FormDateTimePicker component tests", () => {
     const mergedProps = { ...defaultProps, ...props };
 
     const TestForm = () => {
-      const { control } = useForm<IChartSettingsPanelForm>({
+      const { control } = useForm<ICypherBChartForm>({
         defaultValues: {
           startDate: new Date("2021-01-01"),
         },

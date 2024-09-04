@@ -1,3 +1,5 @@
+import { ICypherBChartForm } from "../components/forms/CypherBChartForm";
+import { ISrsiChartForm } from "../components/forms/SrsiChartForm";
 import { AssetName } from "../consts/assetName";
 import { AssetType } from "../consts/assetType";
 import { Granularity } from "../consts/granularity";
@@ -114,4 +116,28 @@ export const GetCypherBDtoMock = (): GetCypherBDto => ({
   sRsiSettings: sRsiSettingsDefault(),
   mfiSettings: mfiSettingsDefault,
   tradingStrategy: TradingStrategy.DayTrading,
+});
+
+export const SrsiFormMock = (): ISrsiChartForm => ({
+  granularity: Granularity.Daily,
+  startDate: new Date(2023, 5, 24),
+  endDate: new Date(2023, 6, 24),
+  assetName: AssetName.USDPLN,
+  assetType: AssetType.Cryptocurrency,
+  tradingStrategy: TradingStrategy.Scalping,
+  enabled: true,
+  channelLength: 14,
+  stochKSmooth: 1,
+  stochDSmooth: 2,
+  overbought: 80,
+  oversold: 20,
+});
+
+export const CipherBFormMock = (): ICypherBChartForm => ({
+  granularity: Granularity.Daily,
+  startDate: new Date(2023, 5, 24),
+  endDate: new Date(2023, 6, 24),
+  assetName: AssetName.USDPLN,
+  assetType: AssetType.Cryptocurrency,
+  tradingStrategy: TradingStrategy.Scalping,
 });

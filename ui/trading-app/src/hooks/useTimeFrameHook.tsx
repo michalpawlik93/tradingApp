@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { MaxMinDate } from "../types/MaxMinDate";
 
 export const useTimeFrameHook = (inputDates: Date[]): MaxMinDate => {
-  const [minDate, setMinDate] = useState(new Date());
-  const [maxDate, setMaxDate] = useState(new Date());
+  const [maxMinDate, setMaxMinDate] = useState<MaxMinDate>({
+    minDate: undefined,
+    maxDate: undefined,
+  });
   const hasRunEffect = useRef(false);
 
   useEffect(() => {
@@ -11,14 +13,10 @@ export const useTimeFrameHook = (inputDates: Date[]): MaxMinDate => {
       const mapped = inputDates.map((date) => date.getTime());
       const max = new Date(Math.max(...mapped));
       const min = new Date(Math.min(...mapped));
-      setMaxDate(max);
-      setMinDate(min);
+      setMaxMinDate({ minDate: min, maxDate: max });
       hasRunEffect.current = true;
     }
   }, [inputDates, hasRunEffect]);
 
-  return {
-    minDate,
-    maxDate,
-  };
+  return maxMinDate;
 };

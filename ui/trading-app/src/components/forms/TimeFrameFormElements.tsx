@@ -12,8 +12,8 @@ export interface ITimeFrameFormValues {
 }
 
 export const timeFrameFormDefaultValues = (): ITimeFrameFormValues => ({
-  startDate: new Date(2023, 5, 26),
-  endDate: new Date(2023, 5, 28),
+  startDate: new Date(Date.UTC(2023, 5, 26)),
+  endDate: new Date(Date.UTC(2023, 5, 28)),
   granularity: Granularity.FiveMins,
 });
 

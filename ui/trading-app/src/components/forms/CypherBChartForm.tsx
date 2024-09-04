@@ -7,31 +7,21 @@ import {
   waveTrendSettingsDefault,
 } from "../../consts/technicalIndicatorsSettings";
 import { TradingStrategy } from "../../consts/tradingStrategy";
+import { useQuotesFormStore } from "../../stores/quotesFormStore";
 import { useQuotesStore } from "../../stores/quotesStore";
 import { MaxMinDate } from "../../types/MaxMinDate";
 import { CommonButton } from "../presentational/Button";
-import { assetFormDefaultValues, AssetFormElements, IAssetFormValues } from "./AssetFormElements";
-import {
-  ITimeFrameFormValues,
-  timeFrameFormDefaultValues,
-  TimeFrameFormElements,
-} from "./TimeFrameFormElements";
+import { AssetFormElements, IAssetFormValues } from "./AssetFormElements";
+import { ITimeFrameFormValues, TimeFrameFormElements } from "./TimeFrameFormElements";
 import {
   ITradingStreategyValues,
-  tradingStreategyDefaultValues,
   TradingStreategyFormElement,
 } from "./TradingStreategyFormElement";
 
-export interface IChartSettingsPanelForm
+export interface ICypherBChartForm
   extends ITimeFrameFormValues,
     IAssetFormValues,
     ITradingStreategyValues {}
-
-export const cypherBDefaultValues: IChartSettingsPanelForm = {
-  ...timeFrameFormDefaultValues(),
-  ...assetFormDefaultValues(),
-  ...tradingStreategyDefaultValues(),
-};
 
 const chartSettingsPanelCss = {
   container: () =>
@@ -61,12 +51,15 @@ const chartSettingsPanelCss = {
     }),
 };
 
-export const ChartSettingsPanelForm = ({ minDate, maxDate }: MaxMinDate) => {
+export const CypherBChartForm = ({ minMaxDate }: { minMaxDate: MaxMinDate }) => {
   const fetchData = useQuotesStore((state) => state.fetchCypherBQuotes);
-  const { handleSubmit, reset, control } = useForm<IChartSettingsPanelForm>({
-    defaultValues: cypherBDefaultValues,
+  const formData = useQuotesFormStore((state) => state.cipherBForm);
+  const setFormData = useQuotesFormStore((state) => state.setCipherBForm);
+  const { handleSubmit, reset, control } = useForm<ICypherBChartForm>({
+    defaultValues: formData,
   });
-  const onSubmit = async (data: IChartSettingsPanelForm) => {
+  const onSubmit = async (data: ICypherBChartForm) => {
+    setFormData(data);
     await fetchData({
       asset: {
         name: data.assetName,
@@ -90,12 +83,12 @@ export const ChartSettingsPanelForm = ({ minDate, maxDate }: MaxMinDate) => {
         Chart Settings
       </Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} css={chartSettingsPanelCss.form}>
-        <AssetFormElements<IChartSettingsPanelForm> control={control} />
-        <TradingStreategyFormElement<IChartSettingsPanelForm> control={control} />
-        <TimeFrameFormElements<IChartSettingsPanelForm>
+        <AssetFormElements<ICypherBChartForm> control={control} />
+        <TradingStreategyFormElement<ICypherBChartForm> control={control} />
+        <TimeFrameFormElements<ICypherBChartForm>
           control={control}
-          minDate={minDate}
-          maxDate={maxDate}
+          minDate={minMaxDate.minDate}
+          maxDate={minMaxDate.maxDate}
         />
         <Box css={chartSettingsPanelCss.buttonBar}>
           <CommonButton text="Submit" type="submit" size="small" />

@@ -12,7 +12,7 @@ export const SimpleChartsContainer = () => {
   const { srsiQuotes, rsiQuotes } = useCombinedQuotes(GetCombinedQuotesRequestDtoDefault());
   const quotes = rsiQuotes.map((x) => x.ohlc);
   const quoteDates = quotes.map((quote) => new Date(quote.date));
-  const { minDate, maxDate } = useTimeFrameHook(quoteDates);
+  const minMaxDate = useTimeFrameHook(quoteDates);
   return (
     <>
       <PageItemsWrapper>
@@ -27,13 +27,13 @@ export const SimpleChartsContainer = () => {
 
       <PageItemsWrapper>
         <BaseDialogOpener
-          buttonText="Open"
+          buttonText="Settings"
           dialogMaxWidth="lg"
           fullWidth
           closeButton
           dialogTitle="Settings Selection"
         >
-          <SrsiChartForm minDate={minDate} maxDate={maxDate} />
+          <SrsiChartForm minMaxDate={minMaxDate} />
         </BaseDialogOpener>
       </PageItemsWrapper>
     </>

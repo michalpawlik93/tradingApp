@@ -42,6 +42,7 @@ describe("BaseDialog Component", () => {
   });
 
   test("Should close dialog when close icon is clicked", () => {
+    // Arrange
     render(
       <BaseDialog title={title} open onClose={onClose} closeButton>
         <div>Dialog Content</div>
@@ -50,14 +51,18 @@ describe("BaseDialog Component", () => {
 
     const closeIcon = screen.getByTestId("close-icon");
 
+    // Act
     fireEvent.click(closeIcon);
 
+    // Assert
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   test("Should render with message without close button", () => {
+    // Arrange & Act
     render(<BaseDialog title={title} open onClose={onClose} message={message} />);
 
+    // Assert
     expect(screen.queryByTestId("close-icon-button")).not.toBeInTheDocument();
     expect(screen.getByText(message)).toBeInTheDocument();
   });

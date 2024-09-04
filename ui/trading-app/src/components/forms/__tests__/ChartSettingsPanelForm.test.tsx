@@ -2,9 +2,9 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { createQuotesDataServiceMock } from "../../../__fixtures__/QuotesDataServiceMock";
 import { TestingProvider } from "../../../__fixtures__/TestingProvider";
 import { QuotesDataService } from "../../../services/QuotesDataService";
-import { ChartSettingsPanelForm } from "../ChartSettingsPanelForm";
+import { CypherBChartForm } from "../CypherBChartForm";
 
-describe("ChartSettingsPanelForm tests", () => {
+describe("CypherBChartForm tests", () => {
   test("click submit button - fetch is called with form values", async () => {
     // Arrange
     vi.mocked(QuotesDataService.getCypherB).mockImplementation(
@@ -13,7 +13,7 @@ describe("ChartSettingsPanelForm tests", () => {
     // Act
     render(
       <TestingProvider>
-        <ChartSettingsPanelForm minDate={new Date()} maxDate={new Date()} />
+        <CypherBChartForm minMaxDate={{ minDate: new Date(), maxDate: new Date() }} />
       </TestingProvider>,
     );
 
