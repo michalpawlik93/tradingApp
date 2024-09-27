@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import { Box, Paper, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { TechnicalIndicators } from "../../consts/technicalIndicators";
+import { TradingStrategy } from "../../consts/tradingStrategy";
 import { useQuotesFormStore } from "../../stores/quotesFormStore";
 import { useQuotesStore } from "../../stores/quotesStore";
 import { MaxMinDate } from "../../types/MaxMinDate";
@@ -41,8 +42,15 @@ export const SrsiChartForm = ({ minMaxDate }: { minMaxDate: MaxMinDate }) => {
         startDate: data.startDate.toISOString(),
         endDate: data.endDate.toISOString(),
       },
-      srsiSettings: { ...data },
-      technicalIndicators: [TechnicalIndicators.Srsi],
+      indicators: [
+        {
+          technicalIndicator: TechnicalIndicators.Srsi,
+          sideIndicators: [],
+        },
+      ],
+      settings: {
+        srsiSettings: { ...data },
+      },
     });
   };
 

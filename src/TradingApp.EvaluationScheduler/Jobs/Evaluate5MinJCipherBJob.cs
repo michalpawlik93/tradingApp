@@ -4,6 +4,7 @@ using Quartz;
 using TradingApp.Domain.Modules.Constants;
 using TradingApp.EvaluationScheduler.Utils;
 using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
+using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
@@ -37,9 +38,13 @@ public class Evaluate5MinJCipherBJob : IJob
             new EvaluateCipherBCommand(
                 getQuotesResponse.Value.ToList(),
                 Granularity.FiveMins,
-                WaveTrendSettingsConst.WaveTrendSettingsDefault,
-                MfiSettingsConst.MfiSettingsDefault,
-                SRsiSettingsConst.SRsiSettingsDefault
+                AssetName.EURPLN,
+                new SettingsRequest(
+                    SRsiSettingsConst.SRsiSettingsDefault,
+                    null,
+                    MfiSettingsConst.MfiSettingsDefault,
+                    WaveTrendSettingsConst.WaveTrendSettingsDefault
+                )
             )
         );
         await ConsoleUtils.WriteResultMessages(evaluateResponse);

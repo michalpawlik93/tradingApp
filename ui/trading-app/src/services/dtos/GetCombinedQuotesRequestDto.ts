@@ -1,10 +1,15 @@
-import { SrsiSettings } from "../../types/SrsiSettings";
 import { AssetDto } from "./AssetDto";
+import { SettingsDto } from "./SettingsDto";
 import { TimeFrameDto } from "./TimeFrameDto";
 
 export interface GetCombinedQuotesRequestDto {
-  technicalIndicators: string[];
+  indicators: IndicatorsDto[];
   asset: AssetDto;
   timeFrame: TimeFrameDto;
-  srsiSettings?: SrsiSettings;
+  settings: SettingsDto;
+}
+
+interface IndicatorsDto {
+  technicalIndicator: string;
+  sideIndicators: string[];
 }

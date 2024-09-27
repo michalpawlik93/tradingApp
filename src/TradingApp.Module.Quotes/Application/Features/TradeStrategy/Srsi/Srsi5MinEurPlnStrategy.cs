@@ -6,7 +6,8 @@ using TradingApp.Module.Quotes.Domain.Enums;
 
 namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 
-public class EmaAndStochStrategy : ISrsiStrategy
+// todo: add SideIndices as part of request
+public class Srsi5MinEurPlnStrategy : ISrsiStrategy
 {
     private readonly IEvaluator _evaluator;
 
@@ -15,7 +16,7 @@ public class EmaAndStochStrategy : ISrsiStrategy
     private const int Ema2X = 100;
     private const int DecimalPlace = 4;
 
-    public EmaAndStochStrategy(IEvaluator evaluator)
+    public Srsi5MinEurPlnStrategy(IEvaluator evaluator)
     {
         ArgumentNullException.ThrowIfNull(evaluator);
         _evaluator = evaluator;

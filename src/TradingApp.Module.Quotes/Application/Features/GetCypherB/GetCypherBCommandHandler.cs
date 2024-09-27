@@ -44,10 +44,10 @@ public class GetCypherBCommandHandler
             quotes,
             new CypherBDecisionSettings(
                 request.TimeFrame.Granularity,
-                request.WaveTrendSettings,
-                request.MfiSettings,
-                request.SrsiSettings,
-                request.TradingStrategy
+                request.SettingsRequest.WaveTrendSettings,
+                request.SettingsRequest.MfiSettings,
+                request.SettingsRequest.SrsiSettings,
+                request.Asset.Name
             )
         );
 

@@ -5,7 +5,6 @@ import { TechnicalIndicators } from "./technicalIndicators";
 import { sRsiSettingsDefault } from "./technicalIndicatorsSettings";
 
 export const GetCombinedQuotesRequestDtoDefault = (): GetCombinedQuotesRequestDto => ({
-  technicalIndicators: [TechnicalIndicators.Rsi, TechnicalIndicators.Srsi],
   asset: {
     name: assetFormDefaultValues().assetName,
     type: assetFormDefaultValues().assetType,
@@ -15,5 +14,17 @@ export const GetCombinedQuotesRequestDtoDefault = (): GetCombinedQuotesRequestDt
     startDate: timeFrameFormDefaultValues().startDate.toISOString(),
     endDate: timeFrameFormDefaultValues().endDate.toISOString(),
   },
-  srsiSettings: sRsiSettingsDefault(),
+  indicators: [
+    {
+      technicalIndicator: TechnicalIndicators.Rsi,
+      sideIndicators: [],
+    },
+    {
+      technicalIndicator: TechnicalIndicators.Srsi,
+      sideIndicators: [],
+    },
+  ],
+  settings: {
+    srsiSettings: sRsiSettingsDefault(),
+  },
 });

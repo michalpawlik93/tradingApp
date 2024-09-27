@@ -1,22 +1,14 @@
 ﻿using FluentResults;
 using MediatR;
+using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Mappers;
-using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Models;
-using TradingApp.Module.Quotes.Domain.Constants;
 
 namespace TradingApp.Module.Quotes.Application.Features.GetCypherB;
 
-public record GetCypherBCommand(
-    TimeFrame TimeFrame,
-    Asset Asset,
-    WaveTrendSettings WaveTrendSettings,
-    SrsiSettings? SrsiSettings,
-    MfiSettings MfiSettings,
-    TradingStrategy TradingStrategy
-) : IRequest<IResult<GetCypherBResponseDto>>;
+public record GetCypherBCommand(TimeFrame TimeFrame, Asset Asset, SettingsRequest SettingsRequest)
+    : IRequest<IResult<GetCypherBResponseDto>>;
 
 public static class GetCypherBCommandExtensions
 {
@@ -28,22 +20,10 @@ public static class GetCypherBCommandExtensions
             return timeFrameResult.ToResult();
         }
 
-        var asset = AssetDtoMapper.ToDomainModel(request.Asset);
-        var waveTrendSettings = WaveTrendSettingsDtoMapper.ToDomainModel(request.WaveTrendSettings);
-        var srsiSettings = SRsiSettingsDtoMapper.ToDomainModel(request.SrsiSettings);
-        var mfiSettings = new MfiSettings(
-            request.MfiSettings.ChannelLength,
-            MfiSettingsConst.ScaleFactor
-        );
-        var tradingStrategy = TradingStrategyMapper.Map(request.TradingStrategy);
-
         var command = new GetCypherBCommand(
             timeFrameResult.Value,
-            asset,
-            waveTrendSettings,
-            srsiSettings,
-            mfiSettings,
-            tradingStrategy
+            AssetDtoMapper.ToDomainModel(request.Asset),
+            SettingsMapper.ToDomainModel(request.Settings)
         );
 
         return Result.Ok(command);

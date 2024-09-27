@@ -3,7 +3,6 @@ using FluentResults;
 using NSubstitute;
 using TradingApp.Domain.Modules.Constants;
 using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.CipherB;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
@@ -63,7 +62,7 @@ public class CypherBDecisionServiceTests
                 WaveTrendSettingsConst.WaveTrendSettingsDefault,
                 MfiSettingsConst.MfiSettingsDefault,
                 SRsiSettingsConst.SRsiSettingsDefault,
-                TradingStrategy.EmaAndStoch
+                AssetName.EURPLN
             )
         );
 

@@ -11,10 +11,18 @@ public class GetCypherBDtoValidator : AbstractValidator<GetCypherBDto>
     public GetCypherBDtoValidator()
     {
         CommonValidationRules.RuleForNullable(this, request => request.Asset, new AssetValidator());
-        CommonValidationRules.RuleForNullable(this, request => request.MfiSettings, new MfiSettingsValidator());
-        CommonValidationRules.RuleForNullable(this, request => request.SrsiSettings, new SRsiSettingsValidator());
+        CommonValidationRules.RuleForNullable(this, request => request.Settings, new SettingsValidator());
         CommonValidationRules.RuleForNullable(this, request => request.TimeFrame, new TimeFrameValidator());
-        CommonValidationRules.RuleForNullable(this, request => request.WaveTrendSettings, new WaveTrendSettingsValidator());
+    }
+
+    public class SettingsValidator : AbstractValidator<SettingsDto>
+    {
+        public SettingsValidator()
+        {
+            CommonValidationRules.RuleForNullable(this, request => request.SrsiSettings, new SRsiSettingsValidator());
+            CommonValidationRules.RuleForNullable(this, request => request.WaveTrendSettings, new WaveTrendSettingsValidator());
+            CommonValidationRules.RuleForNullable(this, request => request.MfiSettings, new MfiSettingsValidator());
+        }
     }
 }
 
@@ -24,6 +32,22 @@ public class AssetValidator : AbstractValidator<AssetDto>
     {
         CommonValidationRules.RuleForEnum<AssetDto, string, AssetName>(this, dto => dto.Name);
         CommonValidationRules.RuleForEnum<AssetDto, string, AssetType>(this, dto => dto.Type);
+    }
+}
+
+public class IndicatorsValidator : AbstractValidator<IndicatorsDto>
+{
+    public IndicatorsValidator()
+    {
+        CommonValidationRules.RuleForEnum<IndicatorsDto, string, TechnicalIndicator>(this, dto => dto.TechnicalIndicator);
+        RuleForEach(p => p.SideIndicators)
+            .ChildRules(indicator =>
+            {
+                CommonValidationRules.RuleForEnum<string, string, SideIndicator>(
+                    indicator,
+                    x => x
+                );
+            });
     }
 }
 

@@ -37,6 +37,7 @@ public class FileServiceUtilsTests
     [Theory]
     [InlineData(AssetType.Cryptocurrency, "cryptocurrencies/")]
     [InlineData(AssetType.Currencies, "currencies/major/")]
+    [InlineData(AssetType.Indices, "indices/")]
     public void GetAssetTypePath_ShouldReturnCorrectPath(AssetType assetType, string expectedPath)
     {
         // Act
@@ -50,6 +51,8 @@ public class FileServiceUtilsTests
     [InlineData(AssetName.ANC, "anc.v.txt")]
     [InlineData(AssetName.BTC, "btc.v.txt")]
     [InlineData(AssetName.USDPLN, "usdpln.txt")]
+    [InlineData(AssetName.EURUSD, "eurusd.txt")]
+    [InlineData(AssetName.SPX, "^spx.txt")]
     public void GetAssetFileName_ShouldReturnCorrectFileName(
         AssetName assetName,
         string expectedFileName

@@ -2,7 +2,6 @@
 using NSubstitute;
 using TradingApp.Domain.Modules.Constants;
 using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.CipherB;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.WaveTrend;
@@ -23,7 +22,8 @@ public class CipherBStrategyTests
         Substitute.For<ISrsiStrategyFactory>();
     private readonly ISrsiStrategy _srsiStrategy = Substitute.For<ISrsiStrategy>();
     private readonly IWaveTrendStrategy _waveTrendStrategy = Substitute.For<IWaveTrendStrategy>();
-    private readonly IWaveTrendStrategyFactory _waveTrendStrategyFactory = Substitute.For<IWaveTrendStrategyFactory>();
+    private readonly IWaveTrendStrategyFactory _waveTrendStrategyFactory =
+        Substitute.For<IWaveTrendStrategyFactory>();
     private readonly CipherBStrategy _sut;
     private const decimal VwapSell = -100;
     private const decimal MfiBuy = 100;
@@ -40,7 +40,9 @@ public class CipherBStrategyTests
         _evaluator
             .GetMfi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<MfiSettings>())
             .Returns(new List<MfiResult> { new(MfiBuy), new(MfiBuy) });
-        _srsiStrategyFactory.GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>()).Returns(_srsiStrategy);
+        _srsiStrategyFactory
+            .GetStrategy(Arg.Any<AssetName>(), Arg.Any<Granularity>())
+            .Returns(_srsiStrategy);
         _srsiStrategy
             .EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>())
             .Returns(
@@ -50,9 +52,15 @@ public class CipherBStrategyTests
                     new(1m, 2m, TradeAction.Hold)
                 }
             );
-        _waveTrendStrategyFactory.GetStrategy(Arg.Any<TradingStrategy>()).Returns(_waveTrendStrategy);
+        _waveTrendStrategyFactory
+            .GetStrategy(Arg.Any<AssetName>(), Arg.Any<Granularity>())
+            .Returns(_waveTrendStrategy);
         _waveTrendStrategy
-            .EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<WaveTrendSettings>(), Arg.Any<Granularity>())
+            .EvaluateSignals(
+                Arg.Any<IReadOnlyList<Quote>>(),
+                Arg.Any<WaveTrendSettings>(),
+                Arg.Any<Granularity>()
+            )
             .Returns(
                 new List<WaveTrendSignal>
                 {
@@ -69,7 +77,7 @@ public class CipherBStrategyTests
                 WaveTrendSettingsConst.WaveTrendSettingsDefault,
                 MfiSettingsConst.MfiSettingsDefault,
                 SRsiSettingsConst.SRsiSettingsDefault,
-                TradingStrategy.EmaAndStoch
+                AssetName.EURPLN
             )
         );
 
@@ -78,4 +86,3 @@ public class CipherBStrategyTests
         result.Value.waveTrendSignals[0].TradeAction.Should().Be(TradeAction.Hold);
     }
 }
-

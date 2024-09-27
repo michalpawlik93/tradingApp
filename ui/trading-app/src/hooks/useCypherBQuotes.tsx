@@ -34,10 +34,11 @@ export const useCypherBQuotes = (): useCypherBQuotesResponse => {
           startDate: cypherBDefaultValues.startDate.toISOString(),
           endDate: cypherBDefaultValues.endDate.toISOString(),
         },
-        waveTrendSettings: waveTrendSettingsDefault,
-        sRsiSettings: sRsiSettingsDefault(),
-        mfiSettings: mfiSettingsDefault,
-        tradingStrategy: cypherBDefaultValues.tradingStrategy,
+        settings: {
+          waveTrendSettings: waveTrendSettingsDefault,
+          srsiSettings: sRsiSettingsDefault(),
+          mfiSettings: mfiSettingsDefault,
+        },
       });
     }
     fetch();

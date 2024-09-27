@@ -10,5 +10,11 @@ public class MfiSettingsDto
     /// </summary>
     [DefaultValue(MfiSettingsConst.ChannelLength)]
     public int ChannelLength { get; set; }
+
+    /// <summary>
+    /// Gets or sets scale factor.
+    /// </summary>
+    [DefaultValue(MfiSettingsConst.ScaleFactor)]
+    public int ScaleFactor { get; set; }
 }
 

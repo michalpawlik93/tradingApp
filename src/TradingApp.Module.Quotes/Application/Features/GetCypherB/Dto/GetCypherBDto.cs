@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using TradingApp.Module.Quotes.Application.Dtos;
+﻿using TradingApp.Module.Quotes.Application.Dtos;
 
 namespace TradingApp.Module.Quotes.Application.Features.GetCypherB.Dto;
 
@@ -20,24 +19,7 @@ public class GetCypherBDto
     public TimeFrameDto TimeFrame { get; set; }
 
     /// <summary>
-    /// Gets or sets the settings for the WaveTrend calculation.
+    /// Gets sets of settings
     /// </summary>
-    public WaveTrendSettingsDto WaveTrendSettings { get; set; }
-
-    /// <summary>
-    /// Gets or sets the settings for the SRSI calculation.
-    /// </summary>
-    public SrsiSettingsDto SrsiSettings { get; set; }
-
-    /// <summary>
-    /// Gets or sets the settings for the Mfi calculation.
-    /// </summary>
-    public MfiSettingsDto MfiSettings { get; set; }
-
-    /// <summary>
-    ///  Trading Strategy, chose one appropriate for granularity
-    /// </summary>
-    /// <example>Scalping</example>
-    [DefaultValue(nameof(TradeStrategy.TradingStrategy.Scalping))]
-    public string TradingStrategy { get; set; }
+    public SettingsDto Settings { get; set; }
 }

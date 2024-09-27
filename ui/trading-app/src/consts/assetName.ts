@@ -3,4 +3,6 @@ export enum AssetName {
   USDPLN = "USDPLN",
   BTC = "BTC",
   EURPLN = "EURPLN",
+  EURUSD = "EURUSD",
+  SPX = "SPX",
 }

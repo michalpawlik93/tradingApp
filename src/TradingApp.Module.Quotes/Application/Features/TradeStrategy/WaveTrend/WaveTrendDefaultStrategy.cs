@@ -8,12 +8,12 @@ using TradingApp.Module.Quotes.Domain.Enums;
 
 namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.WaveTrend;
 
-public class ScalpingStrategy : IWaveTrendStrategy
+public class WaveTrendDefaultStrategy : IWaveTrendStrategy
 {
     private readonly IEvaluator _evaluator;
     private const int DecimalPlace = 4;
 
-    public ScalpingStrategy(IEvaluator evaluator)
+    public WaveTrendDefaultStrategy(IEvaluator evaluator)
     {
         ArgumentNullException.ThrowIfNull(evaluator);
         _evaluator = evaluator;

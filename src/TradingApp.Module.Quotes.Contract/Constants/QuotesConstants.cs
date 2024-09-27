@@ -13,12 +13,15 @@ public enum AssetName
     CUREBTC,
     BTCUSD,
     EURPLN,
+    SPX,
+    EURUSD
 }
 
 public enum AssetType
 {
     Cryptocurrency,
-    Currencies
+    Currencies,
+    Indices
 }
 
 public enum MaType
@@ -30,4 +33,11 @@ public enum TechnicalIndicator
 {
     Rsi,
     Srsi
+}
+
+public enum SideIndicator
+{
+    SlowFastSrsi,
+    SlowSrsi,
+    Ema2x
 }

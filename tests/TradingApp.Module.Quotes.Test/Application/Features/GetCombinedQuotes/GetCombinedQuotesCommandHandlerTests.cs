@@ -3,9 +3,7 @@ using FluentAssertions;
 using FluentResults;
 using Moq;
 using NSubstitute;
-using System.Collections.Immutable;
 using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
@@ -35,10 +33,9 @@ public class GetCombinedQuotesCommandHandlerTests
     {
         //Arrange
         var command = new GetCombinedQuotesCommand(
-            new HashSet<TechnicalIndicator>().ToImmutableHashSet(),
+            [],
             new TimeFrame(Granularity.Daily, null, null),
-            new Asset(AssetName.ANC, AssetType.Currencies),
-            TradingStrategy.Scalping
+            new Asset(AssetName.ANC, AssetType.Currencies), new SettingsRequest()
         );
         const string errorMessage = "errorMessage";
         _adapter
@@ -62,10 +59,10 @@ public class GetCombinedQuotesCommandHandlerTests
     {
         //Arrange
         var command = new GetCombinedQuotesCommand(
-            new HashSet<TechnicalIndicator>() { TechnicalIndicator.Srsi }.ToImmutableHashSet(),
+            [new Indicators(TechnicalIndicator.Srsi, [])],
             new TimeFrame(Granularity.Daily, null, null),
             new Asset(AssetName.ANC, AssetType.Currencies),
-            TradingStrategy.Scalping
+            new SettingsRequest()
         );
         _adapter
             .GetQuotes(
@@ -76,7 +73,7 @@ public class GetCombinedQuotesCommandHandlerTests
             )
             .Returns(Result.Ok((IReadOnlyList<Quote>)quotes));
         _srsiStrategyFactory
-            .GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>())
+            .GetStrategy(Arg.Any<AssetName>(), Arg.Any<Granularity>())
             .Returns(_srsiStrategy);
         _srsiStrategy.EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>()).Returns(Result.Fail(""));
 
@@ -93,10 +90,10 @@ public class GetCombinedQuotesCommandHandlerTests
         //Arrange
         var quotes = new Quote[] { new() };
         var command = new GetCombinedQuotesCommand(
-            new HashSet<TechnicalIndicator>().ToImmutableHashSet(),
+            [],
             new TimeFrame(Granularity.Daily, null, null),
             new Asset(AssetName.ANC, AssetType.Currencies),
-            TradingStrategy.Scalping
+            new SettingsRequest()
         );
         _adapter
             .GetQuotes(
@@ -119,7 +116,7 @@ public class GetCombinedQuotesCommandHandlerTests
                 quotes.Select(_ => new SrsiSignal(1m, 1m, TradeAction.Buy)).ToList().AsReadOnly();
 
         _srsiStrategyFactory
-            .GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>())
+            .GetStrategy(Arg.Any<AssetName>(), Arg.Any<Granularity>())
             .Returns(_srsiStrategy);
         _srsiStrategy
             .EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>())

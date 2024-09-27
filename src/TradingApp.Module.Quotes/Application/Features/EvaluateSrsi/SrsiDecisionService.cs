@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using System.Globalization;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
@@ -16,7 +15,7 @@ public record struct SrsiDecisionSettings(
     SrsiSettings SrsiSettings,
     int EmaLength,
     Granularity Granularity,
-    TradingStrategy TradingStrategy
+    AssetName AssetName
 );
 
 public interface ISrsiDecisionService
@@ -50,7 +49,7 @@ public class SrsiDecisionService : ISrsiDecisionService
     )
     {
         var strategy = _srsiStrategyFactory.GetStrategy(
-            srsiDecisionSettings.TradingStrategy,
+            srsiDecisionSettings.AssetName,
             srsiDecisionSettings.Granularity
         );
         var signals = strategy.EvaluateSignals(quotes);

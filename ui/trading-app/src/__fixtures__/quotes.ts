@@ -82,7 +82,16 @@ export const MfiMock = (): MfiResult => ({
 });
 
 export const GetCombinedQuotesRequestDtoMock = (): GetCombinedQuotesRequestDto => ({
-  technicalIndicators: [TechnicalIndicators.Rsi, TechnicalIndicators.Srsi],
+  indicators: [
+    {
+      technicalIndicator: TechnicalIndicators.Rsi,
+      sideIndicators: [],
+    },
+    {
+      technicalIndicator: TechnicalIndicators.Srsi,
+      sideIndicators: [],
+    },
+  ],
   asset: {
     name: AssetName.ANC,
     type: AssetType.Cryptocurrency,
@@ -91,6 +100,9 @@ export const GetCombinedQuotesRequestDtoMock = (): GetCombinedQuotesRequestDto =
     granularity: Granularity.Daily,
     startDate: new Date(2023, 5, 24).toISOString(),
     endDate: new Date(2023, 6, 24).toISOString(),
+  },
+  settings: {
+    srsiSettings: sRsiSettingsDefault(),
   },
 });
 
@@ -104,18 +116,19 @@ export const GetCypherBDtoMock = (): GetCypherBDto => ({
     startDate: new Date(2023, 5, 24).toISOString(),
     endDate: new Date(2023, 6, 24).toISOString(),
   },
-  waveTrendSettings: {
-    channelLength: 8,
-    averageLength: 8,
-    movingAverageLength: 8,
-    oversold: -60,
-    overbought: 60,
-    overboughtLevel2: 60,
-    oversoldLevel2: -60,
+  settings: {
+    srsiSettings: sRsiSettingsDefault(),
+    waveTrendSettings: {
+      channelLength: 8,
+      averageLength: 8,
+      movingAverageLength: 8,
+      oversold: -60,
+      overbought: 60,
+      overboughtLevel2: 60,
+      oversoldLevel2: -60,
+    },
+    mfiSettings: mfiSettingsDefault,
   },
-  sRsiSettings: sRsiSettingsDefault(),
-  mfiSettings: mfiSettingsDefault,
-  tradingStrategy: TradingStrategy.DayTrading,
 });
 
 export const SrsiFormMock = (): ISrsiChartForm => ({

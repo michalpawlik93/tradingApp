@@ -5,6 +5,7 @@ using TradingApp.Core.Domain;
 using TradingApp.Core.EventBus;
 using TradingApp.Domain.Modules.Constants;
 using TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
+using TradingApp.Module.Quotes.Application.Features.GetCombinedQuotes;
 using TradingApp.Module.Quotes.Contract.Constants;
 using TradingApp.Module.Quotes.Contract.Models;
 using TradingApp.Module.Quotes.Contract.Ports;
@@ -44,9 +45,13 @@ namespace TradingApp.Module.Quotes.Test.Application.Features.EvaluateCipherB
             var command = new EvaluateCipherBCommand(
                 quotes,
                 Granularity.FiveMins,
-                WaveTrendSettingsConst.WaveTrendSettingsDefault,
-                MfiSettingsConst.MfiSettingsDefault,
-                SRsiSettingsConst.SRsiSettingsDefault
+                AssetName.EURPLN,
+                new SettingsRequest(
+                    SRsiSettingsConst.SRsiSettingsDefault,
+                    null,
+                    MfiSettingsConst.MfiSettingsDefault,
+                    WaveTrendSettingsConst.WaveTrendSettingsDefault
+                )
             );
             //Act
             _decisionService
@@ -83,9 +88,13 @@ namespace TradingApp.Module.Quotes.Test.Application.Features.EvaluateCipherB
             var command = new EvaluateCipherBCommand(
                 quotes,
                 Granularity.FiveMins,
-                WaveTrendSettingsConst.WaveTrendSettingsDefault,
-                MfiSettingsConst.MfiSettingsDefault,
-                SRsiSettingsConst.SRsiSettingsDefault
+                AssetName.EURPLN,
+                new SettingsRequest(
+                    SRsiSettingsConst.SRsiSettingsDefault,
+                    null,
+                    MfiSettingsConst.MfiSettingsDefault,
+                    WaveTrendSettingsConst.WaveTrendSettingsDefault
+                )
             );
             //Act
             _decisionService

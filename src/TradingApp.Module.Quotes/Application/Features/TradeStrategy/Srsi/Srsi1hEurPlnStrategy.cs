@@ -7,7 +7,8 @@ using TradingApp.Module.Quotes.Domain.Enums;
 
 namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 
-public class DailyTradingStrategy : ISrsiStrategy
+// todo: add SideIndices as part of request
+public class Srsi1hEurPlnStrategy : ISrsiStrategy
 {
     private readonly IEvaluator _evaluator;
 
@@ -15,7 +16,7 @@ public class DailyTradingStrategy : ISrsiStrategy
     private static SrsiSettings SlowSettings => new(true, 7, 21, 7, 20, 80);
     private const int DecimalPlace = 4;
 
-    public DailyTradingStrategy(IEvaluator evaluator)
+    public Srsi1hEurPlnStrategy(IEvaluator evaluator)
     {
         ArgumentNullException.ThrowIfNull(evaluator);
         _evaluator = evaluator;
@@ -43,7 +44,7 @@ public class DailyTradingStrategy : ISrsiStrategy
         {
             return Result.Fail(
                 new ValidationError(
-                    $"Can not call {nameof(DailyTradingStrategy)} with custom settings."
+                    $"Can not call {nameof(Srsi1hEurPlnStrategy)} with custom settings."
                 )
             );
         }
@@ -145,3 +146,8 @@ public class DailyTradingStrategy : ISrsiStrategy
     private static bool BearishTrend(SRsiResult lastSlow, SRsiResult penultSlow) =>
         lastSlow.StochK < penultSlow.StochK;
 }
+
+/*
+ * 1. Minimal cycles when K is over or under D.
+ * 2.
+ * */

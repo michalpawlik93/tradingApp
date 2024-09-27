@@ -26,17 +26,17 @@ export const useQuotesStore = create<QuotesState>((set) => ({
   fetchCombinedQuotes: async (request: GetCombinedQuotesRequestDto) => {
     try {
       let serviceRequest = request;
-      if (!request?.srsiSettings?.enabled) {
-        serviceRequest = { ...request, srsiSettings: undefined };
+      if (!request?.settings?.srsiSettings?.enabled) {
+        serviceRequest = { ...request, settings: { srsiSettings: undefined } };
       }
       const response = await QuotesDataService.getCombinedQuotes(serviceRequest);
-      if (request.technicalIndicators.includes(TechnicalIndicators.Rsi)) {
+      if (request.indicators.map((x) => x.technicalIndicator).includes(TechnicalIndicators.Rsi)) {
         set({
           rsiQuotes: response.quotes,
           rsiSettings: response.rsiSettings ?? rsiSettingsDefault,
         });
       }
-      if (request.technicalIndicators.includes(TechnicalIndicators.Srsi)) {
+      if (request.indicators.map((x) => x.technicalIndicator).includes(TechnicalIndicators.Srsi)) {
         set({
           srsiQuotes: response.quotes,
         });

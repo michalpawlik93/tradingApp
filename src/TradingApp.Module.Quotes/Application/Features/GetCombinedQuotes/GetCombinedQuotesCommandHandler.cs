@@ -69,25 +69,19 @@ public class GetCombinedQuotesCommandHandler
         GetCombinedQuotesCommand request,
         IReadOnlyList<Quote> quotes
     ) =>
-        request.TechnicalIndicators.Contains(TechnicalIndicator.Rsi)
+        request.Indicators.Select(x => x.TechnicalIndicator).Contains(TechnicalIndicator.Rsi)
             ? _customEvaluator.GetRsi(
                 quotes,
-                new RsiSettings(
-                    RsiSettingsConst.Oversold,
-                    RsiSettingsConst.Overbought,
-                    true,
-                    RsiSettingsConst.DefaultPeriod
-                )
+                request.SettingsRequest.RsiSettings ?? RsiSettingsConst.RsiSettingsDefault
             )
             : [];
 
     private Result<IReadOnlyList<SrsiSignal>> GetSrsiResult(
         GetCombinedQuotesCommand request,
         IReadOnlyList<Quote> quotes
-    ) => request.TechnicalIndicators.Contains(TechnicalIndicator.Srsi)
-        ? _srsiStrategyFactory.GetStrategy(
-            request.TradingStrategy,
+    ) => request.Indicators.Select(x => x.TechnicalIndicator).Contains(TechnicalIndicator.Srsi)
+        ? _srsiStrategyFactory.GetStrategy(request.Asset.Name,
             request.TimeFrame.Granularity
-        ).EvaluateSignals(quotes, request.SrsiSettings)
+        ).EvaluateSignals(quotes, request.SettingsRequest.SrsiSettings)
         : null;
 }

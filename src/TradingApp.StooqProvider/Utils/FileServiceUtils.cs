@@ -47,6 +47,7 @@ public static class FileServiceUtils
         {
             AssetType.Cryptocurrency => "cryptocurrencies/",
             AssetType.Currencies => "currencies/major/",
+            AssetType.Indices => "indices/",
             _ => Result.Fail(new ValidationError($"No existing {nameof(assetType)}: {assetType}")),
         };
 
@@ -58,6 +59,8 @@ public static class FileServiceUtils
             AssetName.BTCUSD => "btc.v.txt",
             AssetName.USDPLN => "usdpln.txt",
             AssetName.EURPLN => "eurpln.txt",
+            AssetName.EURUSD => "eurusd.txt",
+            AssetName.SPX => "^spx.txt",
             _ => Result.Fail(new ValidationError($"No existing {nameof(assetName)}: {assetName}")),
         };
 

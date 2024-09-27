@@ -8,12 +8,16 @@ namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.WaveTrend;
 
 public interface IWaveTrendStrategy
 {
-    Result<IReadOnlyList<WaveTrendSignal>> EvaluateSignals(IReadOnlyList<Quote> quotes, WaveTrendSettings settings, Granularity granularity);
+    Result<IReadOnlyList<WaveTrendSignal>> EvaluateSignals(
+        IReadOnlyList<Quote> quotes,
+        WaveTrendSettings settings,
+        Granularity granularity
+    );
 }
 
 public interface IWaveTrendStrategyFactory
 {
-    IWaveTrendStrategy GetStrategy(TradingStrategy strategy);
+    IWaveTrendStrategy GetStrategy(AssetName assetName, Granularity granularity);
 }
 
 public class WaveTrendStrategyFactory : IWaveTrendStrategyFactory
@@ -26,12 +30,9 @@ public class WaveTrendStrategyFactory : IWaveTrendStrategyFactory
         _evaluator = evaluator;
     }
 
-    public IWaveTrendStrategy GetStrategy(TradingStrategy strategy)
-    {
-        return strategy switch
+    public IWaveTrendStrategy GetStrategy(AssetName assetName, Granularity granularity) =>
+        (assetName, granularity) switch
         {
-            TradingStrategy.Scalping => new ScalpingStrategy(_evaluator),
-            _ => new ScalpingStrategy(_evaluator),
+            _ => new WaveTrendDefaultStrategy(_evaluator),
         };
-    }
 }

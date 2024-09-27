@@ -1,8 +1,8 @@
 ﻿using FluentResults;
 using System.Globalization;
 using TradingApp.Core.Models;
+using TradingApp.Domain.Modules.Constants;
 using TradingApp.Module.Quotes.Application.Features.TradeSignals;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.CipherB;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
@@ -13,7 +13,7 @@ using TradingApp.Module.Quotes.Domain.ValueObjects;
 
 namespace TradingApp.Module.Quotes.Application.Features.EvaluateCipherB;
 
-public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendSettings WaveTrendSettings, MfiSettings MfiSettings, SrsiSettings? SrsiSettings, TradingStrategy TradingStrategy);
+public record struct CypherBDecisionSettings(Granularity Granularity, WaveTrendSettings? WaveTrendSettings, MfiSettings? MfiSettings, SrsiSettings? SrsiSettings, AssetName AssetName);
 
 public interface ICypherBDecisionService
 {
@@ -47,7 +47,7 @@ public class CypherBDecisionService : ICypherBDecisionService
         var decision = Decision.CreateNew(
             new IndexOutcome("CipherB", null, GetAdditionalParams(latestMfiQuote, latestWtQuote)),
             DateTime.UtcNow,
-            GetCumulativeTradeAction(latestMfiQuote, latestWtQuote, settings.WaveTrendSettings),
+            GetCumulativeTradeAction(latestMfiQuote, latestWtQuote, settings.WaveTrendSettings ?? WaveTrendSettingsConst.WaveTrendSettingsDefault),
             MarketDirection.Bullish
         );
         return Result.Ok(decision);

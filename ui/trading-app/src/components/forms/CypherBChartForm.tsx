@@ -70,10 +70,11 @@ export const CypherBChartForm = ({ minMaxDate }: { minMaxDate: MaxMinDate }) => 
         startDate: data.startDate.toISOString(),
         endDate: data.endDate.toISOString(),
       },
-      waveTrendSettings: waveTrendSettingsDefault,
-      sRsiSettings: sRsiSettingsDefault(),
-      mfiSettings: mfiSettingsDefault,
-      tradingStrategy: TradingStrategy.DayTrading,
+      settings: {
+        waveTrendSettings: waveTrendSettingsDefault,
+        srsiSettings: sRsiSettingsDefault(),
+        mfiSettings: mfiSettingsDefault,
+      },
     });
   };
 

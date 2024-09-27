@@ -10,7 +10,7 @@ using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Application.Features.TradeStrategy.WaveTrend;
 
-public class ScalpingStrategyTests
+public class WaveTrendDefaultStrategyTests
 {
     private readonly IEvaluator _evaluator = Substitute.For<IEvaluator>();
 
@@ -19,7 +19,7 @@ public class ScalpingStrategyTests
     {
         // Arrange
         // Act
-        var result = new ScalpingStrategy(_evaluator).EvaluateSignals(
+        var result = new WaveTrendDefaultStrategy(_evaluator).EvaluateSignals(
             new List<Quote>(0),
             WaveTrendSettingsConst.WaveTrendSettingsDefault,
             Granularity.Hourly
@@ -37,7 +37,7 @@ public class ScalpingStrategyTests
             .GetWaveTrend(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<WaveTrendSettings>())
             .Returns(new List<WaveTrendResult> { new(1m, 2m, 3m), new(1m, 2m, 3m) });
         // Act
-        var result = new ScalpingStrategy(_evaluator).EvaluateSignals(
+        var result = new WaveTrendDefaultStrategy(_evaluator).EvaluateSignals(
             new List<Quote>(0),
             WaveTrendSettingsConst.WaveTrendSettingsDefault,
             Granularity.FiveMins
@@ -59,7 +59,7 @@ public class ScalpingStrategyTests
         var waveTrendSettings = new WaveTrendSettings();
 
         // Act
-        var result = new ScalpingStrategy(_evaluator).EvaluateSignals(
+        var result = new WaveTrendDefaultStrategy(_evaluator).EvaluateSignals(
             new List<Quote>(),
             waveTrendSettings,
             Granularity.FiveMins
@@ -81,7 +81,7 @@ public class ScalpingStrategyTests
         var waveTrendSettings = new WaveTrendSettings { OversoldLevel2 = 1, Oversold = -40 };
 
         // Act
-        var result = new ScalpingStrategy(_evaluator).EvaluateSignals(
+        var result = new WaveTrendDefaultStrategy(_evaluator).EvaluateSignals(
             new List<Quote>(),
             waveTrendSettings,
             Granularity.FiveMins
@@ -103,7 +103,7 @@ public class ScalpingStrategyTests
         var waveTrendSettings = new WaveTrendSettings { OverboughtLevel2 = 1, Overbought = 20 };
 
         // Act
-        var result = new ScalpingStrategy(_evaluator).EvaluateSignals(
+        var result = new WaveTrendDefaultStrategy(_evaluator).EvaluateSignals(
             new List<Quote>(),
             waveTrendSettings,
             Granularity.FiveMins
@@ -126,7 +126,7 @@ public class ScalpingStrategyTests
         var waveTrendSettings = new WaveTrendSettings();
 
         // Act
-        var result = new ScalpingStrategy(_evaluator).EvaluateSignals(
+        var result = new WaveTrendDefaultStrategy(_evaluator).EvaluateSignals(
             new List<Quote>(),
             waveTrendSettings,
             Granularity.FiveMins

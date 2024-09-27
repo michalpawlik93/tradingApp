@@ -9,7 +9,7 @@ using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Application.Features.TradeStrategy.Srsi;
 
-public class DailyTradingStrategyTests
+public class Srsi1hEurPlnStrategyTests
 {
     private readonly IEvaluator _evaluator = Substitute.For<IEvaluator>();
 
@@ -21,7 +21,7 @@ public class DailyTradingStrategyTests
             .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(new List<SRsiResult>(0));
         // Act
-        var result = new DailyTradingStrategy(_evaluator).EvaluateSignals([]);
+        var result = new Srsi1hEurPlnStrategy(_evaluator).EvaluateSignals([]);
 
         // Assert
         result.IsFailed.Should().BeTrue();
@@ -32,7 +32,7 @@ public class DailyTradingStrategyTests
     {
         // Arrange
         // Act
-        var result = new DailyTradingStrategy(_evaluator).EvaluateSignals([], new SrsiSettings() { Enabled = false });
+        var result = new Srsi1hEurPlnStrategy(_evaluator).EvaluateSignals([], new SrsiSettings() { Enabled = false });
 
         // Assert
         result.IsFailed.Should().BeTrue();

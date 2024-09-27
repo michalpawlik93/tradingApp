@@ -2,6 +2,7 @@
 using TradingApp.Module.Quotes.Application.Dtos;
 using TradingApp.Module.Quotes.Application.Validators;
 using TradingApp.Module.Quotes.Contract.Constants;
+using TradingApp.Module.Quotes.Domain.Constants;
 using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Application.Validators;
@@ -25,6 +26,23 @@ public class GetQuotesDtoRequestValidatorTests
                 EndDate = "2023-08-09T10:30:00.000Z",
                 Granularity = nameof(Granularity.Daily)
             },
+            Indicators = [new IndicatorsDto()
+            {
+                SideIndicators = [],
+                TechnicalIndicator = nameof(TechnicalIndicator.Srsi)
+            }],
+            Settings = new SettingsDto()
+            {
+                SrsiSettings = new SrsiSettingsDto
+                {
+                    StochDSmooth = SRsiSettingsConst.StochDSmooth,
+                    StochKSmooth = SRsiSettingsConst.StochKSmooth,
+                    ChannelLength = SRsiSettingsConst.ChannelLength,
+                    Enabled = true,
+                    Overbought = SRsiSettingsConst.Overbought,
+                    Oversold = SRsiSettingsConst.Oversold
+                }
+            }
         };
 
         var validator = new GetQuotesDtoRequestValidator();
@@ -37,12 +55,12 @@ public class GetQuotesDtoRequestValidatorTests
     }
 
     [Fact]
-    public void GetQuotesDtoRequestValidator_InvalidDto_ReturnsInvalidValid()
+    public void GetQuotesDtoRequestValidator_InvalidDto_ReturnsInvalid()
     {
         // Arrange
         var dto = new GetQuotesDtoRequest
         {
-            TechnicalIndicators = [],
+            Indicators = [],
             Asset = null,
             TimeFrame = null,
         };
@@ -54,7 +72,7 @@ public class GetQuotesDtoRequestValidatorTests
 
         // Assert  
         results.IsValid.Should().BeFalse();
-        results.Errors.Should().HaveCount(2);
+        results.Errors.Should().HaveCount(3);
     }
 }
 

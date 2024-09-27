@@ -10,9 +10,21 @@ using Xunit;
 
 namespace TradingApp.Module.Quotes.Test.Application.Features.TradeStrategy.Srsi;
 
-public class EmaAndStochStrategyTests
+public class SrsiDefaultStrategyTests
 {
     private readonly IEvaluator _evaluator = Substitute.For<IEvaluator>();
+
+    [Fact]
+    public void EvaluateSignals_SrsiSettingsDisabled_ReturnsEmpty()
+    {
+        // Arrange
+        // Act
+        var result = new SrsiDefaultStrategy(_evaluator).EvaluateSignals([], new SrsiSettings() { Enabled = false });
+
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Should().BeEmpty();
+    }
 
     [Fact]
     public void EvaluateSignals_SrsiResultsEmpty_ReturnsFail()
@@ -22,74 +34,11 @@ public class EmaAndStochStrategyTests
             .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(new List<SRsiResult>(0));
         // Act
-        var result = new EmaAndStochStrategy(_evaluator).EvaluateSignals([]);
+        var result = new SrsiDefaultStrategy(_evaluator).EvaluateSignals([]);
 
         // Assert
         result.IsFailed.Should().BeTrue();
     }
-
-    [Fact]
-    public void EvaluateSignals_SrsiSettingsDisabled_ReturnsEmpty()
-    {
-        // Arrange
-        // Act
-        var result = new EmaAndStochStrategy(_evaluator).EvaluateSignals([], new SrsiSettings() { Enabled = false });
-
-        // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().BeEmpty();
-    }
-
-    [Fact]
-    public void EvaluateSignals_GetEmeaFailed_ReturnsFail()
-    {
-        // Arrange
-        var srsiResults = new List<SRsiResult>
-        {
-            new(DateTime.Now, 1m, 2m),
-            new(DateTime.Now, 1m, 2m)
-        };
-        _evaluator
-            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
-            .Returns(srsiResults);
-        _evaluator
-            .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
-            .Returns(
-                Result.Fail(""),
-                Result.Ok<decimal[]>([2m, 2m])
-            );
-        // Act
-        var result = new EmaAndStochStrategy(_evaluator).EvaluateSignals([]);
-
-        // Assert
-        result.IsFailed.Should().BeTrue();
-    }
-
-    [Fact]
-    public void EvaluateSignals_GetEma2xFailed_ReturnsFail()
-    {
-        // Arrange
-        var srsiResults = new List<SRsiResult>
-        {
-            new(DateTime.Now, 1m, 2m),
-            new(DateTime.Now, 1m, 2m)
-        };
-        _evaluator
-            .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
-            .Returns(srsiResults);
-        _evaluator
-            .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
-            .Returns(
-                Result.Ok<decimal[]>([2m, 2m]),
-                Result.Fail("")
-            );
-        // Act
-        var result = new EmaAndStochStrategy(_evaluator).EvaluateSignals([]);
-
-        // Assert
-        result.IsFailed.Should().BeTrue();
-    }
-
 
     [Fact]
     public void EvaluateSignals_HoldExpected()
@@ -104,15 +53,9 @@ public class EmaAndStochStrategyTests
         _evaluator
             .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(srsiResults);
-        _evaluator
-            .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
-            .Returns(
-                Result.Ok<decimal[]>([1m, 1m]),
-                Result.Ok<decimal[]>([2m, 2m])
-            );
 
         // Act
-        var result = new EmaAndStochStrategy(_evaluator).EvaluateSignals(quotes);
+        var result = new SrsiDefaultStrategy(_evaluator).EvaluateSignals(quotes);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -133,14 +76,8 @@ public class EmaAndStochStrategyTests
         _evaluator
             .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
             .Returns(srsiResults);
-        _evaluator
-            .GetEmea(Arg.Any<decimal[]>(), Arg.Any<int>())
-            .Returns(
-                Result.Ok(new decimal[] { 50m, 50m }),
-                Result.Ok<decimal[]>([60m, 60m])
-            );
         // Act
-        var result = new EmaAndStochStrategy(_evaluator).EvaluateSignals(quotes);
+        var result = new SrsiDefaultStrategy(_evaluator).EvaluateSignals(quotes);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -156,8 +93,8 @@ public class EmaAndStochStrategyTests
         var quote1 = new Quote(DateTime.Now, 1m, 2m, 3m, latestClose, 5m);
         var quote2 = new Quote(DateTime.Now, 1m, 2m, 3m, latestClose, 5m);
         var quotes = new List<Quote> { quote1, quote2 };
-        var last = new SRsiResult(DateTime.Now, 15m, 12m);
-        var penult = new SRsiResult(DateTime.Now, 8m, 10m);
+        var last = new SRsiResult(DateTime.Now, 35m, 33m);
+        var penult = new SRsiResult(DateTime.Now, 28m, 30m);
         var srsiResults = new List<SRsiResult> { penult, last };
         _evaluator
             .GetSrsi(Arg.Any<IReadOnlyList<Quote>>(), Arg.Any<SrsiSettings>())
@@ -169,7 +106,7 @@ public class EmaAndStochStrategyTests
                 Result.Ok<decimal[]>([50m, 50m])
             );
         // Act
-        var result = new EmaAndStochStrategy(_evaluator).EvaluateSignals(quotes);
+        var result = new SrsiDefaultStrategy(_evaluator).EvaluateSignals(quotes);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -177,3 +114,4 @@ public class EmaAndStochStrategyTests
         result.Value[1].TradeAction.Should().Be(TradeAction.Buy);
     }
 }
+

@@ -31,21 +31,28 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
         var request = new GetCypherBDto
         {
             Asset = MockAsset(),
-            MfiSettings = new MfiSettingsDto { ChannelLength = MfiSettingsConst.ChannelLength },
-            SrsiSettings = MockSrsiSettings(),
-            TimeFrame = MockTimeFrame(),
-            WaveTrendSettings = new WaveTrendSettingsDto
+            Settings = new SettingsDto()
             {
-                Overbought = WaveTrendSettingsConst.Overbought,
-                Oversold = WaveTrendSettingsConst.Oversold,
-                OverboughtLevel2 = WaveTrendSettingsConst.OverboughtLevel2,
-                OversoldLevel2 = WaveTrendSettingsConst.OversoldLevel2,
-                AverageLength = WaveTrendSettingsConst.AverageLength,
-                ChannelLength = WaveTrendSettingsConst.ChannelLength,
-                Enable = true,
-                EnableVwap = false,
-                MovingAverageLength = WaveTrendSettingsConst.MovingAverageLength
-            }
+                WaveTrendSettings = new WaveTrendSettingsDto
+                {
+                    Overbought = WaveTrendSettingsConst.Overbought,
+                    Oversold = WaveTrendSettingsConst.Oversold,
+                    OverboughtLevel2 = WaveTrendSettingsConst.OverboughtLevel2,
+                    OversoldLevel2 = WaveTrendSettingsConst.OversoldLevel2,
+                    AverageLength = WaveTrendSettingsConst.AverageLength,
+                    ChannelLength = WaveTrendSettingsConst.ChannelLength,
+                    Enable = true,
+                    EnableVwap = false,
+                    MovingAverageLength = WaveTrendSettingsConst.MovingAverageLength
+                },
+                MfiSettings = new MfiSettingsDto()
+                {
+                    ChannelLength = MfiSettingsConst.ChannelLength,
+                    ScaleFactor = MfiSettingsConst.ScaleFactor
+                },
+                SrsiSettings = MockSrsiSettings(),
+            },
+            TimeFrame = MockTimeFrame(),
         };
         // Act
         var result = await Client.PostAsJsonAsync("/quotes/cypherb", request);
@@ -64,7 +71,8 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
         {
             Asset = MockAsset(),
             TimeFrame = MockTimeFrame(),
-            TechnicalIndicators = []
+            Settings = new SettingsDto() { SrsiSettings = MockSrsiSettings() },
+            Indicators = MockIndicators(),
         };
         // Act
         var result = await Client.PostAsJsonAsync("/quotes/combinedquotes", request);
@@ -85,6 +93,14 @@ public class QuotesModuleTests(WebApplicationFactory<Program> factory) : ApiTest
         result.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
+    private static IndicatorsDto[] MockIndicators() =>
+    [
+        new IndicatorsDto()
+        {
+            SideIndicators = [],
+            TechnicalIndicator = nameof(TechnicalIndicator.Srsi)
+        }
+    ];
     private static AssetDto MockAsset() =>
         new()
         {

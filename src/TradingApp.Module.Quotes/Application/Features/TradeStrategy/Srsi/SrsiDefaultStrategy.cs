@@ -6,14 +6,15 @@ using TradingApp.Module.Quotes.Domain.Enums;
 
 namespace TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 
-public class ScalpingStrategy : ISrsiStrategy
+// todo: add SideIndices as part of request
+public class SrsiDefaultStrategy : ISrsiStrategy
 {
     private readonly IEvaluator _evaluator;
     private const int DecimalPlace = 4;
 
     private static SrsiSettings FastSettings => new(true, 3, 10, 7, 30, 70);
 
-    public ScalpingStrategy(IEvaluator evaluator)
+    public SrsiDefaultStrategy(IEvaluator evaluator)
     {
         ArgumentNullException.ThrowIfNull(evaluator);
         _evaluator = evaluator;

@@ -2,7 +2,6 @@
 using FluentResults;
 using NSubstitute;
 using TradingApp.Module.Quotes.Application.Features.EvaluateSrsi;
-using TradingApp.Module.Quotes.Application.Features.TradeStrategy;
 using TradingApp.Module.Quotes.Application.Features.TradeStrategy.Srsi;
 using TradingApp.Module.Quotes.Application.Models;
 using TradingApp.Module.Quotes.Contract.Constants;
@@ -30,7 +29,7 @@ public class SrsiDecisionServiceTests
     {
         //Arrange
         _srsiStrategyFactory
-            .GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>())
+            .GetStrategy(Arg.Any<AssetName>(), Arg.Any<Granularity>())
             .Returns(_srsiStrategy);
         _srsiStrategy.EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>()).Returns(Result.Fail(""));
 
@@ -43,7 +42,7 @@ public class SrsiDecisionServiceTests
                 SRsiSettingsConst.SRsiSettingsDefault,
                 1,
                 Granularity.FiveMins,
-                TradingStrategy.EmaAndStoch
+                AssetName.EURPLN
             )
         );
 
@@ -56,7 +55,7 @@ public class SrsiDecisionServiceTests
     {
         //Arrange
         _srsiStrategyFactory
-            .GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>())
+            .GetStrategy(Arg.Any<AssetName>(), Arg.Any<Granularity>())
             .Returns(_srsiStrategy);
         _srsiStrategy
             .EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>())
@@ -71,7 +70,7 @@ public class SrsiDecisionServiceTests
                 SRsiSettingsConst.SRsiSettingsDefault,
                 1,
                 Granularity.FiveMins,
-                TradingStrategy.EmaAndStoch
+                AssetName.EURPLN
             )
         );
 
@@ -100,7 +99,7 @@ public class SrsiDecisionServiceTests
 
         var quotes = new List<Quote> { new(DateTime.UtcNow, 1m, 2m, 3m, 4m, 5m) };
         _srsiStrategyFactory
-            .GetStrategy(Arg.Any<TradingStrategy>(), Arg.Any<Granularity>())
+            .GetStrategy(Arg.Any<AssetName>(), Arg.Any<Granularity>())
             .Returns(_srsiStrategy);
         _srsiStrategy
             .EvaluateSignals(Arg.Any<IReadOnlyList<Quote>>())
@@ -113,7 +112,7 @@ public class SrsiDecisionServiceTests
                 SRsiSettingsConst.SRsiSettingsDefault,
                 1,
                 Granularity.FiveMins,
-                TradingStrategy.EmaAndStoch
+                AssetName.EURPLN
             )
         );
 
